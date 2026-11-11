@@ -145,6 +145,7 @@
     const { r, id, q } = parseHash()
     const u = Store.user()
     clearInterval(examTimer)
+    clearTimeout(carTimer)
     if (keyHandler) {
       document.removeEventListener('keydown', keyHandler)
       keyHandler = null
@@ -689,6 +690,165 @@
       <div class="filters" style="margin-top:18px"><a class="btn main" href="#/exam/${E.id}">한 번 더 보기</a><a class="btn ghost" href="#/notes">오답노트 →</a></div>`
   }
 
+  // ───────── 홈 맨 위 슬라이드: 랜덤 강의 + 사용 가이드 (유튜브처럼 자동으로 넘어감)
+  let carTimer = null
+  // 가이드용 작은 한반도: 실제 지도 모양 + 핀 몇 개
+  function miniMap() {
+    const pin = (id, on) => {
+      const p = HISTORY_PLACES.find((x) => x.id === id)
+      if (!p) return ''
+      const [x, y] = proj(p.lat, p.lon)
+      return `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${on ? 22 : 16}" class="${on ? 'pin-on' : ''}"/>`
+    }
+    return `<svg viewBox="0 0 ${KMAP.w} ${KMAP.h}" class="g-mini">${KMAP.land.map((l) => `<path class="${l.c}" d="${l.d}"/>`).join('')}${['pyongyang', 'busan', 'gyeongju', 'seoul'].map((id) => pin(id)).join('')}${pin('ganghwa', true)}</svg>`
+  }
+  function carouselSlides() {
+    const pool = Object.keys(CONCEPTS).filter((id) => Explain.has(id) && inGrade(gradesOfConcept(id)))
+    const pick = shuffle(pool.length >= 3 ? pool : Object.keys(CONCEPTS).filter((id) => Explain.has(id))).slice(0, 3)
+    const lec = (id) => ({ type: 'lecture', id })
+    const guides = [
+      {
+        type: 'guide',
+        tag: '사용 가이드 1',
+        title: '문제 풀고 막히면 이렇게',
+        desc: '틀리면 막힌 곳을 고르고, 그 개념 강의를 본 다음, 비슷한 쉬운 문제로 다시 올라와요. 틀린 문제는 오답노트가 날짜 맞춰 다시 내 줘요.',
+        cta: ['문제 풀러 가기', '#/problems'],
+        visual: `<div class="g-flow">
+          <div class="g-step"><span class="g-n">1</span><b>어디서 막혔나요?</b><div class="g-chips"><span>다항함수 미분법</span><span>접선의 방정식</span></div></div>
+          <div class="g-step"><span class="g-n">2</span><b>막힌 개념 기초 보기</b><div class="g-row">다항함수 미분법 <i>강의 보기 ▶</i></div></div>
+          <div class="g-step"><span class="g-n">3</span><b>비슷한 쉬운 문제로 연습</b><div class="g-row">곡선 y = x² + 2 위의 점 (1, 3)… <i>2점 →</i></div></div>
+          <div class="g-step"><span class="g-n">4</span><b>오답노트에서 다시</b><div class="g-row">하루 · 3일 · 7일 뒤 복습</div></div>
+        </div>`,
+      },
+      {
+        type: 'guide',
+        tag: '사용 가이드 2',
+        title: '한국사 지도 보는 법',
+        desc: '시대를 고르고 핀을 누르면 그곳에서 일어난 사건이 나와요. 사건을 누르면 배경 → 전개 → 결과, 인물, 헷갈리는 점까지. 바로 앞 · 다음 사건으로 흐름을 따라가요.',
+        cta: ['지도 열기', '#/map'],
+        visual: `<div class="g-map">
+          ${miniMap()}
+          <div class="g-panel"><div class="g-chiprow"><span>흥선 대원군 ~ 대한 제국</span><span>1866.9 (음력)</span></div><b>병인양요</b>
+            <div class="g-tl"><span>배경</span><span>전개</span><span>결과 · 의의</span></div>
+            <div class="g-trap">헷갈리지 마 · 병인양요는 프랑스, 신미양요는 미국</div>
+            <div class="g-nav"><span>← 제너럴 셔먼호 사건</span><span>신미양요 →</span></div></div>
+        </div>`,
+      },
+      {
+        type: 'guide',
+        tag: '사용 가이드 3',
+        title: '이런 것도 있어요',
+        desc: '태블릿 펜슬로 문제 위에 바로 끄적이는 연습장, 시간 재고 보는 모의고사, 매일 3문제 랜덤 미션, 초등부터 수능까지 이어지는 수학 길.',
+        cta: ['모의고사 보기', '#/exams'],
+        visual: `<div class="g-grid">
+          <a href="#/problems" class="g-tile"><b>연습장</b><span>연필 · 빨간 펜 · 형광펜 · 전부 지우기</span></a>
+          <a href="#/exams" class="g-tile"><b>모의고사</b><span>타이머 · OMR · 단원별 결과</span></a>
+          <a href="#/" class="g-tile" data-scroll="mission"><b>랜덤 미션</b><span>과정 고르면 오늘의 3문제</span></a>
+          <a href="#/path" class="g-tile"><b>수학 길</b><span>아는 계단은 건너뛰기</span></a>
+        </div>`,
+      },
+    ]
+    return [lec(pick[0]), guides[0], lec(pick[1]), guides[1], lec(pick[2]), guides[2]].filter((x) => x.type === 'guide' || x.id)
+  }
+  function carouselHtml(slides) {
+    return `<section class="car" id="car" aria-roledescription="carousel">
+      <div class="car-track">${slides
+        .map((sl, i) => {
+          if (sl.type === 'lecture') {
+            const c = C(sl.id)
+            const sub = S(c.subject)
+            return `<div class="car-slide" data-i="${i}" style="--c:${sub.color}">
+              <div class="car-vis"><div class="car-ex" data-scene="${sl.id}"></div></div>
+              <div class="car-txt"><span class="car-tag">오늘의 강의 · ${sub.name}</span><h2>${c.name}</h2>
+                <p>${strip(c.easy || c.summary)}</p><a class="btn main sm" href="#/c/${sl.id}">이 개념 공부하기 →</a></div></div>`
+          }
+          return `<div class="car-slide guide" data-i="${i}">
+            <div class="car-vis">${sl.visual}</div>
+            <div class="car-txt"><span class="car-tag">${sl.tag}</span><h2>${sl.title}</h2><p>${sl.desc}</p><a class="btn main sm" href="${sl.cta[1]}">${sl.cta[0]} →</a></div></div>`
+        })
+        .join('')}</div>
+      <button type="button" class="car-nav prev" aria-label="이전">‹</button><button type="button" class="car-nav next" aria-label="다음">›</button>
+      <div class="car-dots">${slides.map((sl, i) => `<button type="button" data-go="${i}" aria-label="${i + 1}번째"><i></i></button>`).join('')}</div>
+    </section>`
+  }
+  function bindCarousel(slides) {
+    const car = document.getElementById('car')
+    if (!car) return
+    const track = car.querySelector('.car-track')
+    let at = 0
+    let auto = true
+    const dur = (sl) => (sl.type === 'lecture' && window.SCENES && window.SCENES[sl.id] ? window.SCENES[sl.id].len + 2.5 : 9) * 1000
+    function go(i) {
+      at = (i + slides.length) % slides.length
+      track.style.transform = `translateX(${-at * 100}%)`
+      car.querySelectorAll('.car-dots button').forEach((b, k) => {
+        b.classList.toggle('on', k === at)
+        const bar = b.querySelector('i')
+        bar.style.transition = 'none'
+        bar.style.width = '0'
+        if (k === at && auto) {
+          void bar.offsetWidth
+          bar.style.transition = `width ${dur(slides[at])}ms linear`
+          bar.style.width = '100%'
+        }
+      })
+      const host = car.querySelector(`.car-slide[data-i="${at}"] .car-ex`)
+      if (host && !host.dataset.on) {
+        host.dataset.on = '1'
+        Explain.mount(host, host.dataset.scene)
+      }
+      clearTimeout(carTimer)
+      if (auto) carTimer = setTimeout(() => go(at + 1), dur(slides[at]))
+    }
+    const stop = () => {
+      auto = false
+      clearTimeout(carTimer)
+      car.querySelectorAll('.car-dots i').forEach((b) => {
+        b.style.transition = 'none'
+        b.style.width = '0'
+      })
+    }
+    car.querySelector('.prev').onclick = () => {
+      stop()
+      go(at - 1)
+    }
+    car.querySelector('.next').onclick = () => {
+      stop()
+      go(at + 1)
+    }
+    car.querySelectorAll('.car-dots button').forEach((b) => {
+      b.onclick = () => {
+        stop()
+        go(Number(b.dataset.go))
+      }
+    })
+    // 강의를 직접 만지면(재생 · 일시정지) 자동 넘김을 멈춤
+    car.addEventListener('click', (e) => {
+      if (e.target.closest('.explain')) stop()
+    })
+    // 손가락으로 밀어서 넘기기
+    let x0 = null
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') x0 = e.clientX
+    })
+    track.addEventListener('pointerup', (e) => {
+      if (x0 == null) return
+      const dx = e.clientX - x0
+      x0 = null
+      if (Math.abs(dx) > 50) {
+        stop()
+        go(at + (dx < 0 ? 1 : -1))
+      }
+    })
+    car.querySelectorAll('[data-scroll]').forEach((a) => {
+      a.onclick = (e) => {
+        e.preventDefault()
+        document.getElementById(a.dataset.scroll)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    })
+    go(0)
+  }
+
   // ───────── 오늘의 랜덤 미션: 과정을 고르면 그 과정 문제 3개를 뽑아 줌 (오늘 하루는 그대로)
   const MCOURSES = GRADES.filter((g) => g[0] !== 'all')
   const myName = () => (Store.user() || {}).name || ''
@@ -801,7 +961,9 @@
     const mine = PROBLEMS.filter((p) => inGrade(gradesOf(p)))
     const next = mine.find((p) => p.kind === 'real' && !st.last[p.id]) || mine.find((p) => !st.last[p.id]) || mine[0] || PROBLEMS[0]
     const mySolved = mine.filter((p) => st.last[p.id]).length
+    const slides = carouselSlides()
     $app.innerHTML = `
+      ${carouselHtml(slides)}
       <div class="filters">${gradeSeg()}</div>
       <div class="hero" data-toc="오늘">
         <div class="card today">
@@ -873,6 +1035,7 @@
       bindGrade(home),
     )
     bindMission()
+    bindCarousel(slides)
   }
 
   // ───────── 문제 목록
