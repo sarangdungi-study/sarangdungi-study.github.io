@@ -1486,6 +1486,20 @@
   const mapState = { era: 'all', sel: null, ev: null, quiz: null, score: [0, 0] }
   // 연도 다음에 달로: 같은 해 사건도 일어난 순서대로
   const evOrd = (e) => e.year + (e.m || 0) / 100
+  // 화면에 보이는 때: 1592.4 처럼 달까지 (같은 해 사건 구분용)
+  const evWhen = (e) => {
+    if (e.when) return e.when
+    if (!e.m || e.mOrder) return String(e.year)
+    const mo = Math.floor(e.m)
+    const d = Math.round((e.m - mo) * 100)
+    return `${e.year}.${mo}${d ? '.' + d : ''}`
+  }
+  const evWhenLong = (e) => {
+    if (e.when || !e.m || e.mOrder) return evWhen(e)
+    const mo = Math.floor(e.m)
+    const d = Math.round((e.m - mo) * 100)
+    return `${e.year}년 ${mo}월${d ? ` ${d}일` : ''}${e.year < 1896 ? ' (음력)' : ''}`
+  }
   const evKey = (e) => `${e.place}|${e.title}`
   const DETAIL = () => window.HISTORY_DETAIL || {}
   const proj = (lat, lon) => [(lon - KMAP.lon0) * KMAP.k * KMAP.s, (KMAP.lat1 - lat) * KMAP.s]
@@ -1520,14 +1534,14 @@
       const res = q.answered
         ? `<div class="result ${q.ok ? 'ok' : 'bad'}">${q.ok ? '맞았어요!' : `정답은 ${placeName(q.ev.place)}이에요.`}</div><p>${q.ev.desc}</p>${keyLine(q.ev)}<button class="btn main sm" id="nextQ" style="margin-top:12px">다음 문제</button>`
         : '<p class="muted">지도에서 이 일이 일어난 곳을 눌러요.</p>'
-      side = `<div class="card"><div class="hand" style="color:var(--marker-ink)">어디였지?</div><h2 style="margin:6px 0">${q.ev.title} <span class="mono muted">(${q.ev.when || q.ev.year})</span></h2>${res}</div>`
+      side = `<div class="card"><div class="hand" style="color:var(--marker-ink)">어디였지?</div><h2 style="margin:6px 0">${q.ev.title} <span class="mono muted">(${evWhenLong(q.ev)})</span></h2>${res}</div>`
     } else if (sel) {
       const list = selEvs
         .map((e) => {
           const link = e.concept
             ? `<a class="small" style="color:var(--marker-ink);font-weight:800" href="#/c/${e.concept}">개념 보기 →</a>`
             : ''
-          return `<div class="ev" data-ev="${esc(evKey(e))}" role="button" tabindex="0"><span class="mono ev-year">${e.when || e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}<div class="ev-more">자세히 보기 →</div></div></div>`
+          return `<div class="ev" data-ev="${esc(evKey(e))}" role="button" tabindex="0"><span class="mono ev-year">${evWhen(e)}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}<div class="ev-more">자세히 보기 →</div></div></div>`
         })
         .join('')
       side = `<div class="card"><h2>${sel.name}</h2>${list}${reportBox('지도 ' + sel.name, 'his')}</div>`
@@ -1625,7 +1639,7 @@
     const eraName = (ERAS.find((x) => x[0] === e.era) || [])[1] || ''
     const jump = (x, dir) =>
       x
-        ? `<button type="button" class="ev-jump ${dir}" data-jump="${esc(evKey(x))}"><span class="small muted">${dir === 'prev' ? '← 바로 앞 사건' : '바로 다음 사건 →'}</span><b>${x.title}</b><span class="mono small">${x.when || x.year} · ${placeName(x.place)}</span></button>`
+        ? `<button type="button" class="ev-jump ${dir}" data-jump="${esc(evKey(x))}"><span class="small muted">${dir === 'prev' ? '← 바로 앞 사건' : '바로 다음 사건 →'}</span><b>${x.title}</b><span class="mono small">${evWhen(x)} · ${placeName(x.place)}</span></button>`
         : '<span></span>'
     const body = d
       ? `<div class="ev-flow">
@@ -1638,7 +1652,7 @@
       : '<p class="muted small">자세한 설명은 준비 중이에요.</p>'
     return `<div class="card ev-detail">
       <button type="button" class="crumb" id="evBack">← ${place.name} 사건 목록</button>
-      <div class="filters" style="margin:6px 0 0"><span class="chip">${eraName}</span><span class="chip mono">${e.when || e.year}</span><span class="chip">${placeName(e.place)}</span></div>
+      <div class="filters" style="margin:6px 0 0"><span class="chip">${eraName}</span><span class="chip">${evWhenLong(e)}</span><span class="chip">${placeName(e.place)}</span></div>
       <h2 style="margin:10px 0 6px">${e.title}</h2>
       <p>${e.desc}</p>${keyLine(e)}
       ${body}
