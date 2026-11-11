@@ -71,7 +71,7 @@
     })
     document.body.classList.toggle('out', !u)
     if (!u) return loginView()
-    const views = { '': home, problems, p: problem, concepts, c: concept, notes, feedback }
+    const views = { '': home, problems, p: problem, concepts, c: concept, notes, feedback, map: mapView }
     ;(views[r] || home)(id, q)
     window.scrollTo(0, 0)
   }
@@ -554,6 +554,111 @@
           }
         }),
     )
+  }
+
+  // ───────── 한국사 지도: 핀을 누르면 그곳 사건, '어디였지?' 퀴즈
+  const ERAS = [
+    ['all', '전체'],
+    ['open', '흥선 대원군 ~ 대한 제국'],
+    ['colony', '일제 강점기'],
+    ['modern', '광복 이후'],
+  ]
+  const mapState = { era: 'all', sel: null, quiz: null, score: [0, 0] }
+  const proj = (lat, lon) => [(lon - KMAP.lon0) * KMAP.k * KMAP.s, (KMAP.lat1 - lat) * KMAP.s]
+  const placeName = (id) => (HISTORY_PLACES.find((p) => p.id === id) || {}).name
+  function mapView() {
+    const evs = HISTORY_EVENTS.filter((e) => mapState.era === 'all' || e.era === mapState.era)
+    const placeIds = [...new Set(evs.map((e) => e.place))]
+    const places = HISTORY_PLACES.filter((p) => placeIds.includes(p.id))
+    const q = mapState.quiz
+    const sel = mapState.sel && places.find((p) => p.id === mapState.sel)
+    const selEvs = sel ? evs.filter((e) => e.place === sel.id).sort((a, b) => a.year - b.year) : []
+    const pinHtml = places
+      .map((p) => {
+        const [x, y] = proj(p.lat, p.lon)
+        const on = sel && sel.id === p.id
+        const hit = q && q.answered && q.ev.place === p.id
+        const L = { r: [16, 7, 'start'], l: [-16, 7, 'end'], lb: [-14, 24, 'end'], rt: [14, -10, 'start'], lt: [-12, -12, 'end'] }[
+          p.label || 'r'
+        ]
+        const label = q && !q.answered ? '' : `<text x="${L[0]}" y="${L[1]}" text-anchor="${L[2]}">${p.name}</text>`
+        return `<g class="pin ${on ? 'on' : ''} ${hit ? 'hit' : ''}" data-p="${p.id}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="26" class="pin-hit"/><circle r="11" class="pin-dot"/>${label}</g>`
+      })
+      .join('')
+    let side = '<div class="empty">지도에서 핀을 눌러 보세요.</div>'
+    if (q) {
+      const res = q.answered
+        ? `<div class="result ${q.ok ? 'ok' : 'bad'}">${q.ok ? '맞았어요!' : `정답은 ${placeName(q.ev.place)}이에요.`}</div><p>${q.ev.desc}</p><button class="btn main sm" id="nextQ">다음 문제</button>`
+        : '<p class="muted">지도에서 이 일이 일어난 곳을 눌러요.</p>'
+      side = `<div class="card"><div class="hand" style="color:var(--marker-ink)">어디였지?</div><h2 style="margin:6px 0">${q.ev.title} <span class="mono muted">(${q.ev.year})</span></h2>${res}</div>`
+    } else if (sel) {
+      const list = selEvs
+        .map((e) => {
+          const link = e.concept
+            ? `<a class="small" style="color:var(--marker-ink);font-weight:800" href="#/c/${e.concept}">개념 보기 →</a>`
+            : ''
+          return `<div class="ev"><span class="mono ev-year">${e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${link}</div></div>`
+        })
+        .join('')
+      side = `<div class="card"><h2>${sel.name}</h2>${list}</div>`
+    }
+    $app.innerHTML = `<h1>한국사 지도</h1>
+      <p class="lead">핀을 누르면 그곳에서 일어난 일이 나와요. ‘어디였지?’를 누르면 사건이 나오고, 지도에서 그 자리를 찍어 맞혀요.</p>
+      <div class="filters">
+        <div class="seg" id="era">${ERAS.map(([v, n]) => `<button data-v="${v}" class="${mapState.era === v ? 'on' : ''}">${n}</button>`).join('')}</div>
+        <button class="btn sm ${q ? '' : 'main'}" id="quizBtn">${q ? '퀴즈 그만' : '어디였지? 퀴즈'}</button>
+        ${mapState.score[1] ? `<span class="chip">맞힘 ${mapState.score[0]} / ${mapState.score[1]}</span>` : ''}
+      </div>
+      <div class="map-wrap">
+        <div class="card map-card">
+          <svg id="kmap" viewBox="0 0 ${KMAP.w} ${KMAP.h}" role="img" aria-label="한반도 지도">
+            ${KMAP.land.map((l) => `<path class="land ${l.c}" d="${l.d}"/>`).join('')}
+            ${pinHtml}
+          </svg>
+        </div>
+        <div class="map-side">${side}</div>
+      </div>`
+    $app.querySelectorAll('#era button').forEach((b) => {
+      b.onclick = () => {
+        mapState.era = b.dataset.v
+        mapState.sel = null
+        if (mapState.quiz) newQuiz()
+        mapView()
+      }
+    })
+    document.getElementById('quizBtn').onclick = () => {
+      if (mapState.quiz) mapState.quiz = null
+      else newQuiz()
+      mapView()
+    }
+    const nx = document.getElementById('nextQ')
+    if (nx) {
+      nx.onclick = () => {
+        newQuiz()
+        mapView()
+      }
+    }
+    $app.querySelectorAll('.pin').forEach((g) => {
+      g.onclick = () => {
+        const id = g.dataset.p
+        if (mapState.quiz && !mapState.quiz.answered) {
+          mapState.quiz.answered = true
+          mapState.quiz.ok = HISTORY_EVENTS.some((e) => e.title === mapState.quiz.ev.title && e.place === id) // 부마처럼 여러 곳이면 어느 곳이든 정답
+          mapState.score = [mapState.score[0] + (mapState.quiz.ok ? 1 : 0), mapState.score[1] + 1]
+        } else if (!mapState.quiz) mapState.sel = id
+        mapView()
+        // 휴대폰(세로)에서는 설명 카드가 지도 아래라 그쪽으로 내려 준다
+        if (matchMedia('(orientation: portrait)').matches)
+          document.querySelector('.map-side').scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    })
+  }
+  function newQuiz() {
+    const evs = HISTORY_EVENTS.filter((e) => mapState.era === 'all' || e.era === mapState.era)
+    const prev = mapState.quiz && mapState.quiz.ev
+    let ev = evs[Math.floor(Math.random() * evs.length)]
+    if (prev && evs.length > 1) while (ev === prev) ev = evs[Math.floor(Math.random() * evs.length)]
+    mapState.quiz = { ev, answered: false, ok: false }
   }
 
   // ───────── 요청 (수능 공부 관련만)
