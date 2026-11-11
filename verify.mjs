@@ -271,6 +271,29 @@ const checks = {
   mm5: () => range(-20, 20).find((x) => range(-20, 20).some((y) => x + y === 7 && x - y === 1)),
   mm6: () => range(-20, 20).find((y) => range(-20, 20).some((x) => 2 * x + y === 8 && x - y === 1)),
   mm7: () => range(0, 7).find((y) => 500 * (7 - y) + 800 * y === 4100),
+  mfr1: () =>
+    ['1과 3/4', '2와 1/4', '1과 1/4', '2와 3/4', '1과 1/2'].indexOf('1과 3/4') + 1 && frac(7 * 4 - 7 * 2, 2 * 4) === '7/4' ? 1 : NaN,
+  mfr2: () => {
+    const x = (9 * 2) / 3
+    return (x * 2) / 3
+  },
+  mfr3: () => (((48 * 3) / 4) * 2) / 3,
+  mfr4: () => (frac(3 * 5, 5 * 2) === '3/2' ? ['1과 1/2', '1과 1/5', '6/5', '2와 1/2', '3/10'].indexOf('1과 1/2') + 1 : NaN),
+  mfr5: () => range(1, 12).filter((n) => n / 12 > 1 / 2 && n / 12 < 3 / 4).length,
+  mmr1: () => range(-50, 50).find((x) => 42 + x === 3 * (12 + x)),
+  mmr2: () => range(0, 1000).find((x) => near(30 / (300 + x), 0.06, 1e-12)),
+  mmr3: () => {
+    for (let a = 1; a <= 9; a++) for (let b = 0; b <= 9; b++) if (a + b === 11 && 10 * b + a - (10 * a + b) === 27) return 10 * a + b
+  },
+  mmr4: () => range(1, 50).find((x) => x * (x + 3) === 40),
+  mmr5: () => {
+    const a = Math.max(...range(-20, 20).filter((x) => x * x - 2 * x - 8 === 0))
+    return range(1, 50).find((x) => x * x + a * x - 12 === 0)
+  },
+  mmr6: () => {
+    const a = (11 - 5) / (3 - 1)
+    return a + (5 - a)
+  },
   s3: () => Math.sqrt(2 * 10 * 20),
   s4: () => (6 / 2) * 4,
   's-e2': () => (40 * 10) / 20,

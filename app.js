@@ -22,7 +22,35 @@
   }
 
   const live = {} // 문제마다 이번 화면에서의 상태
-  const ui = { subj: 'all', sort: 'default', kind: 'real', noteSort: 'due', csubj: 'all', q: '' }
+  const ui = { subj: 'all', sort: 'default', kind: 'real', noteSort: 'due', csubj: 'all', q: '', grade: 'all' }
+  // 학년 고르기는 기기에 기억해 둔다 (동생은 초등, 형은 고등)
+  try {
+    ui.grade = localStorage.getItem('grade') || 'all'
+  } catch (e) {
+    /* 저장소를 못 쓰는 브라우저면 넘어감 */
+  }
+  const GRADES = [
+    ['all', '전체'],
+    ['초등', '초등'],
+    ['중등', '중등'],
+    ['고등', '고등'],
+  ]
+  const gradeOf = (p) => (p.unit === 'elem' ? '초등' : p.unit === 'mid' ? '중등' : '고등')
+  const gradeSeg = () =>
+    `<div class="seg" id="gradeSeg">${GRADES.map(([v, n]) => `<button data-v="${v}" class="${ui.grade === v ? 'on' : ''}">${n}</button>`).join('')}</div>`
+  function bindGrade(cb) {
+    $app.querySelectorAll('#gradeSeg button').forEach((b) => {
+      b.onclick = () => {
+        ui.grade = b.dataset.v
+        try {
+          localStorage.setItem('grade', ui.grade)
+        } catch (e) {
+          /* 저장 못 해도 이번 화면에서는 적용 */
+        }
+        cb()
+      }
+    })
+  }
   let keyHandler = null
 
   // ───────── 테마
@@ -167,7 +195,9 @@
       </div></div>
 
       <div class="sec"><div class="sec-h"><h2>계단 오르기</h2><a class="more" href="#/ladders">전체 보기 →</a></div>
-        <div class="ladder-row">${LADDERS.map(ladderCard).join('')}</div></div>
+        <div class="ladder-row">${LADDERS.filter((L) => ui.grade === 'all' || L.level === ui.grade)
+          .map(ladderCard)
+          .join('')}</div></div>
 
       <div class="sec"><div class="sec-h"><h2>과목별 진도</h2></div>
         <div class="subjects">${SUBJECTS.map((s) => {
@@ -230,13 +260,14 @@
     )
   }
   function problems() {
-    $app.innerHTML = `<h1>문제</h1><p class="lead">수능형 실전 문제와 기초 문제. 막히면 문제 안에서 개념으로 내려갈 수 있어요.</p>
+    $app.innerHTML = `<h1>문제</h1><p class="lead">학년과 과목을 고르면 맞는 문제만 보여요. 막히면 문제 안에서 개념으로 내려갈 수 있어요.</p>
       <div class="filters">
         <label class="search">${ICON.search}<input id="q" placeholder="문제·개념 찾기 (예: 접선, 유음화)" value="${esc(ui.q)}"></label>
         <select id="sort">${Object.entries(SORTS)
           .map(([k, [n]]) => `<option value="${k}" ${ui.sort === k ? 'selected' : ''}>${n}</option>`)
           .join('')}</select>
       </div>
+      <div class="filters">${gradeSeg()}</div>
       <div class="filters">${subjSeg('subj')}
         <div class="seg" data-k="kind">${[
           ['real', '실전'],
@@ -249,7 +280,12 @@
       <div id="plist"></div>`
     const paint = () => {
       const q = ui.q.trim().toLowerCase()
-      let list = PROBLEMS.filter((p) => (ui.subj === 'all' || p.subject === ui.subj) && (ui.kind === 'all' || p.kind === ui.kind))
+      let list = PROBLEMS.filter(
+        (p) =>
+          (ui.grade === 'all' || gradeOf(p) === ui.grade) &&
+          (ui.subj === 'all' || p.subject === ui.subj) &&
+          (ui.kind === 'all' || p.kind === ui.kind),
+      )
       if (q)
         list = list.filter((p) =>
           (strip(p.body) + ' ' + p.concepts.map((k) => C(k).name).join(' ') + ' ' + unitName(p.subject, p.unit)).toLowerCase().includes(q),
@@ -264,6 +300,7 @@
     }
     paint()
     bindSeg(problems)
+    bindGrade(problems)
     document.getElementById('sort').onchange = (e) => {
       ui.sort = e.target.value
       paint()
@@ -559,10 +596,12 @@
     const subs = SUBJECTS.filter((s) => ui.csubj === 'all' || s.id === ui.csubj)
     const weak = Store.weakConcepts()
     $app.innerHTML = `<h1>개념 지도</h1><p class="lead">위에서 아래로 순서대로 보면 돼요. 각 개념에서 그 개념을 쓰는 실전 문제로 올라가요.</p>
+      <div class="filters">${gradeSeg()}</div>
       <div class="filters">${subjSeg('csubj')}</div>
       ${subs
         .map((s) =>
           s.units
+            .filter((u) => ui.grade === 'all' || gradeOf({ unit: u.id }) === ui.grade)
             .map((u) => {
               const cs = Object.entries(CONCEPTS)
                 .filter(([, c]) => c.subject === s.id && c.unit === u.id)
@@ -574,6 +613,7 @@
         )
         .join('')}`
     bindSeg(concepts)
+    bindGrade(concepts)
   }
   function cNode(k, stuckN) {
     const c = C(k),
