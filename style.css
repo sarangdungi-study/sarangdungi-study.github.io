@@ -1679,3 +1679,18 @@ textarea:focus,
     max-height: none;
   }
 }
+.ev-key {
+  margin: 8px 0 4px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--marker-hl);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+.ev-key .hand {
+  display: block;
+  color: var(--marker-ink);
+  font-size: 18px;
+  line-height: 1.2;
+}

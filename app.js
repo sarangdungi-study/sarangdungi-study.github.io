@@ -565,6 +565,7 @@
   ]
   const mapState = { era: 'all', sel: null, quiz: null, score: [0, 0] }
   const proj = (lat, lon) => [(lon - KMAP.lon0) * KMAP.k * KMAP.s, (KMAP.lat1 - lat) * KMAP.s]
+  const keyLine = (e) => (e.key ? `<div class="ev-key"><span class="hand">꼭 기억</span>${e.key}</div>` : '')
   const placeName = (id) => (HISTORY_PLACES.find((p) => p.id === id) || {}).name
   function mapView() {
     const evs = HISTORY_EVENTS.filter((e) => mapState.era === 'all' || e.era === mapState.era)
@@ -588,7 +589,7 @@
     let side = '<div class="empty">지도에서 핀을 눌러 보세요.</div>'
     if (q) {
       const res = q.answered
-        ? `<div class="result ${q.ok ? 'ok' : 'bad'}">${q.ok ? '맞았어요!' : `정답은 ${placeName(q.ev.place)}이에요.`}</div><p>${q.ev.desc}</p><button class="btn main sm" id="nextQ">다음 문제</button>`
+        ? `<div class="result ${q.ok ? 'ok' : 'bad'}">${q.ok ? '맞았어요!' : `정답은 ${placeName(q.ev.place)}이에요.`}</div><p>${q.ev.desc}</p>${keyLine(q.ev)}<button class="btn main sm" id="nextQ" style="margin-top:12px">다음 문제</button>`
         : '<p class="muted">지도에서 이 일이 일어난 곳을 눌러요.</p>'
       side = `<div class="card"><div class="hand" style="color:var(--marker-ink)">어디였지?</div><h2 style="margin:6px 0">${q.ev.title} <span class="mono muted">(${q.ev.year})</span></h2>${res}</div>`
     } else if (sel) {
@@ -597,7 +598,7 @@
           const link = e.concept
             ? `<a class="small" style="color:var(--marker-ink);font-weight:800" href="#/c/${e.concept}">개념 보기 →</a>`
             : ''
-          return `<div class="ev"><span class="mono ev-year">${e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${link}</div></div>`
+          return `<div class="ev"><span class="mono ev-year">${e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}</div></div>`
         })
         .join('')
       side = `<div class="card"><h2>${sel.name}</h2>${list}</div>`
