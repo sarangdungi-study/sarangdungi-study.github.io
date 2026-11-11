@@ -26,6 +26,8 @@
   --math: #2f6fd6;
   --eng: #19905f;
   --sci: #c08a0c;
+  --soc: #4f6b9a;
+  --his: #8a5a2e;
   --lift: 0 1px 0 rgba(31, 36, 48, 0.04), 0 2px 8px rgba(31, 36, 48, 0.05);
   --r: 14px;
   --sans: Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
@@ -58,6 +60,8 @@
     --math: #6aa4ff;
     --eng: #4fcf94;
     --sci: #f0c247;
+    --soc: #93abd6;
+    --his: #d9a06a;
     --lift: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 20px rgba(0, 0, 0, 0.3);
   }
 }
@@ -86,6 +90,8 @@
   --math: #6aa4ff;
   --eng: #4fcf94;
   --sci: #f0c247;
+  --soc: #93abd6;
+  --his: #d9a06a;
   --lift: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -611,7 +617,7 @@ select {
 
 .subjects {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 .subj-tile {
