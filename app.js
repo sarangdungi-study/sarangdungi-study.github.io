@@ -1484,6 +1484,8 @@
     ['modern', '광복 이후'],
   ]
   const mapState = { era: 'all', sel: null, ev: null, quiz: null, score: [0, 0] }
+  // 연도 다음에 달로: 같은 해 사건도 일어난 순서대로
+  const evOrd = (e) => e.year + (e.m || 0) / 100
   const evKey = (e) => `${e.place}|${e.title}`
   const DETAIL = () => window.HISTORY_DETAIL || {}
   const proj = (lat, lon) => [(lon - KMAP.lon0) * KMAP.k * KMAP.s, (KMAP.lat1 - lat) * KMAP.s]
@@ -1495,7 +1497,7 @@
     const places = HISTORY_PLACES.filter((p) => placeIds.includes(p.id))
     const q = mapState.quiz
     const sel = mapState.sel && places.find((p) => p.id === mapState.sel)
-    const selEvs = sel ? evs.filter((e) => e.place === sel.id).sort((a, b) => a.year - b.year) : []
+    const selEvs = sel ? evs.filter((e) => e.place === sel.id).sort((a, b) => evOrd(a) - evOrd(b)) : []
     const pinHtml = places
       .map((p) => {
         const [x, y] = proj(p.lat, p.lon)
@@ -1616,7 +1618,7 @@
   // 사건 하나 자세히: 배경 → 전개 → 결과, 인물, 헷갈리는 점, 앞뒤 사건
   function evDetail(e, place) {
     const d = DETAIL()[evKey(e)]
-    const all = [...HISTORY_EVENTS].sort((a, b) => a.year - b.year)
+    const all = [...HISTORY_EVENTS].sort((a, b) => evOrd(a) - evOrd(b))
     const i = all.findIndex((x) => evKey(x) === evKey(e))
     const prev = all[i - 1]
     const next = all[i + 1]
