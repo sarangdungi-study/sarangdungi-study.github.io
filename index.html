@@ -1,26 +1,71 @@
 <!doctype html>
 <html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>사랑둥이</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="top">
-  <a class="brand" href="#/">사랑둥이</a>
-  <nav id="nav">
-    <a href="#/" data-r="">홈</a>
-    <a href="#/problems" data-r="problems">문제</a>
-    <a href="#/concepts" data-r="concepts">개념</a>
-    <a href="#/notes" data-r="notes">오답노트</a>
-    <a href="#/feedback" data-r="feedback">요청</a>
-  </nav>
-  <button id="who" class="who"></button>
-</header>
-<main id="app"></main>
-<script src="data.js"></script>
-<script src="store.js"></script>
-<script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>사랑둥이</title>
+    <meta name="description" content="사랑둥이 · 수능, 정답게 같이 풀자" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231f2430'/%3E%3Cpath d='M32 50 14 32a10 10 0 0 1 18-12 10 10 0 0 1 18 12Z' fill='%23ff6f9f'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Nanum+Pen+Script&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      // 테마: 저장된 값 → 없으면 기기 설정
+      try {
+        const t = localStorage.getItem('theme')
+        if (t) document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-in">
+        <a class="brand" href="#/">
+          <span class="logo" aria-hidden="true"
+            ><svg viewBox="0 0 64 64"><path d="M32 52 13 33a11 11 0 0 1 19-13 11 11 0 0 1 19 13Z" /></svg
+          ></span>
+          <span class="name">사랑<b>둥이</b></span>
+        </a>
+        <nav id="nav">
+          <a href="#/" data-r=""
+            ><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z" /></svg><span>홈</span></a
+          >
+          <a href="#/problems" data-r="problems"
+            ><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3" /></svg><span>문제</span></a
+          >
+          <a href="#/concepts" data-r="concepts"
+            ><svg viewBox="0 0 24 24">
+              <circle cx="6" cy="6" r="2.5" />
+              <circle cx="18" cy="12" r="2.5" />
+              <circle cx="6" cy="18" r="2.5" />
+              <path d="M8.3 7.2 15.7 10.8M15.7 13.2 8.3 16.8" /></svg
+            ><span>개념</span></a
+          >
+          <a href="#/notes" data-r="notes"
+            ><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z" /></svg><span>오답노트</span></a
+          >
+          <a href="#/feedback" data-r="feedback"
+            ><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" /></svg><span>요청</span></a
+          >
+        </nav>
+        <div class="top-r">
+          <button id="theme" class="icon-btn" aria-label="화면 밝기 바꾸기"></button>
+          <button id="who" class="who"></button>
+        </div>
+      </div>
+    </header>
+    <main id="app"></main>
+    <footer class="foot">사랑둥이 · 수능, 정답게 같이 풀자</footer>
+    <script src="data.js"></script>
+    <script src="store.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
