@@ -1,0 +1,15 @@
+{
+  "name": "sarangdungi-study",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write \"*.{js,css,html,md}\"",
+    "check": "prettier --check \"*.{js,css,html,md}\" && eslint ."
+  },
+  "devDependencies": {
+    "eslint": "9.14.0",
+    "@eslint/js": "9.14.0",
+    "globals": "15.12.0",
+    "prettier": "3.3.3"
+  }
+}
