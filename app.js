@@ -625,6 +625,7 @@
     }
     if (st.ink) Ink.attach($app.querySelector('.qcard'), inkKey(p.id))
     bindReports()
+    $app.querySelectorAll('.ex-host[data-scene]').forEach((h) => Explain.mount(h, h.dataset.scene))
     // 영어 듣기: 지문 상자나 기울임 문장만 골라 읽는다 (한국어 지시문은 빼고)
     const listen = (rate, btn) => {
       if (Speak.speaking()) {
@@ -742,7 +743,7 @@
             st.hint
               ? st.sol
                 ? `<div class="sol"><span class="tag hand">풀이</span><br>${p.solution}</div>
-              ${p.video ? `<div class="vwrap"><video src="${p.video}" controls playsinline preload="metadata"></video></div>` : ''}
+              ${p.scene && Explain.has(p.scene) ? `<div class="ex-host sol-ex" data-scene="${p.scene}"></div>` : ''}
               ${p.mistakes.length ? `<div style="margin-top:14px"><b>흔한 실수</b>${p.mistakes.map((m) => `<div class="mist">${m}</div>`).join('')}</div>` : ''}`
                 : '<div style="margin-top:10px"><button class="btn sm" id="solBtn">풀이 보기</button></div>'
               : ''

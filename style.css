@@ -2043,3 +2043,7 @@ textarea:focus,
     align-items: stretch;
   }
 }
+.sol-ex {
+  margin-top: 12px;
+  max-width: 560px;
+}

@@ -992,7 +992,6 @@ window.CONCEPTS = {
     unit: 'calc1-diff',
     name: '미분계수 = 접선의 기울기',
     order: 1,
-    video: 'media/derivative.mp4',
     summary:
       '두 점을 이은 직선의 기울기에서 <span class="m">h → 0</span>으로 보내면 한 점에서의 접선 기울기가 돼요. 이 값이 미분계수 <span class="m">f′(a)</span>예요.',
   },
@@ -1016,7 +1015,6 @@ window.CONCEPTS = {
     unit: 'calc1-diff',
     name: 'f′의 부호와 증가·감소·극값',
     order: 4,
-    video: 'media/deriv_link.mp4',
     summary:
       '<span class="m">f′ &gt; 0</span>이면 증가, <span class="m">f′ &lt; 0</span>이면 감소. 부호가 <b>+ → −</b>로 바뀌면 극대, <b>− → +</b>면 극소예요.',
   },
@@ -1025,7 +1023,6 @@ window.CONCEPTS = {
     unit: 'calc1-diff',
     name: '곡선 밖의 점에서 그은 접선',
     order: 5,
-    video: 'media/p3_tangent.mp4',
     summary: '접점을 <span class="m">(t, f(t))</span>로 두고 접선을 세운 뒤, 지나는 점을 대입해서 <span class="m">t</span>를 구해요.',
   },
   'k-nasal': {
@@ -1033,7 +1030,6 @@ window.CONCEPTS = {
     unit: 'grammar-sound',
     name: '비음화',
     order: 1,
-    video: 'media/kor_phonology.mp4',
     summary: '받침 ㄱ·ㄷ·ㅂ이 뒤의 ㄴ·ㅁ을 만나 ㅇ·ㄴ·ㅁ으로 바뀌어요. 예: 국물[궁물], 먹는[멍는]',
   },
   'k-liquid': {
@@ -1041,7 +1037,6 @@ window.CONCEPTS = {
     unit: 'grammar-sound',
     name: '유음화',
     order: 2,
-    video: 'media/kor_phonology.mp4',
     summary: 'ㄴ이 ㄹ 앞이나 뒤에서 ㄹ로 바뀌어요. 예: 신라[실라], 칼날[칼랄]',
   },
   'k-palatal': {
@@ -1049,7 +1044,6 @@ window.CONCEPTS = {
     unit: 'grammar-sound',
     name: '구개음화',
     order: 3,
-    video: 'media/kor_phonology.mp4',
     summary: '받침 ㄷ·ㅌ이 모음 ㅣ로 시작하는 형식 형태소를 만나 ㅈ·ㅊ으로 바뀌어요. 예: 굳이[구지], 같이[가치]',
   },
   'e-relclause': {
@@ -1057,7 +1051,6 @@ window.CONCEPTS = {
     unit: 'syntax',
     name: '관계절 괄호 치기',
     order: 1,
-    video: 'media/eng_syntax.mp4',
     summary: 'who·which·that으로 시작하는 덩어리에 괄호를 치고 접으면 뼈대만 남아요.',
   },
   'e-svc': {
@@ -1079,7 +1072,6 @@ window.CONCEPTS = {
     unit: 'bond',
     name: '이온 결합',
     order: 2,
-    video: 'media/sci_ionic.mp4',
     summary: '금속 원자가 전자를 잃어 양이온, 비금속 원자가 전자를 얻어 음이온이 되고, 둘이 끌어당겨 결합해요. 예: Na → Na⁺, Cl → Cl⁻',
   },
 }
@@ -1139,7 +1131,7 @@ window.PROBLEMS = [
     hint: '(0, −16)은 곡선 위의 점이 아니에요. 접점을 (t, t³)으로 두세요.',
     solution:
       '접선: <span class="m">y = 3t²(x − t) + t³</span><br><span class="m">(0, −16)</span> 대입: <span class="m">−16 = −2t³</span> → <span class="m">t = 2</span><br>기울기 <span class="m">3t² = </span><b>12</b>',
-    video: 'media/p3_tangent.mp4',
+    scene: 'm-outside',
     mistakes: ['(0, −16)을 접점으로 보고 미분계수를 바로 구하기'],
   },
   {
