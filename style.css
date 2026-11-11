@@ -2611,3 +2611,34 @@ textarea:focus,
 .ev-jump:hover {
   border-color: var(--his);
 }
+
+/* 문제 속 표 (자료 해석) */
+.qbox table {
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 0.9em;
+  max-width: 100%;
+}
+.qbox th,
+.qbox td {
+  border: 1px solid var(--rule-2);
+  padding: 6px 10px;
+  text-align: center;
+}
+.qbox th {
+  background: var(--paper-2);
+  font-weight: 800;
+}
+.qbox .bogi table,
+.qbox .passage table {
+  background: var(--sheet);
+}
+
+/* 문제 만든 날 */
+.pcard .made {
+  font-size: 11px;
+  color: var(--ink-2);
+  padding: 1px 6px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}

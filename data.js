@@ -4762,6 +4762,7 @@ window.PROBLEMS = [
   },
   {
     id: 'kr1',
+    made: '2026-11-11',
     set: 'k-immune',
     subject: 'kor',
     unit: 'reading-k',
@@ -4786,6 +4787,7 @@ window.PROBLEMS = [
   },
   {
     id: 'kr2',
+    made: '2026-11-11',
     set: 'k-immune',
     subject: 'kor',
     unit: 'reading-k',
@@ -4810,6 +4812,7 @@ window.PROBLEMS = [
   },
   {
     id: 'kr3',
+    made: '2026-11-11',
     set: 'k-immune',
     subject: 'kor',
     unit: 'reading-k',
@@ -4834,6 +4837,7 @@ window.PROBLEMS = [
   },
   {
     id: 'ma1',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'alg',
     kind: 'real',
@@ -4850,6 +4854,7 @@ window.PROBLEMS = [
   },
   {
     id: 'ma2',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'alg',
     kind: 'real',
@@ -4866,6 +4871,7 @@ window.PROBLEMS = [
   },
   {
     id: 'ma3',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'alg',
     kind: 'real',
@@ -4882,6 +4888,7 @@ window.PROBLEMS = [
   },
   {
     id: 'ma4',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'alg',
     kind: 'real',
@@ -4898,6 +4905,7 @@ window.PROBLEMS = [
   },
   {
     id: 'ma5',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'alg',
     kind: 'real',
@@ -4914,6 +4922,7 @@ window.PROBLEMS = [
   },
   {
     id: 'ma6',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'alg',
     kind: 'real',
@@ -4930,6 +4939,7 @@ window.PROBLEMS = [
   },
   {
     id: 'ma7',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'alg',
     kind: 'real',
@@ -4946,6 +4956,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mc1',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'calc1-diff',
     kind: 'real',
@@ -4962,6 +4973,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mc2',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'calc1-diff',
     kind: 'real',
@@ -4978,6 +4990,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mc3',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'calc1-diff',
     kind: 'real',
@@ -4994,6 +5007,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mc4',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'calc1-int',
     kind: 'real',
@@ -5010,6 +5024,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mc5',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'calc1-int',
     kind: 'real',
@@ -5026,6 +5041,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mc6',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'calc1-int',
     kind: 'real',
@@ -5042,6 +5058,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mc7',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'calc1-diff',
     kind: 'real',
@@ -5058,6 +5075,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mp1',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'prob',
     kind: 'real',
@@ -5074,6 +5092,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mp2',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'prob',
     kind: 'real',
@@ -5090,6 +5109,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mp3',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'prob',
     kind: 'real',
@@ -5107,6 +5127,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mp4',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'prob',
     kind: 'real',
@@ -5124,6 +5145,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mp5',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'prob',
     kind: 'real',
@@ -5141,6 +5163,7 @@ window.PROBLEMS = [
   },
   {
     id: 'mp6',
+    made: '2026-11-11',
     subject: 'math',
     unit: 'prob',
     kind: 'real',
@@ -5157,6 +5180,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h20',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'premodern',
     kind: 'real',
@@ -5181,6 +5205,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h21',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'premodern',
     kind: 'real',
@@ -5205,6 +5230,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h22',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'premodern',
     kind: 'real',
@@ -5229,6 +5255,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h23',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'premodern',
     kind: 'real',
@@ -5252,6 +5279,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h24',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'premodern',
     kind: 'real',
@@ -5276,6 +5304,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h25',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'premodern',
     kind: 'real',
@@ -5300,6 +5329,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h26',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'premodern',
     kind: 'real',
@@ -5324,6 +5354,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h27',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5348,6 +5379,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h28',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5372,6 +5404,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h29',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5396,6 +5429,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h30',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5420,6 +5454,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h31',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5444,6 +5479,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h32',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5468,6 +5504,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h33',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5486,6 +5523,7 @@ window.PROBLEMS = [
   },
   {
     id: 'h34',
+    made: '2026-11-11',
     subject: 'his',
     unit: 'modern',
     kind: 'real',
@@ -5509,6 +5547,7 @@ window.PROBLEMS = [
   },
   {
     id: 's20',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'bond',
     kind: 'real',
@@ -5527,6 +5566,7 @@ window.PROBLEMS = [
   },
   {
     id: 's21',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'bond',
     kind: 'real',
@@ -5544,6 +5584,7 @@ window.PROBLEMS = [
   },
   {
     id: 's22',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'acid',
     kind: 'real',
@@ -5565,6 +5606,7 @@ window.PROBLEMS = [
   },
   {
     id: 's23',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'acid',
     kind: 'real',
@@ -5583,6 +5625,7 @@ window.PROBLEMS = [
   },
   {
     id: 's24',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'force',
     kind: 'real',
@@ -5600,6 +5643,7 @@ window.PROBLEMS = [
   },
   {
     id: 's25',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'force',
     kind: 'real',
@@ -5618,6 +5662,7 @@ window.PROBLEMS = [
   },
   {
     id: 's26',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'energy',
     kind: 'real',
@@ -5635,6 +5680,7 @@ window.PROBLEMS = [
   },
   {
     id: 's27',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'energy',
     kind: 'real',
@@ -5653,6 +5699,7 @@ window.PROBLEMS = [
   },
   {
     id: 's28',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'cell',
     kind: 'real',
@@ -5671,6 +5718,7 @@ window.PROBLEMS = [
   },
   {
     id: 's29',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'cell',
     kind: 'real',
@@ -5695,6 +5743,7 @@ window.PROBLEMS = [
   },
   {
     id: 's30',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'earth',
     kind: 'real',
@@ -5713,6 +5762,7 @@ window.PROBLEMS = [
   },
   {
     id: 's31',
+    made: '2026-11-11',
     subject: 'sci',
     unit: 'earth',
     kind: 'real',
@@ -5730,6 +5780,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c20',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'econ',
     kind: 'real',
@@ -5754,6 +5805,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c21',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'econ',
     kind: 'real',
@@ -5772,6 +5824,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c22',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'econ',
     kind: 'real',
@@ -5790,6 +5843,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c23',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'justice',
     kind: 'real',
@@ -5814,6 +5868,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c24',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'justice',
     kind: 'real',
@@ -5832,6 +5887,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c25',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'justice',
     kind: 'real',
@@ -5856,6 +5912,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c26',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'culture',
     kind: 'real',
@@ -5880,6 +5937,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c27',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'culture',
     kind: 'real',
@@ -5898,6 +5956,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c28',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'culture',
     kind: 'real',
@@ -5922,6 +5981,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c29',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'env',
     kind: 'real',
@@ -5940,6 +6000,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c30',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'env',
     kind: 'real',
@@ -5958,6 +6019,7 @@ window.PROBLEMS = [
   },
   {
     id: 'c31',
+    made: '2026-11-11',
     subject: 'soc',
     unit: 'env',
     kind: 'real',
@@ -5982,6 +6044,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k20',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-sound',
     kind: 'real',
@@ -6000,6 +6063,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k21',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-sound',
     kind: 'real',
@@ -6018,6 +6082,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k22',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-sent',
     kind: 'real',
@@ -6042,6 +6107,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k23',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-sent',
     kind: 'real',
@@ -6066,6 +6132,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k24',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-sent',
     kind: 'real',
@@ -6090,6 +6157,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k25',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-sent',
     kind: 'real',
@@ -6114,6 +6182,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k26',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-word',
     kind: 'real',
@@ -6132,6 +6201,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k27',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'grammar-word',
     kind: 'real',
@@ -6156,6 +6226,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k28',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'literature',
     kind: 'real',
@@ -6180,6 +6251,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k29',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'literature',
     kind: 'real',
@@ -6204,6 +6276,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k31',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'literature',
     kind: 'real',
@@ -6228,6 +6301,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k32',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'literature',
     kind: 'real',
@@ -6252,6 +6326,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k33',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'reading-k',
     set: 'k-set2',
@@ -6277,6 +6352,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k34',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'reading-k',
     set: 'k-set2',
@@ -6302,6 +6378,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k35',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'reading-k',
     set: 'k-set2',
@@ -6327,6 +6404,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k36',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'reading-k',
     set: 'k-set2',
@@ -6352,6 +6430,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k37',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'reading-k',
     set: 'k-set3',
@@ -6377,6 +6456,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k38',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'reading-k',
     set: 'k-set3',
@@ -6396,6 +6476,7 @@ window.PROBLEMS = [
   },
   {
     id: 'k39',
+    made: '2026-11-11',
     subject: 'kor',
     unit: 'reading-k',
     set: 'k-set3',
@@ -6421,6 +6502,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e20',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6445,6 +6527,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e21',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6469,6 +6552,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e22',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6493,6 +6577,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e23',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6517,6 +6602,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e24',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6541,6 +6627,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e25',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6565,6 +6652,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e26',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6589,6 +6677,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e27',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6613,6 +6702,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e28',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6631,6 +6721,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e29',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6649,6 +6740,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e30',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6673,6 +6765,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e31',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6697,6 +6790,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e32',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6715,6 +6809,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e33',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6733,6 +6828,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e34',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6751,6 +6847,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e35',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'syntax',
     kind: 'real',
@@ -6769,6 +6866,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e36',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'syntax',
     kind: 'real',
@@ -6787,6 +6885,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e37',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'syntax',
     kind: 'real',
@@ -6808,6 +6907,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e38',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',
@@ -6826,6 +6926,7 @@ window.PROBLEMS = [
   },
   {
     id: 'e39',
+    made: '2026-11-11',
     subject: 'eng',
     unit: 'reading',
     kind: 'real',

@@ -7,6 +7,8 @@
   const unitName = (s, u) => (S(s).units.find((x) => x.id === u) || {}).name || u
   const usedBy = (cid) => PROBLEMS.filter((p) => p.concepts.includes(cid))
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+  // 만든 날: 2026-11-02 → 11.02
+  const madeLabel = (p) => (p.made ? p.made.slice(5).replace('-', '.') : '')
   const strip = (h) => h.replace(/<br>/g, ' ').replace(/<[^>]+>/g, '')
   const day = (ts) => {
     const d = new Date(ts)
@@ -870,6 +872,7 @@
     points: ['배점 높은 순', (a, b) => b.points - a.points],
     wrong: ['많이 틀린 순', (a, b) => Store.stat(b.id).wrong - Store.stat(a.id).wrong],
     unsolved: ['안 푼 것 먼저', (a, b) => (Store.stat(a.id).tries > 0) - (Store.stat(b.id).tries > 0)],
+    made: ['새로 만든 순', (a, b) => (b.made || '').localeCompare(a.made || '')],
     recent: ['최근 푼 순', (a, b) => ((Store.stat(b.id).last || {}).ts || 0) - ((Store.stat(a.id).last || {}).ts || 0)],
   }
   function subjSeg(key) {
@@ -945,7 +948,7 @@
     return `<a class="pcard" style="--c:${sub.color}" href="#/p/${p.id}${from ? `?from=${from}` : ''}">
       <div class="top"><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span><span class="pts">${p.points}점</span></div>
       <div class="q">${strip(p.body)}</div>
-      <div class="bot"><span class="kind">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span>${mark}${s.wrong ? `<span class="chip warn">${s.wrong}번 틀림</span>` : ''}
+      <div class="bot"><span class="kind">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span>${p.made ? `<span class="made mono" title="만든 날">${madeLabel(p)}</span>` : ''}${mark}${s.wrong ? `<span class="chip warn">${s.wrong}번 틀림</span>` : ''}
         <span class="dots" title="난이도">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= p.level ? 'on' : ''}"></i>`).join('')}</span></div></a>`
   }
 
@@ -1141,7 +1144,7 @@
         <div class="card qcard ${st.ink ? 'inking' : ''}">
           ${st.ink ? Ink.toolbarHtml() : ''}
           <div class="head"><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span>
-            <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>
+            <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>${p.made ? `<span class="chip mono" title="만든 날">${madeLabel(p)} 만듦</span>` : ''}
             ${p.subject === 'eng' && Speak.supported ? '<button type="button" class="ink-toggle listen" id="listenBtn">듣기</button><button type="button" class="ink-toggle listen" id="slowBtn">천천히</button>' : ''}
             <button type="button" class="ink-toggle" id="inkBtn">${st.ink ? '연습장 닫기' : Ink.has(inkKey(p.id)) ? '연습장 (쓴 것 있음)' : '연습장'}</button>${gradeMark(st.graded)}</div>
           <div class="qbox">${p.body}</div>
