@@ -39,9 +39,9 @@
   function loginView() {
     $app.innerHTML = `<div class="login card">
       <h1>들어가기</h1>
-      <p class="muted small">처음이면 이름과 비밀번호 4자리를 정해서 넣으면 바로 만들어져요.</p>
+      <p class="muted small">처음이면 이름(별명)을 정해서 넣으면 바로 만들어져요. 비밀번호는 삼촌이 알려 준 4자리예요.</p>
       <label>이름(별명)<input id="ln" autocomplete="username"></label>
-      <label>비밀번호 숫자 4자리<input id="lp" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password"></label>
+      <label>비밀번호 4자리<input id="lp" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password"></label>
       <div class="err" id="le"></div>
       <button class="btn main" id="lb" style="width:100%">들어가기</button></div>`
     const go = async () => {

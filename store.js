@@ -23,6 +23,11 @@ window.API_URL = 'https://script.google.com/macros/s/AKfycbzcbVthRsV2whu_pSTPyKy
     return res.json()
   }
 
+  const SHARED = 'd940b84044b93b8c8124eccb78aa8832c6c3d0b3858cafe590d15bb2e5a3bc96'
+  async function sha(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('')
+  }
   async function hashPw(name, pin) {
     const text = 'suneung-study:' + name.toLowerCase() + ':' + pin
     if (crypto.subtle) {
@@ -41,6 +46,8 @@ window.API_URL = 'https://script.google.com/macros/s/AKfycbzcbVthRsV2whu_pSTPyKy
     async login(name, pin) {
       name = name.trim().slice(0, 20)
       if (!name || !/^\d{4}$/.test(pin)) return '이름과 숫자 4자리를 넣어 주세요.'
+      // 비밀번호는 모두 같은 4자리 (삼촌이 알려 준 번호). 번호 자체는 코드에 두지 않고 해시만 비교해요
+      if (await sha('sarang-shared:' + pin) !== SHARED) return '비밀번호가 달라요. 삼촌한테 물어보세요.'
       const pw = await hashPw(name, pin) // 비밀번호 원문은 어디에도 남기지 않아요
       if (window.API_URL) {
         let r
