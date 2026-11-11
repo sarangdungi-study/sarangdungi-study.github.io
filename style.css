@@ -1,0 +1,131 @@
+:root {
+  --bg: #f6f7f9; --card: #ffffff; --ink: #1b1f24; --sub: #5d6773; --line: #e3e6ea;
+  --accent: #2f6fde; --accent-soft: #e8f0fd; --ok: #1f9d55; --ok-soft: #e4f6ec;
+  --bad: #d64545; --bad-soft: #fdeaea; --warn: #b7791f; --warn-soft: #fdf3e1;
+  --radius: 16px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171b; --card: #1d2126; --ink: #e9edf1; --sub: #9aa4af; --line: #2d333a;
+    --accent: #6ea0ff; --accent-soft: #1f2b40; --ok: #4cc584; --ok-soft: #173326;
+    --bad: #ff7a7a; --bad-soft: #3a1f22; --warn: #e3b25a; --warn-soft: #3a2f1a;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 18px/1.65 -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+}
+a { color: var(--accent); text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+/* 위 막대 */
+.top {
+  position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px;
+  padding: 10px 20px; background: var(--card); border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 800; color: var(--ink); white-space: nowrap; }
+#nav { display: flex; gap: 4px; flex: 1; justify-content: center; }
+#nav a { padding: 10px 16px; border-radius: 999px; color: var(--sub); font-weight: 600; white-space: nowrap; }
+#nav a.on { background: var(--accent-soft); color: var(--accent); }
+.who { border: 1px solid var(--line); background: none; border-radius: 999px; padding: 8px 14px; font-size: 15px; white-space: nowrap; }
+
+main { max-width: 980px; margin: 0 auto; padding: 24px 20px 80px; }
+h1 { font-size: 28px; margin: 4px 0 16px; }
+h2 { font-size: 21px; margin: 28px 0 12px; }
+.muted { color: var(--sub); }
+.small { font-size: 15px; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* 두 입구 */
+.doors { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.door { display: block; padding: 26px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+.door b { display: block; font-size: 23px; margin-bottom: 6px; }
+.door.up { border-color: var(--accent); }
+.door .arrow { color: var(--accent); font-weight: 700; }
+
+/* 칩, 버튼 */
+.chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 600; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.chip.gray { background: var(--bg); color: var(--sub); border: 1px solid var(--line); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.btn { border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 12px 18px; font-weight: 600; min-height: 48px; }
+.btn.main { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.ghost { background: none; }
+.btn:disabled { opacity: .45; cursor: default; }
+.seg { display: flex; gap: 6px; flex-wrap: wrap; }
+.seg button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 600; min-height: 40px; }
+.seg button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+select { font: inherit; font-size: 15px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); min-height: 40px; }
+
+/* 문제 목록 */
+.plist { display: grid; gap: 10px; }
+.pitem { display: flex; gap: 14px; align-items: center; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); }
+.pitem .txt { flex: 1; min-width: 0; }
+.pitem .q { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.pitem .meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+.pts { font-weight: 800; font-size: 15px; color: var(--sub); white-space: nowrap; }
+
+/* 문제 화면 */
+.qbox { font-size: 21px; line-height: 1.8; }
+.m { font-family: "Cambria Math", "STIX Two Math", "Times New Roman", serif; font-style: italic; white-space: nowrap; }
+.choices { display: grid; gap: 8px; margin-top: 18px; }
+.choices button { text-align: left; border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 12px 16px; min-height: 52px; }
+.choices button.on { border-color: var(--accent); background: var(--accent-soft); }
+.ansrow { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.ansrow input { font: inherit; font-size: 22px; width: 140px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+.result { margin-top: 16px; padding: 14px 18px; border-radius: 12px; font-weight: 700; }
+.result.ok { background: var(--ok-soft); color: var(--ok); }
+.result.bad { background: var(--bad-soft); color: var(--bad); }
+
+.steps { margin-top: 22px; display: grid; gap: 12px; }
+.step { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.step > .head { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.step .num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; flex: none; }
+.step .body { margin-top: 10px; }
+.stuck { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.stuck button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 14px; min-height: 44px; }
+.stuck button.on { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+.links { display: grid; gap: 8px; margin-top: 12px; }
+.links a { display: flex; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--bg); color: var(--ink); }
+.mist { background: var(--warn-soft); color: var(--warn); padding: 10px 14px; border-radius: 10px; margin-top: 8px; }
+
+video { width: 100%; max-height: 62vh; border-radius: 12px; background: #000; display: block; margin-top: 10px; }
+.vwrap { max-width: 300px; }
+.card .pitem { border: 0; padding: 0; }
+
+/* 개념 지도 */
+.unit { margin-bottom: 18px; }
+.chain { display: grid; gap: 10px; }
+.cnode { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); color: var(--ink); }
+.cnode .ord { width: 32px; height: 32px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+.cnode .txt { flex: 1; min-width: 0; }
+
+/* 오답노트 */
+textarea { width: 100%; min-height: 96px; font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); margin-top: 10px; resize: vertical; }
+
+/* 로그인 */
+.login { max-width: 420px; margin: 40px auto; }
+.login input { display: block; width: 100%; font: inherit; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); margin: 6px 0 14px; }
+.err { color: var(--bad); min-height: 1.5em; }
+
+.back { display: inline-block; margin-bottom: 10px; font-weight: 600; }
+
+/* 휴대폰 */
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .top { flex-wrap: wrap; padding: 8px 16px; gap: 6px; }
+  #nav { order: 3; width: 100%; justify-content: space-between; }
+  #nav a { padding: 8px 10px; flex: 1; text-align: center; }
+  .brand { flex: 1; }
+  main { padding: 16px 16px 60px; }
+  .doors { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+  .qbox { font-size: 19px; }
+  .m { white-space: normal; }
+}
