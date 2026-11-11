@@ -145,7 +145,10 @@
       a.classList.toggle('on', on)
     })
     document.body.classList.toggle('out', !u)
-    if (!u) return loginView()
+    if (!u) {
+      buildToc()
+      return loginView()
+    }
     loadGrade()
     const views = {
       '': home,
@@ -164,6 +167,64 @@
     }
     ;(views[r] || home)(id, q)
     window.scrollTo(0, 0)
+    buildToc()
+  }
+
+  // ───────── 긴 화면 길잡이: 옆 목차(가로 화면) + 떠 있는 버튼(목차 · 맨 위로)
+  let tocObs = null
+  document.addEventListener('click', (e) => {
+    const m = document.getElementById('fabMenu')
+    if (m && !m.contains(e.target)) m.classList.remove('open')
+  })
+  function buildToc() {
+    if (tocObs) tocObs.disconnect()
+    document.getElementById('toc')?.remove()
+    document.getElementById('fab')?.remove()
+    document.getElementById('fabMenu')?.remove()
+    const secs = [...$app.querySelectorAll('[data-toc]')]
+    if (secs.length < 3) return
+    const rail = document.createElement('nav')
+    rail.id = 'toc'
+    rail.setAttribute('aria-label', '이 화면 목차')
+    rail.innerHTML = secs
+      .map((el, i) => `<button type="button" data-t="${i}"><span class="lab">${el.dataset.toc}</span><i></i></button>`)
+      .join('')
+    const fab = document.createElement('button')
+    fab.id = 'fab'
+    fab.type = 'button'
+    fab.setAttribute('aria-label', '목차 열기')
+    fab.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 6h16M4 12h10M4 18h13"/></svg>'
+    const menu = document.createElement('div')
+    menu.id = 'fabMenu'
+    menu.innerHTML = `<div class="fm-h">이 화면에 있는 것</div>${secs.map((el, i) => `<button type="button" data-t="${i}"><span class="n mono">${i + 1}</span>${el.dataset.toc}</button>`).join('')}<button type="button" class="top" data-t="top">↑ 맨 위로</button>`
+    document.body.append(rail, fab, menu)
+    const go = (t) => {
+      menu.classList.remove('open')
+      if (t === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' })
+      const el = secs[Number(t)]
+      const y = el.getBoundingClientRect().top + window.scrollY - 84
+      window.scrollTo({ top: y, behavior: 'smooth' })
+    }
+    rail.querySelectorAll('button').forEach((b) => (b.onclick = () => go(b.dataset.t)))
+    menu.querySelectorAll('button').forEach((b) => (b.onclick = () => go(b.dataset.t)))
+    fab.onclick = (e) => {
+      e.stopPropagation()
+      menu.classList.toggle('open')
+    }
+    const setOn = (i) => {
+      rail.querySelectorAll('button').forEach((b) => b.classList.toggle('on', Number(b.dataset.t) === i))
+      menu.querySelectorAll('button[data-t]').forEach((b) => b.classList.toggle('on', Number(b.dataset.t) === i))
+    }
+    setOn(0)
+    tocObs = new IntersectionObserver(
+      (ents) => {
+        ents.forEach((en) => {
+          if (en.isIntersecting) setOn(secs.indexOf(en.target))
+        })
+      },
+      { rootMargin: '-35% 0px -60% 0px' },
+    )
+    secs.forEach((el) => tocObs.observe(el))
   }
 
   // ───────── 로그인
@@ -729,7 +790,7 @@
     const mySolved = mine.filter((p) => st.last[p.id]).length
     $app.innerHTML = `
       <div class="filters">${gradeSeg()}</div>
-      <div class="hero">
+      <div class="hero" data-toc="오늘">
         <div class="card today">
           <div class="date">${todayLabel()}</div>
           ${st.streak > 1 ? `<span class="note hand">${st.streak}일째!</span>` : ''}
@@ -745,25 +806,25 @@
         </div>
       </div>
 
-      <div class="sec"><div class="doors">
+      <div class="sec" data-toc="공부 시작"><div class="doors">
         <a class="door" href="#/problems"><span class="art">${ICON.up}</span><div><b>실전 문제부터</b>
           <span>실전 문제를 먼저 풀고, 막힌 개념으로 내려가요.</span><div class="tag hand">실력 확인은 여기부터</div></div></a>
         <a class="door" href="#/concepts"><span class="art">${ICON.down}</span><div><b>기초 개념부터</b>
           <span>개념 영상을 보고, 그 개념을 쓰는 문제로 올라가요.</span><div class="tag hand">처음 배우는 단원이면</div></div></a>
       </div></div>
 
-      <div class="card mission-card" id="mission">${missionHtml()}</div>
+      <div class="card mission-card" id="mission" data-toc="랜덤 미션">${missionHtml()}</div>
 
-      <a class="card path-card exam-entry" href="#/exams"><div><b>모의고사</b><div class="small muted">시간 재고 한 번에 풀기. 다 낸 뒤에 점수와 단원별 결과가 나와요.</div></div><span class="btn main sm">시험 보러 가기 →</span></a>
+      <a class="card path-card exam-entry" href="#/exams" data-toc="모의고사"><div><b>모의고사</b><div class="small muted">시간 재고 한 번에 풀기. 다 낸 뒤에 점수와 단원별 결과가 나와요.</div></div><span class="btn main sm">시험 보러 가기 →</span></a>
 
-      <a class="card path-card" href="#/path"><div><b>수학 길</b><div class="small muted">초등 분수부터 수능까지 한 줄로 이어진 계단. 아는 건 건너뛰고 위로!</div></div><span class="btn main sm">지금 위치 보기 →</span></a>
+      <a class="card path-card" href="#/path" data-toc="수학 길"><div><b>수학 길</b><div class="small muted">초등 분수부터 수능까지 한 줄로 이어진 계단. 아는 건 건너뛰고 위로!</div></div><span class="btn main sm">지금 위치 보기 →</span></a>
 
-      <div class="sec"><div class="sec-h"><h2>계단 오르기</h2><a class="more" href="#/ladders">전체 보기 →</a></div>
+      <div class="sec" data-toc="계단 오르기"><div class="sec-h"><h2>계단 오르기</h2><a class="more" href="#/ladders">전체 보기 →</a></div>
         <div class="ladder-row">${LADDERS.filter((L) => inGrade(L.grades))
           .map(ladderCard)
           .join('')}</div></div>
 
-      <div class="sec"><div class="sec-h"><h2>과목별 진도</h2></div>
+      <div class="sec" data-toc="과목별 진도"><div class="sec-h"><h2>과목별 진도</h2></div>
         <div class="subjects">${SUBJECTS.map((s) => {
           const all = mine.filter((p) => p.subject === s.id),
             done = all.filter((p) => st.last[p.id]).length
@@ -779,12 +840,12 @@
 
       ${
         due.length
-          ? `<div class="sec"><div class="sec-h"><h2>오늘 다시 풀 문제</h2><a class="more" href="#/notes">오답노트 →</a></div>
+          ? `<div class="sec" data-toc="다시 풀 문제"><div class="sec-h"><h2>오늘 다시 풀 문제</h2><a class="more" href="#/notes">오답노트 →</a></div>
         <div class="pgrid">${due.map((p) => pCard(p)).join('')}</div></div>`
           : ''
       }
 
-      <div class="sec"><div class="sec-h"><h2>자주 막히는 개념</h2><a class="more" href="#/concepts">개념 지도 →</a></div>
+      <div class="sec" data-toc="막히는 개념"><div class="sec-h"><h2>자주 막히는 개념</h2><a class="more" href="#/concepts">개념 지도 →</a></div>
         ${
           weak.length
             ? `<div class="chain">${weak.map(([k, n]) => cNode(k, n)).join('')}</div>`
@@ -1412,6 +1473,12 @@
   // ───────── 한국사 지도: 핀을 누르면 그곳 사건, '어디였지?' 퀴즈
   const ERAS = [
     ['all', '전체'],
+    ['pre', '선사'],
+    ['three', '삼국'],
+    ['nsk', '남북국 · 후삼국'],
+    ['goryeo', '고려'],
+    ['joseon1', '조선 전기'],
+    ['joseon2', '조선 후기'],
     ['open', '흥선 대원군 ~ 대한 제국'],
     ['colony', '일제 강점기'],
     ['modern', '광복 이후'],
@@ -1432,9 +1499,14 @@
         const [x, y] = proj(p.lat, p.lon)
         const on = sel && sel.id === p.id
         const hit = q && q.answered && q.ev.place === p.id
-        const L = { r: [16, 7, 'start'], l: [-16, 7, 'end'], lb: [-14, 24, 'end'], rt: [14, -10, 'start'], lt: [-12, -12, 'end'] }[
-          p.label || 'r'
-        ]
+        const L = {
+          r: [16, 7, 'start'],
+          l: [-16, 7, 'end'],
+          lb: [-14, 24, 'end'],
+          rt: [14, -10, 'start'],
+          lt: [-12, -12, 'end'],
+          rb: [14, 24, 'start'],
+        }[p.label || 'r'] || [16, 7, 'start']
         const label = q && !q.answered ? '' : `<text x="${L[0]}" y="${L[1]}" text-anchor="${L[2]}">${p.name}</text>`
         return `<g class="pin ${on ? 'on' : ''} ${hit ? 'hit' : ''}" data-p="${p.id}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="26" class="pin-hit"/><circle r="11" class="pin-dot"/>${label}</g>`
       })
@@ -1444,14 +1516,14 @@
       const res = q.answered
         ? `<div class="result ${q.ok ? 'ok' : 'bad'}">${q.ok ? '맞았어요!' : `정답은 ${placeName(q.ev.place)}이에요.`}</div><p>${q.ev.desc}</p>${keyLine(q.ev)}<button class="btn main sm" id="nextQ" style="margin-top:12px">다음 문제</button>`
         : '<p class="muted">지도에서 이 일이 일어난 곳을 눌러요.</p>'
-      side = `<div class="card"><div class="hand" style="color:var(--marker-ink)">어디였지?</div><h2 style="margin:6px 0">${q.ev.title} <span class="mono muted">(${q.ev.year})</span></h2>${res}</div>`
+      side = `<div class="card"><div class="hand" style="color:var(--marker-ink)">어디였지?</div><h2 style="margin:6px 0">${q.ev.title} <span class="mono muted">(${q.ev.when || q.ev.year})</span></h2>${res}</div>`
     } else if (sel) {
       const list = selEvs
         .map((e) => {
           const link = e.concept
             ? `<a class="small" style="color:var(--marker-ink);font-weight:800" href="#/c/${e.concept}">개념 보기 →</a>`
             : ''
-          return `<div class="ev"><span class="mono ev-year">${e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}</div></div>`
+          return `<div class="ev"><span class="mono ev-year">${e.when || e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}</div></div>`
         })
         .join('')
       side = `<div class="card"><h2>${sel.name}</h2>${list}${reportBox('지도 ' + sel.name, 'his')}</div>`

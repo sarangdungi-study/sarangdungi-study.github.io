@@ -2331,3 +2331,160 @@ textarea:focus,
     flex-wrap: wrap;
   }
 }
+
+/* 긴 화면 길잡이: 옆 목차 + 떠 있는 버튼 */
+#toc {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#toc button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--ink-2);
+  font: 700 13px var(--font, inherit);
+}
+#toc i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--pencil);
+  background: var(--sheet);
+  transition: all 0.2s;
+}
+#toc .lab {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: all 0.2s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#toc button:hover .lab,
+#toc button.on .lab {
+  opacity: 1;
+  transform: none;
+}
+#toc button.on i {
+  width: 12px;
+  height: 22px;
+  border-radius: 6px;
+  border-color: var(--marker);
+  background: var(--marker);
+}
+#toc button.on .lab {
+  color: var(--ink);
+  border-color: var(--marker);
+}
+/* 옆 목차는 본문 옆에 자리가 있을 때만 이름까지 보이고, 좁으면 점만 */
+@media (max-width: 1340px) {
+  #toc button:not(:hover):not(.on) .lab {
+    opacity: 0;
+  }
+  #toc button.on .lab {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+  }
+}
+#fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 16;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 0;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--sheet);
+  box-shadow:
+    0 6px 18px rgb(0 0 0 / 0.22),
+    3px 3px 0 var(--marker);
+  cursor: pointer;
+}
+#fab svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+#fabMenu {
+  position: fixed;
+  right: 22px;
+  bottom: 86px;
+  z-index: 17;
+  width: 220px;
+  padding: 8px;
+  border-radius: 16px;
+  border: 1.5px solid var(--rule);
+  background: var(--sheet);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
+  display: none;
+}
+#fabMenu.open {
+  display: block;
+}
+#fabMenu .fm-h {
+  padding: 6px 10px 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-2);
+}
+#fabMenu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--ink);
+  font: 700 15px var(--font, inherit);
+  text-align: left;
+  cursor: pointer;
+}
+#fabMenu button .n {
+  width: 22px;
+  color: var(--ink-2);
+  font-size: 12px;
+}
+#fabMenu button.on {
+  background: var(--marker-hl);
+}
+#fabMenu button.top {
+  margin-top: 4px;
+  border-top: 1px solid var(--rule);
+  border-radius: 0 0 10px 10px;
+  color: var(--ink-2);
+}
+@media (orientation: portrait) {
+  #toc {
+    display: none;
+  }
+  #fab {
+    right: 16px;
+    bottom: calc(80px + env(safe-area-inset-bottom));
+    width: 48px;
+    height: 48px;
+  }
+  #fabMenu {
+    right: 16px;
+    bottom: calc(138px + env(safe-area-inset-bottom));
+  }
+}
