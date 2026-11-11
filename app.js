@@ -1144,7 +1144,7 @@
         <div class="card qcard ${st.ink ? 'inking' : ''}">
           ${st.ink ? Ink.toolbarHtml() : ''}
           <div class="head"><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span>
-            <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>${p.made ? `<span class="chip mono" title="만든 날">${madeLabel(p)} 만듦</span>` : ''}
+            <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>${p.made ? `<span class="chip" title="만든 날">${madeLabel(p)} 만듦</span>` : ''}
             ${p.subject === 'eng' && Speak.supported ? '<button type="button" class="ink-toggle listen" id="listenBtn">듣기</button><button type="button" class="ink-toggle listen" id="slowBtn">천천히</button>' : ''}
             <button type="button" class="ink-toggle" id="inkBtn">${st.ink ? '연습장 닫기' : Ink.has(inkKey(p.id)) ? '연습장 (쓴 것 있음)' : '연습장'}</button>${gradeMark(st.graded)}</div>
           <div class="qbox">${p.body}</div>
