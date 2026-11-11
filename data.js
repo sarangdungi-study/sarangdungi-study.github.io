@@ -4762,6 +4762,7 @@ window.PROBLEMS = [
   },
   {
     id: 'kr1',
+    set: 'k-immune',
     subject: 'kor',
     unit: 'reading-k',
     kind: 'real',
@@ -4785,6 +4786,7 @@ window.PROBLEMS = [
   },
   {
     id: 'kr2',
+    set: 'k-immune',
     subject: 'kor',
     unit: 'reading-k',
     kind: 'real',
@@ -4808,6 +4810,7 @@ window.PROBLEMS = [
   },
   {
     id: 'kr3',
+    set: 'k-immune',
     subject: 'kor',
     unit: 'reading-k',
     kind: 'real',

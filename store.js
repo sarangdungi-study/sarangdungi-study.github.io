@@ -30,6 +30,14 @@ window.API_URL = 'https://script.google.com/macros/s/AKfycbzcbVthRsV2whu_pSTPyKy
     return res.json()
   }
 
+  // 여러 개를 한꺼번에 보내도 시트가 막히지 않게 차례대로
+  let chain = Promise.resolve()
+  function remoteQ(action, payload) {
+    const p = chain.then(() => remote(action, payload))
+    chain = p.catch(() => {})
+    return p
+  }
+
   const SHARED = 'd940b84044b93b8c8124eccb78aa8832c6c3d0b3858cafe590d15bb2e5a3bc96'
   async function sha(text) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
@@ -95,7 +103,7 @@ window.API_URL = 'https://script.google.com/macros/s/AKfycbzcbVthRsV2whu_pSTPyKy
       n.due = Date.now() + REVIEW_DAYS[n.box] * 864e5
       if (!correct || u.notes[pid]) u.notes[pid] = n // 틀린 적 있는 문제만 오답노트에
       saveAll(db)
-      remote('record', { name: u.name, pw: u.pw, attempt: a, note: u.notes[pid] || null }).catch(() => {})
+      remoteQ('record', { name: u.name, pw: u.pw, attempt: a, note: u.notes[pid] || null }).catch(() => {})
     },
 
     // 채점 뒤에 고른 '막힌 개념'을 마지막 기록에 붙여요

@@ -131,6 +131,7 @@
   function render() {
     const { r, id, q } = parseHash()
     const u = Store.user()
+    clearInterval(examTimer)
     if (keyHandler) {
       document.removeEventListener('keydown', keyHandler)
       keyHandler = null
@@ -139,7 +140,7 @@
     document.querySelectorAll('#nav a').forEach((a) => {
       const on =
         a.dataset.r === r ||
-        (a.dataset.r === 'problems' && r === 'p') ||
+        (a.dataset.r === 'problems' && (r === 'p' || r === 'exams' || r === 'exam')) ||
         (a.dataset.r === 'concepts' && (r === 'c' || r === 'l' || r === 'ladders'))
       a.classList.toggle('on', on)
     })
@@ -158,6 +159,8 @@
       ladders,
       l: ladder,
       path: mathPath,
+      exams,
+      exam,
     }
     ;(views[r] || home)(id, q)
     window.scrollTo(0, 0)
@@ -214,6 +217,404 @@
   }
 
   // ───────── 홈
+  // ───────── 모의고사: 정해진 구성대로 문제를 뽑아 시간 안에 풀고, 다 낸 뒤에 채점
+  const isReal = (p) => p.kind === 'real'
+  const inG = (g) => (p) => gradesOf(p).includes(g)
+  const EXAMS = [
+    {
+      id: 'math-full',
+      name: '수학 모의고사',
+      grade: '고2·3',
+      min: 100,
+      desc: '수능처럼 30문항 100점. 공통(대수 · 미적분Ⅰ) 22 + 확률과 통계 8',
+      pool: (p) => p.subject === 'math' && inG('고2·3')(p) && isReal(p),
+      plan: [
+        ['alg', 2, 2],
+        ['alg', 3, 4],
+        ['alg', 4, 5],
+        ['calc', 2, 1],
+        ['calc', 3, 4],
+        ['calc', 4, 6],
+        ['prob', 2, 1],
+        ['prob', 3, 4],
+        ['prob', 4, 3],
+      ],
+    },
+    {
+      id: 'math-mini',
+      name: '수학 미니 모의고사',
+      grade: '고2·3',
+      min: 45,
+      desc: '15문항 50점. 대수 · 미적분Ⅰ · 확률과 통계',
+      pool: (p) => p.subject === 'math' && inG('고2·3')(p) && isReal(p),
+      plan: [
+        ['alg', 2, 1],
+        ['alg', 3, 2],
+        ['alg', 4, 3],
+        ['calc', 2, 1],
+        ['calc', 3, 2],
+        ['calc', 4, 2],
+        ['prob', 3, 2],
+        ['prob', 4, 2],
+      ],
+    },
+    {
+      id: 'kor-mini',
+      name: '국어 미니 모의고사',
+      grade: '고2·3',
+      min: 30,
+      desc: '문법 · 문학 · 독서 12문항',
+      pool: (p) => p.subject === 'kor' && isReal(p),
+      count: 12,
+    },
+    {
+      id: 'eng-mini',
+      name: '영어 미니 모의고사',
+      grade: '고2·3',
+      min: 25,
+      desc: '어법 · 빈칸 · 순서 10문항',
+      pool: (p) => p.subject === 'eng' && isReal(p),
+      count: 10,
+    },
+    {
+      id: 'his-mini',
+      name: '한국사 미니 모의고사',
+      grade: '고2·3',
+      min: 15,
+      desc: '전근대사 · 근현대사 10문항',
+      pool: (p) => p.subject === 'his' && isReal(p),
+      count: 10,
+    },
+    {
+      id: 'tam-mini',
+      name: '통합과학 · 통합사회 미니',
+      grade: '고1',
+      min: 25,
+      desc: '과학 · 사회 섞어서 10문항',
+      pool: (p) => (p.subject === 'sci' || p.subject === 'soc') && isReal(p),
+      count: 10,
+    },
+    {
+      id: 'g-go1',
+      name: '고1 수학 단원평가',
+      grade: '고1',
+      min: 30,
+      desc: '공통수학 10문항',
+      pool: (p) => p.subject === 'math' && inG('고1')(p),
+      count: 10,
+    },
+    {
+      id: 'g-mid3',
+      name: '중3 수학 단원평가',
+      grade: '중3',
+      min: 30,
+      desc: '제곱근 · 이차방정식 · 이차함수 10문항',
+      pool: (p) => p.subject === 'math' && inG('중3')(p),
+      count: 10,
+    },
+    {
+      id: 'g-mid2',
+      name: '중2 수학 단원평가',
+      grade: '중2',
+      min: 30,
+      desc: '식의 계산 · 연립방정식 · 일차함수 10문항',
+      pool: (p) => p.subject === 'math' && inG('중2')(p),
+      count: 10,
+    },
+    {
+      id: 'g-mid1',
+      name: '중1 수학 단원평가',
+      grade: '중1',
+      min: 30,
+      desc: '정수 · 문자와 식 · 일차방정식 10문항',
+      pool: (p) => p.subject === 'math' && inG('중1')(p),
+      count: 10,
+    },
+    {
+      id: 'g-elem',
+      name: '초등 수학 단원평가',
+      grade: '초등',
+      min: 30,
+      desc: '분수 · 소수 10문항',
+      pool: (p) => p.subject === 'math' && inG('초등')(p),
+      count: 10,
+    },
+  ]
+  const unitOk = (u) => (p) => (u === 'calc' ? p.unit.startsWith('calc1') : p.unit === u)
+  const shuffle = (a) => {
+    const b = a.slice()
+    for (let i = b.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[b[i], b[j]] = [b[j], b[i]]
+    }
+    return b
+  }
+  // 문제 고르기: 같은 지문 문제(set)는 함께, 점수 낮은 것부터
+  function buildExam(E) {
+    const pool = PROBLEMS.filter(E.pool)
+    const out = []
+    const take = (list, n) => {
+      let got = 0
+      for (const p of list) {
+        if (got >= n) break
+        if (out.includes(p)) continue
+        const grp = p.set ? pool.filter((x) => x.set === p.set) : [p]
+        if (got + grp.length > n && got > 0) continue
+        grp.forEach((x) => out.includes(x) || out.push(x))
+        got += grp.length
+      }
+    }
+    if (E.plan) E.plan.forEach(([u, pt, n]) => take(shuffle(pool.filter((p) => unitOk(u)(p) && p.points === pt)), n))
+    else take(shuffle(pool), E.count)
+    const order = (p) => (p.set ? Math.min(...out.filter((x) => x.set === p.set).map((x) => x.points)) : p.points)
+    // 수학은 공통 먼저, 선택(확률과 통계)은 뒤에
+    const part = (p) => (p.unit === 'prob' ? 1 : 0)
+    out.sort((a, b) => part(a) - part(b) || order(a) - order(b) || (a.set || a.id).localeCompare(b.set || b.id) || a.id.localeCompare(b.id))
+    return out.map((p) => p.id)
+  }
+  const examPlanSize = (E) => (E.plan ? E.plan.reduce((a, x) => a + x[2], 0) : E.count)
+  const examReady = (E) =>
+    PROBLEMS.filter(E.pool).length >= examPlanSize(E) &&
+    (!E.plan || E.plan.every(([u, pt, n]) => PROBLEMS.filter(E.pool).filter((p) => unitOk(u)(p) && p.points === pt).length >= n))
+  const examKey = () => `exam:${myName()}`
+  const examLogKey = () => `examlog:${myName()}`
+  const readJson = (k, d) => {
+    try {
+      return JSON.parse(lsGet(k) || 'null') || d
+    } catch (e) {
+      return d
+    }
+  }
+  let examTimer = null
+  const mmss = (ms) => {
+    const t = Math.max(0, Math.round(ms / 1000))
+    return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`
+  }
+  const isRight = (p, a) => a !== undefined && a !== '' && a !== '-' && Number(a) === p.answer
+
+  function exams() {
+    const log = readJson(examLogKey(), [])
+    const cur = readJson(examKey(), null)
+    const list = EXAMS.filter((E) => inGrade([E.grade]))
+    $app.innerHTML = `<a class="crumb" href="#/problems">← 문제</a><h1>모의고사</h1>
+      <p class="lead">시간을 재고 한 번에 풀어요. 다 낼 때까지 정답은 안 보여요. 틀린 문제는 오답노트로 들어가요.</p>
+      <div class="filters">${gradeSeg()}</div>
+      ${cur && EXAMS.find((E) => E.id === cur.eid) ? `<a class="card path-card" href="#/exam/${cur.eid}"><div><b>보던 시험이 있어요: ${EXAMS.find((E) => E.id === cur.eid).name}</b><div class="small muted">남은 시간 ${mmss(cur.end - Date.now())}</div></div><span class="btn main sm">이어서 풀기 →</span></a>` : ''}
+      <div class="exam-grid">${
+        list
+          .map((E) => {
+            const mine = log.filter((x) => x.eid === E.id)
+            const last = mine[mine.length - 1]
+            const ok = examReady(E)
+            return `<a class="card exam-card ${ok ? '' : 'off'}" href="${ok ? `#/exam/${E.id}` : 'javascript:void 0'}">
+              <div class="filters" style="margin:0"><span class="chip">${E.grade === '고2·3' ? '고2·고3' : E.grade}</span>${last ? `<span class="chip pink mono">지난 점수 ${last.score}/${last.total}</span>` : ''}</div>
+              <b>${E.name}</b><div class="small muted">${E.desc}</div>
+              <div class="exam-meta"><span>${examPlanSize(E)}문항</span><span>${E.min}분</span>${mine.length ? `<span>${mine.length}번 봄</span>` : ''}</div>
+              ${ok ? '' : '<div class="small" style="color:var(--red-pen)">문제를 더 채우는 중이에요</div>'}</a>`
+          })
+          .join('') || '<div class="empty">이 학년 모의고사는 아직 준비 중이에요.</div>'
+      }</div>
+      ${
+        log.length
+          ? `<div class="sec"><div class="sec-h"><h2>지난 시험</h2></div><div class="exam-log">${log
+              .slice(-8)
+              .reverse()
+              .map((x) => {
+                const E = EXAMS.find((e) => e.id === x.eid)
+                return `<a class="exam-row" href="#/exam/${x.eid}?r=${x.ts}"><span>${E ? E.name : x.eid}</span><span class="small muted">${new Date(x.ts).toLocaleDateString('ko-KR')}</span><b class="mono">${x.score}/${x.total}</b></a>`
+              })
+              .join('')}</div></div>`
+          : ''
+      }`
+    bindGrade(exams)
+  }
+
+  function exam(eid, q) {
+    const E = EXAMS.find((x) => x.id === eid)
+    if (!E) return exams()
+    if (q.get('r')) return examResult(E, Number(q.get('r')))
+    let cur = readJson(examKey(), null)
+    if (cur && cur.eid !== eid) {
+      $app.innerHTML = `<a class="crumb" href="#/exams">← 모의고사</a><div class="card"><b>다른 시험을 보는 중이에요.</b><p class="muted">「${(EXAMS.find((x) => x.id === cur.eid) || {}).name}」를 먼저 마치거나 그만둬야 새 시험을 볼 수 있어요.</p>
+        <div class="filters"><a class="btn main sm" href="#/exam/${cur.eid}">그 시험으로 →</a><button class="btn ghost sm" id="quit">그 시험 그만두기</button></div></div>`
+      document.getElementById('quit').onclick = async () => {
+        if (await Ask('그 시험을 그만둘까요?', { desc: '쓴 답은 지워지고 기록에 남지 않아요.', ok: '그만두기', danger: true })) {
+          lsSet(examKey(), 'null')
+          exam(eid, q)
+        }
+      }
+      return
+    }
+    if (!cur) {
+      const ok = examReady(E)
+      $app.innerHTML = `<a class="crumb" href="#/exams">← 모의고사</a>
+        <div class="card exam-start"><span class="hand" style="color:var(--marker-ink)">${E.grade === '고2·3' ? '고2·고3' : E.grade}</span><h1>${E.name}</h1><p class="lead">${E.desc}</p>
+          <div class="exam-meta big"><span><b>${examPlanSize(E)}</b>문항</span><span><b>${E.min}</b>분</span></div>
+          <ul class="rules"><li>시작하면 시간이 흘러요. 시간이 다 되면 자동으로 내요.</li><li>다 낼 때까지 정답과 풀이는 안 보여요.</li><li>다른 화면에 갔다 와도 이어서 풀 수 있어요.</li><li>틀린 문제는 오답노트로 들어가요.</li></ul>
+          ${ok ? '<button class="btn main" id="go" style="width:100%">시작하기</button>' : '<div class="result bad">이 시험은 문제를 더 채우는 중이에요.</div>'}</div>`
+      const go = document.getElementById('go')
+      if (go)
+        go.onclick = () => {
+          cur = { eid, pids: buildExam(E), ans: {}, at: 0, start: Date.now(), end: Date.now() + E.min * 60000 }
+          lsSet(examKey(), JSON.stringify(cur))
+          exam(eid, q)
+        }
+      return
+    }
+    const save = () => lsSet(examKey(), JSON.stringify(cur))
+    const pids = cur.pids.filter((x) => P(x))
+    const N = pids.length
+    const answered = () => pids.filter((x) => cur.ans[x] !== undefined && cur.ans[x] !== '' && cur.ans[x] !== '-').length
+    function draw() {
+      const i = Math.min(cur.at, N - 1)
+      const p = P(pids[i])
+      const a = cur.ans[p.id] ?? ''
+      const sub = S(p.subject)
+      $app.innerHTML = `<div class="exam-bar"><b>${E.name}</b><span class="exam-time mono" id="etime">${mmss(cur.end - Date.now())}</span>
+          <span class="small muted" id="ecount">답 ${answered()}/${N}</span><button class="btn main sm" id="submit">내기</button></div>
+        <div class="omr">${pids
+          .map(
+            (x, k) =>
+              `<button data-go="${k}" class="${k === i ? 'now' : ''} ${cur.ans[x] !== undefined && cur.ans[x] !== '' && cur.ans[x] !== '-' ? 'done' : ''}">${k + 1}</button>`,
+          )
+          .join('')}</div>
+        <div class="solve" style="--c:${sub.color}">
+          <div class="card qcard"><div class="head"><span class="chip pink mono">${i + 1}번</span><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span><span class="chip mono">${p.points}점</span></div>
+            <div class="qbox">${p.body}</div>
+            ${p.type === 'choice' ? `<div class="choices">${p.choices.map((c, k) => `<button data-i="${k + 1}" class="${Number(a) === k + 1 ? 'on' : ''}"><span class="n">${k + 1}</span>${c}</button>`).join('')}</div>` : ''}
+          </div>
+          <div class="card answer">
+            ${
+              p.type === 'choice'
+                ? `<div class="lab">고른 답</div><div class="display ${a ? '' : 'empty-v'}">${a ? '①②③④⑤'[a - 1] : '보기를 골라요'}</div>`
+                : `<div class="lab">내 답</div><div class="display ${a === '' ? 'empty-v' : ''}">${a === '' ? '숫자를 눌러요' : esc(a)}</div>
+                 <div class="pad">${['1', '2', '3', '4', '5', '6', '7', '8', '9', '−', '0', '⌫'].map((k) => `<button data-k="${k}">${k}</button>`).join('')}</div>`
+            }
+            <div class="acts" style="margin-top:12px"><button class="btn ghost" id="prev" ${i === 0 ? 'disabled' : ''}>← 이전</button><button class="btn main" id="next">${i === N - 1 ? '다 풀었으면 내기' : '다음 →'}</button></div>
+          </div>
+        </div>`
+      const set = (v) => {
+        cur.ans[p.id] = v
+        save()
+        draw()
+      }
+      $app
+        .querySelectorAll('.choices button')
+        .forEach((b) => (b.onclick = () => set(Number(cur.ans[p.id]) === Number(b.dataset.i) ? '' : Number(b.dataset.i))))
+      $app.querySelectorAll('.pad button').forEach(
+        (b) =>
+          (b.onclick = () => {
+            let v = String(cur.ans[p.id] ?? '')
+            const k = b.dataset.k
+            if (k === '⌫') v = v.slice(0, -1)
+            else if (k === '−') v = v.startsWith('-') ? v.slice(1) : '-' + v
+            else if (v.replace('-', '').length < 6) v += k
+            set(v)
+          }),
+      )
+      $app.querySelectorAll('.omr button').forEach(
+        (b) =>
+          (b.onclick = () => {
+            cur.at = Number(b.dataset.go)
+            save()
+            draw()
+            window.scrollTo(0, 0)
+          }),
+      )
+      document.getElementById('prev').onclick = () => {
+        cur.at = Math.max(0, i - 1)
+        save()
+        draw()
+        window.scrollTo(0, 0)
+      }
+      document.getElementById('next').onclick = () => {
+        if (i === N - 1) return submit(false)
+        cur.at = i + 1
+        save()
+        draw()
+        window.scrollTo(0, 0)
+      }
+      document.getElementById('submit').onclick = () => submit(false)
+    }
+    let sent = false
+    async function submit(timeUp) {
+      if (sent) return
+      const left = N - answered()
+      if (
+        !timeUp &&
+        !(await Ask(left ? `${left}문제를 안 풀었어요. 낼까요?` : '답안지를 낼까요?', {
+          desc: '내면 바로 채점하고, 답은 더 못 바꿔요.',
+          ok: '내기',
+        }))
+      )
+        return
+      if (sent) return
+      sent = true
+      clearInterval(examTimer)
+      const now = Date.now()
+      let score = 0
+      let total = 0
+      pids.forEach((x) => {
+        const p = P(x)
+        total += p.points
+        const a = cur.ans[x]
+        const ans = a !== undefined && a !== '' && a !== '-'
+        if (isRight(p, a)) score += p.points
+        if (ans) Store.record(x, isRight(p, a), [])
+      })
+      const log = readJson(examLogKey(), [])
+      log.push({ eid, pids, ans: cur.ans, score, total, used: Math.min(now, cur.end) - cur.start, ts: now, timeUp: !!timeUp })
+      lsSet(examLogKey(), JSON.stringify(log.slice(-30)))
+      lsSet(examKey(), 'null')
+      location.hash = `#/exam/${eid}?r=${now}`
+    }
+    draw()
+    examTimer = setInterval(() => {
+      const el = document.getElementById('etime')
+      if (!el) return clearInterval(examTimer)
+      const left = cur.end - Date.now()
+      el.textContent = mmss(left)
+      el.classList.toggle('low', left < 5 * 60000)
+      if (left <= 0) submit(true)
+    }, 1000)
+  }
+
+  function examResult(E, ts) {
+    const r = readJson(examLogKey(), []).find((x) => x.ts === ts)
+    if (!r) return exams()
+    const ps = r.pids.map(P).filter(Boolean)
+    const byUnit = {}
+    ps.forEach((p) => {
+      const k = `${S(p.subject).name} · ${unitName(p.subject, p.unit)}`
+      byUnit[k] = byUnit[k] || { ok: 0, n: 0, c: S(p.subject).color }
+      byUnit[k].n++
+      if (isRight(p, r.ans[p.id])) byUnit[k].ok++
+    })
+    const okN = ps.filter((p) => isRight(p, r.ans[p.id])).length
+    $app.innerHTML = `<a class="crumb" href="#/exams">← 모의고사</a>
+      <div class="card exam-score"><div><span class="hand" style="color:var(--marker-ink)">${r.timeUp ? '시간이 다 돼서 냈어요' : '수고했어요!'}</span><h1>${E.name}</h1>
+        <div class="small muted">${new Date(r.ts).toLocaleString('ko-KR')} · 걸린 시간 ${mmss(r.used)} / ${E.min}:00</div></div>
+        <div class="big-score"><b class="mono">${r.score}</b><span>/ ${r.total}점</span><div class="small muted">${okN} / ${ps.length}문항 맞힘</div></div></div>
+      <div class="sec"><div class="sec-h"><h2>단원별</h2></div><div class="unit-bars">${Object.entries(byUnit)
+        .sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n)
+        .map(
+          ([k, v]) =>
+            `<div class="unit-bar" style="--c:${v.c}"><span>${k}</span><div class="bar"><i style="width:${(v.ok / v.n) * 100}%"></i></div><b class="mono">${v.ok}/${v.n}</b></div>`,
+        )
+        .join('')}</div></div>
+      <div class="sec"><div class="sec-h"><h2>문항별</h2><span class="small muted">눌러서 풀이 보기</span></div><div class="exam-log">${ps
+        .map((p, k) => {
+          const a = r.ans[p.id]
+          const has = a !== undefined && a !== '' && a !== '-'
+          const ok = isRight(p, a)
+          const show = (v) => (p.type === 'choice' ? `${v}번` : String(v).replace('-', '−'))
+          return `<a class="exam-row ${ok ? 'ok' : 'bad'}" href="#/p/${p.id}"><span class="mark">${ok ? '○' : has ? '✕' : '–'}</span><span><b>${k + 1}번</b> <span class="small muted">${unitName(p.subject, p.unit)} · ${p.points}점</span></span>
+            <span class="small">내 답 <b>${has ? show(a) : '안 풂'}</b>${ok ? '' : ` · 정답 <b>${show(p.answer)}</b>`}</span></a>`
+        })
+        .join('')}</div></div>
+      <div class="filters" style="margin-top:18px"><a class="btn main" href="#/exam/${E.id}">한 번 더 보기</a><a class="btn ghost" href="#/notes">오답노트 →</a></div>`
+  }
+
   // ───────── 오늘의 랜덤 미션: 과정을 고르면 그 과정 문제 3개를 뽑아 줌 (오늘 하루는 그대로)
   const MCOURSES = GRADES.filter((g) => g[0] !== 'all')
   const myName = () => (Store.user() || {}).name || ''
@@ -353,6 +754,8 @@
 
       <div class="card mission-card" id="mission">${missionHtml()}</div>
 
+      <a class="card path-card exam-entry" href="#/exams"><div><b>모의고사</b><div class="small muted">시간 재고 한 번에 풀기. 다 낸 뒤에 점수와 단원별 결과가 나와요.</div></div><span class="btn main sm">시험 보러 가기 →</span></a>
+
       <a class="card path-card" href="#/path"><div><b>수학 길</b><div class="small muted">초등 분수부터 수능까지 한 줄로 이어진 계단. 아는 건 건너뛰고 위로!</div></div><span class="btn main sm">지금 위치 보기 →</span></a>
 
       <div class="sec"><div class="sec-h"><h2>계단 오르기</h2><a class="more" href="#/ladders">전체 보기 →</a></div>
@@ -427,7 +830,7 @@
     )
   }
   function problems() {
-    $app.innerHTML = `<h1>문제</h1><p class="lead">학년과 과목을 고르면 맞는 문제만 보여요. 막히면 문제 안에서 개념으로 내려갈 수 있어요.</p>
+    $app.innerHTML = `<div class="sec-h" style="margin:0"><h1>문제</h1><a class="btn ghost sm" href="#/exams">모의고사 →</a></div><p class="lead">학년과 과목을 고르면 맞는 문제만 보여요. 막히면 문제 안에서 개념으로 내려갈 수 있어요.</p>
       <div class="filters">
         <label class="search">${ICON.search}<input id="q" placeholder="문제·개념 찾기 (예: 접선, 유음화)" value="${esc(ui.q)}"></label>
         <select id="sort">${Object.entries(SORTS)
