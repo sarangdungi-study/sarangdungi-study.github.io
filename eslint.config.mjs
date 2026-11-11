@@ -13,5 +13,5 @@ export default [
     },
     rules: { 'no-unused-vars': ['warn', { args: 'none', caughtErrors: 'none' }] },
   },
-  { files: ['eslint.config.mjs'], languageOptions: { sourceType: 'module' } },
+  { files: ['*.mjs'], languageOptions: { sourceType: 'module', globals: globals.node } },
 ]

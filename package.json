@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint .",
+    "stamp": "node stamp.mjs",
     "format": "prettier --write \"*.{js,css,html,md}\"",
     "check": "prettier --check \"*.{js,css,html,md}\" && eslint ."
   },
