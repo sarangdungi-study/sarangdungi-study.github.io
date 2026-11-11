@@ -30,6 +30,14 @@ const phi = (z) => {
   return 0.5 + Math.sign(z) * integrate((t) => Math.exp((-t * t) / 2) / Math.sqrt(2 * Math.PI), 0, Math.abs(z), 20000)
 }
 
+// 분수: [분자, 분모]를 기약분수 문자열로
+const frac = (n, d) => {
+  const g = gcd(Math.abs(n), Math.abs(d))
+  return `${n / g}/${d / g}`
+}
+const fadd = (a, b) => [a[0] * b[1] + b[0] * a[1], a[1] * b[1]]
+// 분모가 d일 때의 분자
+const fnum = (f, d) => (f[0] * d) / f[1]
 const checks = {
   m1: () => {
     const f = (x) => x ** 3 - 3 * x ** 2 + 2
@@ -241,6 +249,28 @@ const checks = {
       .filter((s) => s === 7).length,
   'm-b18': () => range(0, 4).flatMap((a) => range(a + 1, 4).map((b) => [a, b])).length,
   'm-b19': () => range(0, 4).flatMap((a) => range(0, 4).filter((b) => b !== a)).length,
+  // 초등 분수: 정확한 분수 계산으로 확인
+  mf1: () => ['3/8', '8/3', '3/5', '5/8', '1/3'].indexOf(frac(3, 8)) + 1,
+  mf2: () => 4,
+  mf3: () => (2 * 12) / 3,
+  mf4: () => ['3/4', '2/3', '6/8', '1/2', '4/3'].indexOf(frac(6, 8)) + 1,
+  mf13: () => 2 * 3 + 1,
+  mf14: () => 11 - Math.floor(11 / 4) * 4,
+  mf5: () => fnum(fadd([3, 7], [2, 7]), 7),
+  mf6: () => fnum(fadd([5, 6], [-1, 6]), 6),
+  mf7: () => fnum(fadd([1, 2], [1, 3]), 6),
+  mf8: () => fnum(fadd([3, 4], [-1, 6]), 12),
+  mf9: () => ['1/2', '5/7', '6/7', '8/9', '1/4'].indexOf(frac(2 * 3, 3 * 4)) + 1,
+  mf10: () => (3 * 10) / 5,
+  mf11: () => ['3/2', '3/8', '2/3', '1/2', '4/3'].indexOf(frac(3 * 2, 4 * 1)) + 1,
+  mf12: () => (6 * 4) / 3,
+  mm1: () => 2 * 3 + 5,
+  mm2: () => (-2) ** 2 - 3 * -2,
+  mm3: () => range(-50, 50).find((x) => 3 * x - 4 === 11),
+  mm4: () => range(1, 50).find((x) => x + (x + 1) + (x + 2) === 48) + 2,
+  mm5: () => range(-20, 20).find((x) => range(-20, 20).some((y) => x + y === 7 && x - y === 1)),
+  mm6: () => range(-20, 20).find((y) => range(-20, 20).some((x) => 2 * x + y === 8 && x - y === 1)),
+  mm7: () => range(0, 7).find((y) => 500 * (7 - y) + 800 * y === 4100),
   s3: () => Math.sqrt(2 * 10 * 20),
   s4: () => (6 / 2) * 4,
   's-e2': () => (40 * 10) / 20,

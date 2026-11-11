@@ -305,12 +305,19 @@
     const sub = S(L.subject)
     return `<a class="ladder-card" style="--c:${sub.color}" href="#/l/${L.id}">
       <div class="mini-stairs">${L.steps.map((_, i) => `<i class="${ss[i].cleared ? 'on' : ss[i].open ? 'now' : ''}" style="height:${10 + i * 7}px"></i>`).join('')}</div>
-      <b>${L.name}</b><span class="small muted">${L.desc}</span>
+      <span class="chip" style="justify-self:start">${L.level}</span><b>${L.name}</b><span class="small muted">${L.desc}</span>
       <span class="small mono" style="font-weight:800">${done} / ${L.steps.length} 단계</span></a>`
   }
   function ladders() {
     $app.innerHTML = `<h1>계단 오르기</h1><p class="lead">같은 주제를 쉬운 단계부터 하나씩 올라가요. 한 단계에서 2문제를 맞히면 다음 단계가 열려요.</p>
-      <div class="ladder-row">${LADDERS.map(ladderCard).join('')}</div>`
+      ${['초등', '중등', '고등']
+        .map(
+          (lv) =>
+            `<div class="sec"><div class="sec-h"><h2>${lv}</h2></div><div class="ladder-row">${LADDERS.filter((L) => L.level === lv)
+              .map(ladderCard)
+              .join('')}</div></div>`,
+        )
+        .join('')}`
   }
   function ladder(id) {
     const L = LADDERS.find((x) => x.id === id)
