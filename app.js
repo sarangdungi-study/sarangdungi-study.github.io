@@ -214,6 +214,104 @@
   }
 
   // ───────── 홈
+  // ───────── 오늘의 랜덤 미션: 과정을 고르면 그 과정 문제 3개를 뽑아 줌 (오늘 하루는 그대로)
+  const MCOURSES = GRADES.filter((g) => g[0] !== 'all')
+  const myName = () => (Store.user() || {}).name || ''
+  const lsGet = (k) => {
+    try {
+      return localStorage.getItem(k)
+    } catch (e) {
+      return null
+    }
+  }
+  const lsSet = (k, v) => {
+    try {
+      localStorage.setItem(k, v)
+    } catch (e) {
+      /* 저장 못 해도 이번 화면에서는 보임 */
+    }
+  }
+  const missionCourse = () => lsGet(`mcourse:${myName()}`) || (ui.grade !== 'all' ? ui.grade : '')
+  function missionPick(course, reroll) {
+    const key = `mission:${myName()}:${dayKey(Date.now())}:${course}`
+    if (!reroll) {
+      try {
+        const ids = JSON.parse(lsGet(key) || 'null')
+        if (Array.isArray(ids) && ids.length && ids.every((x) => P(x))) return ids
+      } catch (e) {
+        /* 깨졌으면 새로 뽑기 */
+      }
+    }
+    const pool = PROBLEMS.filter((p) => gradesOf(p).includes(course))
+    const fresh = pool.filter((p) => !lastCorrect(p.id))
+    const src = (fresh.length >= 3 ? fresh : pool).slice()
+    for (let i = src.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[src[i], src[j]] = [src[j], src[i]]
+    }
+    const ids = src.slice(0, 3).map((p) => p.id)
+    lsSet(key, JSON.stringify(ids))
+    return ids
+  }
+  // 오늘 푼 기록이 있으면 그 마지막 기록
+  const doneToday = (pid) => {
+    const l = Store.stat(pid).last
+    const d = new Date()
+    d.setHours(0, 0, 0, 0)
+    return l && l.ts >= d.getTime() ? l : null
+  }
+  function missionHtml() {
+    const course = missionCourse()
+    const seg = `<div class="seg mseg"><span class="seg-label">과정</span>${MCOURSES.map(([v]) => `<button data-mc="${v}" class="${course === v ? 'on' : ''}">${v}</button>`).join('')}</div>`
+    if (!course)
+      return `<div class="sec-h"><h2>오늘의 랜덤 미션</h2></div>${seg}<div class="small muted">과정을 고르면 오늘 풀 문제 3개를 뽑아 줘요.</div>`
+    const ids = missionPick(course)
+    const res = ids.map(doneToday)
+    const n = res.filter(Boolean).length
+    const items = ids
+      .map((id, i) => {
+        const p = P(id),
+          sub = S(p.subject),
+          r = res[i]
+        return `<a class="m-item ${r ? (r.correct ? 'ok' : 'bad') : ''}" style="--c:${sub.color}" href="#/p/${id}?mission=${encodeURIComponent(course)}&i=${i}">
+          <span class="m-n">${r ? (r.correct ? '○' : '✕') : i + 1}</span>
+          <div class="m-b"><span class="small muted">${sub.name} · ${unitName(p.subject, p.unit)}</span><div class="m-q">${esc(strip(p.body))}</div></div></a>`
+      })
+      .join('')
+    return `<div class="sec-h"><h2>오늘의 랜덤 미션</h2><span class="m-count hand">${n} / ${ids.length}</span></div>${seg}
+      <div class="m-list">${items}</div>
+      ${n === ids.length ? '<div class="result ok">오늘 미션 완료! 내일 또 새로 뽑아 줄게요.</div>' : ''}
+      <div class="m-foot"><span class="small muted">${n ? '푼 문제는 다시 풀 수 있어요.' : '마음에 안 들면 다시 뽑아도 돼요.'}</span><button type="button" class="btn ghost sm" id="reroll">다시 뽑기</button></div>`
+  }
+  function bindMission() {
+    const box = document.getElementById('mission')
+    if (!box) return
+    box.querySelectorAll('[data-mc]').forEach((b) => {
+      b.onclick = () => {
+        lsSet(`mcourse:${myName()}`, b.dataset.mc)
+        box.innerHTML = missionHtml()
+        bindMission()
+      }
+    })
+    const rr = document.getElementById('reroll')
+    if (rr)
+      rr.onclick = () => {
+        missionPick(missionCourse(), true)
+        box.innerHTML = missionHtml()
+        bindMission()
+      }
+  }
+  // 문제 화면에서: 다음 미션 문제 또는 완료
+  function missionNext(course, i) {
+    const ids = missionPick(course)
+    for (let k = 1; k <= ids.length; k++) {
+      const j = (i + k) % ids.length
+      if (!doneToday(ids[j]))
+        return `<a class="btn main sm" style="margin-top:10px;width:100%" href="#/p/${ids[j]}?mission=${encodeURIComponent(course)}&i=${j}">다음 미션 문제 →</a>`
+    }
+    return '<a class="btn main sm" style="margin-top:10px;width:100%" href="#/">오늘 미션 완료! 홈으로 →</a>'
+  }
+
   function home() {
     const u = Store.user(),
       st = myStats()
@@ -252,6 +350,8 @@
         <a class="door" href="#/concepts"><span class="art">${ICON.down}</span><div><b>기초 개념부터</b>
           <span>개념 영상을 보고, 그 개념을 쓰는 문제로 올라가요.</span><div class="tag hand">처음 배우는 단원이면</div></div></a>
       </div></div>
+
+      <div class="card mission-card" id="mission">${missionHtml()}</div>
 
       <a class="card path-card" href="#/path"><div><b>수학 길</b><div class="small muted">초등 분수부터 수능까지 한 줄로 이어진 계단. 아는 건 건너뛰고 위로!</div></div><span class="btn main sm">지금 위치 보기 →</span></a>
 
@@ -295,6 +395,7 @@
         }),
       bindGrade(home),
     )
+    bindMission()
   }
 
   // ───────── 문제 목록
@@ -563,11 +664,14 @@
     const lad = q.get('ladder') && LADDERS.find((x) => x.id === q.get('ladder'))
     const testL = q.get('test') && LADDERS.find((x) => x.id === q.get('test'))
     const testI = testL ? Number(q.get('i')) : -1
+    const misC = q.get('mission') && MCOURSES.some((g) => g[0] === q.get('mission')) ? q.get('mission') : null
+    const misI = misC ? Number(q.get('i')) || 0 : -1
     const nextP = lad && st.graded ? nextInLadder(lad, p.id) : null
     const stage = st.sol ? 5 : st.hint ? 4 : st.stuck.length ? 3 : st.open || st.graded !== null ? 2 : 1
     $app.innerHTML = `
       ${testL ? `<div class="test-banner">건너뛰기 시험 · ${testL.name} ${testI + 1}단계 「${testL.steps[testI].name}」</div>` : ''}
-      ${testL ? `<a class="crumb" href="#/l/${testL.id}">← ${testL.name}</a>` : lad ? `<a class="crumb" href="#/l/${lad.id}">← ${lad.name}</a>` : from && C(from) ? `<a class="crumb" href="#/c/${from}">← ${C(from).name}</a>` : `<a class="crumb" href="#/problems">← 문제 목록</a>`}
+      ${misC ? `<div class="test-banner">오늘의 랜덤 미션 · ${misI + 1} / 3</div>` : ''}
+      ${misC ? '<a class="crumb" href="#/">← 오늘의 미션</a>' : testL ? `<a class="crumb" href="#/l/${testL.id}">← ${testL.name}</a>` : lad ? `<a class="crumb" href="#/l/${lad.id}">← ${lad.name}</a>` : from && C(from) ? `<a class="crumb" href="#/c/${from}">← ${C(from).name}</a>` : `<a class="crumb" href="#/problems">← 문제 목록</a>`}
       <div class="stepper">${['풀기', '막힌 곳', '기초 보기', '힌트', '풀이'].map((n, i) => `<span class="${i < stage ? 'done' : ''}">${n}</span>`).join('')}</div>
       <div class="solve" style="--c:${sub.color}">
         <div class="card qcard ${st.ink ? 'inking' : ''}">
@@ -605,8 +709,8 @@
             st.graded === null
               ? ''
               : st.graded
-                ? `<div class="result ok">정답이에요. 풀이도 한 번 보고 가요.</div>${testL ? testNext(testL, testI, true) : ''}${lad ? `<a class="btn main sm" style="margin-top:10px;width:100%" href="${nextP ? `#/p/${nextP}?ladder=${lad.id}` : `#/l/${lad.id}`}">${nextP ? '계단 다음 문제 →' : '계단으로 돌아가기'}</a>` : ''}`
-                : `<div class="result bad">틀렸어요. 아래에서 막힌 곳을 골라 봐요.</div>${testL ? testNext(testL, testI, false) : ''}`
+                ? `<div class="result ok">정답이에요. 풀이도 한 번 보고 가요.</div>${testL ? testNext(testL, testI, true) : ''}${misC ? missionNext(misC, misI) : ''}${lad ? `<a class="btn main sm" style="margin-top:10px;width:100%" href="${nextP ? `#/p/${nextP}?ladder=${lad.id}` : `#/l/${lad.id}`}">${nextP ? '계단 다음 문제 →' : '계단으로 돌아가기'}</a>` : ''}`
+                : `<div class="result bad">틀렸어요. 아래에서 막힌 곳을 골라 봐요.</div>${testL ? testNext(testL, testI, false) : ''}${misC ? missionNext(misC, misI) : ''}`
           }
           ${reportBox('문제 ' + p.id, p.subject, p.id)}
         </div>

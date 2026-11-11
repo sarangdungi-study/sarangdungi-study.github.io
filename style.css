@@ -2047,3 +2047,84 @@ textarea:focus,
   margin-top: 12px;
   max-width: 560px;
 }
+
+/* 오늘의 랜덤 미션 */
+.mission-card {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+.mission-card .sec-h {
+  margin: 0;
+}
+.m-count {
+  color: var(--marker-ink);
+  font-size: 22px;
+}
+.mseg {
+  flex-wrap: wrap;
+}
+.m-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.m-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  border: 1.5px solid var(--rule);
+  border-left: 4px solid var(--c);
+  border-radius: 12px;
+  background: var(--sheet);
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+}
+.m-item:hover {
+  border-color: var(--c);
+}
+.m-n {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  background: var(--paper-2);
+}
+.m-item.ok .m-n {
+  color: var(--green-pen);
+  font-size: 20px;
+}
+.m-item.bad .m-n {
+  color: var(--red-pen);
+}
+.m-b {
+  min-width: 0;
+}
+.m-q {
+  margin-top: 2px;
+  font-weight: 700;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.m-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+@media (orientation: portrait) {
+  .mseg .seg-label {
+    display: none;
+  }
+  .m-list {
+    grid-template-columns: 1fr;
+  }
+}
