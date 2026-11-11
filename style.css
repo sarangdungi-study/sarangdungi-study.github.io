@@ -1488,3 +1488,71 @@ textarea:focus,
 .passage u {
   text-underline-offset: 4px;
 }
+
+/* 개념 움직이는 그림 */
+.concept-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 14px;
+}
+.concept-grid > :only-child {
+  grid-column: 1 / -1;
+}
+.explain {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  box-shadow: var(--lift);
+  overflow: hidden;
+}
+.explain canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 800 / 500;
+  cursor: pointer;
+}
+.ex-cap {
+  min-height: 3.6em;
+  padding: 12px 18px;
+  border-top: 1px dashed var(--rule-2);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.ex-cap b {
+  background: linear-gradient(transparent 58%, var(--marker-hl) 58%);
+}
+.ex-ctl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px 14px;
+}
+.ex-ctl button {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1px solid var(--rule-2);
+  background: var(--sheet);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.ex-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--paper-2);
+  overflow: hidden;
+}
+.ex-bar i {
+  display: block;
+  height: 100%;
+  background: var(--marker);
+}
+@media (orientation: portrait) {
+  .concept-grid {
+    grid-template-columns: 1fr;
+  }
+}

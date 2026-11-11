@@ -405,6 +405,7 @@
         again()
       }
   }
+  const hasMovie = (cid) => Explain.has(cid) || !!(C(cid) && C(cid).video)
   const inkKey = (pid) => `${Store.user().name}:${pid}`
 
   // 채점 펜: 맞으면 동그라미, 틀리면 빗금
@@ -424,7 +425,7 @@
       <div class="step"><div class="h"><span class="no">${++n}</span>막힌 개념 기초 보기</div>
         <div class="b">${
           stuckC.length
-            ? `<div class="links">${stuckC.map(([k, c]) => `<a href="#/c/${k}?from=${p.id}"><span>${c.name}</span><span class="go">${c.video ? '영상 보기 ▶' : '설명 보기 →'}</span></a>`).join('')}</div>`
+            ? `<div class="links">${stuckC.map(([k, c]) => `<a href="#/c/${k}?from=${p.id}"><span>${c.name}</span><span class="go">${hasMovie(k) ? '영상 보기 ▶' : '설명 보기 →'}</span></a>`).join('')}</div>`
             : '<span class="muted small">위에서 막힌 개념을 고르면 여기에 나와요.</span>'
         }</div></div>
       ${
@@ -474,7 +475,7 @@
       real = usedBy(k).filter((p) => p.kind === 'real').length,
       easy = usedBy(k).length - real
     return `<a class="cnode" style="--c:${S(c.subject).color}" href="#/c/${k}"><span class="ord">${String(c.order).padStart(2, '0')}</span>
-      <div class="t"><b>${c.name}</b><div>${c.video ? '영상 · ' : ''}${real ? `실전 ${real}문제` : `기초 ${easy}문제`}에 쓰여요</div></div>
+      <div class="t"><b>${c.name}</b><div>${hasMovie(k) ? '영상 · ' : ''}${real ? `실전 ${real}문제` : `기초 ${easy}문제`}에 쓰여요</div></div>
       ${stuckN ? `<span class="chip bad">${stuckN}번 막힘</span>` : ''}</a>`
   }
   function concept(id, q) {
@@ -488,11 +489,15 @@
       ${from && P(from) ? `<a class="crumb" href="#/p/${from}">← 원래 문제로</a>` : `<a class="crumb" href="#/concepts">← 개념 지도</a>`}
       <div style="--c:${sub.color}"><span class="chip subj">${sub.name} · ${unitName(c.subject, c.unit)}</span></div>
       <h1 style="margin-top:10px">${c.name}</h1>
-      <div class="card concept-card" style="margin-top:14px"><div class="qbox" style="font-size:19px">${c.summary}</div>
-        ${c.video ? `<div class="vwrap"><video src="${c.video}" controls playsinline preload="metadata"></video></div>` : ''}</div>
+      <div class="concept-grid">
+        ${Explain.has(id) ? '<div class="ex-host"></div>' : ''}
+        <div class="card concept-card"><div class="qbox" style="font-size:19px">${c.summary}</div>
+          ${!Explain.has(id) && c.video ? `<div class="vwrap"><video src="${c.video}" controls playsinline preload="metadata"></video></div>` : ''}</div>
+      </div>
       ${easy.length ? `<div class="sec"><div class="sec-h"><h2>먼저 쉬운 문제로</h2></div><div class="pgrid">${easy.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
       ${real.length ? `<div class="sec"><div class="sec-h"><h2>이 개념을 쓰는 실전 문제</h2></div><div class="pgrid">${real.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
       ${from && P(from) ? `<div class="sec"><a class="btn main" href="#/p/${from}">원래 문제로 돌아가기 →</a></div>` : ''}`
+    if (Explain.has(id)) Explain.mount($app.querySelector('.ex-host'), id)
   }
 
   // ───────── 오답노트

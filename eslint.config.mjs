@@ -9,7 +9,15 @@ export default [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'script',
-      globals: { ...globals.browser, SUBJECTS: 'writable', CONCEPTS: 'writable', PROBLEMS: 'writable', Store: 'writable', Ink: 'writable' },
+      globals: {
+        ...globals.browser,
+        SUBJECTS: 'writable',
+        CONCEPTS: 'writable',
+        PROBLEMS: 'writable',
+        Store: 'writable',
+        Ink: 'writable',
+        Explain: 'writable',
+      },
     },
     rules: { 'no-unused-vars': ['warn', { args: 'none', caughtErrors: 'none' }] },
   },
