@@ -290,9 +290,11 @@
       ${from && C(from) ? `<a class="crumb" href="#/c/${from}">← ${C(from).name}</a>` : `<a class="crumb" href="#/problems">← 문제 목록</a>`}
       <div class="stepper">${['풀기', '막힌 곳', '기초 보기', '힌트', '풀이'].map((n, i) => `<span class="${i < stage ? 'done' : ''}">${n}</span>`).join('')}</div>
       <div class="solve" style="--c:${sub.color}">
-        <div class="card qcard">
+        <div class="card qcard ${st.ink ? 'inking' : ''}">
+          ${st.ink ? Ink.toolbarHtml() : ''}
           <div class="head"><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span>
-            <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>${gradeMark(st.graded)}</div>
+            <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>
+            <button type="button" class="ink-toggle" id="inkBtn">${st.ink ? '연습장 닫기' : Ink.has(inkKey(p.id)) ? '연습장 (쓴 것 있음)' : '연습장'}</button>${gradeMark(st.graded)}</div>
           <div class="qbox">${p.body}</div>
           ${
             p.type === 'choice'
@@ -305,6 +307,7 @@
                   .join('')}</div>`
               : ''
           }
+          ${st.ink ? '<div class="ink-space"><span class="hand">연습</span></div>' : ''}
         </div>
         <div class="card answer">
           ${
@@ -334,6 +337,11 @@
       problem(id, q)
       scrollTo(0, y)
     }
+    document.getElementById('inkBtn').onclick = () => {
+      st.ink = !st.ink
+      again()
+    }
+    if (st.ink) Ink.attach($app.querySelector('.qcard'), inkKey(p.id))
     $app.querySelectorAll('.choices button').forEach(
       (b) =>
         (b.onclick = () => {
@@ -397,6 +405,8 @@
         again()
       }
   }
+  const inkKey = (pid) => `${Store.user().name}:${pid}`
+
   // 채점 펜: 맞으면 동그라미, 틀리면 빗금
   function gradeMark(graded) {
     if (graded === null) return ''

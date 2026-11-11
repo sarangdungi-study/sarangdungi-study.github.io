@@ -811,7 +811,7 @@ select {
 .mark {
   width: 44px;
   height: 44px;
-  margin: -10px -6px -10px auto;
+  margin: -10px -6px -10px 4px;
   flex: none;
   pointer-events: none;
 }
@@ -1049,6 +1049,89 @@ video {
 }
 .vwrap {
   max-width: 280px;
+}
+
+/* 연습장: 펜슬로 문제 위에 끄적이기 */
+.qcard .head {
+  position: relative;
+  z-index: 3;
+  align-items: center;
+}
+.ink-toggle {
+  margin-left: auto;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1.5px solid var(--rule-2);
+  background: var(--sheet);
+  font-size: 13px;
+  font-weight: 800;
+}
+.inking .ink-toggle {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+.ink-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  touch-action: none;
+  border-radius: inherit;
+}
+.ink-bar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: -8px -8px 14px;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--paper-2);
+}
+.ink-bar button {
+  height: 34px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink-2);
+}
+.ink-bar button.on {
+  background: var(--sheet);
+  color: var(--ink);
+  box-shadow: var(--lift);
+}
+.ink-bar .sep {
+  width: 1px;
+  height: 20px;
+  background: var(--rule-2);
+  margin: 0 4px;
+}
+.ink-bar .finger {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ink-space {
+  position: relative;
+  height: 420px;
+  margin-top: 22px;
+  border-top: 1.5px dashed var(--rule-2);
+}
+.ink-space .hand {
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  color: var(--pencil);
 }
 
 /* 개념 지도 */
