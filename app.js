@@ -327,10 +327,11 @@
                 ? '<div class="result ok">정답이에요. 풀이도 한 번 보고 가요.</div>'
                 : '<div class="result bad">틀렸어요. 아래에서 막힌 곳을 골라 봐요.</div>'
           }
+          ${reportBox('문제 ' + p.id, p.subject, p.id)}
         </div>
       </div>
       <div class="steps">${st.open || st.graded !== null ? stepsHtml(p, st) : ''}</div>
-      <p class="small muted" style="margin-top:22px">이 문제가 이상하거나 비슷한 문제가 더 필요하면 → <a style="color:var(--pink-ink);font-weight:700" href="#/feedback?pid=${p.id}">요청 남기기</a></p>`
+      <p class="small muted" style="margin-top:22px">비슷한 문제가 더 필요하면 → <a style="color:var(--marker-ink);font-weight:700" href="#/feedback?pid=${p.id}">요청 남기기</a></p>`
 
     const again = () => {
       const y = scrollY
@@ -342,6 +343,7 @@
       again()
     }
     if (st.ink) Ink.attach($app.querySelector('.qcard'), inkKey(p.id))
+    bindReports()
     $app.querySelectorAll('.choices button').forEach(
       (b) =>
         (b.onclick = () => {
@@ -495,12 +497,14 @@
         <div class="card concept-card"><div class="qbox" style="font-size:19px">${c.summary}</div>
           ${!Explain.has(id) && c.video ? `<div class="vwrap"><video src="${c.video}" controls playsinline preload="metadata"></video></div>` : ''}</div>
         ${MEMOS[id] ? `<div class="memo"><span class="hand">외우는 법</span><div>${MEMOS[id]}</div></div>` : ''}
+        ${reportBox('개념 ' + id + ' ' + c.name, c.subject)}
         </div>
       </div>
       ${easy.length ? `<div class="sec"><div class="sec-h"><h2>먼저 쉬운 문제로</h2></div><div class="pgrid">${easy.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
       ${real.length ? `<div class="sec"><div class="sec-h"><h2>이 개념을 쓰는 실전 문제</h2></div><div class="pgrid">${real.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
       ${from && P(from) ? `<div class="sec"><a class="btn main" href="#/p/${from}">원래 문제로 돌아가기 →</a></div>` : ''}`
     if (Explain.has(id)) Explain.mount($app.querySelector('.ex-host'), id)
+    bindReports()
   }
 
   // ───────── 오답노트
@@ -556,6 +560,44 @@
     )
   }
 
+  // ───────── 이상한 곳 알려 주기: 문제·개념·지도 어디서든 같은 쪽지
+  const REPORT_REASONS = ['답이 틀린 것 같아요', '풀이·설명이 틀린 것 같아요', '문제가 이해 안 돼요', '글자·그림이 이상해요']
+  const reportBox = (tag, subject, pid) =>
+    `<div class="report" data-tag="${esc(tag)}" data-subject="${subject}" data-pid="${pid || ''}"><button type="button" class="report-open">이상한 곳 알려 주기</button></div>`
+  function bindReports() {
+    $app.querySelectorAll('.report').forEach((box) => {
+      const open = box.querySelector('.report-open')
+      if (open) open.onclick = () => openReport(box)
+    })
+  }
+  function openReport(box) {
+    box.innerHTML = `<div class="report-panel">
+      <div class="small" style="font-weight:800">무엇이 이상해요?</div>
+      <div class="stuck report-reasons">${REPORT_REASONS.map((r, i) => `<button type="button" data-i="${i}">${r}</button>`).join('')}</div>
+      <textarea maxlength="200" placeholder="어디가 이상한지 한 줄 (안 써도 돼요)"></textarea>
+      <div class="filters" style="margin:10px 0 0"><button type="button" class="btn sm main report-send" disabled>보내기</button><button type="button" class="btn sm ghost report-cancel">취소</button></div>
+    </div>`
+    let pick = null
+    const send = box.querySelector('.report-send')
+    box.querySelectorAll('.report-reasons button').forEach((b) => {
+      b.onclick = () => {
+        pick = +b.dataset.i
+        box.querySelectorAll('.report-reasons button').forEach((x) => x.classList.toggle('on', x === b))
+        send.disabled = false
+      }
+    })
+    box.querySelector('.report-cancel').onclick = () => {
+      box.innerHTML = '<button type="button" class="report-open">이상한 곳 알려 주기</button>'
+      bindReports()
+    }
+    send.onclick = () => {
+      const memo = box.querySelector('textarea').value.trim()
+      const text = `[${box.dataset.tag}] ${REPORT_REASONS[pick]}${memo ? ' · ' + memo : ''}`.slice(0, 300)
+      Store.sendFeedback({ kind: 'error', subject: box.dataset.subject, pid: box.dataset.pid || null, text })
+      box.innerHTML = '<div class="report-done">고마워요! 확인하고 고칠게요. 요청 화면에서 처리 상황을 볼 수 있어요.</div>'
+    }
+  }
+
   // ───────── 한국사 지도: 핀을 누르면 그곳 사건, '어디였지?' 퀴즈
   const ERAS = [
     ['all', '전체'],
@@ -601,7 +643,7 @@
           return `<div class="ev"><span class="mono ev-year">${e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}</div></div>`
         })
         .join('')
-      side = `<div class="card"><h2>${sel.name}</h2>${list}</div>`
+      side = `<div class="card"><h2>${sel.name}</h2>${list}${reportBox('지도 ' + sel.name, 'his')}</div>`
     }
     $app.innerHTML = `<h1>한국사 지도</h1>
       <p class="lead">핀을 누르면 그곳에서 일어난 일이 나와요. ‘어디였지?’를 누르면 사건이 나오고, 지도에서 그 자리를 찍어 맞혀요.</p>
@@ -619,6 +661,7 @@
         </div>
         <div class="map-side">${side}</div>
       </div>`
+    bindReports()
     $app.querySelectorAll('#era button').forEach((b) => {
       b.onclick = () => {
         mapState.era = b.dataset.v

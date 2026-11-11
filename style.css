@@ -1694,3 +1694,47 @@ textarea:focus,
   font-size: 18px;
   line-height: 1.2;
 }
+
+/* 이상한 곳 알려 주기 */
+.report {
+  margin-top: 14px;
+}
+.report-open {
+  border: 0;
+  background: none;
+  padding: 4px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.report-panel {
+  padding: 12px;
+  border: 1.5px dashed var(--rule-2);
+  border-radius: 12px;
+  background: var(--paper);
+}
+.report-panel .report-reasons {
+  margin: 8px 0;
+}
+.report-panel .report-reasons button {
+  min-height: 38px;
+  font-size: 13px;
+}
+.report-panel .report-reasons button.on {
+  border-color: var(--ink);
+  background: var(--marker-hl);
+  color: var(--ink);
+}
+.report-panel textarea {
+  min-height: 60px;
+}
+.report-done {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--green-soft);
+  color: var(--green-pen);
+  font-size: 14px;
+  font-weight: 700;
+}
