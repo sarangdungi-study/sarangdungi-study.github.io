@@ -93,7 +93,10 @@ function userData(name) {
 
 // 관리: 요청 읽기 · 상태 바꾸기 (ADMIN_KEY가 맞을 때만)
 function admin(q) {
-  var key = PropertiesService.getScriptProperties().getProperty("ADMIN_KEY");
+  var props = PropertiesService.getScriptProperties();
+  var key = props.getProperty("ADMIN_KEY");
+  // 배포 직후 한 번만: 관리 키가 없으면 처음 보낸 키로 정해요 (수능 세션이 배포 직후 바로 부름)
+  if (!key && q.action === "adminInit" && String(q.key || "").length >= 32) { props.setProperty("ADMIN_KEY", q.key); return { ok: true }; }
   if (!key || q.key !== key) return { ok: false, error: "no" };
   if (q.action === "adminFeedback") {
     return { ok: true, rows: rows("feedback").map(function (x) {

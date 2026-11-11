@@ -1,6 +1,6 @@
 // 저장소. API_URL이 비어 있으면 이 기기(localStorage)에 저장해요.
 // 나중에 구글 Apps Script 웹 앱 주소를 넣으면 구글 시트로 저장해요.
-window.API_URL = ''
+window.API_URL = 'https://script.google.com/macros/s/AKfycbzcbVthRsV2whu_pSTPyKyNbxAcTq9xEWhyjoceSHWE3MMThshtM8cRuIZ6bqBxt1Dc/exec'
 
 ;(function () {
   const KEY = 'study-v2'
