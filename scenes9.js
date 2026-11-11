@@ -375,4 +375,160 @@
       )
     },
   }
+  S['c-happy'] = {
+    len: 9,
+    steps: [
+      [0, '행복한 삶을 위한 조건을 네 가지로 나눠 봐요.'],
+      [2, '<b>정주 환경</b>: 사는 집과 동네 / <b>경제적 안정</b>: 기본 생활을 할 수 있는 소득'],
+      [5, '<b>민주주의</b>: 시민이 참여해 의견이 반영됨 / <b>도덕적 실천</b>: 스스로 돌아보며 바르게 삶'],
+    ],
+    draw(a) {
+      const { c, k } = a
+      card(a, 30, 40, 360, 190, '질 높은 정주 환경', ['안전하고 쾌적한 집', '편리한 주변 시설'], c.green, k(2, 2.6))
+      card(a, 410, 40, 360, 190, '경제적 안정', ['기본 생활이 되는 소득', '일자리'], c.amber, k(3, 3.6))
+      card(a, 30, 260, 360, 190, '민주주의 실현', ['시민 참여', '의견이 반영되는 사회'], c.eng, k(5, 5.6))
+      card(a, 410, 260, 360, 190, '도덕적 실천과 성찰', ['스스로 돌아보기', '바르게 행동하기'], c.soc, k(6, 6.6))
+    },
+  }
+
+  S['c-inequal'] = {
+    len: 10,
+    steps: [
+      [0, '공간 불평등: 좁은 지역에 인구 · 일자리 · 자본이 몰리면 지역 간 격차가 생겨요. (그림은 예시)'],
+      [5, '해결: 지역 균형 발전 정책(공공 기관 지방 이전), 사회 복지, 적극적 우대 조치'],
+    ],
+    draw(a) {
+      const { c, k } = a
+      const rows = [
+        ['면적', 0.2, 0.8],
+        ['인구', 0.6, 0.4],
+        ['일자리', 0.65, 0.35],
+      ]
+      a.text('대도시권', 160, 50, { size: 20, weight: 900, color: c.red, alpha: k(0, 0.5) })
+      a.text('그 밖의 지역', 330, 50, { size: 20, weight: 900, color: c.eng, alpha: k(0, 0.5) })
+      rows.forEach(([n, p, q], i) => {
+        const y = 90 + i * 70
+        const al = k(0.5 + i * 0.8, 1 + i * 0.8)
+        a.text(n, 40, y + 20, { size: 22, weight: 800, alpha: al })
+        a.box(140, y, 600 * p * k(0.5 + i * 0.8, 1.3 + i * 0.8), 40, { fill: c.red, alpha: 0.7 * al, r: 6 })
+        a.box(140 + 600 * p, y, 600 * q * k(0.5 + i * 0.8, 1.3 + i * 0.8), 40, { fill: c.eng, alpha: 0.5 * al, r: 6 })
+      })
+      a.text('좁은 땅에 많이 몰림 → 격차', 140, 330, { size: 24, weight: 900, color: c.marker, alpha: k(3.5, 4) })
+      a.text('지역 균형 발전 · 복지 · 적극적 우대 조치', 140, 400, { size: 24, weight: 900, color: c.soc, alpha: k(5, 5.6) })
+    },
+  }
+
+  S['c-landform'] = {
+    len: 12,
+    steps: [
+      [0, '하천 범람원 단면: 강 옆 <b>자연 제방</b>은 높고 물이 잘 빠져요 → 밭 · 마을'],
+      [3.5, '제방 뒤 <b>배후 습지</b>는 낮고 축축해요 → 논'],
+      [6.5, '해안: 암석 해안(침식, 절벽) · 모래 해안(퇴적, 해수욕장) · 갯벌(서해안). 카르스트: 석회암이 녹아 돌리네 · 동굴'],
+    ],
+    draw(a) {
+      const { c, k } = a
+      const p = k(0, 1.5)
+      const pts = [
+        [40, 120],
+        [160, 200],
+        [300, 160],
+        [370, 230],
+        [430, 230],
+        [500, 160],
+        [640, 200],
+        [760, 120],
+      ]
+      a.poly(
+        pts.map(([x, y]) => [x, y]),
+        { color: c.his, width: 4, p },
+      )
+      a.box(372, 205, 56, 24, { fill: c.math, alpha: 0.6 * k(0.8, 1.4), r: 4 })
+      a.text('강', 400, 255, { size: 20, weight: 900, align: 'center', color: c.math, alpha: k(0.8, 1.4) })
+      a.text('자연 제방', 300, 130, { size: 20, weight: 900, align: 'center', alpha: k(1.5, 2) })
+      a.text('밭 · 마을', 300, 100, { size: 18, weight: 800, align: 'center', color: c.green, alpha: k(2, 2.5) })
+      a.text('배후 습지', 160, 230, { size: 20, weight: 900, align: 'center', alpha: k(3.5, 4) })
+      a.text('논', 160, 260, { size: 18, weight: 800, align: 'center', color: c.green, alpha: k(4, 4.5) })
+      a.text('배후 습지', 640, 230, { size: 20, weight: 900, align: 'center', alpha: k(3.5, 4) })
+      card(a, 30, 300, 360, 170, '해안', ['암석: 침식 → 절벽', '모래: 퇴적 → 해수욕장', '갯벌: 서해안에 넓음'], c.math, k(6.5, 7.1))
+      card(a, 410, 300, 360, 170, '카르스트', ['석회암이 물에 녹음', '돌리네 · 석회 동굴', '밭농사 · 관광'], c.amber, k(8, 8.6))
+    },
+  }
+
+  S['c-urban'] = {
+    len: 10,
+    steps: [
+      [0, '산업화: 농업 중심 → 공업 · 서비스업 중심. 일자리를 찾아 사람들이 도시로 옮겨 가요.'],
+      [3.5, '도시: 주택 · 교통 · 환경 문제, 포장 면적 증가(홍수 위험), 열섬 현상'],
+      [6.5, '촌락: 인구 감소, 고령화'],
+    ],
+    draw(a) {
+      const { c, k, t } = a
+      a.box(40, 150, 200, 140, { fill: c.paper2, stroke: c.green, width: 2, r: 14, alpha: k(0, 0.5) })
+      a.text('촌락', 140, 130, { size: 24, weight: 900, align: 'center', color: c.green, alpha: k(0, 0.5) })
+      a.box(540, 110, 220, 220, { fill: c.paper2, stroke: c.soc, width: 2, r: 14, alpha: k(0, 0.5) })
+      a.text('도시', 650, 90, { size: 24, weight: 900, align: 'center', color: c.soc, alpha: k(0, 0.5) })
+      for (let i = 0; i < 8; i++) {
+        const f = Math.min(1, Math.max(0, (t - 0.5 - i * 0.3) / 1.5))
+        const x0 = 80 + (i % 4) * 40
+        const y0 = 200 + Math.floor(i / 4) * 40
+        const x1 = 590 + (i % 4) * 40
+        const y1 = 170 + Math.floor(i / 4) * 40
+        a.dot(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, { r: 9, color: c.ink, alpha: k(0, 0.5) })
+      }
+      for (let i = 0; i < 2; i++) a.dot(110 + i * 40, 250, { r: 9, color: c.sub, alpha: k(6.5, 7) })
+      a.text('주택 · 교통 · 환경 문제', 650, 370, { size: 20, weight: 900, align: 'center', color: c.soc, alpha: k(3.5, 4) })
+      a.text('홍수 위험 ↑ · 열섬', 650, 405, { size: 20, weight: 900, align: 'center', color: c.red, alpha: k(4.5, 5) })
+      a.text('인구 감소 · 고령화', 140, 330, { size: 20, weight: 900, align: 'center', color: c.green, alpha: k(6.5, 7) })
+    },
+  }
+
+  S['c-transport'] = {
+    len: 10,
+    steps: [
+      [0, '고속 교통이 생기면 실제 거리는 그대로여도 <b>시간 거리</b>가 줄어요. (시간은 예시)'],
+      [4, '<b>빨대 효과</b>: 쇼핑 · 병원 수요가 대도시로 빨려 들어가 중소 도시 상권이 약해질 수 있어요.'],
+      [7.5, '통신 발달: 원격 근무 · 전자 상거래 → 생활 공간이 넓어져요.'],
+    ],
+    draw(a) {
+      const { c, k } = a
+      a.dot(120, 160, { r: 18, color: c.eng, alpha: k(0, 0.5) })
+      a.text('중소 도시', 120, 115, { size: 20, weight: 900, align: 'center', alpha: k(0, 0.5) })
+      a.dot(680, 160, { r: 34, color: c.red, alpha: k(0, 0.5) })
+      a.text('대도시', 680, 105, { size: 20, weight: 900, align: 'center', alpha: k(0, 0.5) })
+      a.line(140, 160, 646, 160, { color: c.ink, width: 3, alpha: k(0.5, 1) })
+      const long = k(1.5, 2.5)
+      a.text(long < 1 ? '예: 3시간' : '예: 1시간', 400, 135, {
+        size: 24,
+        weight: 900,
+        align: 'center',
+        color: long < 1 ? c.sub : c.marker,
+        alpha: k(0.5, 1),
+      })
+      ;[0, 1, 2].forEach((i) => a.arrow(150, 230 + i * 40, 640, 210 + i * 10, { color: c.amber, width: 3, p: k(4 + i * 0.4, 5 + i * 0.4) }))
+      a.text('쇼핑 · 의료', 400, 330, { size: 20, weight: 900, align: 'center', color: c.amber, alpha: k(5, 5.5) })
+      a.text('원격 근무 · 전자 상거래', 400, 420, { size: 24, weight: 900, align: 'center', color: c.soc, alpha: k(7.5, 8) })
+    },
+  }
+
+  S['k-norm'] = {
+    len: 12,
+    steps: [
+      [0, '<b>되/돼</b>: ‘되어’를 넣어 봐요. 말이 되면 ‘돼’, 안 되면 ‘되’.'],
+      [4, '<b>사이시옷</b>: 나무 + 잎 → [나문닙] ㄴㄴ 소리가 덧나니까 ‘나뭇잎’'],
+      [8, '<b>두음 법칙</b>: 단어 첫머리에서 녀 → 여, 로 → 노 (여자, 노인)'],
+    ],
+    draw(a) {
+      const { c, k } = a
+      a.text('안 돼', 60, 70, { size: 32, weight: 900, alpha: k(0.5, 1) })
+      a.text('→ 안 되어 ○', 200, 70, { size: 26, weight: 800, color: c.green, alpha: k(1.2, 1.7) })
+      a.text('되고', 60, 130, { size: 32, weight: 900, alpha: k(2, 2.5) })
+      a.text('→ 되어고 ✕ (그래서 ‘되고’)', 200, 130, { size: 26, weight: 800, color: c.red, alpha: k(2.6, 3.1) })
+      a.text('나무 + 잎', 60, 230, { size: 32, weight: 900, alpha: k(4, 4.5) })
+      a.text('[나문닙]', 260, 230, { size: 28, weight: 800, font: a.MONO, color: c.kor, alpha: k(4.8, 5.3) })
+      a.text('→ 나뭇잎', 450, 230, { size: 32, weight: 900, color: c.marker, alpha: k(5.6, 6.1) })
+      a.text('녀자 → 여자', 60, 340, { size: 32, weight: 900, alpha: k(8, 8.5) })
+      a.text('로인 → 노인', 60, 400, { size: 32, weight: 900, alpha: k(8.8, 9.3) })
+      a.text('단어 첫머리에서만!', 420, 370, { size: 26, weight: 900, color: c.red, alpha: k(9.8, 10.3) })
+    },
+  }
 })()
