@@ -24,7 +24,18 @@
   }
 
   const live = {} // 문제마다 이번 화면에서의 상태
-  const ui = { subj: 'all', sort: 'default', kind: 'real', noteSort: 'due', csubj: 'all', q: '', grade: 'all' }
+  const ui = {
+    ugroup: 'all',
+    unit: 'all',
+    usubj: 'all',
+    subj: 'all',
+    sort: 'default',
+    kind: 'real',
+    noteSort: 'due',
+    csubj: 'all',
+    q: '',
+    grade: 'all',
+  }
   // 내 학년: 이름마다 따로 기억 (동생은 중1, 형은 고2·고3)
   const GRADES = [
     ['all', '전체'],
@@ -893,7 +904,54 @@
       }),
     )
   }
+  // 단원 키워드: '문법 · 음운 변동' → 영역 '문법', 단원 '음운 변동'
+  const unitObj = (p) => S(p.subject).units.find((u) => u.id === p.unit) || { name: p.unit }
+  const unitGroup = (u) => u.name.split(' · ')[0]
+  const unitShort = (u) => u.name.split(' · ').slice(1).join(' · ') || u.name
+  function unitSeg(base) {
+    if (ui.subj === 'all') return ''
+    const units = S(ui.subj).units.filter((u) => base.some((p) => p.unit === u.id))
+    if (units.length < 2) return ''
+    const groups = [...new Set(units.map(unitGroup))]
+    const n = (f) => base.filter(f).length
+    const btn = (v, label, on, cnt) =>
+      `<button data-v="${esc(v)}" class="${on ? 'on' : ''}">${label}${cnt != null ? ` <small class="cnt">${cnt}</small>` : ''}</button>`
+    let h = `<div class="filters useg-row"><div class="seg useg" data-k="ugroup"><span class="seg-label">단원</span>${btn('all', '전체', ui.ugroup === 'all')}${groups
+      .map((g) =>
+        btn(
+          g,
+          g,
+          ui.ugroup === g,
+          n((p) => unitGroup(unitObj(p)) === g),
+        ),
+      )
+      .join('')}</div>`
+    const sub = units.filter((u) => unitGroup(u) === ui.ugroup)
+    if (ui.ugroup !== 'all' && sub.length > 1)
+      h += `<div class="seg useg" data-k="unit">${btn('all', `${ui.ugroup} 전체`, ui.unit === 'all')}${sub
+        .map((u) =>
+          btn(
+            u.id,
+            unitShort(u),
+            ui.unit === u.id,
+            n((p) => p.unit === u.id),
+          ),
+        )
+        .join('')}</div>`
+    return h + '</div>'
+  }
   function problems() {
+    // 과목이 바뀌면 단원 고르기는 처음부터
+    if (ui.usubj !== ui.subj) {
+      ui.usubj = ui.subj
+      ui.ugroup = 'all'
+      ui.unit = 'all'
+    }
+    const base = PROBLEMS.filter(
+      (p) => inGrade(gradesOf(p)) && (ui.subj === 'all' || p.subject === ui.subj) && (ui.kind === 'all' || p.kind === ui.kind),
+    )
+    if (ui.ugroup !== 'all' && !base.some((p) => unitGroup(unitObj(p)) === ui.ugroup)) ui.ugroup = 'all'
+    if (ui.unit !== 'all' && (ui.ugroup === 'all' || !base.some((p) => p.unit === ui.unit))) ui.unit = 'all'
     $app.innerHTML = `<div class="sec-h" style="margin:0"><h1>문제</h1><a class="btn ghost sm" href="#/exams">모의고사 →</a></div><p class="lead">학년과 과목을 고르면 맞는 문제만 보여요. 막히면 문제 안에서 개념으로 내려갈 수 있어요.</p>
       <div class="filters">
         <label class="search">${ICON.search}<input id="q" placeholder="문제·개념 찾기 (예: 접선, 유음화)" value="${esc(ui.q)}"></label>
@@ -911,11 +969,12 @@
           .map(([v, n]) => `<button data-v="${v}" class="${ui.kind === v ? 'on' : ''}">${n}</button>`)
           .join('')}</div>
       </div>
+      ${unitSeg(base)}
       <div id="plist"></div>`
     const paint = () => {
       const q = ui.q.trim().toLowerCase()
-      let list = PROBLEMS.filter(
-        (p) => inGrade(gradesOf(p)) && (ui.subj === 'all' || p.subject === ui.subj) && (ui.kind === 'all' || p.kind === ui.kind),
+      let list = base.filter(
+        (p) => (ui.ugroup === 'all' || unitGroup(unitObj(p)) === ui.ugroup) && (ui.unit === 'all' || p.unit === ui.unit),
       )
       if (q)
         list = list.filter((p) =>
@@ -926,8 +985,20 @@
         .sort((a, b) => SORTS[ui.sort][1](a[0], b[0]) || a[1] - b[1])
         .map((x) => x[0])
       document.getElementById('plist').innerHTML = list.length
-        ? `<div class="pgrid">${list.map((p) => pCard(p)).join('')}</div>`
+        ? `<div class="pcount small muted">${list.length}문제</div><div class="pgrid">${list.map((p) => pCard(p)).join('')}</div>`
         : '<div class="empty">맞는 문제가 없어요.</div>'
+    }
+    // 카드 위 과목 · 단원 칩을 누르면 그 단원만 보기
+    document.getElementById('plist').onclick = (e) => {
+      const t = e.target.closest('[data-fu]')
+      if (!t) return
+      e.preventDefault()
+      const p = P(t.dataset.fu)
+      ui.subj = ui.usubj = p.subject
+      ui.ugroup = unitGroup(unitObj(p))
+      ui.unit = p.unit
+      problems()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     paint()
     bindSeg(problems)
@@ -946,7 +1017,7 @@
       sub = S(p.subject)
     const mark = !s.tries ? '' : s.last.correct ? '<span class="chip ok">맞힘</span>' : '<span class="chip bad">틀림</span>'
     return `<a class="pcard" style="--c:${sub.color}" href="#/p/${p.id}${from ? `?from=${from}` : ''}">
-      <div class="top"><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span><span class="pts">${p.points}점</span></div>
+      <div class="top"><span class="chip subj" data-fu="${p.id}" title="이 단원만 보기">${sub.name} · ${unitName(p.subject, p.unit)}</span><span class="pts">${p.points}점</span></div>
       <div class="q">${strip(p.body)}</div>
       <div class="bot"><span class="kind">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span>${p.made ? `<span class="made mono" title="만든 날">${madeLabel(p)}</span>` : ''}${mark}${s.wrong ? `<span class="chip warn">${s.wrong}번 틀림</span>` : ''}
         <span class="dots" title="난이도">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= p.level ? 'on' : ''}"></i>`).join('')}</span></div></a>`
