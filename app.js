@@ -339,12 +339,12 @@
     },
     {
       id: 'his-mini',
-      name: '한국사 미니 모의고사',
+      name: '한국사 모의고사',
       grade: '고2·3',
-      min: 15,
-      desc: '전근대사 · 근현대사 10문항',
+      min: 30,
+      desc: '수능처럼 20문항 · 전근대사부터 현대사까지',
       pool: (p) => p.subject === 'his' && isReal(p),
-      count: 10,
+      count: 20,
     },
     {
       id: 'tam-mini',
@@ -1483,7 +1483,9 @@
     ['colony', '일제 강점기'],
     ['modern', '광복 이후'],
   ]
-  const mapState = { era: 'all', sel: null, quiz: null, score: [0, 0] }
+  const mapState = { era: 'all', sel: null, ev: null, quiz: null, score: [0, 0] }
+  const evKey = (e) => `${e.place}|${e.title}`
+  const DETAIL = () => window.HISTORY_DETAIL || {}
   const proj = (lat, lon) => [(lon - KMAP.lon0) * KMAP.k * KMAP.s, (KMAP.lat1 - lat) * KMAP.s]
   const keyLine = (e) => (e.key ? `<div class="ev-key"><span class="hand">꼭 기억</span>${e.key}</div>` : '')
   const placeName = (id) => (HISTORY_PLACES.find((p) => p.id === id) || {}).name
@@ -1523,10 +1525,12 @@
           const link = e.concept
             ? `<a class="small" style="color:var(--marker-ink);font-weight:800" href="#/c/${e.concept}">개념 보기 →</a>`
             : ''
-          return `<div class="ev"><span class="mono ev-year">${e.when || e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}</div></div>`
+          return `<div class="ev" data-ev="${esc(evKey(e))}" role="button" tabindex="0"><span class="mono ev-year">${e.when || e.year}</span><div><b>${e.title}</b><div class="small">${e.desc}</div>${keyLine(e)}${link}<div class="ev-more">자세히 보기 →</div></div></div>`
         })
         .join('')
       side = `<div class="card"><h2>${sel.name}</h2>${list}${reportBox('지도 ' + sel.name, 'his')}</div>`
+      const cur = mapState.ev && selEvs.find((e) => evKey(e) === mapState.ev)
+      if (cur) side = evDetail(cur, sel)
     }
     $app.innerHTML = `<h1>한국사 지도</h1>
       <p class="lead">핀을 누르면 그곳에서 일어난 일이 나와요. ‘어디였지?’를 누르면 사건이 나오고, 지도에서 그 자리를 찍어 맞혀요.</p>
@@ -1545,10 +1549,36 @@
         <div class="map-side">${side}</div>
       </div>`
     bindReports()
+    const openEv = (k) => {
+      mapState.ev = k
+      mapView()
+      document.querySelector('.map-side').scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+    $app.querySelectorAll('.ev[data-ev]').forEach((el) => {
+      el.onclick = (e) => {
+        if (e.target.closest('a')) return
+        openEv(el.dataset.ev)
+      }
+      el.onkeydown = (e) => {
+        if (e.key === 'Enter') openEv(el.dataset.ev)
+      }
+    })
+    const back = document.getElementById('evBack')
+    if (back) back.onclick = () => openEv(null)
+    $app.querySelectorAll('[data-jump]').forEach((b) => {
+      b.onclick = () => {
+        const t = HISTORY_EVENTS.find((e) => evKey(e) === b.dataset.jump)
+        if (!t) return
+        if (mapState.era !== 'all') mapState.era = t.era
+        mapState.sel = t.place
+        openEv(evKey(t))
+      }
+    })
     $app.querySelectorAll('#era button').forEach((b) => {
       b.onclick = () => {
         mapState.era = b.dataset.v
         mapState.sel = null
+        mapState.ev = null
         if (mapState.quiz) newQuiz()
         mapView()
       }
@@ -1572,13 +1602,46 @@
           mapState.quiz.answered = true
           mapState.quiz.ok = HISTORY_EVENTS.some((e) => e.title === mapState.quiz.ev.title && e.place === id) // 부마처럼 여러 곳이면 어느 곳이든 정답
           mapState.score = [mapState.score[0] + (mapState.quiz.ok ? 1 : 0), mapState.score[1] + 1]
-        } else if (!mapState.quiz) mapState.sel = id
+        } else if (!mapState.quiz) {
+          mapState.sel = id
+          mapState.ev = null
+        }
         mapView()
         // 휴대폰(세로)에서는 설명 카드가 지도 아래라 그쪽으로 내려 준다
         if (matchMedia('(orientation: portrait)').matches)
           document.querySelector('.map-side').scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
     })
+  }
+  // 사건 하나 자세히: 배경 → 전개 → 결과, 인물, 헷갈리는 점, 앞뒤 사건
+  function evDetail(e, place) {
+    const d = DETAIL()[evKey(e)]
+    const all = [...HISTORY_EVENTS].sort((a, b) => a.year - b.year)
+    const i = all.findIndex((x) => evKey(x) === evKey(e))
+    const prev = all[i - 1]
+    const next = all[i + 1]
+    const eraName = (ERAS.find((x) => x[0] === e.era) || [])[1] || ''
+    const jump = (x, dir) =>
+      x
+        ? `<button type="button" class="ev-jump ${dir}" data-jump="${esc(evKey(x))}"><span class="small muted">${dir === 'prev' ? '← 바로 앞 사건' : '바로 다음 사건 →'}</span><b>${x.title}</b><span class="mono small">${x.when || x.year} · ${placeName(x.place)}</span></button>`
+        : '<span></span>'
+    const body = d
+      ? `<div class="ev-flow">
+          <div class="st"><span class="tag">배경</span><div>${d.bg}</div></div>
+          <div class="st"><span class="tag">전개</span><ol>${d.flow.map((x) => `<li>${x}</li>`).join('')}</ol></div>
+          <div class="st"><span class="tag">결과 · 의의</span><div>${d.result}</div></div>
+        </div>
+        ${d.people && d.people.length ? `<div class="ev-sub">인물</div><div class="ev-people">${d.people.map(([n, r]) => `<div><b>${n}</b><span>${r}</span></div>`).join('')}</div>` : ''}
+        ${d.trap ? `<div class="ev-trap"><span class="hand">헷갈리지 마</span>${d.trap}</div>` : ''}`
+      : '<p class="muted small">자세한 설명은 준비 중이에요.</p>'
+    return `<div class="card ev-detail">
+      <button type="button" class="crumb" id="evBack">← ${place.name} 사건 목록</button>
+      <div class="filters" style="margin:6px 0 0"><span class="chip">${eraName}</span><span class="chip mono">${e.when || e.year}</span><span class="chip">${placeName(e.place)}</span></div>
+      <h2 style="margin:10px 0 6px">${e.title}</h2>
+      <p>${e.desc}</p>${keyLine(e)}
+      ${body}
+      <div class="ev-nav">${jump(prev, 'prev')}${jump(next, 'next')}</div>
+      ${reportBox('지도 ' + e.title, 'his')}</div>`
   }
   function newQuiz() {
     const evs = HISTORY_EVENTS.filter((e) => mapState.era === 'all' || e.era === mapState.era)
