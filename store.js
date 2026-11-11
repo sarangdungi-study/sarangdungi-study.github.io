@@ -126,6 +126,20 @@ window.API_URL = 'https://script.google.com/macros/s/AKfycbzcbVthRsV2whu_pSTPyKy
     },
 
     // 피드백·출제 요청. 수능 공부 관련만 받아요 (종류·과목을 고르게 해서 범위를 묶음)
+    // 기기를 바꿔도 이어져야 하는 설정 (내 학년, 건너뛰기 기록)
+    getSetting(key) {
+      const u = this.user()
+      return u && u.settings ? u.settings[key] : undefined
+    },
+    setSetting(key, value) {
+      const u = this.user()
+      if (!u) return
+      u.settings = u.settings || {}
+      u.settings[key] = value
+      saveAll(db)
+      remote('setting', { name: u.name, pw: u.pw, key, value }).catch(() => {})
+    },
+
     sendFeedback(fb) {
       const u = this.user()
       if (!u) return

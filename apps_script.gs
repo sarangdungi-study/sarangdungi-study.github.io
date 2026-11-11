@@ -17,6 +17,7 @@ var TAB = {
   attempt: ["기록", ["아이디", "문제", "맞음", "막힌 개념", "푼 때", "받은 때"]],
   note: ["오답노트", ["아이디", "문제", "칸", "복습일", "메모", "넣은 때"]],
   feedback: ["요청", ["번호", "아이디", "종류", "과목", "문제", "내용", "상태", "보낸 때", "답"]],
+  setting: ["설정", ["아이디", "키", "값", "바꾼 때"]],
 };
 var FB_KINDS = ["more", "explain", "concept", "error"];
 
@@ -46,6 +47,14 @@ function doPost(e) {
       var n = findNote(name, q.pid); if (n) sheet("note").getRange(n.line, 5).setValue(String(q.memo).slice(0, 1000));
     } else if (q.action === "removeNote") {
       var n2 = findNote(name, q.pid); if (n2) sheet("note").deleteRow(n2.line);
+    } else if (q.action === "setting") {
+      // 내 학년, 건너뛰기 기록처럼 기기를 바꿔도 이어져야 하는 값 (아이디 + 키마다 한 줄)
+      var key = String(q.key || "").slice(0, 30), val = String(q.value == null ? "" : q.value).slice(0, 5000);
+      if (["grade", "skips"].indexOf(key) < 0) return json({ ok: false, error: "bad" });
+      var ss = sheet("setting"), sv = ss.getDataRange().getValues(), line = -1;
+      for (var r2 = 1; r2 < sv.length; r2++) if (same(sv[r2][0], name) && String(sv[r2][1]) === key) { line = r2 + 1; break; }
+      if (line < 0) appendRow("setting", [name, key, val, new Date()]);
+      else { ss.getRange(line, 3, 1, 2).setNumberFormat("@"); ss.getRange(line, 3, 1, 2).setValues([[val, new Date().toISOString()]]); }
     } else if (q.action === "feedback") {
       var f = q.feedback;
       if (FB_KINDS.indexOf(f.kind) < 0) return json({ ok: false, error: "bad" });
@@ -88,7 +97,9 @@ function userData(name) {
   var feedback = rows("feedback").filter(function (x) { return same(x[1], name); }).map(function (x) {
     return { id: String(x[0]), kind: x[2], subject: x[3], pid: x[4] || null, text: String(x[5]), status: x[6], ts: Number(x[7]), reply: String(x[8] || "") };
   });
-  return { attempts: attempts, notes: notes, feedback: feedback };
+  var settings = {};
+  rows("setting").forEach(function (x) { if (same(x[0], name)) settings[String(x[1])] = String(x[2]); });
+  return { attempts: attempts, notes: notes, feedback: feedback, settings: settings };
 }
 
 // 관리: 요청 읽기 · 상태 바꾸기 (ADMIN_KEY가 맞을 때만)

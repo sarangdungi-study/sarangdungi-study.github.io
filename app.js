@@ -68,11 +68,14 @@
   }
   const myGradeKey = () => `grade:${(Store.user() || {}).name || ''}`
   function loadGrade() {
+    // 시트에 저장된 값이 먼저, 없으면 이 기기에 남은 값
+    let local = null
     try {
-      ui.grade = localStorage.getItem(myGradeKey()) || 'all'
+      local = localStorage.getItem(myGradeKey())
     } catch (e) {
-      ui.grade = 'all'
+      local = null
     }
+    ui.grade = Store.getSetting('grade') || local || 'all'
   }
   const inGrade = (gs) => ui.grade === 'all' || gs.includes(ui.grade)
   const gradeSeg = () =>
@@ -86,6 +89,7 @@
         } catch (e) {
           /* 저장 못 해도 이번 화면에서는 적용 */
         }
+        Store.setSetting('grade', ui.grade)
         cb()
       }
     })
@@ -388,11 +392,18 @@
   // 건너뛰기 시험에서 맞힌 단계: 이름마다 기기에 기억
   const skipKey = () => `skip:${(Store.user() || {}).name || ''}`
   function skips() {
+    const set = new Set()
     try {
-      return new Set(JSON.parse(localStorage.getItem(skipKey()) || '[]'))
+      JSON.parse(Store.getSetting('skips') || '[]').forEach((x) => set.add(x))
     } catch (e) {
-      return new Set()
+      /* 시트 값이 깨졌으면 무시 */
     }
+    try {
+      JSON.parse(localStorage.getItem(skipKey()) || '[]').forEach((x) => set.add(x))
+    } catch (e) {
+      /* 기기 저장소를 못 쓰면 무시 */
+    }
+    return set
   }
   function addSkip(lid, i) {
     const set = skips()
@@ -402,6 +413,7 @@
     } catch (e) {
       /* 저장 못 해도 이번 화면에서는 통과로 보임 */
     }
+    Store.setSetting('skips', JSON.stringify([...set]))
   }
   function stepState(L) {
     const sk = skips()
