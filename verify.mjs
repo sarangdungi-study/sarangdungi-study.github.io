@@ -447,6 +447,62 @@ const checks = {
   br7: () => ['0.75', '0.34', '3.4', '0.43', '0.7'].findIndex((x) => near(Number(x), 3 / 4)) + 1,
   br8: () => 0.5 * 10,
   br9: () => ['0.25', '0.4', '2.5', '0.5', '0.2'].findIndex((x) => near(Number(x), 2 / 5)) + 1,
+  ma1: () => Math.round(Math.log2(32) - Math.log(27) / Math.log(3)),
+  ma2: () => range(-10, 10).find((x) => 3 ** (x + 1) === 81),
+  ma3: () => {
+    const t = Math.atan(2)
+    return Math.round((Math.sin(t) + Math.cos(t)) / (Math.sin(t) - Math.cos(t)))
+  },
+  ma4: () => range(-50, 50).find((x) => 7 - x === 15 - 7),
+  ma5: () => range(1, 50).find((x) => x * x === 2 * 18),
+  ma6: () => range(1, 5).reduce((s, k) => s + k * k, 0),
+  ma7: () => Math.round(9 + 25 - 2 * 3 * 5 * Math.cos(Math.PI / 3)),
+  mc1: () => Math.round(deriv((x) => 2 * x ** 3 - 3 * x * x, 2)),
+  mc2: () => Math.round(0 - deriv((x) => x ** 3 - x, 1) * 1),
+  mc3: () => {
+    const f = (x) => x ** 3 - 12 * x
+    const fp = (x) => 3 * x * x - 12
+    const c = range(-50, 50).filter((x) => fp(x) === 0 && fp(x - 0.01) > 0 && fp(x + 0.01) < 0)
+    return f(c[0])
+  },
+  mc4: () => Math.round(deriv((t) => t * t - 4 * t, 1)),
+  mc5: () => Math.round(integrate((x) => 2 * x + 1, 1, 3)),
+  mc6: () => Math.round(3 * integrate((x) => Math.abs(x * x - 4), -2, 2)),
+  mc7: () => Math.round(Math.sqrt(1e12 + 4e6) - 1e6),
+  mp1: () => perms([0, 1, 2, 3, 4]).filter((p) => Math.abs(p.indexOf(0) - p.indexOf(1)) === 1).length,
+  mp2: () => {
+    let c = 0
+    for (let a = 0; a < 6; a++) for (let b = a + 1; b < 6; b++) for (let d = b + 1; d < 6; d++) c++
+    return c
+  },
+  mp3: () =>
+    ['1/9', '5/36', '1/6', '7/36', '1/12'].indexOf(
+      frac(
+        range(1, 6)
+          .flatMap((a) => range(1, 6).map((b) => a + b))
+          .filter((s) => s === 8).length,
+        36,
+      ),
+    ) + 1,
+  mp4: () =>
+    ['1/4', '1/16', '3/8', '1/2', '5/16'].indexOf(
+      frac(
+        range(0, 15).filter(
+          (m) =>
+            m
+              .toString(2)
+              .split('')
+              .filter((b) => b === '1').length === 2,
+        ).length,
+        16,
+      ),
+    ) + 1,
+  mp5: () => ['0.4772', '0.0228', '0.5228', '0.9772', '0.9544'].findIndex((x) => near(Number(x), 0.5 + 0.4772)) + 1,
+  mp6: () => {
+    let c = 0
+    for (let x = 1; x <= 6; x++) for (let y = 1; y <= 6; y++) if (6 - x - y >= 1) c++
+    return c
+  },
   s3: () => Math.sqrt(2 * 10 * 20),
   s4: () => (6 / 2) * 4,
   's-e2': () => (40 * 10) / 20,
