@@ -2642,3 +2642,12 @@ textarea:focus,
   border: 1px solid var(--rule);
   border-radius: 6px;
 }
+
+/* 연습장: 전부 지우기는 눈에 띄게 */
+.ink-bar button[data-ink='clear'] {
+  color: var(--red-pen);
+  font-weight: 800;
+}
+.ink-bar button[data-ink='clear']::before {
+  content: '⌫ ';
+}
