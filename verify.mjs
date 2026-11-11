@@ -335,6 +335,74 @@ const checks = {
   },
   mg3f: () => 1 + 3,
   mg3g: () => ['3/5', '4/5', '3/4', '4/3', '5/3'].indexOf(frac(6, 10)) + 1,
+  hm1: () => Math.round(3 ** 3 - 3 ** 2),
+  hm2: () => Math.round(((Math.log(3) / Math.log(2)) * Math.log(8)) / Math.log(3)),
+  hm3: () => {
+    // sinθ + cosθ = 1/2을 만족하는 θ를 촘촘히 찾아 곱을 계산
+    let v = null
+    for (let i = 0; i < 2000000 && v === null; i++) {
+      const t = (2 * Math.PI * i) / 2000000
+      if (Math.abs(Math.sin(t) + Math.cos(t) - 0.5) < 5e-6) v = Math.sin(t) * Math.cos(t)
+    }
+    return [-1 / 4, -3 / 8, 3 / 8, -1 / 2, 1 / 8].findIndex((x) => near(x, v, 1e-4)) + 1
+  },
+  hm4: () => Math.round(6 / (2 * Math.sin(Math.PI / 6))),
+  hm5: () => {
+    let best = -Infinity
+    let bn = 0
+    let S = 0
+    for (let n = 1; n <= 30; n++) {
+      S += 20 - 3 * (n - 1)
+      if (S > best) {
+        best = S
+        bn = n
+      }
+    }
+    return bn
+  },
+  hm6: () => range(1, 10).reduce((s, k) => s + 2 * k - 1, 0),
+  hm7: () => {
+    let a = 3
+    for (let n = 1; n < 5; n++) a = 2 * a - 1
+    return a
+  },
+  hm8: () => 2 * (1 - (-1 / deriv((x) => x * x, 1)) * 1),
+  hm9: () => Math.round(Math.max(...range(-20000, 20000).map((i) => (i / 10000) ** 3 - 3 * (i / 10000) + 1)) * 1e6) / 1e6,
+  hm10: () => {
+    const v = (t) => 3 * t * t - 12 * t + 9
+    const ts = []
+    for (let i = 1; i < 10000; i++)
+      if (Math.sign(v(i / 1000)) !== Math.sign(v((i - 1) / 1000)) && v((i - 1) / 1000) !== 0) ts.push(Math.round(i / 1000))
+    return ts.reduce((a, b) => a + b, 0)
+  },
+  hm11: () => Math.round(integrate((x) => 3 * x * x - 2 * x, 0, 2) * 1e6) / 1e6,
+  hm12: () => new Set(perms('AABBC'.split('')).map((p) => p.join(''))).size,
+  hm13: () => {
+    let c = 0
+    for (const a of [1, 2, 3])
+      for (const b of [1, 2, 3]) for (const d of [1, 2, 3]) for (const e of [1, 2, 3]) c += a && b && d && e ? 1 : 0
+    return c
+  },
+  hm14: () => {
+    // 공 5개(흰 0~2, 검 3~4)에서 2개 고르기를 모두 세기
+    let all = 0
+    let white = 0
+    for (let a = 0; a < 5; a++)
+      for (let b = a + 1; b < 5; b++) {
+        all++
+        if (a < 3 && b < 3) white++
+      }
+    return ['1/5', '3/10', '9/25', '2/5', '3/5'].indexOf(frac(white, all)) + 1
+  },
+  hm15: () => range(0, 100).find((m) => (64 - m) / 2 === 2),
+  hm16: () => {
+    const p = 20 / 100
+    return Math.sqrt(100 * p * (1 - p))
+  },
+  hb1: () => 1 ** 3 + 2 * 1 - 5,
+  hb2: () => 2 * 2 - -1,
+  hb3: () => Math.hypot(4 - 1, 6 - 2),
+  hb4: () => [1, 2, 3, 4].reduce((a, b) => a + b) + [0, 1, 1, 0].reduce((a, b) => a + b),
   s3: () => Math.sqrt(2 * 10 * 20),
   s4: () => (6 / 2) * 4,
   's-e2': () => (40 * 10) / 20,

@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 
 const v = Date.now().toString(36)
 const html = readFileSync('index.html', 'utf8').replace(
-  /(href|src)="(style\.css|data\.js|store\.js|ink\.js|explain\.js|scenes\.js|scenes2\.js|scenes3\.js|scenes4\.js|map-data\.js|hismap\.js|speak\.js|dialog\.js|app\.js)(\?v=[\w]+)?"/g,
+  /(href|src)="(style\.css|data\.js|store\.js|ink\.js|explain\.js|scenes\.js|scenes2\.js|scenes3\.js|scenes4\.js|scenes5\.js|map-data\.js|hismap\.js|speak\.js|dialog\.js|app\.js)(\?v=[\w]+)?"/g,
   `$1="$2?v=${v}"`,
 )
 writeFileSync('index.html', html)
