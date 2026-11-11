@@ -23,27 +23,63 @@
 
   const live = {} // 문제마다 이번 화면에서의 상태
   const ui = { subj: 'all', sort: 'default', kind: 'real', noteSort: 'due', csubj: 'all', q: '', grade: 'all' }
-  // 학년 고르기는 기기에 기억해 둔다 (동생은 초등, 형은 고등)
-  try {
-    ui.grade = localStorage.getItem('grade') || 'all'
-  } catch (e) {
-    /* 저장소를 못 쓰는 브라우저면 넘어감 */
-  }
+  // 내 학년: 이름마다 따로 기억 (동생은 중1, 형은 고2·고3)
   const GRADES = [
     ['all', '전체'],
     ['초등', '초등'],
-    ['중등', '중등'],
-    ['고등', '고등'],
+    ['중1', '중1'],
+    ['중2', '중2'],
+    ['중3', '중3'],
+    ['고1', '고1'],
+    ['고2·3', '고2·고3'],
   ]
-  const gradeOf = (p) => (p.unit === 'elem' ? '초등' : p.unit === 'mid' ? '중등' : '고등')
+  const MID_CONCEPT_GRADE = {
+    'mid-expr': '중1',
+    'b-lin': '중1',
+    'mid-word': '중1',
+    'b-linfunc': '중2',
+    'b-count': '중2',
+    'mid-sys': '중2',
+    'b-quadfac': '중3',
+    'b-quadfunc': '중3',
+  }
+  // 문제 하나가 어느 학년 것인지 (여러 학년일 수 있음)
+  function gradesOf(p) {
+    if (p.unit === 'elem') return ['초등']
+    if (p.unit === 'mid') return [(p.slot || '').slice(0, 2)]
+    if (p.unit === 'basic') return ['고1']
+    if (p.subject === 'math') return ['고2·3']
+    return ['고1', '고2·3']
+  }
+  function gradesOfUnit(subject, unit) {
+    if (unit === 'elem') return ['초등']
+    if (unit === 'mid') return ['중1', '중2', '중3']
+    if (unit === 'basic') return ['고1']
+    if (subject === 'math') return ['고2·3']
+    return ['고1', '고2·3']
+  }
+  function gradesOfConcept(id) {
+    const c = C(id)
+    if (c.unit === 'mid') return [MID_CONCEPT_GRADE[id] || '중1']
+    return gradesOfUnit(c.subject, c.unit)
+  }
+  const myGradeKey = () => `grade:${(Store.user() || {}).name || ''}`
+  function loadGrade() {
+    try {
+      ui.grade = localStorage.getItem(myGradeKey()) || 'all'
+    } catch (e) {
+      ui.grade = 'all'
+    }
+  }
+  const inGrade = (gs) => ui.grade === 'all' || gs.includes(ui.grade)
   const gradeSeg = () =>
-    `<div class="seg" id="gradeSeg">${GRADES.map(([v, n]) => `<button data-v="${v}" class="${ui.grade === v ? 'on' : ''}">${n}</button>`).join('')}</div>`
+    `<div class="seg" id="gradeSeg"><span class="seg-label">내 학년</span>${GRADES.map(([v, n]) => `<button data-v="${v}" class="${ui.grade === v ? 'on' : ''}">${n}</button>`).join('')}</div>`
   function bindGrade(cb) {
     $app.querySelectorAll('#gradeSeg button').forEach((b) => {
       b.onclick = () => {
         ui.grade = b.dataset.v
         try {
-          localStorage.setItem('grade', ui.grade)
+          localStorage.setItem(myGradeKey(), ui.grade)
         } catch (e) {
           /* 저장 못 해도 이번 화면에서는 적용 */
         }
@@ -102,6 +138,7 @@
     })
     document.body.classList.toggle('out', !u)
     if (!u) return loginView()
+    loadGrade()
     const views = { '': home, problems, p: problem, concepts, c: concept, notes, feedback, map: mapView, ladders, l: ladder }
     ;(views[r] || home)(id, q)
     window.scrollTo(0, 0)
@@ -169,8 +206,11 @@
       .filter(([k]) => C(k))
       .sort((a, b) => b[1] - a[1])
       .slice(0, 4)
-    const next = PROBLEMS.find((p) => p.kind === 'real' && !st.last[p.id]) || PROBLEMS[0]
+    const mine = PROBLEMS.filter((p) => inGrade(gradesOf(p)))
+    const next = mine.find((p) => p.kind === 'real' && !st.last[p.id]) || mine.find((p) => !st.last[p.id]) || mine[0] || PROBLEMS[0]
+    const mySolved = mine.filter((p) => st.last[p.id]).length
     $app.innerHTML = `
+      <div class="filters">${gradeSeg()}</div>
       <div class="hero">
         <div class="card today">
           <div class="date">${todayLabel()}</div>
@@ -180,7 +220,7 @@
           <a class="btn main" href="#/p/${(due[0] || next).id}">${due.length ? '복습 시작' : '다음 문제 풀기'}</a>
         </div>
         <div class="stats">
-          <div class="stat"><div class="k">푼 문제</div><div class="v">${st.solved}<small>/${PROBLEMS.length}</small></div></div>
+          <div class="stat"><div class="k">푼 문제${ui.grade === 'all' ? '' : ` (${GRADES.find((g) => g[0] === ui.grade)[1]})`}</div><div class="v">${mySolved}<small>/${mine.length}</small></div></div>
           <div class="stat"><div class="k">정답률</div><div class="v">${st.rate}<small>%</small></div></div>
           <div class="stat"><div class="k">오답노트</div><div class="v">${st.notes}</div></div>
           <div class="stat ${st.due ? 'hot' : ''}"><div class="k">오늘 복습</div><div class="v">${st.due}</div></div>
@@ -189,22 +229,26 @@
 
       <div class="sec"><div class="doors">
         <a class="door" href="#/problems"><span class="art">${ICON.up}</span><div><b>실전 문제부터</b>
-          <span>수능형 문제를 먼저 풀고, 막힌 개념으로 내려가요.</span><div class="tag hand">고2 · 고1은 여기부터</div></div></a>
+          <span>실전 문제를 먼저 풀고, 막힌 개념으로 내려가요.</span><div class="tag hand">실력 확인은 여기부터</div></div></a>
         <a class="door" href="#/concepts"><span class="art">${ICON.down}</span><div><b>기초 개념부터</b>
           <span>개념 영상을 보고, 그 개념을 쓰는 문제로 올라가요.</span><div class="tag hand">처음 배우는 단원이면</div></div></a>
       </div></div>
 
       <div class="sec"><div class="sec-h"><h2>계단 오르기</h2><a class="more" href="#/ladders">전체 보기 →</a></div>
-        <div class="ladder-row">${LADDERS.filter((L) => ui.grade === 'all' || L.level === ui.grade)
+        <div class="ladder-row">${LADDERS.filter((L) => inGrade(L.grades))
           .map(ladderCard)
           .join('')}</div></div>
 
       <div class="sec"><div class="sec-h"><h2>과목별 진도</h2></div>
         <div class="subjects">${SUBJECTS.map((s) => {
-          const all = PROBLEMS.filter((p) => p.subject === s.id),
+          const all = mine.filter((p) => p.subject === s.id),
             done = all.filter((p) => st.last[p.id]).length
+          if (!all.length) return ''
           return `<a class="subj-tile" style="--c:${s.color}" href="#/problems" data-subj="${s.id}"><b>${s.name}</b>
-            <div class="u">${s.units.map((x) => x.name).join(', ')}</div>
+            <div class="u">${s.units
+              .filter((x) => inGrade(gradesOfUnit(s.id, x.id)))
+              .map((x) => x.name)
+              .join(', ')}</div>
             <div class="bar"><i style="width:${all.length ? (done / all.length) * 100 : 0}%"></i></div>
             <div class="n"><span>푼 문제</span><span class="mono">${done}/${all.length}</span></div></a>`
         }).join('')}</div></div>
@@ -228,6 +272,7 @@
           ui.subj = a.dataset.subj
           ui.kind = 'all'
         }),
+      bindGrade(home),
     )
   }
 
@@ -281,10 +326,7 @@
     const paint = () => {
       const q = ui.q.trim().toLowerCase()
       let list = PROBLEMS.filter(
-        (p) =>
-          (ui.grade === 'all' || gradeOf(p) === ui.grade) &&
-          (ui.subj === 'all' || p.subject === ui.subj) &&
-          (ui.kind === 'all' || p.kind === ui.kind),
+        (p) => inGrade(gradesOf(p)) && (ui.subj === 'all' || p.subject === ui.subj) && (ui.kind === 'all' || p.kind === ui.kind),
       )
       if (q)
         list = list.filter((p) =>
@@ -347,14 +389,16 @@
   }
   function ladders() {
     $app.innerHTML = `<h1>계단 오르기</h1><p class="lead">같은 주제를 쉬운 단계부터 하나씩 올라가요. 한 단계에서 2문제를 맞히면 다음 단계가 열려요.</p>
+      <div class="filters">${gradeSeg()}</div>
       ${['초등', '중등', '고등']
-        .map(
-          (lv) =>
-            `<div class="sec"><div class="sec-h"><h2>${lv}</h2></div><div class="ladder-row">${LADDERS.filter((L) => L.level === lv)
-              .map(ladderCard)
-              .join('')}</div></div>`,
-        )
+        .map((lv) => {
+          const ls = LADDERS.filter((L) => L.level === lv && inGrade(L.grades))
+          return ls.length
+            ? `<div class="sec"><div class="sec-h"><h2>${lv}</h2></div><div class="ladder-row">${ls.map(ladderCard).join('')}</div></div>`
+            : ''
+        })
         .join('')}`
+    bindGrade(ladders)
   }
   function ladder(id) {
     const L = LADDERS.find((x) => x.id === id)
@@ -601,10 +645,10 @@
       ${subs
         .map((s) =>
           s.units
-            .filter((u) => ui.grade === 'all' || gradeOf({ unit: u.id }) === ui.grade)
+            .filter((u) => inGrade(gradesOfUnit(s.id, u.id)))
             .map((u) => {
               const cs = Object.entries(CONCEPTS)
-                .filter(([, c]) => c.subject === s.id && c.unit === u.id)
+                .filter(([k, c]) => c.subject === s.id && c.unit === u.id && inGrade(gradesOfConcept(k)))
                 .sort((a, b) => a[1].order - b[1].order)
               return `<div class="unit" style="--c:${s.color}"><div class="unit-h"><i></i><h2>${s.name} · ${u.name}</h2></div>
           <div class="chain">${cs.map(([k]) => cNode(k, weak[k])).join('')}</div></div>`

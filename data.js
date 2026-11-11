@@ -2730,6 +2730,7 @@ window.LADDERS = [
   {
     id: 'fraction',
     level: '초등',
+    grades: ['초등'],
     name: '분수 계단',
     subject: 'math',
     desc: '분수의 뜻부터 분수의 나눗셈까지',
@@ -2747,6 +2748,7 @@ window.LADDERS = [
   {
     id: 'equation-mid',
     level: '중등',
+    grades: ['중1', '중2', '중3'],
     name: '방정식 계단 (중등)',
     subject: 'math',
     desc: '식의 값부터 이차방정식까지',
@@ -2762,6 +2764,7 @@ window.LADDERS = [
   {
     id: 'equation',
     level: '고등',
+    grades: ['고1', '고2·3'],
     name: '방정식 계단 (고등)',
     subject: 'math',
     desc: '판별식부터 수능형 실근 개수 문제까지',
@@ -2774,6 +2777,7 @@ window.LADDERS = [
   {
     id: 'function',
     level: '고등',
+    grades: ['중2', '중3', '고1', '고2·3'],
     name: '함수 계단',
     subject: 'math',
     desc: '일차함수에서 삼각방정식까지',
@@ -2788,6 +2792,7 @@ window.LADDERS = [
   {
     id: 'probability',
     level: '고등',
+    grades: ['중2', '고1', '고2·3'],
     name: '확률 계단',
     subject: 'math',
     desc: '경우의 수에서 정규분포까지',
@@ -2802,6 +2807,7 @@ window.LADDERS = [
   {
     id: 'eng-syntax',
     level: '고등',
+    grades: ['고1', '고2·3'],
     name: '영어 구문 계단',
     subject: 'eng',
     desc: '문장 뼈대 찾기에서 빈칸 · 요약까지',
