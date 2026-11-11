@@ -14,6 +14,7 @@ export default [
         SUBJECTS: 'writable',
         CONCEPTS: 'writable',
         PROBLEMS: 'writable',
+        MEMOS: 'writable',
         Store: 'writable',
         Ink: 'writable',
         Explain: 'writable',

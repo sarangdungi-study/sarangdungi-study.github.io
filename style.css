@@ -1556,3 +1556,33 @@ textarea:focus,
     grid-template-columns: 1fr;
   }
 }
+
+/* 외우는 법: 붙여 둔 쪽지 */
+.concept-side {
+  display: grid;
+  gap: 14px;
+}
+.memo {
+  position: relative;
+  padding: 18px 20px 18px;
+  border-radius: 4px 4px 14px 4px;
+  background: color-mix(in srgb, var(--marker) 16%, var(--sheet));
+  box-shadow: var(--lift);
+  transform: rotate(-0.6deg);
+  line-height: 1.7;
+}
+.memo .hand {
+  display: block;
+  color: var(--marker-ink);
+  margin-bottom: 4px;
+}
+.memo b {
+  font-weight: 900;
+}
+.memo-line {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--marker-ink);
+}

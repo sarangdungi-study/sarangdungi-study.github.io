@@ -425,7 +425,7 @@
       <div class="step"><div class="h"><span class="no">${++n}</span>막힌 개념 기초 보기</div>
         <div class="b">${
           stuckC.length
-            ? `<div class="links">${stuckC.map(([k, c]) => `<a href="#/c/${k}?from=${p.id}"><span>${c.name}</span><span class="go">${hasMovie(k) ? '영상 보기 ▶' : '설명 보기 →'}</span></a>`).join('')}</div>`
+            ? `<div class="links">${stuckC.map(([k, c]) => `<a href="#/c/${k}?from=${p.id}"><span>${c.name}${MEMOS[k] ? `<small class="memo-line">${MEMOS[k].match(/<b>(.*?)<\/b>/)?.[1] || ''}</small>` : ''}</span><span class="go">${hasMovie(k) ? '영상 보기 ▶' : '설명 보기 →'}</span></a>`).join('')}</div>`
             : '<span class="muted small">위에서 막힌 개념을 고르면 여기에 나와요.</span>'
         }</div></div>
       ${
@@ -491,8 +491,11 @@
       <h1 style="margin-top:10px">${c.name}</h1>
       <div class="concept-grid">
         ${Explain.has(id) ? '<div class="ex-host"></div>' : ''}
+        <div class="concept-side">
         <div class="card concept-card"><div class="qbox" style="font-size:19px">${c.summary}</div>
           ${!Explain.has(id) && c.video ? `<div class="vwrap"><video src="${c.video}" controls playsinline preload="metadata"></video></div>` : ''}</div>
+        ${MEMOS[id] ? `<div class="memo"><span class="hand">외우는 법</span><div>${MEMOS[id]}</div></div>` : ''}
+        </div>
       </div>
       ${easy.length ? `<div class="sec"><div class="sec-h"><h2>먼저 쉬운 문제로</h2></div><div class="pgrid">${easy.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
       ${real.length ? `<div class="sec"><div class="sec-h"><h2>이 개념을 쓰는 실전 문제</h2></div><div class="pgrid">${real.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
