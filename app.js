@@ -1645,6 +1645,23 @@
       <div class="t"><b>${c.name}</b><div>${hasMovie(k) ? '영상 · ' : ''}${real ? `실전 ${real}문제` : `기초 ${easy}문제`}에 쓰여요</div></div>
       ${stuckN ? `<span class="chip bad">${stuckN}번 막힘</span>` : ''}</a>`
   }
+  // 개념 자세히 알기: 기준 · 표 · 예제 풀이 · 헷갈리는 점 (cdetail.js)
+  function detailHtml(id) {
+    const d = (window.CONCEPT_DETAIL || {})[id]
+    if (!d) return ''
+    const block = (b) => {
+      if (b.table)
+        return `<div class="cd-block"><h3>${b.h}</h3><div class="cd-table"><table><thead><tr>${b.table.head.map((x) => `<th>${x}</th>`).join('')}</tr></thead><tbody>${b.table.rows
+          .map((r) => `<tr>${r.map((x) => `<td>${x}</td>`).join('')}</tr>`)
+          .join('')}</tbody></table></div></div>`
+      if (b.steps)
+        return `<div class="cd-block cd-ex"><h3>${b.h}</h3>${b.q ? `<div class="cd-q">${b.q}</div>` : ''}<ol>${b.steps.map((x) => `<li>${x}</li>`).join('')}</ol>${b.a ? `<div class="cd-a"><span class="hand">답</span> ${b.a}</div>` : ''}</div>`
+      return `<div class="cd-block"><h3>${b.h}</h3><ul>${(b.items || []).map((x) => `<li>${x}</li>`).join('')}</ul></div>`
+    }
+    return `<div class="sec" data-toc="자세히 알기"><div class="sec-h"><h2>자세히 알기</h2></div>
+      <div class="card cd-card">${d.blocks.map(block).join('')}
+      ${d.trap ? `<div class="ev-trap"><span class="hand">헷갈리지 마</span>${d.trap}</div>` : ''}</div></div>`
+  }
   function concept(id, q) {
     const c = C(id)
     if (!c) return concepts()
@@ -1666,6 +1683,7 @@
         ${reportBox('개념 ' + id + ' ' + c.name, c.subject)}
         </div>
       </div>
+      ${detailHtml(id)}
       ${easy.length ? `<div class="sec"><div class="sec-h"><h2>먼저 쉬운 문제로</h2></div><div class="pgrid">${easy.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
       ${real.length ? `<div class="sec"><div class="sec-h"><h2>이 개념을 쓰는 실전 문제</h2></div><div class="pgrid">${real.map((p) => pCard(p, id)).join('')}</div></div>` : ''}
       ${from && P(from) ? `<div class="sec"><a class="btn main" href="#/p/${from}">원래 문제로 돌아가기 →</a></div>` : ''}`

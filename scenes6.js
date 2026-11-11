@@ -495,35 +495,52 @@
   }
 
   S['c-climate'] = {
-    len: 10,
+    len: 14,
     steps: [
-      [0, '적도 부근은 <b>열대</b>: 연중 덥고 비가 많아요.'],
-      [3, '위도가 높아질수록 온대 → 냉대 → 한대로 추워져요. 비가 아주 적으면 건조 기후.'],
+      [0, '기후는 <b>기온과 강수량</b>으로 나눠요. 위에서부터 차례로 물어보면 돼요.'],
+      [2.5, '① 비가 증발량보다 적어요? → <b>건조</b> 기후 (사막 · 초원)'],
+      [5, '② 가장 따뜻한 달(최난월)도 <b>10℃ 미만</b>? → <b>한대</b> 기후'],
+      [7.5, '③ 가장 추운 달(최한월)이 <b>18℃ 이상</b>? → <b>열대</b> 기후'],
+      [10, '④ 최한월이 <b>−3℃ 이상</b>이면 <b>온대</b>, −3℃ 미만이면 <b>냉대</b>'],
     ],
     draw(a) {
       const { c, k } = a
-      const bands = [
-        ['한대', c.math, 0],
-        ['냉대', c.eng, 1],
-        ['온대', c.green, 2],
-        ['건조', c.amber, 3],
-        ['열대', c.red, 4],
+      const rows = [
+        ['강수량 < 증발량 ?', '건조', c.amber, 2.5],
+        ['최난월 < 10℃ ?', '한대', c.math, 5],
+        ['최한월 ≥ 18℃ ?', '열대', c.red, 7.5],
+        ['최한월 ≥ −3℃ ?', '온대', c.green, 10],
       ]
-      bands.forEach(([n, col, i]) => {
-        const y = 40 + i * 84
-        a.box(60, y, 680, 76, {
-          fill: col,
-          alpha: (i === 4 ? 0.45 : 0.25) * k(i === 4 ? 0.2 : 3 + (4 - i) * 0.4, i === 4 ? 0.7 : 3.4 + (4 - i) * 0.4),
-          r: 8,
-        })
-        a.text(n, 400, y + 40, {
-          size: 28,
-          weight: 900,
-          align: 'center',
-          alpha: k(i === 4 ? 0.2 : 3 + (4 - i) * 0.4, i === 4 ? 0.7 : 3.4 + (4 - i) * 0.4),
-        })
+      rows.forEach(([q, ans, col, t0], i) => {
+        const y = 40 + i * 100
+        const al = k(t0 - 0.3, t0 + 0.3)
+        a.box(40, y, 330, 64, { fill: c.paper2, stroke: c.ink, width: 2, r: 12, alpha: al })
+        a.text(q, 205, y + 32, { size: 24, weight: 800, align: 'center', alpha: al })
+        a.arrow(372, y + 32, 470, y + 32, { color: col, width: 3, p: k(t0 + 0.3, t0 + 0.9) })
+        a.text('예', 420, y + 14, { size: 16, weight: 800, align: 'center', color: col, alpha: k(t0 + 0.6, t0 + 0.9) })
+        a.box(480, y + 4, 150, 56, { fill: col, alpha: 0.25 * k(t0 + 0.8, t0 + 1.2), r: 12 })
+        a.text(ans, 555, y + 32, { size: 28, weight: 900, align: 'center', color: col, alpha: k(t0 + 0.8, t0 + 1.2) })
+        if (i < 3) {
+          a.arrow(205, y + 66, 205, y + 98, { color: c.sub, width: 2, head: 7, p: k(t0 + 1, t0 + 1.5) })
+          a.text('아니요', 225, y + 82, { size: 14, weight: 800, color: c.sub, alpha: k(t0 + 1, t0 + 1.5) })
+        }
       })
-      a.text('적도', 70, 420, { size: 20, weight: 800, color: c.red, alpha: k(0.6, 1) })
+      a.arrow(205, 406, 205, 450, { color: c.sub, width: 2, head: 7, p: k(11, 11.5) })
+      a.text('아니요', 225, 428, { size: 14, weight: 800, color: c.sub, alpha: k(11, 11.5) })
+      a.box(130, 452, 150, 40, { fill: c.soc, alpha: 0.25 * k(11.3, 11.8), r: 10 })
+      a.text('냉대', 205, 472, { size: 24, weight: 900, align: 'center', color: c.soc, alpha: k(11.3, 11.8) })
+      // 오른쪽 온도계: 18℃ · 10℃ · −3℃ 기준선
+      const ty = (v) => 440 - ((v + 20) / 50) * 380
+      a.line(720, ty(30), 720, ty(-20), { color: c.ink, width: 6, alpha: k(0, 0.5) })
+      ;[
+        [18, '18℃', c.red],
+        [10, '10℃', c.math],
+        [-3, '−3℃', c.green],
+      ].forEach(([v, lab, col], i) => {
+        const al = k([7.5, 5, 10][i], [8, 5.5, 10.5][i])
+        a.line(700, ty(v), 760, ty(v), { color: col, width: 3, alpha: al })
+        a.text(lab, 690, ty(v), { size: 18, weight: 900, align: 'end', color: col, alpha: al })
+      })
     },
   }
 

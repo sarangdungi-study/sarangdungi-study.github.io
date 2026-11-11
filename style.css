@@ -2987,3 +2987,57 @@ a.icon-btn {
 .car-track:active {
   cursor: grabbing;
 }
+
+/* 개념 자세히 알기 */
+.cd-card {
+  display: grid;
+  gap: 18px;
+}
+.cd-block h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  color: var(--c, var(--ink));
+}
+.cd-block ul,
+.cd-block ol {
+  margin: 0;
+  padding-left: 22px;
+  line-height: 1.75;
+}
+.cd-table {
+  overflow-x: auto;
+}
+.cd-table table {
+  border-collapse: collapse;
+  min-width: 100%;
+  font-size: 15px;
+}
+.cd-table th,
+.cd-table td {
+  border: 1px solid var(--rule-2);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.cd-table th {
+  background: var(--paper-2);
+  font-weight: 800;
+  white-space: nowrap;
+}
+.cd-ex {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--paper-2);
+}
+.cd-q {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.cd-a {
+  margin-top: 8px;
+  font-weight: 800;
+}
+.cd-a .hand {
+  color: var(--marker-ink);
+  margin-right: 4px;
+}
