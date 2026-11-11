@@ -1076,8 +1076,11 @@ video {
   position: absolute;
   inset: 0;
   z-index: 2;
-  touch-action: none;
+  touch-action: pan-y pinch-zoom;
   border-radius: inherit;
+}
+.ink-layer.finger {
+  touch-action: none;
 }
 .ink-bar {
   position: relative;

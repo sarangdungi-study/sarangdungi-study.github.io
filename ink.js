@@ -1,5 +1,7 @@
 // 연습장: 문제 칸 위에 펜슬로 끄적이기.
-// 펜슬(pointerType 'pen')만 그리고, 손가락은 화면을 넘긴다. '손가락도'를 켜면 손가락으로도 그린다.
+// 펜슬(pointerType 'pen')만 그리고, 손가락은 브라우저 스크롤 그대로 화면을 넘긴다.
+// iPad는 펜슬 터치(touchType 'stylus')만 기본 동작을 막아서 펜슬로 쓸 때 화면이 안 밀린다.
+// '손가락도'를 켜면 손가락으로도 그린다.
 // 획은 칸 너비 기준 비율로 저장해서 화면 크기가 바뀌어도 자리가 유지된다.
 ;(function () {
   const TOOLS = {
@@ -48,7 +50,7 @@
     const ctx = canvas.getContext('2d')
     let strokes = load(key)
     let cur = null
-    let fingerScroll = null
+    let tap = null
 
     function size() {
       const r = card.getBoundingClientRect()
@@ -106,7 +108,7 @@
 
     canvas.addEventListener('pointerdown', (e) => {
       if (!canDraw(e)) {
-        fingerScroll = { y: e.clientY, y0: e.clientY, id: e.pointerId }
+        tap = { x: e.clientX, y: e.clientY, id: e.pointerId }
         return
       }
       e.preventDefault()
@@ -120,9 +122,8 @@
       cur = { tool: state.tool, pts: [p] }
     })
     canvas.addEventListener('pointermove', (e) => {
-      if (fingerScroll && e.pointerId === fingerScroll.id) {
-        window.scrollBy(0, fingerScroll.y - e.clientY)
-        fingerScroll.y = e.clientY
+      if (tap && e.pointerId === tap.id) {
+        if (Math.hypot(e.clientX - tap.x, e.clientY - tap.y) > 8) tap = null
         return
       }
       if (!cur) return
@@ -139,13 +140,13 @@
     })
     const end = (e) => {
       // 손가락으로 톡 누른 건 아래 버튼(보기 등)에 넘겨준다
-      if (fingerScroll && e && Math.abs(fingerScroll.y - fingerScroll.y0) < 6) {
+      if (tap && e.type === 'pointerup' && e.pointerId === tap.id) {
         canvas.style.pointerEvents = 'none'
         const below = document.elementFromPoint(e.clientX, e.clientY)
         canvas.style.pointerEvents = ''
         if (below) below.click()
       }
-      fingerScroll = null
+      tap = null
       if (!cur) return
       if (!cur.erase && cur.pts.length > 1) {
         strokes.push(cur)
@@ -156,10 +157,21 @@
     canvas.addEventListener('pointerup', end)
     canvas.addEventListener('pointercancel', end)
 
+    // 펜슬 터치는 스크롤을 막고, 손가락 터치는 그대로 둔다 (손가락도 켜면 다 막음)
+    const blockStylus = (e) => {
+      if (state.finger || [...e.touches].some((t) => t.touchType === 'stylus')) e.preventDefault()
+    }
+    canvas.addEventListener('touchstart', blockStylus, { passive: false })
+    canvas.addEventListener('touchmove', blockStylus, { passive: false })
+    canvas.classList.toggle('finger', state.finger)
+
     card.querySelectorAll('[data-ink]').forEach((el) => {
       const act = el.dataset.ink
       if (act === 'finger') {
-        el.onchange = () => (state.finger = el.checked)
+        el.onchange = () => {
+          state.finger = el.checked
+          canvas.classList.toggle('finger', state.finger)
+        }
         return
       }
       el.onclick = () => {
