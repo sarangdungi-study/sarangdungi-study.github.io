@@ -35,8 +35,8 @@
     len: 11,
     steps: [
       [0, '받침은 <b>ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅇ</b> 일곱 소리로만 나요. 꽃[꼳], 잎[입]'],
-      [2.6, '꽃잎은 합성어이고 뒷말이 ‘이’로 시작해서 <b>ㄴ이 덧붙어요</b>. [꽃닙]'],
-      [5.2, '받침 ㅊ은 ㄷ, ㅍ은 ㅂ으로 (음절의 끝소리 규칙). [꼳닙]'],
+      [2.6, '받침 ㅊ은 ㄷ, ㅍ은 ㅂ으로 (음절의 끝소리 규칙). [꼳입]'],
+      [5.2, '합성어이고 뒷말이 ‘이’로 시작해서 <b>ㄴ이 덧붙어요</b>. [꼳닙]'],
       [7.8, 'ㄷ이 ㄴ 앞에서 ㄴ으로 (비음화). <b>[꼰닙]</b>'],
     ],
     draw(a) {
@@ -48,8 +48,8 @@
       a.text('받침 대표음 7개', 530, 58, { size: 22, font: a.HAND, color: c.marker, alpha: k(1, 1.4) })
       const rows = [
         ['꽃잎', '', 1.6],
-        ['[꽃닙]', 'ㄴ 첨가', 2.6],
-        ['[꼳닙]', '음절의 끝소리 규칙', 5.2],
+        ['[꼳입]', '음절의 끝소리 규칙', 2.6],
+        ['[꼳닙]', 'ㄴ 첨가', 5.2],
         ['[꼰닙]', '비음화', 7.8],
       ]
       rows.forEach(([w, rule, at], i) => {
@@ -103,7 +103,7 @@
     steps: [
       [0, '기본자 다섯은 소리 내는 곳의 모양을 본떴어요 (상형).'],
       [3, '소리가 세질수록 획을 하나씩 더했어요 (가획).'],
-      [8, '획은 더했지만 소리가 세지지 않은 셋은 따로 <b>이체자</b>: ㆁ ㄹ ㅿ'],
+      [8, '가획과 달리 모양을 따로 만든 셋은 <b>이체자</b>: ㆁ ㄹ ㅿ'],
     ],
     draw(a) {
       const { c, k } = a
@@ -204,7 +204,7 @@
     steps: [
       [0, '예시가 두 개 나오면 둘의 공통점이 요약이에요.'],
       [3.4, '둘 다 <b>직접 만든 것</b>에 <b>더 높은 값</b>을 매겼어요.'],
-      [6, '요약문: People tend to <b>overvalue</b> things they have <b>assembled</b> themselves.'],
+      [6, '요약문: People tend to <b>overvalue</b> things they have <b>made</b> themselves.'],
     ],
     draw(a) {
       const { c, k } = a
@@ -217,7 +217,7 @@
       a.arrow(205, 200, 380, 270, { color: c.sub, p: k(3.4, 4) })
       a.arrow(595, 200, 420, 270, { color: c.sub, p: k(3.4, 4) })
       a.text('직접 만든 것 = 더 높게 평가', 400, 300, { size: 28, weight: 900, align: 'center', alpha: k(4, 4.4) })
-      a.text('(A) overvalue   (B) assembled', 400, 400, { size: 30, weight: 800, align: 'center', color: c.eng, alpha: k(6, 6.4) })
+      a.text('(A) overvalue   (B) made', 400, 400, { size: 30, weight: 800, align: 'center', color: c.eng, alpha: k(6, 6.4) })
       a.hl(205, 414, 390, 10, k(6.6, 7.2))
     },
   }

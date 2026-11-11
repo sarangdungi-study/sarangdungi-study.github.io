@@ -5,7 +5,8 @@
     "lint": "eslint .",
     "stamp": "node stamp.mjs",
     "format": "prettier --write \"*.{js,css,html,md}\"",
-    "check": "prettier --check \"*.{js,css,html,md}\" && eslint ."
+    "check": "node verify.mjs && prettier --check \"*.{js,mjs,css,html,md}\" && eslint .",
+    "verify": "node verify.mjs"
   },
   "devDependencies": {
     "eslint": "9.14.0",
