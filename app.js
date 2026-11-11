@@ -951,7 +951,8 @@
       (p) => inGrade(gradesOf(p)) && (ui.subj === 'all' || p.subject === ui.subj) && (ui.kind === 'all' || p.kind === ui.kind),
     )
     if (ui.ugroup !== 'all' && !base.some((p) => unitGroup(unitObj(p)) === ui.ugroup)) ui.ugroup = 'all'
-    if (ui.unit !== 'all' && (ui.ugroup === 'all' || !base.some((p) => p.unit === ui.unit))) ui.unit = 'all'
+    // 고른 단원이 지금 영역에 없으면 단원 선택을 풀어요 (단어의 짜임 고른 채 독서를 누른 경우)
+    if (ui.unit !== 'all' && !base.some((p) => p.unit === ui.unit && unitGroup(unitObj(p)) === ui.ugroup)) ui.unit = 'all'
     $app.innerHTML = `<div class="sec-h" style="margin:0"><h1>문제</h1><a class="btn ghost sm" href="#/exams">모의고사 →</a></div><p class="lead">학년과 과목을 고르면 맞는 문제만 보여요. 막히면 문제 안에서 개념으로 내려갈 수 있어요.</p>
       <div class="filters">
         <label class="search">${ICON.search}<input id="q" placeholder="문제·개념 찾기 (예: 접선, 유음화)" value="${esc(ui.q)}"></label>
