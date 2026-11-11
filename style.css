@@ -1463,3 +1463,22 @@ textarea:focus,
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* 문제 속 보기 상자와 영어 지문 */
+.bogi,
+.passage {
+  margin: 12px 0 4px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--rule-2);
+  border-radius: 10px;
+  background: var(--paper);
+  font-size: 0.9em;
+  line-height: 1.8;
+}
+.passage {
+  font-size: 0.86em;
+  line-height: 1.85;
+}
+.passage u {
+  text-underline-offset: 4px;
+}
