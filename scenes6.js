@@ -582,4 +582,74 @@
       })
     },
   }
+
+  S['br-neg'] = {
+    len: 9,
+    steps: [
+      [0, '수직선에서 0을 기준으로 오른쪽은 양수, 왼쪽은 음수예요.'],
+      [3, '3에서 5만큼 내려가면 0을 지나 −2까지 가요.'],
+      [6, '왼쪽으로 갈수록 작아요: −5 &lt; −2 &lt; 0 &lt; 2'],
+    ],
+    draw(a) {
+      const { c, k, t } = a
+      const sx = (v) => 400 + v * 60
+      a.line(60, 250, 740, 250, { width: 3 })
+      for (let v = -5; v <= 5; v++) {
+        a.line(sx(v), 240, sx(v), 260, { width: 2 })
+        a.text(v, sx(v), 290, { size: 22, weight: 800, align: 'center', font: a.MONO, color: v < 0 ? c.math : v > 0 ? c.red : c.ink })
+      }
+      a.text('음수 ←', 120, 200, { size: 24, weight: 900, color: c.math, alpha: k(0.6, 1) })
+      a.text('→ 양수', 600, 200, { size: 24, weight: 900, color: c.red, alpha: k(0.6, 1) })
+      const p = Math.min(1, Math.max(0, (t - 3) / 2))
+      const v = 3 - 5 * p
+      if (t > 3) {
+        a.arrow(sx(3), 220, sx(v), 220, { color: c.marker, width: 4 })
+        a.dot(sx(v), 250, { r: 12, color: c.marker })
+        a.text(v.toFixed(1), sx(v), 330, { size: 28, weight: 900, align: 'center', color: c.marker })
+      }
+    },
+  }
+
+  S['br-x'] = {
+    len: 8,
+    steps: [
+      [0, '□ + 3 = 7: 상자에 들어갈 수는 4'],
+      [3, '상자에 <b>x</b>라는 이름표를 붙이면 x + 3 = 7. 똑같이 x = 4'],
+    ],
+    draw(a) {
+      const { c, k } = a
+      a.box(120, 90, 80, 80, { stroke: c.ink, width: 3, r: 10 })
+      a.text('+ 3 = 7', 230, 132, { size: 44, weight: 900 })
+      const p = k(3, 4)
+      a.box(120, 260, 80, 80, { stroke: c.marker, width: 3, r: 10, alpha: 1 - p * 0.6 })
+      a.text('x', 160, 302, {
+        ...{ italic: true, font: '"Cambria Math", "Times New Roman", serif', weight: 400 },
+        size: 56,
+        align: 'center',
+        color: c.marker,
+        alpha: p,
+      })
+      a.text('+ 3 = 7', 230, 302, { size: 44, weight: 900, alpha: p })
+      a.text('□ = 4', 560, 132, { size: 40, weight: 900, color: c.green, alpha: k(1.2, 1.6) })
+      a.text('x = 4', 560, 302, { size: 40, weight: 900, color: c.green, alpha: k(4.6, 5) })
+    },
+  }
+
+  S['br-dec'] = {
+    len: 8,
+    steps: [
+      [0, '3/4을 100칸으로 나누면 75칸이에요.'],
+      [3.4, '100칸 중 75칸 = 0.75'],
+    ],
+    draw(a) {
+      const { c, k } = a
+      for (let i = 0; i < 100; i++) {
+        const x = 80 + (i % 10) * 32
+        const y = 60 + Math.floor(i / 10) * 32
+        a.box(x, y, 28, 28, { fill: i < 75 ? c.math : c.paper2, alpha: i < 75 ? 0.6 * k(0.4 + i * 0.03, 0.6 + i * 0.03) : 1, r: 3 })
+      }
+      a.text('3/4 = 75/100', 470, 180, { size: 34, weight: 900, alpha: k(3, 3.4) })
+      a.text('= 0.75', 470, 250, { size: 44, weight: 900, color: c.marker, alpha: k(3.4, 3.9) })
+    },
+  }
 })()

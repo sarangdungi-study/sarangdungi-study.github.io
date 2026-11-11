@@ -46,6 +46,7 @@
   // 문제 하나가 어느 학년 것인지 (여러 학년일 수 있음)
   function gradesOf(p) {
     if (p.unit === 'elem') return ['초등']
+    if (p.unit === 'bridge') return ['초등', '중1']
     if (p.unit === 'mid') return [(p.slot || '').slice(0, 2)]
     if (p.unit === 'basic') return ['고1']
     if (p.subject === 'math') return ['고2·3']
@@ -53,6 +54,7 @@
   }
   function gradesOfUnit(subject, unit) {
     if (unit === 'elem') return ['초등']
+    if (unit === 'bridge') return ['초등', '중1']
     if (unit === 'mid') return ['중1', '중2', '중3']
     if (unit === 'basic') return ['고1']
     if (subject === 'math') return ['고2·3']
@@ -140,7 +142,19 @@
     document.body.classList.toggle('out', !u)
     if (!u) return loginView()
     loadGrade()
-    const views = { '': home, problems, p: problem, concepts, c: concept, notes, feedback, map: mapView, ladders, l: ladder }
+    const views = {
+      '': home,
+      problems,
+      p: problem,
+      concepts,
+      c: concept,
+      notes,
+      feedback,
+      map: mapView,
+      ladders,
+      l: ladder,
+      path: mathPath,
+    }
     ;(views[r] || home)(id, q)
     window.scrollTo(0, 0)
   }
@@ -234,6 +248,8 @@
         <a class="door" href="#/concepts"><span class="art">${ICON.down}</span><div><b>기초 개념부터</b>
           <span>개념 영상을 보고, 그 개념을 쓰는 문제로 올라가요.</span><div class="tag hand">처음 배우는 단원이면</div></div></a>
       </div></div>
+
+      <a class="card path-card" href="#/path"><div><b>수학 길</b><div class="small muted">초등 분수부터 수능까지 한 줄로 이어진 계단. 아는 건 건너뛰고 위로!</div></div><span class="btn main sm">지금 위치 보기 →</span></a>
 
       <div class="sec"><div class="sec-h"><h2>계단 오르기</h2><a class="more" href="#/ladders">전체 보기 →</a></div>
         <div class="ladder-row">${LADDERS.filter((L) => inGrade(L.grades))
@@ -369,15 +385,62 @@
     const l = Store.stat(pid).last
     return !!(l && l.correct)
   }
+  // 건너뛰기 시험에서 맞힌 단계: 이름마다 기기에 기억
+  const skipKey = () => `skip:${(Store.user() || {}).name || ''}`
+  function skips() {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(skipKey()) || '[]'))
+    } catch (e) {
+      return new Set()
+    }
+  }
+  function addSkip(lid, i) {
+    const set = skips()
+    set.add(`${lid}:${i}`)
+    try {
+      localStorage.setItem(skipKey(), JSON.stringify([...set]))
+    } catch (e) {
+      /* 저장 못 해도 이번 화면에서는 통과로 보임 */
+    }
+  }
   function stepState(L) {
+    const sk = skips()
     const out = []
     L.steps.forEach((st, i) => {
       const correct = st.problems.filter(lastCorrect).length
       const need = Math.min(2, st.problems.length)
+      const skipped = sk.has(`${L.id}:${i}`)
       const open = true // 잠그지 않음: 아무 단계나 바로 풀 수 있게
-      out.push({ correct, need, cleared: correct >= need, open })
+      out.push({ correct, need, cleared: correct >= need || skipped, skipped, open })
     })
     return out
+  }
+  const ladderDone = (L) => stepState(L).every((x) => x.cleared)
+  const nextLadder = (L) => {
+    const i = MATH_PATH.indexOf(L.id)
+    return i >= 0 && i < MATH_PATH.length - 1 ? LADDERS.find((x) => x.id === MATH_PATH[i + 1]) : null
+  }
+  // 건너뛰기 시험 문제: 단계의 마지막(가장 어려운) 문제
+  const testPid = (L, i) => L.steps[i].problems[L.steps[i].problems.length - 1]
+
+  // ───────── 수학 한 줄 길: 계단을 이어서 초등에서 수능까지
+  function mathPath() {
+    const Ls = MATH_PATH.map((id) => LADDERS.find((x) => x.id === id)).filter(Boolean)
+    const here = Ls.findIndex((L) => !ladderDone(L))
+    const nodes = Ls.map((L, i) => {
+      const ss = stepState(L)
+      const done = ss.filter((x) => x.cleared).length
+      const pct = Math.round((done / L.steps.length) * 100)
+      const now = i === here
+      return `<a class="path-node ${now ? 'now' : ''} ${pct === 100 ? 'done' : ''}" href="#/l/${L.id}">
+        <span class="path-dot">${pct === 100 ? '✓' : i + 1}</span>
+        <div class="path-body"><div class="filters" style="margin:0 0 4px"><b>${L.name}</b><span class="chip">${L.grades.join(' · ')}</span>${now ? '<span class="chip pink">지금 여기</span>' : ''}</div>
+          <div class="small muted">${L.desc}</div>
+          <div class="bar" style="--c:var(--math);margin-top:8px"><i style="width:${pct}%"></i></div></div></a>`
+    }).join('')
+    $app.innerHTML = `<h1>수학 길</h1>
+      <p class="lead">초등 분수부터 수능까지 계단이 한 줄로 이어져 있어요. 아는 계단은 <b>건너뛰기 시험</b>으로 빨리 지나가고, 막히는 곳부터 차근차근 올라가요.</p>
+      <div class="path">${nodes}</div>`
   }
   function ladderCard(L) {
     const ss = stepState(L)
@@ -398,7 +461,15 @@
             ? `<div class="sec"><div class="sec-h"><h2>${lv}</h2></div><div class="ladder-row">${ls.map(ladderCard).join('')}</div></div>`
             : ''
         })
-        .join('')}`
+        .join('')}
+      ${(() => {
+        const up = { 초등: '중1', 중1: '중2', 중2: '중3', 중3: '고1', 고1: '고2·3' }[ui.grade]
+        if (!up) return ''
+        const ls = LADDERS.filter((L) => L.grades.includes(up) && !inGrade(L.grades))
+        return ls.length
+          ? `<div class="sec"><div class="sec-h"><h2>한 학년 위 미리 보기 (${up})</h2><a class="more" href="#/path">수학 길 →</a></div><div class="ladder-row preview">${ls.map(ladderCard).join('')}</div></div>`
+          : ''
+      })()}`
     bindGrade(ladders)
   }
   function ladder(id) {
@@ -421,7 +492,7 @@
         return `<div class="stair ${s0.cleared ? 'cleared' : s0.open ? 'open' : 'locked'}" style="--i:${i}">
           <div class="stair-no mono">${i + 1}</div>
           <div class="stair-body">
-            <div class="filters" style="margin:0 0 6px"><b>${st.name}</b><span class="chip">${st.tag}</span>${s0.cleared ? '<span class="chip ok">통과</span>' : ''}</div>
+            <div class="filters" style="margin:0 0 6px"><b>${st.name}</b><span class="chip">${st.tag}</span>${s0.cleared ? `<span class="chip ok">${s0.skipped && s0.correct < s0.need ? '건너뜀' : '통과'}</span>` : ''}</div>
             <div class="small muted">맞힌 문제 ${s0.correct} / ${s0.need}
               · <a href="#/c/${st.concept}" style="color:var(--marker-ink);font-weight:800">${C(st.concept).name} ${hasMovie(st.concept) ? '영상 ▶' : '설명 →'}</a></div>
             <div class="pills">${pills}</div>
@@ -429,9 +500,36 @@
       })
       .reverse()
       .join('')
-    $app.innerHTML = `<a class="crumb" href="#/ladders">← 계단 목록</a>
+    const nx = nextLadder(L)
+    const firstTodo = ss.findIndex((x) => !x.cleared)
+    $app.innerHTML = `<a class="crumb" href="${MATH_PATH.includes(L.id) ? '#/path' : '#/ladders'}">← ${MATH_PATH.includes(L.id) ? '수학 길' : '계단 목록'}</a>
       <h1 style="--c:${sub.color}">${L.name}</h1><p class="lead">${L.desc}. 아래 1단계부터 올라가요.</p>
-      <div class="stairs">${steps}</div>`
+      ${
+        firstTodo >= 0
+          ? `<div class="card test-card"><div><b>이미 아는 것 같아요?</b><div class="small muted">단계마다 한 문제씩 풀어 봐요. 맞힌 단계는 건너뛰고, 틀린 단계부터 배우면 돼요.</div></div>
+             <a class="btn main sm" href="#/p/${testPid(L, firstTodo)}?test=${L.id}&i=${firstTodo}">건너뛰기 시험</a></div>`
+          : ''
+      }
+      <div class="stairs">${steps}</div>
+      ${
+        nx
+          ? `<div class="card next-card ${ladderDone(L) ? 'ready' : ''}"><div><span class="hand" style="color:var(--marker-ink)">${ladderDone(L) ? '다 올랐어요!' : '다 오르면'}</span>
+             <div><b>다음 계단: ${nx.name}</b> <span class="chip">${nx.grades.join(' · ')}</span></div></div>
+             <a class="btn ${ladderDone(L) ? 'main' : 'ghost'} sm" href="#/l/${nx.id}">${ladderDone(L) ? '올라가기 →' : '미리 보기 →'}</a></div>`
+          : ''
+      }`
+  }
+  // 건너뛰기 시험: 맞히면 다음 단계 확인, 틀리면 그 단계부터 배우기
+  function testNext(L, i, ok) {
+    if (!ok)
+      return `<a class="btn main sm" style="margin-top:10px;width:100%" href="#/l/${L.id}">여기 「${L.steps[i].name}」부터 배우면 돼요 →</a>`
+    const ss = stepState(L)
+    let j = i + 1
+    while (j < L.steps.length && ss[j].cleared) j++
+    if (j < L.steps.length)
+      return `<a class="btn main sm" style="margin-top:10px;width:100%" href="#/p/${testPid(L, j)}?test=${L.id}&i=${j}">통과! 다음 단계 확인 →</a>`
+    const nx = nextLadder(L)
+    return `<a class="btn main sm" style="margin-top:10px;width:100%" href="${nx ? `#/l/${nx.id}` : '#/path'}">${L.name} 전부 통과! ${nx ? `다음 계단 「${nx.name}」 →` : '수학 길로 →'}</a>`
   }
   function nextInLadder(L, pid) {
     const ss = stepState(L)
@@ -451,10 +549,13 @@
     const st = (live[id] = live[id] || { pick: '', graded: null, stuck: [], open: false, hint: false, sol: false })
     const from = q.get('from')
     const lad = q.get('ladder') && LADDERS.find((x) => x.id === q.get('ladder'))
+    const testL = q.get('test') && LADDERS.find((x) => x.id === q.get('test'))
+    const testI = testL ? Number(q.get('i')) : -1
     const nextP = lad && st.graded ? nextInLadder(lad, p.id) : null
     const stage = st.sol ? 5 : st.hint ? 4 : st.stuck.length ? 3 : st.open || st.graded !== null ? 2 : 1
     $app.innerHTML = `
-      ${lad ? `<a class="crumb" href="#/l/${lad.id}">← ${lad.name}</a>` : from && C(from) ? `<a class="crumb" href="#/c/${from}">← ${C(from).name}</a>` : `<a class="crumb" href="#/problems">← 문제 목록</a>`}
+      ${testL ? `<div class="test-banner">건너뛰기 시험 · ${testL.name} ${testI + 1}단계 「${testL.steps[testI].name}」</div>` : ''}
+      ${testL ? `<a class="crumb" href="#/l/${testL.id}">← ${testL.name}</a>` : lad ? `<a class="crumb" href="#/l/${lad.id}">← ${lad.name}</a>` : from && C(from) ? `<a class="crumb" href="#/c/${from}">← ${C(from).name}</a>` : `<a class="crumb" href="#/problems">← 문제 목록</a>`}
       <div class="stepper">${['풀기', '막힌 곳', '기초 보기', '힌트', '풀이'].map((n, i) => `<span class="${i < stage ? 'done' : ''}">${n}</span>`).join('')}</div>
       <div class="solve" style="--c:${sub.color}">
         <div class="card qcard ${st.ink ? 'inking' : ''}">
@@ -492,8 +593,8 @@
             st.graded === null
               ? ''
               : st.graded
-                ? `<div class="result ok">정답이에요. 풀이도 한 번 보고 가요.</div>${lad ? `<a class="btn main sm" style="margin-top:10px;width:100%" href="${nextP ? `#/p/${nextP}?ladder=${lad.id}` : `#/l/${lad.id}`}">${nextP ? '계단 다음 문제 →' : '계단으로 돌아가기'}</a>` : ''}`
-                : '<div class="result bad">틀렸어요. 아래에서 막힌 곳을 골라 봐요.</div>'
+                ? `<div class="result ok">정답이에요. 풀이도 한 번 보고 가요.</div>${testL ? testNext(testL, testI, true) : ''}${lad ? `<a class="btn main sm" style="margin-top:10px;width:100%" href="${nextP ? `#/p/${nextP}?ladder=${lad.id}` : `#/l/${lad.id}`}">${nextP ? '계단 다음 문제 →' : '계단으로 돌아가기'}</a>` : ''}`
+                : `<div class="result bad">틀렸어요. 아래에서 막힌 곳을 골라 봐요.</div>${testL ? testNext(testL, testI, false) : ''}`
           }
           ${reportBox('문제 ' + p.id, p.subject, p.id)}
         </div>
@@ -561,6 +662,7 @@
     document.getElementById('grade').onclick = () => {
       if (st.pick === '' || st.pick === '-' || st.graded !== null) return
       st.graded = Number(st.pick) === p.answer
+      if (testL && st.graded) addSkip(testL.id, testI)
       Store.record(p.id, st.graded, st.stuck)
       if (!st.graded) st.open = true
       again()
@@ -682,6 +784,7 @@
       <div class="concept-grid">
         ${Explain.has(id) ? '<div class="ex-host"></div>' : ''}
         <div class="concept-side">
+        ${c.easy ? `<div class="card easy-card"><span class="hand">쉬운 말로</span><div>${c.easy}</div></div>` : ''}
         <div class="card concept-card"><div class="qbox" style="font-size:19px">${c.summary}</div>
           ${!Explain.has(id) && c.video ? `<div class="vwrap"><video src="${c.video}" controls playsinline preload="metadata"></video></div>` : ''}</div>
         ${MEMOS[id] ? `<div class="memo"><span class="hand">외우는 법</span><div>${MEMOS[id]}</div></div>` : ''}

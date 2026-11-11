@@ -8,6 +8,7 @@ window.SUBJECTS = [
     color: 'var(--math)',
     units: [
       { id: 'elem', name: '초등 · 분수' },
+      { id: 'bridge', name: '초6~중1 · 다리' },
       { id: 'mid', name: '중등 · 식과 방정식' },
       { id: 'basic', name: '고1 · 공통수학' },
       { id: 'alg', name: '대수' },
@@ -73,6 +74,31 @@ window.SUBJECTS = [
 ]
 
 window.CONCEPTS = {
+  'br-neg': {
+    subject: 'math',
+    unit: 'bridge',
+    name: '음수와 수직선',
+    order: 1,
+    summary: '0보다 작은 수는 앞에 −를 붙여요(음수). 수직선에서 <b>왼쪽으로 갈수록 작아요</b>. −5 &lt; −1 &lt; 0 &lt; 2',
+    easy: '온도계를 떠올려요. 0도보다 3도 낮으면 영하 3도, 즉 −3이에요.',
+  },
+  'br-x': {
+    subject: 'math',
+    unit: 'bridge',
+    name: '□ 대신 x 쓰기',
+    order: 2,
+    summary: '모르는 수를 □ 대신 x 같은 글자로 써요. □ + 3 = 7과 x + 3 = 7은 같은 문제예요. 4 × x는 줄여서 4x로 써요.',
+    easy: '□ 상자에 이름표 x를 붙인 것뿐이에요. 푸는 방법은 똑같아요!',
+  },
+  'br-dec': {
+    subject: 'math',
+    unit: 'bridge',
+    name: '분수와 소수',
+    order: 3,
+    summary: '분모를 10, 100, 1000으로 바꾸면 소수로 쓸 수 있어요. 3/4 = 75/100 = 0.75, 2/5 = 4/10 = 0.4',
+    easy: '0.1은 10조각 중 1조각, 0.01은 100조각 중 1조각이에요.',
+  },
+
   'a-logineq': {
     subject: 'math',
     unit: 'alg',
@@ -392,6 +418,7 @@ window.CONCEPTS = {
     name: '소인수분해와 최대공약수',
     order: 10,
     summary: '수를 소수의 곱으로만 나타내요. 72 = 2³ × 3². 최대공약수는 두 수에 <b>공통인 소인수를 작은 지수로</b> 곱해요.',
+    easy: '수를 더 이상 쪼갤 수 없는 수(소수)들의 곱으로 바꿔 써요. 72 = 2 × 2 × 2 × 3 × 3',
   },
   'm1-int': {
     subject: 'math',
@@ -400,6 +427,7 @@ window.CONCEPTS = {
     name: '정수와 유리수의 계산',
     order: 11,
     summary: '곱셈·나눗셈을 먼저, 덧셈·뺄셈은 나중. 음수끼리 곱하면 양수, 빼기 음수는 더하기 양수예요. 분수는 통분해서 더해요.',
+    easy: '빚(−)으로 생각해요. 빚을 없애 주면(−(−5)) 오히려 5만큼 생기는 거예요(+5).',
   },
   'm1-prop': {
     subject: 'math',
@@ -408,6 +436,7 @@ window.CONCEPTS = {
     name: '정비례와 반비례',
     order: 12,
     summary: '<b>정비례</b> y = ax: x가 2배면 y도 2배. <b>반비례</b> y = a/x: x가 2배면 y는 1/2배. 주어진 한 쌍으로 a부터 구해요.',
+    easy: '정비례는 하나가 2배면 다른 것도 2배, 반비례는 하나가 2배면 다른 것은 반이 돼요.',
   },
   'm2-exp': {
     subject: 'math',
@@ -482,6 +511,7 @@ window.CONCEPTS = {
     order: 1,
     summary:
       '전체를 <b>똑같이</b> 나눈 것 중 몇 개인지 나타내요. 아래 수(분모)는 몇 조각으로 나눴는지, 위 수(분자)는 그중 몇 조각인지예요.',
+    easy: '피자를 똑같이 나눈 조각 중에 몇 조각인지 쓰는 거예요. 아래는 전체 조각 수, 위는 내 조각 수!',
   },
   'f-equiv': {
     subject: 'math',
@@ -490,6 +520,7 @@ window.CONCEPTS = {
     order: 2,
     summary:
       '분모와 분자에 <b>같은 수를 곱하거나 나눠도</b> 크기는 같아요. 2/3 = 4/6 = 8/12. 나눠서 줄이는 게 약분, 분모를 같게 맞추는 게 통분이에요.',
+    easy: '피자를 더 잘게 잘라도 먹는 양은 그대로예요. 위아래에 같은 수를 곱하면 크기가 같아요.',
   },
   'f-mixed': {
     subject: 'math',
@@ -497,6 +528,7 @@ window.CONCEPTS = {
     name: '대분수와 가분수',
     order: 3,
     summary: '2와 1/3은 1이 2개(= 6/3)와 1/3 → 7/3. 거꾸로 11/4은 4/4가 2번 들어가고 3/4이 남아서 2와 3/4.',
+    easy: '2와 1/3은 피자 2판이랑 1/3판이에요. 전부 1/3 조각으로 세면 몇 조각인지 세어 봐요.',
   },
   'f-add': {
     subject: 'math',
@@ -504,6 +536,7 @@ window.CONCEPTS = {
     name: '분수의 덧셈과 뺄셈',
     order: 4,
     summary: '분모가 같으면 <b>분자끼리만</b> 더하거나 빼요. 분모가 다르면 먼저 통분해서 분모를 같게 만들어요.',
+    easy: '조각 크기가 같아야 더할 수 있어요. 크기가 다르면 먼저 같은 크기로 잘라요(통분).',
   },
   'f-mul': {
     subject: 'math',
@@ -511,6 +544,7 @@ window.CONCEPTS = {
     name: '분수의 곱셈',
     order: 5,
     summary: '<b>분자는 분자끼리, 분모는 분모끼리</b> 곱해요. 곱하기 전에 약분하면 계산이 쉬워요.',
+    easy: '위는 위끼리, 아래는 아래끼리 곱하면 끝!',
   },
   'f-div': {
     subject: 'math',
@@ -518,6 +552,7 @@ window.CONCEPTS = {
     name: '분수의 나눗셈',
     order: 6,
     summary: '나누는 분수를 <b>뒤집어서 곱해요</b>. 3/4 ÷ 1/2 = 3/4 × 2/1 = 3/2. “3/4 안에 1/2이 몇 번 들어가나”를 묻는 거예요.',
+    easy: '“1/2이 몇 번 들어가나?”를 묻는 거예요. 계산할 때는 뒤집어서 곱해요.',
   },
   'mid-expr': {
     subject: 'math',
@@ -525,6 +560,7 @@ window.CONCEPTS = {
     name: '식의 값',
     order: 0,
     summary: '문자에 수를 넣어 계산해요. 음수를 넣을 때는 <b>괄호를 씌워서</b> 넣어요. a = −2이면 a² = (−2)² = 4.',
+    easy: '글자 자리에 숫자를 넣고 계산해요. 음수는 꼭 괄호 안에 넣어요!',
   },
   'mid-word': {
     subject: 'math',
@@ -532,6 +568,7 @@ window.CONCEPTS = {
     name: '일차방정식의 활용',
     order: 2,
     summary: '구하는 것을 x로 두고, 문장을 그대로 식으로 옮겨요. 답을 구한 뒤 문제의 조건(자연수인지 등)에 맞는지 확인해요.',
+    easy: '모르는 수를 x라고 부르고, 문장을 그대로 식으로 옮겨 적어요.',
   },
   'mid-sys': {
     subject: 'math',
@@ -548,6 +585,7 @@ window.CONCEPTS = {
     order: 1,
     summary:
       'x가 있는 항은 왼쪽, 숫자는 오른쪽으로 옮겨요(이항, 부호가 바뀜). 분수가 있으면 분모의 최소공배수를 양변에 곱해서 먼저 없애요.',
+    easy: '양쪽이 똑같은 저울이에요. 한쪽에서 빼면 다른 쪽에서도 똑같이 빼야 균형이 맞아요.',
   },
   'b-quadfac': {
     subject: 'math',
@@ -4566,6 +4604,153 @@ window.PROBLEMS = [
     solution: '새마을 운동 시작(1970) → <b>①</b><br>② 1997 ③ 1988 ④ 1993 ⑤ 2000',
     mistakes: ['서울 올림픽(1988)을 1970년대로 보기'],
   },
+  {
+    id: 'br1',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 1,
+    slot: '초6~중1 다리',
+    body: '수직선에서 0보다 3만큼 작은 수를 구하시오.',
+    type: 'num',
+    answer: -3,
+    concepts: ['br-neg'],
+    hint: '0에서 왼쪽으로 3칸.',
+    solution: '0에서 왼쪽으로 3칸 → <b>−3</b>',
+    mistakes: ['3이라고 쓰기 (작은 쪽은 −)'],
+  },
+  {
+    id: 'br2',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 1,
+    slot: '초6~중1 다리',
+    body: '−5와 2 중에서 더 큰 수는?',
+    type: 'choice',
+    choices: ['−5', '2', '같다'],
+    answer: 2,
+    concepts: ['br-neg'],
+    hint: '수직선에서 더 오른쪽에 있는 수.',
+    solution: '2가 −5보다 오른쪽 → <b>②</b>',
+    mistakes: ['5가 더 크니까 −5가 크다고 보기'],
+  },
+  {
+    id: 'br3',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 2,
+    slot: '초6~중1 다리',
+    body: '기온이 3 °C였다가 5 °C 내려갔다. 지금 기온은 몇 °C인지 구하시오.',
+    type: 'num',
+    answer: -2,
+    concepts: ['br-neg'],
+    hint: '3에서 왼쪽으로 5칸.',
+    solution: '3 − 5 = <b>−2</b> °C',
+    mistakes: ['5 − 3 = 2로 거꾸로 빼기'],
+  },
+  {
+    id: 'br4',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 1,
+    slot: '초6~중1 다리',
+    body: '□ + 3 = 7일 때, □에 알맞은 수를 구하시오.',
+    type: 'num',
+    answer: 4,
+    concepts: ['br-x'],
+    hint: '7에서 3을 빼요.',
+    solution: '7 − 3 = <b>4</b>',
+    mistakes: [],
+  },
+  {
+    id: 'br5',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 1,
+    slot: '초6~중1 다리',
+    body: 'x + 3 = 7일 때, x의 값을 구하시오.',
+    type: 'num',
+    answer: 4,
+    concepts: ['br-x'],
+    hint: '앞 문제의 □가 x로 바뀌었을 뿐이에요.',
+    solution: 'x = 7 − 3 = <b>4</b>',
+    mistakes: ['x가 나오면 어렵다고 겁먹기 (□와 똑같아요)'],
+  },
+  {
+    id: 'br6',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 2,
+    slot: '초6~중1 다리',
+    body: '4x = 20일 때, x의 값을 구하시오. (4x는 4 × x)',
+    type: 'num',
+    answer: 5,
+    concepts: ['br-x'],
+    hint: '4 × □ = 20',
+    solution: '20 ÷ 4 = <b>5</b>',
+    mistakes: ['4x를 4 + x로 읽기'],
+  },
+  {
+    id: 'br7',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 1,
+    slot: '초6~중1 다리',
+    body: '3/4을 소수로 나타내면?',
+    type: 'choice',
+    choices: ['0.75', '0.34', '3.4', '0.43', '0.7'],
+    answer: 1,
+    concepts: ['br-dec'],
+    hint: '분모를 100으로 만들어요.',
+    solution: '3/4 = 75/100 = <b>0.75</b>',
+    mistakes: ['3.4로 쓰기'],
+  },
+  {
+    id: 'br8',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 1,
+    slot: '초6~중1 다리',
+    body: '0.5 = □/10일 때, □에 알맞은 수를 구하시오.',
+    type: 'num',
+    answer: 5,
+    concepts: ['br-dec'],
+    hint: '0.5는 10조각 중 몇 조각?',
+    solution: '<b>5</b>/10',
+    mistakes: ['0.5 = 1/5로 쓰기'],
+  },
+  {
+    id: 'br9',
+    subject: 'math',
+    unit: 'bridge',
+    kind: 'easy',
+    points: 2,
+    level: 2,
+    slot: '초6~중1 다리',
+    body: '2/5를 소수로 나타내면?',
+    type: 'choice',
+    choices: ['0.25', '0.4', '2.5', '0.5', '0.2'],
+    answer: 2,
+    concepts: ['br-dec'],
+    hint: '분모 5를 10으로.',
+    solution: '2/5 = 4/10 = <b>0.4</b>',
+    mistakes: ['0.25로 쓰기'],
+  },
 ]
 
 // 외우는 법: 잘 외워지는 말이 있는 개념에만 붙인다. 정확한 것만.
@@ -4640,6 +4825,19 @@ window.MEMOS = {
 
 // 계단: 같은 주제를 쉬운 단계부터. 단계 안에서 2문제를 맞히면 다음 단계가 열림 (문제가 1개면 1개)
 window.LADDERS = [
+  {
+    id: 'bridge',
+    level: '중등',
+    grades: ['초등', '중1'],
+    name: '다리 계단 (초6~중1)',
+    subject: 'math',
+    desc: '분수에서 방정식으로 넘어가는 다리',
+    steps: [
+      { name: '음수와 수직선', tag: '중1 미리', concept: 'br-neg', problems: ['br1', 'br2', 'br3'] },
+      { name: '□ 대신 x 쓰기', tag: '중1 미리', concept: 'br-x', problems: ['br4', 'br5', 'br6'] },
+      { name: '분수와 소수', tag: '초등', concept: 'br-dec', problems: ['br7', 'br8', 'br9'] },
+    ],
+  },
   {
     id: 'mid1',
     level: '중등',
@@ -4780,3 +4978,6 @@ window.LADDERS = [
     ],
   },
 ]
+
+// 수학 한 줄 길: 이 순서로 계단을 이어서 오르면 초등에서 수능까지 이어진다
+window.MATH_PATH = ['fraction', 'bridge', 'mid1', 'mid2', 'mid3', 'equation', 'function', 'probability']

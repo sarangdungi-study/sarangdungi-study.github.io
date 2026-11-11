@@ -22,6 +22,7 @@ export default [
         HISTORY_PLACES: 'writable',
         HISTORY_EVENTS: 'writable',
         LADDERS: 'writable',
+        MATH_PATH: 'writable',
         Speak: 'writable',
         Ask: 'writable',
       },

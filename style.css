@@ -1929,3 +1929,117 @@ textarea:focus,
   font-weight: 800;
   color: var(--ink-2);
 }
+
+/* 수학 길 · 건너뛰기 시험 · 쉬운 말 */
+.path {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding-left: 30px;
+}
+.path::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 24px;
+  bottom: 24px;
+  border-left: 3px dashed var(--rule-2);
+}
+.path-node {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-radius: var(--r);
+  background: var(--sheet);
+  border: 1.5px solid var(--rule);
+  box-shadow: var(--lift);
+}
+.path-node.now {
+  border-color: var(--marker);
+  box-shadow:
+    0 0 0 3px var(--marker-hl),
+    var(--lift);
+}
+.path-dot {
+  position: absolute;
+  left: -30px;
+  top: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font: 800 14px var(--mono);
+  background: var(--paper);
+  border: 3px solid var(--rule-2);
+}
+.path-node.now .path-dot {
+  border-color: var(--marker);
+  background: var(--marker);
+  color: #fff;
+}
+.path-node.done .path-dot {
+  border-color: var(--green-pen);
+  background: var(--green-pen);
+  color: #fff;
+}
+.path-body {
+  flex: 1;
+  min-width: 0;
+}
+.path-card,
+.test-card,
+.next-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 18px 0 0;
+}
+.path-card {
+  border: 1.5px solid var(--marker);
+  background: color-mix(in srgb, var(--marker) 8%, var(--sheet));
+}
+.test-card {
+  margin: 0 0 16px;
+}
+.next-card {
+  margin-top: 16px;
+  border-style: dashed;
+}
+.next-card.ready {
+  border: 2px solid var(--green-pen);
+  border-style: solid;
+}
+.test-banner {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--marker-hl);
+  font-size: 14px;
+  font-weight: 800;
+}
+.easy-card {
+  background: color-mix(in srgb, var(--green-pen) 8%, var(--sheet));
+  border-color: color-mix(in srgb, var(--green-pen) 40%, var(--rule));
+  font-size: 18px;
+  font-weight: 700;
+}
+.easy-card .hand {
+  display: block;
+  color: var(--green-pen);
+}
+.ladder-row.preview {
+  opacity: 0.75;
+}
+@media (orientation: portrait) {
+  .path-card,
+  .test-card,
+  .next-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
