@@ -2946,3 +2946,44 @@ textarea:focus,
     grid-template-columns: 90px 1fr;
   }
 }
+
+/* 사용 가이드 페이지 */
+.guide-list {
+  display: grid;
+  gap: 18px;
+  margin-top: 16px;
+}
+.guide-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+.guide-card .car-txt p {
+  -webkit-line-clamp: unset;
+  display: block;
+}
+a.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  color: inherit;
+}
+#help svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+@media (orientation: portrait) {
+  .guide-card {
+    grid-template-columns: 1fr;
+  }
+}
+.car-track {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.car-track:active {
+  cursor: grabbing;
+}

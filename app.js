@@ -176,6 +176,7 @@
       ladders,
       l: ladder,
       path: mathPath,
+      guide: guidePage,
       exams,
       exam,
     }
@@ -692,6 +693,7 @@
 
   // ───────── 홈 맨 위 슬라이드: 랜덤 강의 + 사용 가이드 (유튜브처럼 자동으로 넘어감)
   let carTimer = null
+  let carAbort = null
   // 가이드용 작은 한반도: 실제 지도 모양 + 핀 몇 개
   function miniMap() {
     const pin = (id, on) => {
@@ -702,53 +704,72 @@
     }
     return `<svg viewBox="0 0 ${KMAP.w} ${KMAP.h}" class="g-mini">${KMAP.land.map((l) => `<path class="${l.c}" d="${l.d}"/>`).join('')}${['pyongyang', 'busan', 'gyeongju', 'seoul'].map((id) => pin(id)).join('')}${pin('ganghwa', true)}</svg>`
   }
-  function carouselSlides() {
-    const pool = Object.keys(CONCEPTS).filter((id) => Explain.has(id) && inGrade(gradesOfConcept(id)))
-    const pick = shuffle(pool.length >= 3 ? pool : Object.keys(CONCEPTS).filter((id) => Explain.has(id))).slice(0, 3)
-    const lec = (id) => ({ type: 'lecture', id })
-    const guides = [
-      {
-        type: 'guide',
-        tag: '사용 가이드 1',
-        title: '문제 풀고 막히면 이렇게',
-        desc: '틀리면 막힌 곳을 고르고, 그 개념 강의를 본 다음, 비슷한 쉬운 문제로 다시 올라와요. 틀린 문제는 오답노트가 날짜 맞춰 다시 내 줘요.',
-        cta: ['문제 풀러 가기', '#/problems'],
-        visual: `<div class="g-flow">
+  const guides = () => [
+    {
+      type: 'guide',
+      tag: '사용 가이드 1',
+      title: '문제 풀고 막히면 이렇게',
+      desc: '틀리면 막힌 곳을 고르고, 그 개념 강의를 본 다음, 비슷한 쉬운 문제로 다시 올라와요. 틀린 문제는 오답노트가 날짜 맞춰 다시 내 줘요.',
+      cta: ['문제 풀러 가기', '#/problems'],
+      visual: `<div class="g-flow">
           <div class="g-step"><span class="g-n">1</span><b>어디서 막혔나요?</b><div class="g-chips"><span>다항함수 미분법</span><span>접선의 방정식</span></div></div>
           <div class="g-step"><span class="g-n">2</span><b>막힌 개념 기초 보기</b><div class="g-row">다항함수 미분법 <i>강의 보기 ▶</i></div></div>
           <div class="g-step"><span class="g-n">3</span><b>비슷한 쉬운 문제로 연습</b><div class="g-row">곡선 y = x² + 2 위의 점 (1, 3)… <i>2점 →</i></div></div>
           <div class="g-step"><span class="g-n">4</span><b>오답노트에서 다시</b><div class="g-row">하루 · 3일 · 7일 뒤 복습</div></div>
         </div>`,
-      },
-      {
-        type: 'guide',
-        tag: '사용 가이드 2',
-        title: '한국사 지도 보는 법',
-        desc: '시대를 고르고 핀을 누르면 그곳에서 일어난 사건이 나와요. 사건을 누르면 배경 → 전개 → 결과, 인물, 헷갈리는 점까지. 바로 앞 · 다음 사건으로 흐름을 따라가요.',
-        cta: ['지도 열기', '#/map'],
-        visual: `<div class="g-map">
+    },
+    {
+      type: 'guide',
+      tag: '사용 가이드 2',
+      title: '한국사 지도 보는 법',
+      desc: '시대를 고르고 핀을 누르면 그곳에서 일어난 사건이 나와요. 사건을 누르면 배경 → 전개 → 결과, 인물, 헷갈리는 점까지. 바로 앞 · 다음 사건으로 흐름을 따라가요.',
+      cta: ['지도 열기', '#/map'],
+      visual: `<div class="g-map">
           ${miniMap()}
           <div class="g-panel"><div class="g-chiprow"><span>흥선 대원군 ~ 대한 제국</span><span>1866.9 (음력)</span></div><b>병인양요</b>
             <div class="g-tl"><span>배경</span><span>전개</span><span>결과 · 의의</span></div>
             <div class="g-trap">헷갈리지 마 · 병인양요는 프랑스, 신미양요는 미국</div>
             <div class="g-nav"><span>← 제너럴 셔먼호 사건</span><span>신미양요 →</span></div></div>
         </div>`,
-      },
-      {
-        type: 'guide',
-        tag: '사용 가이드 3',
-        title: '이런 것도 있어요',
-        desc: '태블릿 펜슬로 문제 위에 바로 끄적이는 연습장, 시간 재고 보는 모의고사, 매일 3문제 랜덤 미션, 초등부터 수능까지 이어지는 수학 길.',
-        cta: ['모의고사 보기', '#/exams'],
-        visual: `<div class="g-grid">
+    },
+    {
+      type: 'guide',
+      tag: '사용 가이드 3',
+      title: '이런 것도 있어요',
+      desc: '태블릿 펜슬로 문제 위에 바로 끄적이는 연습장, 시간 재고 보는 모의고사, 매일 3문제 랜덤 미션, 초등부터 수능까지 이어지는 수학 길.',
+      cta: ['모의고사 보기', '#/exams'],
+      visual: `<div class="g-grid">
           <a href="#/problems" class="g-tile"><b>연습장</b><span>연필 · 빨간 펜 · 형광펜 · 전부 지우기</span></a>
           <a href="#/exams" class="g-tile"><b>모의고사</b><span>타이머 · OMR · 단원별 결과</span></a>
           <a href="#/" class="g-tile" data-scroll="mission"><b>랜덤 미션</b><span>과정 고르면 오늘의 3문제</span></a>
           <a href="#/path" class="g-tile"><b>수학 길</b><span>아는 계단은 건너뛰기</span></a>
         </div>`,
-      },
-    ]
-    return [lec(pick[0]), guides[0], lec(pick[1]), guides[1], lec(pick[2]), guides[2]].filter((x) => x.type === 'guide' || x.id)
+    },
+  ]
+  // 사용 가이드 페이지 (헤더 ? 버튼)
+  function guidePage() {
+    $app.innerHTML = `<h1>사용 가이드</h1><p class="lead">사랑둥이를 이렇게 쓰면 좋아요.</p>
+      <div class="guide-list">${guides()
+        .map(
+          (g) => `<section class="card guide-card"><div class="car-vis">${g.visual}</div>
+          <div class="car-txt"><span class="car-tag">${g.tag}</span><h2>${g.title}</h2><p>${g.desc}</p><a class="btn main sm" href="${g.cta[1]}">${g.cta[0]} →</a></div></section>`,
+        )
+        .join('')}</div>`
+    $app.querySelectorAll('[data-scroll]').forEach((a) => {
+      a.onclick = (e) => {
+        e.preventDefault()
+        location.hash = '#/'
+        setTimeout(() => document.getElementById(a.dataset.scroll)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150)
+      }
+    })
+  }
+  function carouselSlides() {
+    const pool = Object.keys(CONCEPTS).filter((id) => Explain.has(id) && inGrade(gradesOfConcept(id)))
+    const pick = shuffle(pool.length >= 3 ? pool : Object.keys(CONCEPTS).filter((id) => Explain.has(id))).slice(0, 3)
+    const lec = (id) => ({ type: 'lecture', id })
+    // 사용 가이드는 헤더의 ? 버튼(#/guide)으로 옮기고, 슬라이드는 강의만
+    const more = shuffle(pool).slice(3, 5)
+    return [...pick, ...more].filter(Boolean).map(lec)
   }
   function carouselHtml(slides) {
     return `<section class="car" id="car" aria-roledescription="carousel">
@@ -826,20 +847,55 @@
     car.addEventListener('click', (e) => {
       if (e.target.closest('.explain')) stop()
     })
-    // 손가락으로 밀어서 넘기기
+    // 손가락 · 마우스로 끌어서 넘기기: 끄는 동안 화면이 따라오고, 놓으면 넘어감
+    if (carAbort) carAbort.abort()
+    carAbort = new AbortController()
+    const sig = { signal: carAbort.signal }
     let x0 = null
+    let dx = 0
+    let moved = false
+    const W = () => car.clientWidth || 1
     track.addEventListener('pointerdown', (e) => {
-      if (e.pointerType !== 'mouse') x0 = e.clientX
+      if (e.target.closest('button, a, .ex-ctl')) return
+      x0 = e.clientX
+      dx = 0
+      moved = false
+      track.style.transition = 'none'
     })
-    track.addEventListener('pointerup', (e) => {
+    window.addEventListener(
+      'pointermove',
+      (e) => {
+        if (x0 == null) return
+        dx = e.clientX - x0
+        if (Math.abs(dx) > 8) moved = true
+        if (moved) track.style.transform = `translateX(calc(${-at * 100}% + ${dx}px))`
+      },
+      sig,
+    )
+    const end = () => {
       if (x0 == null) return
-      const dx = e.clientX - x0
       x0 = null
-      if (Math.abs(dx) > 50) {
+      track.style.transition = ''
+      if (Math.abs(dx) > Math.min(80, W() * 0.15)) {
         stop()
         go(at + (dx < 0 ? 1 : -1))
-      }
-    })
+      } else go(at)
+    }
+    window.addEventListener('pointerup', end, sig)
+    window.addEventListener('pointercancel', end, sig)
+    // 끌었을 때는 강의 그림 클릭(재생/정지)으로 치지 않음
+    track.addEventListener(
+      'click',
+      (e) => {
+        if (moved) {
+          e.stopPropagation()
+          e.preventDefault()
+          moved = false
+        }
+      },
+      true,
+    )
+    track.addEventListener('dragstart', (e) => e.preventDefault())
     car.querySelectorAll('[data-scroll]').forEach((a) => {
       a.onclick = (e) => {
         e.preventDefault()
