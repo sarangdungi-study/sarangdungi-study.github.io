@@ -403,6 +403,41 @@ const checks = {
   hb2: () => 2 * 2 - -1,
   hb3: () => Math.hypot(4 - 1, 6 - 2),
   hb4: () => [1, 2, 3, 4].reduce((a, b) => a + b) + [0, 1, 1, 0].reduce((a, b) => a + b),
+  ha1: () => range(-50, 50).filter((x) => x - 1 > 0 && Math.log2(x - 1) < 3).length,
+  ha2: () => [1, 3].map((t) => Math.log(t) / Math.log(3)).reduce((a, b) => a + b, 0),
+  ha3: () => {
+    const ys = range(0, 70000).map((i) => 3 * Math.sin(2 * (i / 10000)) + 1)
+    return Math.round(Math.max(...ys) + Math.min(...ys))
+  },
+  ha4: () => ['0', '1', '−1', '1/2', '−1/2'].indexOf(near(Math.sin((7 * Math.PI) / 6) + Math.cos((5 * Math.PI) / 3), 0) ? '0' : 'x') + 1,
+  ha5: () => {
+    const r = Math.cbrt(48 / 6)
+    return Math.round((6 / r) * r ** 6)
+  },
+  ha6: () => range(1, 100).find((n) => (n * (n + 1)) / 2 === 55),
+  ha7: () => 2 ** 6 - 1 - (2 ** 5 - 1),
+  hc1: () => Math.round(((2 * 1e6 ** 2 + 3 * 1e6) / (1e6 ** 2 + 1)) * 1e4) / 1e4,
+  hc2: () => Math.round(((1.0000001 ** 2 - 1) / 0.0000001) * 1e4) / 1e4,
+  hc3: () => range(-50, 50).find((a) => 1 + a === 2 * 1 + 3),
+  hc4: () => Math.round(deriv((x) => x ** 3, 2)),
+  hc5: () =>
+    // f′(1) = 0이고, x = 1 앞뒤로 f′의 부호가 실제로 바뀌어야 극값
+    range(-50, 50).find((a) => {
+      const fp = (x) => 3 * x * x + 2 * a * x - 9
+      return near(fp(1), 0) && Math.sign(fp(0.99)) !== Math.sign(fp(1.01))
+    }),
+  hc6: () => range(-50, 50).find((k) => range(-300, 300).every((i) => 3 * (i / 50) ** 2 - 6 * (i / 50) + k >= -1e-12)),
+  hc7: () => Math.round(integrate((x) => x * x, 0, 3) * 1e6) / 1e6,
+  hc8: () => Math.round(integrate((x) => x ** 3 + 3 * x * x, -1, 1) * 1e6) / 1e6,
+  hp1: () => new Set(perms('aaabb'.split('')).map((p) => p.join(''))).size,
+  hp2: () => {
+    let c = 0
+    for (let a = 0; a <= 4; a++) for (let b = 0; b <= 4 - a; b++) c++
+    return c
+  },
+  hp3: () => ['0.1', '0.2', '0.3', '0.4', '0.9'].findIndex((x) => near(Number(x), 0.5 + 0.4 - 0.7)) + 1,
+  hp4: () => (['1/12', '7/12', '1/7', '1/2', '5/12'].indexOf(frac(1, 12)) + 1 && frac(1 * 1, 3 * 4) === '1/12' ? 1 : NaN),
+  hp5: () => ['1', '3/2', '5/3', '2', '7/3'].indexOf(frac(1 * 3 + 2 * 2 + 3 * 1, 6)) + 1,
   s3: () => Math.sqrt(2 * 10 * 20),
   s4: () => (6 / 2) * 4,
   's-e2': () => (40 * 10) / 20,
