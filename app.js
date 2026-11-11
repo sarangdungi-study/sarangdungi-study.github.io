@@ -66,12 +66,15 @@
     }
     document.getElementById('who').innerHTML = u ? `<span class="dot"></span>${esc(u.name)}` : '로그인'
     document.querySelectorAll('#nav a').forEach((a) => {
-      const on = a.dataset.r === r || (a.dataset.r === 'problems' && r === 'p') || (a.dataset.r === 'concepts' && r === 'c')
+      const on =
+        a.dataset.r === r ||
+        (a.dataset.r === 'problems' && r === 'p') ||
+        (a.dataset.r === 'concepts' && (r === 'c' || r === 'l' || r === 'ladders'))
       a.classList.toggle('on', on)
     })
     document.body.classList.toggle('out', !u)
     if (!u) return loginView()
-    const views = { '': home, problems, p: problem, concepts, c: concept, notes, feedback, map: mapView }
+    const views = { '': home, problems, p: problem, concepts, c: concept, notes, feedback, map: mapView, ladders, l: ladder }
     ;(views[r] || home)(id, q)
     window.scrollTo(0, 0)
   }
@@ -162,6 +165,9 @@
         <a class="door" href="#/concepts"><span class="art">${ICON.down}</span><div><b>기초 개념부터</b>
           <span>개념 영상을 보고, 그 개념을 쓰는 문제로 올라가요.</span><div class="tag hand">처음 배우는 단원이면</div></div></a>
       </div></div>
+
+      <div class="sec"><div class="sec-h"><h2>계단 오르기</h2><a class="more" href="#/ladders">전체 보기 →</a></div>
+        <div class="ladder-row">${LADDERS.map(ladderCard).join('')}</div></div>
 
       <div class="sec"><div class="sec-h"><h2>과목별 진도</h2></div>
         <div class="subjects">${SUBJECTS.map((s) => {
@@ -278,6 +284,76 @@
         <span class="dots" title="난이도">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= p.level ? 'on' : ''}"></i>`).join('')}</span></div></a>`
   }
 
+  // ───────── 계단: 같은 주제를 쉬운 단계부터. 단계 안에서 2문제 맞히면 다음 단계가 열림
+  const lastCorrect = (pid) => {
+    const l = Store.stat(pid).last
+    return !!(l && l.correct)
+  }
+  function stepState(L) {
+    const out = []
+    L.steps.forEach((st, i) => {
+      const correct = st.problems.filter(lastCorrect).length
+      const need = Math.min(2, st.problems.length)
+      const open = i === 0 || out[i - 1].cleared
+      out.push({ correct, need, cleared: correct >= need, open })
+    })
+    return out
+  }
+  function ladderCard(L) {
+    const ss = stepState(L)
+    const done = ss.filter((x) => x.cleared).length
+    const sub = S(L.subject)
+    return `<a class="ladder-card" style="--c:${sub.color}" href="#/l/${L.id}">
+      <div class="mini-stairs">${L.steps.map((_, i) => `<i class="${ss[i].cleared ? 'on' : ss[i].open ? 'now' : ''}" style="height:${10 + i * 7}px"></i>`).join('')}</div>
+      <b>${L.name}</b><span class="small muted">${L.desc}</span>
+      <span class="small mono" style="font-weight:800">${done} / ${L.steps.length} 단계</span></a>`
+  }
+  function ladders() {
+    $app.innerHTML = `<h1>계단 오르기</h1><p class="lead">같은 주제를 쉬운 단계부터 하나씩 올라가요. 한 단계에서 2문제를 맞히면 다음 단계가 열려요.</p>
+      <div class="ladder-row">${LADDERS.map(ladderCard).join('')}</div>`
+  }
+  function ladder(id) {
+    const L = LADDERS.find((x) => x.id === id)
+    if (!L) return ladders()
+    const ss = stepState(L)
+    const sub = S(L.subject)
+    const steps = L.steps
+      .map((st, i) => {
+        const s0 = ss[i]
+        const pills = st.problems
+          .map((pid) => {
+            const stt = Store.stat(pid)
+            const cls = !stt.tries ? '' : stt.last.correct ? 'ok' : 'bad'
+            return s0.open
+              ? `<a class="pill ${cls}" href="#/p/${pid}?ladder=${L.id}">${P(pid).points}점 ${cls === 'ok' ? '맞힘' : cls === 'bad' ? '다시' : '풀기'}</a>`
+              : `<span class="pill locked">잠김</span>`
+          })
+          .join('')
+        return `<div class="stair ${s0.cleared ? 'cleared' : s0.open ? 'open' : 'locked'}" style="--i:${i}">
+          <div class="stair-no mono">${i + 1}</div>
+          <div class="stair-body">
+            <div class="filters" style="margin:0 0 6px"><b>${st.name}</b><span class="chip">${st.tag}</span>${s0.cleared ? '<span class="chip ok">통과</span>' : ''}</div>
+            <div class="small muted">${s0.open ? `맞힌 문제 ${s0.correct} / ${s0.need}` : '앞 단계에서 2문제를 맞히면 열려요'}
+              · <a href="#/c/${st.concept}" style="color:var(--marker-ink);font-weight:800">${C(st.concept).name} ${hasMovie(st.concept) ? '영상 ▶' : '설명 →'}</a></div>
+            <div class="pills">${pills}</div>
+          </div></div>`
+      })
+      .reverse()
+      .join('')
+    $app.innerHTML = `<a class="crumb" href="#/ladders">← 계단 목록</a>
+      <h1 style="--c:${sub.color}">${L.name}</h1><p class="lead">${L.desc}. 아래 1단계부터 올라가요.</p>
+      <div class="stairs">${steps}</div>`
+  }
+  function nextInLadder(L, pid) {
+    const ss = stepState(L)
+    for (let i = 0; i < L.steps.length; i++) {
+      if (!ss[i].open) break
+      const todo = L.steps[i].problems.find((x) => x !== pid && !lastCorrect(x))
+      if (todo) return todo
+    }
+    return null
+  }
+
   // ───────── 문제 하나: 풀기 → 막힌 곳 → 기초 → 쉬운 문제 → 힌트·풀이
   function problem(id, q) {
     const p = P(id)
@@ -285,15 +361,18 @@
     const sub = S(p.subject)
     const st = (live[id] = live[id] || { pick: '', graded: null, stuck: [], open: false, hint: false, sol: false })
     const from = q.get('from')
+    const lad = q.get('ladder') && LADDERS.find((x) => x.id === q.get('ladder'))
+    const nextP = lad && st.graded ? nextInLadder(lad, p.id) : null
     const stage = st.sol ? 5 : st.hint ? 4 : st.stuck.length ? 3 : st.open || st.graded !== null ? 2 : 1
     $app.innerHTML = `
-      ${from && C(from) ? `<a class="crumb" href="#/c/${from}">← ${C(from).name}</a>` : `<a class="crumb" href="#/problems">← 문제 목록</a>`}
+      ${lad ? `<a class="crumb" href="#/l/${lad.id}">← ${lad.name}</a>` : from && C(from) ? `<a class="crumb" href="#/c/${from}">← ${C(from).name}</a>` : `<a class="crumb" href="#/problems">← 문제 목록</a>`}
       <div class="stepper">${['풀기', '막힌 곳', '기초 보기', '힌트', '풀이'].map((n, i) => `<span class="${i < stage ? 'done' : ''}">${n}</span>`).join('')}</div>
       <div class="solve" style="--c:${sub.color}">
         <div class="card qcard ${st.ink ? 'inking' : ''}">
           ${st.ink ? Ink.toolbarHtml() : ''}
           <div class="head"><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span>
             <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>
+            ${p.subject === 'eng' && Speak.supported ? '<button type="button" class="ink-toggle listen" id="listenBtn">듣기</button><button type="button" class="ink-toggle listen" id="slowBtn">천천히</button>' : ''}
             <button type="button" class="ink-toggle" id="inkBtn">${st.ink ? '연습장 닫기' : Ink.has(inkKey(p.id)) ? '연습장 (쓴 것 있음)' : '연습장'}</button>${gradeMark(st.graded)}</div>
           <div class="qbox">${p.body}</div>
           ${
@@ -324,7 +403,7 @@
             st.graded === null
               ? ''
               : st.graded
-                ? '<div class="result ok">정답이에요. 풀이도 한 번 보고 가요.</div>'
+                ? `<div class="result ok">정답이에요. 풀이도 한 번 보고 가요.</div>${lad ? `<a class="btn main sm" style="margin-top:10px;width:100%" href="${nextP ? `#/p/${nextP}?ladder=${lad.id}` : `#/l/${lad.id}`}">${nextP ? '계단 다음 문제 →' : '계단으로 돌아가기'}</a>` : ''}`
                 : '<div class="result bad">틀렸어요. 아래에서 막힌 곳을 골라 봐요.</div>'
           }
           ${reportBox('문제 ' + p.id, p.subject, p.id)}
@@ -344,6 +423,23 @@
     }
     if (st.ink) Ink.attach($app.querySelector('.qcard'), inkKey(p.id))
     bindReports()
+    // 영어 듣기: 지문 상자나 기울임 문장만 골라 읽는다 (한국어 지시문은 빼고)
+    const listen = (rate, btn) => {
+      if (Speak.speaking()) {
+        Speak.stop()
+        $app.querySelectorAll('.listen').forEach((b) => b.classList.remove('on'))
+        return
+      }
+      const box = $app.querySelector('.qcard .qbox')
+      const parts = box.querySelectorAll('.passage, i')
+      const text = parts.length ? [...parts].map((e) => e.innerText).join(' ') : box.innerText.replace(/[ㄱ-ㅎ가-힣]+/g, ' ')
+      btn.classList.add('on')
+      Speak.say(text, rate, () => btn.classList.remove('on'))
+    }
+    const lb = document.getElementById('listenBtn')
+    if (lb) lb.onclick = () => listen(0.95, lb)
+    const sb = document.getElementById('slowBtn')
+    if (sb) sb.onclick = () => listen(0.7, sb)
     $app.querySelectorAll('.choices button').forEach(
       (b) =>
         (b.onclick = () => {
@@ -551,8 +647,8 @@
     $app.querySelectorAll('textarea[data-memo]').forEach((t) => (t.onchange = () => Store.setMemo(t.dataset.memo, t.value)))
     $app.querySelectorAll('[data-del]').forEach(
       (b) =>
-        (b.onclick = () => {
-          if (confirm('오답노트에서 뺄까요?')) {
+        (b.onclick = async () => {
+          if (await Ask('오답노트에서 뺄까요?', { desc: '푼 기록은 그대로 남고, 오답노트 목록에서만 빠져요.', ok: '빼기', danger: true })) {
             Store.removeNote(b.dataset.del)
             notes()
           }
@@ -759,8 +855,8 @@
     }
   }
 
-  document.getElementById('who').onclick = () => {
-    if (Store.user() && confirm('나갈까요?')) {
+  document.getElementById('who').onclick = async () => {
+    if (Store.user() && (await Ask('나갈까요?', { desc: '푼 기록은 저장돼 있어서 다시 들어오면 그대로예요.', ok: '나가기' }))) {
       Store.logout()
       location.hash = '#/'
       render()

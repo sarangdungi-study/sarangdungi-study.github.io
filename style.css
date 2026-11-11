@@ -1738,3 +1738,185 @@ textarea:focus,
   font-size: 14px;
   font-weight: 700;
 }
+
+/* 계단 */
+.ladder-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.ladder-card {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border-radius: var(--r);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  box-shadow: var(--lift);
+}
+.ladder-card:hover {
+  border-color: var(--c);
+}
+.mini-stairs {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 42px;
+  margin-bottom: 6px;
+}
+.mini-stairs i {
+  width: 18px;
+  border-radius: 3px 3px 0 0;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+}
+.mini-stairs i.on {
+  background: var(--c);
+  border-color: var(--c);
+}
+.mini-stairs i.now {
+  background: color-mix(in srgb, var(--c) 30%, var(--sheet));
+  border-color: var(--c);
+}
+.stairs {
+  display: grid;
+  gap: 10px;
+}
+.stair {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-left: calc(var(--i) * 28px);
+  padding: 16px 18px;
+  border-radius: var(--r);
+  background: var(--sheet);
+  border: 1.5px solid var(--rule);
+  box-shadow: var(--lift);
+}
+.stair.open {
+  border-color: var(--ink);
+}
+.stair.cleared {
+  background: color-mix(in srgb, var(--green-pen) 7%, var(--sheet));
+}
+.stair.locked {
+  opacity: 0.55;
+}
+.stair-no {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  background: var(--paper-2);
+}
+.stair.open .stair-no {
+  background: var(--ink);
+  color: var(--paper);
+}
+.stair.cleared .stair-no {
+  background: var(--green-pen);
+  color: #fff;
+}
+.stair-body {
+  flex: 1;
+  min-width: 0;
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 99px;
+  border: 1.5px solid var(--rule-2);
+  font-size: 13px;
+  font-weight: 800;
+}
+.pill.ok {
+  border-color: var(--green-pen);
+  color: var(--green-pen);
+}
+.pill.bad {
+  border-color: var(--red-pen);
+  color: var(--red-pen);
+}
+.pill.locked {
+  color: var(--pencil);
+}
+.listen.on {
+  border-color: var(--eng);
+  background: var(--eng);
+  color: #fff;
+}
+@media (orientation: portrait) {
+  .stair {
+    margin-left: calc(var(--i) * 10px);
+  }
+}
+
+/* 확인 창 */
+.dlg-back {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: color-mix(in srgb, var(--ink) 35%, transparent);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: dlg-in 0.16s ease;
+}
+.dlg-back.out {
+  opacity: 0;
+  transition: opacity 0.16s;
+}
+.dlg {
+  width: min(380px, 100%);
+  padding: 22px 22px 18px;
+  border-radius: 18px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  animation: dlg-up 0.2s ease;
+}
+.dlg-title {
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+.dlg-desc {
+  margin-top: 6px;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+.dlg-acts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 18px;
+}
+.btn.danger {
+  background: var(--red-pen);
+  border-color: var(--red-pen);
+  color: #fff;
+}
+@keyframes dlg-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes dlg-up {
+  from {
+    transform: translateY(10px) scale(0.98);
+    opacity: 0;
+  }
+}

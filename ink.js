@@ -180,11 +180,13 @@
           redraw()
           save(key, strokes)
         } else if (act === 'clear') {
-          if (strokes.length && confirm('연습장을 전부 지울까요?')) {
+          if (!strokes.length) return
+          window.Ask('연습장을 전부 지울까요?', { desc: '지우면 되돌릴 수 없어요.', ok: '전부 지우기', danger: true }).then((yes) => {
+            if (!yes) return
             strokes = []
             redraw()
             save(key, strokes)
-          }
+          })
         } else {
           state.tool = act
           card.querySelectorAll('.ink-bar [data-ink]').forEach((x) => x.classList.toggle('on', x.dataset.ink === act))

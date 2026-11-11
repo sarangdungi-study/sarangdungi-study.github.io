@@ -208,6 +208,39 @@ const checks = {
   'm-e6': () => range(1, 10).reduce((s, k) => s + 2 * k + 1, 0),
   'm-e7': () => range(-20, 20).filter((k) => cubicRoots((x) => x ** 3 - 3 * x, [-1, 1], k) === 3).length,
   'm-e8': () => ['0.1', '0.2', '0.3', '0.4', '0.5'].findIndex((s) => near(Number(s), 0.2 / 0.5)) + 1,
+  'm-b1': () => range(-100, 100).find((x) => 3 * x - 7 === 2 * x + 5),
+  'm-b2': () => range(-100, 100).find((x) => 2 * (x - 3) === x + 4),
+  'm-b3': () => range(-100, 100).find((x) => near((x + 1) / 2 - (x - 1) / 3, 2)),
+  'm-b4': () => range(1, 100).find((x) => x * x - 4 * x - 21 === 0),
+  'm-b5': () => range(-100, 100).find((x) => x * x - 10 * x + 25 === 0),
+  'm-b6': () => Math.max(...[3, 0.5].filter((x) => near(2 * x * x - 7 * x + 3, 0))),
+  'm-b7': () => range(-50, 50).find((k) => 16 - 4 * k === 0),
+  'm-b8': () => range(1, 100).filter((k) => 36 - 4 * k > 0).length,
+  'm-b9': () => {
+    const d = Math.sqrt(49 - 12)
+    const a = (7 + d) / 2
+    const b = (7 - d) / 2
+    return Math.round(a * a + b * b)
+  },
+  'm-b10': () =>
+    range(-20, 20)
+      .filter((x) => x ** 3 - 6 * x * x + 11 * x - 6 === 0)
+      .reduce((p, c) => p + c * c, 0),
+  'm-b11': () =>
+    range(-20, 20)
+      .filter((x) => x ** 3 + x * x - 4 * x - 4 === 0)
+      .reduce((p, c) => p * c, 1),
+  'm-b12': () => range(-50, 50).find((a) => 8 + 2 * a - 6 === 0),
+  'm-b13': () => (9 - 3) / (4 - 1),
+  'm-b14': () => range(-50, 50).find((x) => 2 * x + 1 === -x + 7),
+  'm-b15': () => Math.round(Math.min(...range(-1000, 1000).map((i) => (i / 100) ** 2 - 4 * (i / 100) + 7)) * 1e6) / 1e6,
+  'm-b16': () => Math.round(Math.max(...range(-1000, 1000).map((i) => -((i / 100) ** 2) + 6 * (i / 100))) * 1e6) / 1e6,
+  'm-b17': () =>
+    range(1, 6)
+      .flatMap((a) => range(1, 6).map((b) => a + b))
+      .filter((s) => s === 7).length,
+  'm-b18': () => range(0, 4).flatMap((a) => range(a + 1, 4).map((b) => [a, b])).length,
+  'm-b19': () => range(0, 4).flatMap((a) => range(0, 4).filter((b) => b !== a)).length,
   s3: () => Math.sqrt(2 * 10 * 20),
   s4: () => (6 / 2) * 4,
   's-e2': () => (40 * 10) / 20,
