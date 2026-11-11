@@ -60,6 +60,7 @@
   }
   function gradesOfConcept(id) {
     const c = C(id)
+    if (c.grade) return [c.grade]
     if (c.unit === 'mid') return [MID_CONCEPT_GRADE[id] || '중1']
     return gradesOfUnit(c.subject, c.unit)
   }
@@ -373,7 +374,7 @@
     L.steps.forEach((st, i) => {
       const correct = st.problems.filter(lastCorrect).length
       const need = Math.min(2, st.problems.length)
-      const open = i === 0 || out[i - 1].cleared
+      const open = true // 잠그지 않음: 아무 단계나 바로 풀 수 있게
       out.push({ correct, need, cleared: correct >= need, open })
     })
     return out
@@ -383,12 +384,12 @@
     const done = ss.filter((x) => x.cleared).length
     const sub = S(L.subject)
     return `<a class="ladder-card" style="--c:${sub.color}" href="#/l/${L.id}">
-      <div class="mini-stairs">${L.steps.map((_, i) => `<i class="${ss[i].cleared ? 'on' : ss[i].open ? 'now' : ''}" style="height:${10 + i * 7}px"></i>`).join('')}</div>
+      <div class="mini-stairs">${L.steps.map((_, i) => `<i class="${ss[i].cleared ? 'on' : i === ss.findIndex((x) => !x.cleared) ? 'now' : ''}" style="height:${8 + Math.round((i / Math.max(1, L.steps.length - 1)) * 32)}px"></i>`).join('')}</div>
       <span class="chip" style="justify-self:start">${L.level}</span><b>${L.name}</b><span class="small muted">${L.desc}</span>
       <span class="small mono" style="font-weight:800">${done} / ${L.steps.length} 단계</span></a>`
   }
   function ladders() {
-    $app.innerHTML = `<h1>계단 오르기</h1><p class="lead">같은 주제를 쉬운 단계부터 하나씩 올라가요. 한 단계에서 2문제를 맞히면 다음 단계가 열려요.</p>
+    $app.innerHTML = `<h1>계단 오르기</h1><p class="lead">같은 주제를 쉬운 단계부터 하나씩 올라가요. 어느 단계든 바로 풀어도 되고, 2문제를 맞히면 그 단계는 ‘통과’예요.</p>
       <div class="filters">${gradeSeg()}</div>
       ${['초등', '중등', '고등']
         .map((lv) => {
@@ -421,7 +422,7 @@
           <div class="stair-no mono">${i + 1}</div>
           <div class="stair-body">
             <div class="filters" style="margin:0 0 6px"><b>${st.name}</b><span class="chip">${st.tag}</span>${s0.cleared ? '<span class="chip ok">통과</span>' : ''}</div>
-            <div class="small muted">${s0.open ? `맞힌 문제 ${s0.correct} / ${s0.need}` : '앞 단계에서 2문제를 맞히면 열려요'}
+            <div class="small muted">맞힌 문제 ${s0.correct} / ${s0.need}
               · <a href="#/c/${st.concept}" style="color:var(--marker-ink);font-weight:800">${C(st.concept).name} ${hasMovie(st.concept) ? '영상 ▶' : '설명 →'}</a></div>
             <div class="pills">${pills}</div>
           </div></div>`

@@ -294,6 +294,47 @@ const checks = {
     const a = (11 - 5) / (3 - 1)
     return a + (5 - a)
   },
+  mg1a: () => {
+    let n = 72
+    let c = 0
+    for (let p = 2; n > 1; p++)
+      while (n % p === 0) {
+        n /= p
+        c++
+      }
+    return c
+  },
+  mg1b: () => gcd(36, 60),
+  mg1c: () => -3 * 4 - -10 / 2,
+  mg1d: () => ['1/6', '−1/6', '3/9', '7/6', '1/2'].indexOf(frac(-2 * 6 + 5 * 3, 18)) + 1,
+  mg1e: () => (6 / 2) * 5,
+  mg1f: () => (3 * 8) / 6,
+  mg1g: () => range(-50, 50).find((x) => near(0.2 * x + 0.5, 0.3 * x - 0.1, 1e-9)),
+  mg2a: () => (2 ** 3 * 2 ** 4) / 2 ** 5,
+  mg2b: () => {
+    const g = gcd(27, 99)
+    return 27 / g + 99 / g
+  },
+  mg2c: () => range(1, 50).filter((x) => 3 * x - 5 < x + 7).length,
+  mg2d: () => {
+    for (const x of range(-20, 20)) for (const y of range(-20, 20)) if (x + 2 * y === 10 && 3 * x - y === 2) return x + y
+  },
+  mg2e: () => range(-20, 20).find((x) => -2 * x + 4 === 0),
+  mg2f: () => ['1/2', '1/3', '2/3', '1/6', '5/6'].indexOf(frac([2, 3, 5].length, 6)) + 1,
+  mg2g: () => ['1/6', '1/12', '1/36', '1/3', '5/6'].indexOf(frac(range(1, 6).length, 36)) + 1,
+  mg3a: () => Math.round(Math.sqrt(48) / Math.sqrt(3)),
+  mg3b: () => Math.round((Math.sqrt(12) + Math.sqrt(27)) / Math.sqrt(3)),
+  mg3c: () => 2 * 3,
+  mg3d: () => range(1, 20).find((a) => a * a === 9),
+  mg3e: () => {
+    // x = a ± √b: 두 근의 평균이 a, (근 − a)²이 b
+    const d = Math.sqrt(16 - 4)
+    const r1 = (4 + d) / 2
+    const a = 2
+    return Math.round(a + (r1 - a) ** 2)
+  },
+  mg3f: () => 1 + 3,
+  mg3g: () => ['3/5', '4/5', '3/4', '4/3', '5/3'].indexOf(frac(6, 10)) + 1,
   s3: () => Math.sqrt(2 * 10 * 20),
   s4: () => (6 / 2) * 4,
   's-e2': () => (40 * 10) / 20,
