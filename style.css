@@ -3397,3 +3397,13 @@ a.icon-btn {
   color: var(--c);
   background: color-mix(in srgb, var(--c) 14%, var(--sheet));
 }
+
+.listen-tip {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--pencil);
+}
+.ig-grade {
+  margin: 4px 0 10px;
+  overflow-x: auto;
+}

@@ -951,7 +951,10 @@
       key: 'q:' + p.id,
       sj: p.subject,
     }))
-    const his = okSubj('his') ? HISTORY_EVENTS.map((e, i) => ({ t: 'his', i, key: 'h:' + i, sj: 'his' })) : []
+    const his =
+      okSubj('his') && Object.keys(CONCEPTS).some((id) => C(id).subject === 'his' && inGrade(gradesOfConcept(id)))
+        ? HISTORY_EVENTS.map((e, i) => ({ t: 'his', i, key: 'h:' + i, sj: 'his' }))
+        : []
     const FX = window.FEED_EXTRA || {}
     const allSay = [...SAYINGS, ...(FX.says || []).map((x) => [x, '사랑둥이 한마디'])]
     const say = allSay.map((x, i) => ({ t: 'say', i, key: 's:' + i, sj: 'all', x }))
@@ -1038,6 +1041,7 @@
     const stories = [['all', '전체', 'var(--marker)'], ...SUBJECTS.map((s) => [s.id, s.name, s.color])]
     $app.innerHTML = `<div class="ig">
       <div class="ig-stories">${stories.map(([v, n, col]) => `<button type="button" data-s="${v}" class="${feedState.subj === v ? 'on' : ''}" style="--c:${col}"><span class="ig-ring"><span>${{ sci: '과학', soc: '사회', his: '역사' }[v] || n.slice(0, 2)}</span></span><small>${n}</small></button>`).join('')}</div>
+      <div class="filters ig-grade">${gradeSeg()}</div>
       <div class="ig-list">${posts.slice(0, feedState.n).map(postHtml).join('')}</div>
       ${posts.length > feedState.n ? '<div class="ig-more"><span>아래로 내리면 더 나와요</span></div>' : '<div class="ig-more"><span>다 봤어요! 새로 섞으려면 위의 과목을 다시 눌러요.</span></div>'}
     </div>`
@@ -1053,6 +1057,11 @@
         row.scrollLeft = sx
         row.querySelector('button.on')?.scrollIntoView({ inline: 'nearest', block: 'nearest' })
       }
+    })
+    bindGrade(() => {
+      feedState.n = 12
+      feedState.seed = Math.random()
+      feed()
     })
     bindFeed($app)
     const more = $app.querySelector('.ig-more')
@@ -1729,6 +1738,13 @@
       const text = parts.length ? [...parts].map((e) => e.innerText).join(' ') : box.innerText.replace(/[ㄱ-ㅎ가-힣]+/g, ' ')
       btn.classList.add('on')
       Speak.say(text, rate, () => btn.classList.remove('on'))
+      if (/iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+        if (!$app.querySelector('.listen-tip'))
+          btn.parentElement.insertAdjacentHTML(
+            'afterend',
+            '<p class="listen-tip">소리가 안 나면 아이폰 옆 무음 스위치를 끄고 볼륨을 올려 주세요.</p>',
+          )
+      }
     }
     const lb = document.getElementById('listenBtn')
     if (lb) lb.onclick = () => listen(0.95, lb)

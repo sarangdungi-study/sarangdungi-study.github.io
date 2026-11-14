@@ -26,12 +26,16 @@
 
   function say(text, rate = 0.95, onend) {
     if (!synth) return false
-    synth.cancel()
+    // 아이폰 사파리: 말하는 중이 아닐 때 cancel() 바로 뒤 speak()는 소리 없이 묻히는 일이 있다
+    if (synth.speaking || synth.pending) synth.cancel()
+    if (synth.paused) synth.resume()
+    if (!voice) pickVoice()
     const u = new SpeechSynthesisUtterance(clean(text))
     u.lang = 'en-US'
     if (voice) u.voice = voice
     u.rate = rate
     u.onend = onend || null
+    u.onerror = onend || null
     synth.speak(u)
     return true
   }
