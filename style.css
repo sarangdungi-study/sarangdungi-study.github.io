@@ -2353,7 +2353,9 @@ textarea:focus,
   background: none;
   cursor: pointer;
   color: var(--ink-2);
-  font: 700 13px var(--font, inherit);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
 }
 #toc i {
   width: 10px;
@@ -2455,7 +2457,9 @@ textarea:focus,
   border-radius: 10px;
   background: none;
   color: var(--ink);
-  font: 700 15px var(--font, inherit);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
   text-align: left;
   cursor: pointer;
 }
@@ -3349,7 +3353,8 @@ a.icon-btn {
   background: linear-gradient(160deg, color-mix(in srgb, var(--eng) 18%, var(--sheet)), var(--sheet));
 }
 .ig-en {
-  font: 900 34px var(--font, inherit);
+  font-size: 32px;
+  font-weight: 900;
   color: var(--eng);
   line-height: 1.2;
 }
