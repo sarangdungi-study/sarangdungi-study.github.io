@@ -3334,3 +3334,61 @@ a.icon-btn {
   color: var(--ink-2);
   font-size: 14px;
 }
+.ig-reveal {
+  justify-self: start;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1.5px dashed var(--marker);
+  background: var(--sheet);
+  color: var(--marker-ink);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.ig-card.expr {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--eng) 18%, var(--sheet)), var(--sheet));
+}
+.ig-en {
+  font: 900 34px var(--font, inherit);
+  color: var(--eng);
+  line-height: 1.2;
+}
+.ig-ko {
+  font-size: 18px;
+  font-weight: 800;
+}
+.ig-ex {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.6;
+  display: grid;
+  gap: 4px;
+}
+.ig-ex small {
+  font-style: normal;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.ig-card.link {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--marker) 16%, var(--sheet)), var(--sheet));
+}
+.ig-card .ig-label {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 30px;
+  color: var(--marker-ink);
+}
+.ig-card.trap .ig-label {
+  color: var(--red-pen);
+}
+.ig-subs {
+  display: flex;
+  gap: 8px;
+}
+.ig-subs span {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 14%, var(--sheet));
+}

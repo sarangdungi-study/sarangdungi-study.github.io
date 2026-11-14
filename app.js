@@ -939,7 +939,7 @@
       .map((id) => ({ t: 'trap', id, key: 't:' + id, sj: C(id).subject }))
     const quiz = PROBLEMS.filter(
       (p) =>
-        p.type === 'choice' &&
+        (p.type === 'choice' || p.type === 'num') &&
         okSubj(p.subject) &&
         inGrade(gradesOf(p)) &&
         !p.set &&
@@ -952,12 +952,20 @@
       sj: p.subject,
     }))
     const his = okSubj('his') ? HISTORY_EVENTS.map((e, i) => ({ t: 'his', i, key: 'h:' + i, sj: 'his' })) : []
-    const say = SAYINGS.map((x, i) => ({ t: 'say', i, key: 's:' + i, sj: 'all' }))
+    const FX = window.FEED_EXTRA || {}
+    const allSay = [...SAYINGS, ...(FX.says || []).map((x) => [x, '사랑둥이 한마디'])]
+    const say = allSay.map((x, i) => ({ t: 'say', i, key: 's:' + i, sj: 'all', x }))
+    const expr = okSubj('eng') ? (FX.expr || []).map((x) => ({ t: 'expr', x, key: 'x:' + x.en, sj: 'eng' })) : []
+    const links = (FX.links || [])
+      .filter((x) => feedState.subj === 'all' || x.subjects.includes(feedState.subj))
+      .map((x) => ({ t: 'link', x, key: 'l:' + x.title, sj: x.subjects[0] }))
     const pools = [
       seeded(reels, feedState.seed),
       seeded(quiz, feedState.seed + 0.1),
       seeded(traps, feedState.seed + 0.2),
       seeded(his, feedState.seed + 0.3),
+      seeded(expr, feedState.seed + 0.5),
+      seeded(links, feedState.seed + 0.6),
     ]
     const out = []
     const sayQ = seeded(say, feedState.seed + 0.4)
@@ -986,10 +994,13 @@
       link = `<a href="#/c/${po.id}">개념 자세히 →</a>`
     } else if (po.t === 'quiz') {
       const p = P(po.id)
-      media = `<div class="ig-quiz"><div class="ig-q">${p.body}</div><div class="ig-ch">${p.choices
-        .map((ch, i) => `<button type="button" data-a="${i + 1}" data-ok="${p.answer}">${'①②③④⑤'[i]} ${ch}</button>`)
-        .join('')}</div><div class="ig-res"></div></div>`
-      cap = `<b>오늘의 퀴즈</b> 보기를 눌러 바로 확인해요. ${tag(unitName(p.subject, p.unit))} #퀴즈`
+      media =
+        p.type === 'choice'
+          ? `<div class="ig-quiz"><div class="ig-q">${p.body}</div><div class="ig-ch">${p.choices
+              .map((ch, i) => `<button type="button" data-a="${i + 1}" data-ok="${p.answer}">${'①②③④⑤'[i]} ${ch}</button>`)
+              .join('')}</div><div class="ig-res"></div></div>`
+          : `<div class="ig-quiz"><div class="ig-q">${p.body}</div><button type="button" class="ig-reveal" data-ans="${String(p.answer).replace('-', '−')}">머릿속으로 풀고, 정답 보기</button><div class="ig-res"></div></div>`
+      cap = `<b>오늘의 퀴즈</b> ${p.type === 'choice' ? '보기를 눌러 바로 확인해요.' : '연습장에 풀어 보고 정답을 확인해요.'} ${tag(unitName(p.subject, p.unit))} #퀴즈`
       link = `<a href="#/p/${p.id}">풀이까지 보기 →</a>`
     } else if (po.t === 'his') {
       const e = HISTORY_EVENTS[po.i]
@@ -1001,8 +1012,17 @@
       media = `<div class="ig-card trap" style="--c:${S(c.subject).color}"><span class="ig-label">헷갈리지 마</span><div class="ig-big">${window.CONCEPT_DETAIL[po.id].trap}</div></div>`
       cap = `<b>${c.name}</b>에서 시험에 자주 틀리는 점이에요. ${tag(c.name.split(' (')[0])} #헷갈리지마`
       link = `<a href="#/c/${po.id}">개념 보기 →</a>`
+    } else if (po.t === 'expr') {
+      const x = po.x
+      media = `<div class="ig-card expr"><span class="ig-label">오늘의 표현 · ${x.kind}</span><div class="ig-en">${x.en}</div><div class="ig-ko">${x.ko}</div><div class="ig-ex">${x.ex}<small>${x.exko}</small></div></div>`
+      cap = `<b>오늘의 표현</b> ${x.tip} #수능영어 #${x.kind}`
+    } else if (po.t === 'link') {
+      const x = po.x
+      media = `<div class="ig-card link"><span class="ig-label">알고 보면</span><div class="ig-title">${x.title}</div><div class="ig-subs">${x.subjects.map((sj) => `<span style="--c:${S(sj).color}">${S(sj).name}</span>`).join('')}</div></div>`
+      cap = `${x.body} <div class="ig-tags">${x.tags.join(' ')} #알고보면</div>`
+      if (x.concepts && x.concepts[0] && C(x.concepts[0])) link = `<a href="#/c/${x.concepts[0]}">${C(x.concepts[0]).name} →</a>`
     } else {
-      const [q, src] = SAYINGS[po.i]
+      const [q, src] = po.x
       media = `<div class="ig-card say"><div class="ig-quote">“${q}”</div><div class="ig-src">${src}</div></div>`
       cap = `<b>사랑둥이</b> 오늘도 한 문제만 더 해 봐요. #공부자극 #한마디`
     }
@@ -1095,6 +1115,13 @@
         box.querySelector('.ig-res').innerHTML = ok
           ? '<b class="ok">정답!</b> 대단해요.'
           : '<b class="bad">아쉬워요.</b> 초록색이 정답이에요. 아래에서 풀이를 볼 수 있어요.'
+      }
+    })
+    root.querySelectorAll('.ig-reveal').forEach((b) => {
+      b.onclick = () => {
+        b.closest('.ig-quiz').querySelector('.ig-res').innerHTML =
+          `정답은 <b class="ok">${b.dataset.ans}</b>! 풀이가 궁금하면 아래 '풀이까지 보기'를 눌러요.`
+        b.remove()
       }
     })
     root.querySelectorAll('[data-map]').forEach((a) => {
