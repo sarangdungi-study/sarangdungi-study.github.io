@@ -1023,10 +1023,15 @@
     </div>`
     $app.querySelectorAll('.ig-stories button').forEach((b) => {
       b.onclick = () => {
+        // 스토리 줄 가로 위치를 그대로 두고, 고른 과목이 화면 안에 보이게
+        const sx = $app.querySelector('.ig-stories').scrollLeft
         feedState.subj = b.dataset.s
         feedState.n = 12
         feedState.seed = Math.random()
         feed()
+        const row = $app.querySelector('.ig-stories')
+        row.scrollLeft = sx
+        row.querySelector('button.on')?.scrollIntoView({ inline: 'nearest', block: 'nearest' })
       }
     })
     bindFeed($app)
