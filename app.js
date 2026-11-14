@@ -177,6 +177,7 @@
       l: ladder,
       path: mathPath,
       guide: guidePage,
+      feed,
       exams,
       exam,
     }
@@ -903,6 +904,202 @@
       }
     })
     go(0)
+  }
+
+  // ───────── 인스타 모드: 개념 릴스 · 퀴즈 · 한국사 · 헷갈리지 마 · 한마디를 피드로
+  // 내용은 이미 검토한 개념 · 문제 · 지도 데이터에서만 가져옴. 명언은 출처가 확실한 것만.
+  const SAYINGS = [
+    ['배우고 때때로 익히면 또한 기쁘지 아니한가.', '『논어』 학이편'],
+    ['아는 것을 안다 하고, 모르는 것을 모른다 하는 것, 이것이 아는 것이다.', '『논어』 위정편'],
+    ['천 리 길도 발밑에서 시작된다.', '『도덕경』 64장'],
+    ['틀린 문제는 실력이 자라는 자리예요. 오늘 틀린 게 시험에선 맞는 문제가 돼요.', '사랑둥이 한마디'],
+    ['어제보다 한 문제 더. 그게 쌓이면 등급이 바뀌어요.', '사랑둥이 한마디'],
+    ['막히면 내려가서 기초를 보고, 다시 올라오면 돼요. 돌아가는 게 제일 빠른 길이에요.', '사랑둥이 한마디'],
+    ['10분만 해도 0분보다 훨씬 커요.', '사랑둥이 한마디'],
+    ['외우기 전에 이해하고, 이해한 다음엔 한 번 더 풀어 봐요.', '사랑둥이 한마디'],
+  ]
+  const feedState = { subj: 'all', n: 12, seed: Math.random() }
+  const lsLikes = () => readJson(`likes:${myName()}`, {})
+  function seeded(arr, seed) {
+    let x = Math.floor(seed * 2147483647) || 1
+    const r = () => (x = (x * 48271) % 2147483647) / 2147483647
+    const b = arr.slice()
+    for (let i = b.length - 1; i > 0; i--) {
+      const j = Math.floor(r() * (i + 1))
+      ;[b[i], b[j]] = [b[j], b[i]]
+    }
+    return b
+  }
+  function feedPosts() {
+    const okSubj = (sj) => feedState.subj === 'all' || feedState.subj === sj
+    const cids = Object.keys(CONCEPTS).filter((id) => okSubj(C(id).subject) && inGrade(gradesOfConcept(id)))
+    const reels = cids.filter((id) => Explain.has(id)).map((id) => ({ t: 'reel', id, key: 'r:' + id, sj: C(id).subject }))
+    const traps = cids
+      .filter((id) => (window.CONCEPT_DETAIL || {})[id]?.trap)
+      .map((id) => ({ t: 'trap', id, key: 't:' + id, sj: C(id).subject }))
+    const quiz = PROBLEMS.filter(
+      (p) =>
+        p.type === 'choice' &&
+        okSubj(p.subject) &&
+        inGrade(gradesOf(p)) &&
+        !p.set &&
+        strip(p.body).length < 90 &&
+        !/<table|class="passage"/.test(p.body),
+    ).map((p) => ({
+      t: 'quiz',
+      id: p.id,
+      key: 'q:' + p.id,
+      sj: p.subject,
+    }))
+    const his = okSubj('his') ? HISTORY_EVENTS.map((e, i) => ({ t: 'his', i, key: 'h:' + i, sj: 'his' })) : []
+    const say = SAYINGS.map((x, i) => ({ t: 'say', i, key: 's:' + i, sj: 'all' }))
+    const pools = [
+      seeded(reels, feedState.seed),
+      seeded(quiz, feedState.seed + 0.1),
+      seeded(traps, feedState.seed + 0.2),
+      seeded(his, feedState.seed + 0.3),
+    ]
+    const out = []
+    const sayQ = seeded(say, feedState.seed + 0.4)
+    let k = 0
+    while (out.length < 400 && pools.some((p) => p.length)) {
+      const p = pools[k % pools.length]
+      if (p.length) out.push(p.shift())
+      k++
+      if (out.length % 6 === 5 && sayQ.length) out.push(sayQ.shift())
+    }
+    return out
+  }
+  const tag = (s) => '#' + String(s).replace(/[·\s()]+/g, '')
+  function postHtml(po) {
+    const likes = lsLikes()
+    const liked = !!likes[po.key]
+    const sj = po.sj === 'all' ? null : S(po.sj)
+    const who = sj ? `사랑둥이 · ${sj.name}` : '사랑둥이'
+    let media = ''
+    let cap = ''
+    let link = ''
+    if (po.t === 'reel') {
+      const c = C(po.id)
+      media = `<div class="ig-reel" data-scene="${po.id}"></div>`
+      cap = `<b>${c.name}</b> ${strip(c.easy || c.summary)}${MEMOS[po.id] ? `<div class="ig-memo">외우는 법 · ${strip(MEMOS[po.id])}</div>` : ''}<div class="ig-tags">${tag(c.name.split(' (')[0])} ${tag(unitName(c.subject, c.unit))} #사랑둥이</div>`
+      link = `<a href="#/c/${po.id}">개념 자세히 →</a>`
+    } else if (po.t === 'quiz') {
+      const p = P(po.id)
+      media = `<div class="ig-quiz"><div class="ig-q">${p.body}</div><div class="ig-ch">${p.choices
+        .map((ch, i) => `<button type="button" data-a="${i + 1}" data-ok="${p.answer}">${'①②③④⑤'[i]} ${ch}</button>`)
+        .join('')}</div><div class="ig-res"></div></div>`
+      cap = `<b>오늘의 퀴즈</b> 보기를 눌러 바로 확인해요. ${tag(unitName(p.subject, p.unit))} #퀴즈`
+      link = `<a href="#/p/${p.id}">풀이까지 보기 →</a>`
+    } else if (po.t === 'his') {
+      const e = HISTORY_EVENTS[po.i]
+      media = `<div class="ig-card his"><div class="ig-year">${e.when || e.year}</div><div class="ig-title">${e.title}</div><div class="ig-key">${e.key || ''}</div><div class="ig-place">${placeName(e.place)}</div></div>`
+      cap = `<b>오늘의 한국사</b> ${e.desc} ${tag(e.title)} #한국사지도`
+      link = `<a href="#/map" data-map="${po.i}">지도에서 보기 →</a>`
+    } else if (po.t === 'trap') {
+      const c = C(po.id)
+      media = `<div class="ig-card trap" style="--c:${S(c.subject).color}"><span class="ig-label">헷갈리지 마</span><div class="ig-big">${window.CONCEPT_DETAIL[po.id].trap}</div></div>`
+      cap = `<b>${c.name}</b>에서 시험에 자주 틀리는 점이에요. ${tag(c.name.split(' (')[0])} #헷갈리지마`
+      link = `<a href="#/c/${po.id}">개념 보기 →</a>`
+    } else {
+      const [q, src] = SAYINGS[po.i]
+      media = `<div class="ig-card say"><div class="ig-quote">“${q}”</div><div class="ig-src">${src}</div></div>`
+      cap = `<b>사랑둥이</b> 오늘도 한 문제만 더 해 봐요. #공부자극 #한마디`
+    }
+    return `<article class="ig-post" data-key="${po.key}">
+      <header class="ig-head"><span class="ig-ava" style="--c:${sj ? sj.color : 'var(--marker)'}"><svg viewBox="0 0 64 64"><path d="M32 52 13 33a11 11 0 0 1 19-13 11 11 0 0 1 19 13Z"/></svg></span><b>${who}</b></header>
+      <div class="ig-media">${media}</div>
+      <div class="ig-acts"><button type="button" class="ig-like ${liked ? 'on' : ''}" aria-label="좋아요"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 5C19 15.6 12 20 12 20Z"/></svg></button>${link ? `<span class="ig-link">${link}</span>` : ''}</div>
+      <div class="ig-cap">${cap}</div>
+    </article>`
+  }
+  function feed() {
+    const posts = feedPosts()
+    const stories = [['all', '전체', 'var(--marker)'], ...SUBJECTS.map((s) => [s.id, s.name, s.color])]
+    $app.innerHTML = `<div class="ig">
+      <div class="ig-stories">${stories.map(([v, n, col]) => `<button type="button" data-s="${v}" class="${feedState.subj === v ? 'on' : ''}" style="--c:${col}"><span class="ig-ring"><span>${{ sci: '과학', soc: '사회', his: '역사' }[v] || n.slice(0, 2)}</span></span><small>${n}</small></button>`).join('')}</div>
+      <div class="ig-list">${posts.slice(0, feedState.n).map(postHtml).join('')}</div>
+      ${posts.length > feedState.n ? '<div class="ig-more"><span>아래로 내리면 더 나와요</span></div>' : '<div class="ig-more"><span>다 봤어요! 새로 섞으려면 위의 과목을 다시 눌러요.</span></div>'}
+    </div>`
+    $app.querySelectorAll('.ig-stories button').forEach((b) => {
+      b.onclick = () => {
+        feedState.subj = b.dataset.s
+        feedState.n = 12
+        feedState.seed = Math.random()
+        feed()
+      }
+    })
+    bindFeed($app)
+    const more = $app.querySelector('.ig-more')
+    if (more && posts.length > feedState.n) {
+      const io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return
+        io.disconnect()
+        const add = posts.slice(feedState.n, feedState.n + 10)
+        feedState.n += add.length
+        const box = document.createElement('div')
+        box.innerHTML = add.map(postHtml).join('')
+        bindFeed(box)
+        $app.querySelector('.ig-list').append(...box.children)
+        if (feedState.n >= posts.length) more.innerHTML = '<span>다 봤어요! 새로 섞으려면 위의 과목을 다시 눌러요.</span>'
+        else io.observe(more)
+      })
+      io.observe(more)
+    }
+  }
+  function bindFeed(root) {
+    root.querySelectorAll('.ig-reel').forEach((h) => {
+      const io = new IntersectionObserver((es) => {
+        if (es.some((e) => e.isIntersecting)) {
+          io.disconnect()
+          Explain.mount(h, h.dataset.scene)
+        }
+      })
+      io.observe(h)
+    })
+    root.querySelectorAll('.ig-like').forEach((b) => {
+      b.onclick = () => {
+        const key = b.closest('.ig-post').dataset.key
+        const likes = lsLikes()
+        if (likes[key]) delete likes[key]
+        else likes[key] = Date.now()
+        lsSet(`likes:${myName()}`, JSON.stringify(likes))
+        b.classList.toggle('on', !!likes[key])
+        b.classList.remove('pop')
+        void b.offsetWidth
+        if (likes[key]) b.classList.add('pop')
+      }
+    })
+    // 사진 두 번 톡 = 좋아요 (인스타처럼)
+    root.querySelectorAll('.ig-media').forEach((m) => {
+      m.ondblclick = () => {
+        const b = m.closest('.ig-post').querySelector('.ig-like')
+        if (!b.classList.contains('on')) b.click()
+      }
+    })
+    root.querySelectorAll('.ig-ch button').forEach((b) => {
+      b.onclick = () => {
+        const box = b.closest('.ig-quiz')
+        if (box.dataset.done) return
+        box.dataset.done = '1'
+        const ok = b.dataset.a === b.dataset.ok
+        box.querySelectorAll('.ig-ch button').forEach((x) => {
+          if (x.dataset.a === x.dataset.ok) x.classList.add('right')
+          else if (x === b) x.classList.add('wrong')
+        })
+        box.querySelector('.ig-res').innerHTML = ok
+          ? '<b class="ok">정답!</b> 대단해요.'
+          : '<b class="bad">아쉬워요.</b> 초록색이 정답이에요. 아래에서 풀이를 볼 수 있어요.'
+      }
+    })
+    root.querySelectorAll('[data-map]').forEach((a) => {
+      a.onclick = () => {
+        const e = HISTORY_EVENTS[Number(a.dataset.map)]
+        mapState.era = 'all'
+        mapState.sel = e.place
+        mapState.ev = evKey(e)
+      }
+    })
   }
 
   // ───────── 오늘의 랜덤 미션: 과정을 고르면 그 과정 문제 3개를 뽑아 줌 (오늘 하루는 그대로)

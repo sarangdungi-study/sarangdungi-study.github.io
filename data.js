@@ -1265,7 +1265,7 @@ window.PROBLEMS = [
     similar: ['m-e2'],
     hint: '접선의 기울기는 그 점에서의 미분계수예요.',
     solution:
-      '<span class="m">f′(x) = 3x² − 6x</span> → <span class="m">f′(1) = −3</span><br>접선: <span class="m">y = −3(x − 1) + 0 = −3x + 3</span><br>y절편은 <b>3</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x³ − 3x² + 2</span> 위의 점 <span class="m">(1, 0)</span>에서 그은 접선이 y축과 만나는 점의 y좌표예요.</li><li><b>어떻게 풀까요?</b> 접선의 기울기는 그 점에서의 미분계수 <span class="m">f′(1)</span>이에요. 기울기와 지나는 점을 알면 <span class="m">y = f′(a)(x − a) + f(a)</span>로 접선을 바로 쓸 수 있어요.</li><li>미분해요: <span class="m">f′(x) = 3x² − 6x</span></li><li>기울기: <span class="m">f′(1) = 3 − 6 = −3</span></li><li>접선: <span class="m">y = −3(x − 1) + 0 = −3x + 3</span></li><li><span class="m">x = 0</span>을 넣으면 <span class="m">y = 3</span>이 y절편이에요.</li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 기울기 자리에 함숫값 f(1) = 0을 넣거나, 접선 식에서 (x − 1)을 (x + 1)로 잘못 쓰는 경우가 많아요.</div>',
     mistakes: ['기울기를 f(1)로 착각하기', '접선 식에서 (x − 1) 대신 (x + 1) 쓰기'],
   },
   {
@@ -1283,7 +1283,7 @@ window.PROBLEMS = [
     similar: ['m-e3'],
     hint: '극값이면 f′ = 0. 그리고 함숫값 조건이 하나 더 있어요.',
     solution:
-      '<span class="m">f′(1) = 3 + a = 0</span> → <span class="m">a = −3</span><br><span class="m">f(1) = 1 − 3 + b = −2</span> → <span class="m">b = 0</span><br><span class="m">f′(x) = 3(x − 1)(x + 1)</span>, 부호가 + → −로 바뀌는 <span class="m">x = −1</span>이 극대<br><span class="m">f(−1) = −1 + 3 = </span><b>2</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 조건으로 상수 <span class="m">a, b</span>를 정한 뒤, <span class="m">f(x)</span>의 <b>극댓값</b>을 구해요.</li><li><b>어떻게 풀까요?</b> "<span class="m">x = 1</span>에서 극솟값 −2"에는 조건이 두 개 들어 있어요. ① 극값이므로 <span class="m">f′(1) = 0</span>, ② 그 값이 −2이므로 <span class="m">f(1) = −2</span>. 미지수가 2개라 식도 2개가 필요해요.</li><li><span class="m">f′(x) = 3x² + a</span> → <span class="m">f′(1) = 3 + a = 0</span> → <span class="m">a = −3</span></li><li><span class="m">f(1) = 1 − 3 + b = −2</span> → <span class="m">b = 0</span>, 그래서 <span class="m">f(x) = x³ − 3x</span></li><li><span class="m">f′(x) = 3x² − 3 = 3(x + 1)(x − 1)</span><br><span class="m">x = −1</span> 앞뒤로 부호가 + → − 이므로 극대, <span class="m">x = 1</span>에서는 − → + 이므로 극소(문제 조건과 맞아요).</li><li>극댓값: <span class="m">f(−1) = −1 + 3 = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> f′(1) = 0 하나만 쓰고 b를 못 구하거나, 극대·극소 위치를 바꿔 x = 1의 값(−2)을 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['f′(1) = 0 하나만 쓰고 b를 못 구함', '극대·극소 위치를 바꿔 읽기'],
   },
   {
@@ -1301,7 +1301,7 @@ window.PROBLEMS = [
     similar: ['m-e4'],
     hint: '(0, −16)은 곡선 위의 점이 아니에요. 접점을 (t, t³)으로 두세요.',
     solution:
-      '접선: <span class="m">y = 3t²(x − t) + t³</span><br><span class="m">(0, −16)</span> 대입: <span class="m">−16 = −2t³</span> → <span class="m">t = 2</span><br>기울기 <span class="m">3t² = </span><b>12</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x³</span>에 접하면서 점 <span class="m">(0, −16)</span>을 지나는 접선의 <b>기울기</b>예요.</li><li><b>어떻게 풀까요?</b> 점 <span class="m">(0, −16)</span>은 곡선 위의 점이 아니에요(<span class="m">0³ = 0 ≠ −16</span>). 그래서 접점을 모르는 채로 <span class="m">(t, t³)</span>이라 두고, 그 점에서의 접선이 <span class="m">(0, −16)</span>을 지나도록 t를 찾아요.</li><li><span class="m">y′ = 3x²</span>이므로 접점 <span class="m">(t, t³)</span>에서 기울기는 <span class="m">3t²</span><br>접선: <span class="m">y = 3t²(x − t) + t³</span></li><li><span class="m">(0, −16)</span>을 넣으면 <span class="m">−16 = 3t²(0 − t) + t³ = −3t³ + t³ = −2t³</span></li><li><span class="m">t³ = 8</span> → <span class="m">t = 2</span> (실수 해는 이것 하나), 접점은 <span class="m">(2, 8)</span></li><li>기울기: <span class="m">3t² = 3 × 2² = 12</span></li></ol><div class="sol-ans">답: <b>12</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> (0, −16)을 접점으로 착각해 x = 0에서의 미분계수(0)를 바로 기울기로 쓰는 실수가 가장 많아요.</div>',
     scene: 'm-outside',
     mistakes: ['(0, −16)을 접점으로 보고 미분계수를 바로 구하기'],
   },
@@ -1318,7 +1318,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['m-limit', 'm-power'],
     hint: '<span class="m">(x²)′ = 2x</span>, <span class="m">(3x)′ = 3</span>',
-    solution: '<span class="m">f′(x) = 2x + 3</span> → <span class="m">f′(1) = </span><b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = x² + 3x</span>의 <span class="m">x = 1</span>에서의 미분계수 <span class="m">f′(1)</span>이에요.</li><li><b>어떻게 풀까요?</b> 먼저 도함수 <span class="m">f′(x)</span>를 구하고, 거기에 <span class="m">x = 1</span>을 넣어요. <span class="m">(xⁿ)′ = nxⁿ⁻¹</span>, <span class="m">(3x)′ = 3</span>을 써요.</li><li><span class="m">f′(x) = 2x + 3</span></li><li><span class="m">f′(1) = 2 × 1 + 3 = 5</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 미분하지 않고 f(1) = 4를 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['f(1)을 구하기'],
   },
   {
@@ -1334,7 +1335,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['m-tangent'],
     hint: '<span class="m">y = f′(1)(x − 1) + 3</span>',
-    solution: '<span class="m">f′(x) = 2x</span> → 기울기 2<br><span class="m">y = 2(x − 1) + 3 = 2x + 1</span> → y절편 <b>1</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x² + 2</span> 위의 점 <span class="m">(1, 3)</span>에서의 접선의 y절편이에요.</li><li><b>어떻게 풀까요?</b> 접선의 기울기 = 그 점의 미분계수 <span class="m">f′(1)</span>. 그러면 접선은 <span class="m">y = f′(1)(x − 1) + 3</span>이에요.</li><li><span class="m">f′(x) = 2x</span> → 기울기 <span class="m">f′(1) = 2</span></li><li>접선: <span class="m">y = 2(x − 1) + 3 = 2x + 1</span></li><li><span class="m">x = 0</span>을 넣으면 <span class="m">y = 1</span></li></ol><div class="sol-ans">답: <b>1</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 접선 식에서 지나는 점의 y좌표 3을 더하는 것을 빼먹는 경우가 많아요.</div>',
     mistakes: [],
   },
   {
@@ -1350,7 +1352,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['m-incdec'],
     hint: '<span class="m">f′(x) = 3(x − 1)(x + 1)</span>의 부호 바뀜을 보세요.',
-    solution: '<span class="m">x = −1</span>에서 + → − 이므로 극대<br><span class="m">f(−1) = −1 + 3 = </span><b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = x³ − 3x</span>의 <b>극댓값</b>(극대인 x에서의 함숫값)이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">f′(x) = 0</span>인 x를 찾고, 그 앞뒤에서 <span class="m">f′</span>의 부호가 + → − 로 바뀌는 곳이 극대예요.</li><li><span class="m">f′(x) = 3x² − 3 = 3(x − 1)(x + 1)</span> → <span class="m">x = −1, 1</span></li><li>부호: <span class="m">x &lt; −1</span>에서 +, <span class="m">−1 &lt; x &lt; 1</span>에서 −, <span class="m">x &gt; 1</span>에서 +<br>그래서 <span class="m">x = −1</span>이 극대, <span class="m">x = 1</span>이 극소예요.</li><li>극댓값: <span class="m">f(−1) = −1 + 3 = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 극대 x를 구해 놓고 x = 1에서의 값(−2)을 쓰거나, 극대 위치 x = −1 자체를 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['x = 1에서의 값(−2)을 쓰기'],
   },
   {
@@ -1367,7 +1370,7 @@ window.PROBLEMS = [
     concepts: ['m-outside'],
     hint: '접점 <span class="m">(t, t²)</span>, 접선 <span class="m">y = 2t(x − t) + t²</span>',
     solution:
-      '<span class="m">(0, −4)</span> 대입: <span class="m">−4 = −t²</span> → <span class="m">t = ±2</span><br>기울기 양수 → <span class="m">t = 2</span>, 기울기 <b>4</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x²</span>의 접선 중 점 <span class="m">(0, −4)</span>를 지나고 기울기가 양수인 접선의 기울기예요.</li><li><b>어떻게 풀까요?</b> <span class="m">(0, −4)</span>는 곡선 위의 점이 아니므로 접점을 <span class="m">(t, t²)</span>으로 두고, 그 접선이 <span class="m">(0, −4)</span>를 지나게 해요.</li><li>접점 <span class="m">(t, t²)</span>에서 기울기 <span class="m">2t</span>, 접선: <span class="m">y = 2t(x − t) + t²</span></li><li><span class="m">(0, −4)</span> 대입: <span class="m">−4 = −2t² + t² = −t²</span> → <span class="m">t² = 4</span> → <span class="m">t = ±2</span></li><li>기울기 <span class="m">2t</span>가 양수여야 하므로 <span class="m">t = 2</span>, 기울기 <span class="m">= 2 × 2 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> t = −2(기울기 −4)까지 답으로 쓰거나, t 값 2를 기울기로 착각하는 실수가 많아요.</div>',
     mistakes: ['t = −2도 답으로 쓰기 (기울기 −4)'],
   },
   {
@@ -1487,7 +1490,7 @@ window.PROBLEMS = [
     concepts: ['a-rec'],
     hint: '앞에서부터 10개쯤 직접 써 보면 같은 수가 다시 나와요.',
     solution:
-      '7, 12, 6, 3, 8, 4, 2, 1, 6, 3, 8, 4, 2, 1, …<br>3항부터 <span class="m">6, 3, 8, 4, 2, 1</span>이 반복 (합 24)<br>3~20항은 18개 = 3묶음 → <span class="m">7 + 12 + 24 × 3 = </span><b>91</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 규칙대로 만든 수열의 첫째항부터 제20항까지의 합이에요.</li><li><b>어떻게 풀까요?</b> 20개를 다 쓰기는 힘드니까, 앞에서부터 몇 개 써 보고 <b>같은 수가 다시 나오는 반복(주기)</b>을 찾아요.</li><li><span class="m">a₁ = 7</span>(홀수) → <span class="m">a₂ = 12</span>(짝수) → <span class="m">a₃ = 6</span> → <span class="m">a₄ = 3</span> → <span class="m">a₅ = 8</span> → <span class="m">a₆ = 4</span> → <span class="m">a₇ = 2</span> → <span class="m">a₈ = 1</span> → <span class="m">a₉ = 6</span> → …</li><li><span class="m">a₉ = 6 = a₃</span>이므로 제3항부터 <span class="m">6, 3, 8, 4, 2, 1</span>의 6개가 반복돼요. 한 묶음의 합은 <span class="m">6 + 3 + 8 + 4 + 2 + 1 = 24</span>예요.</li><li>제3항~제20항은 <span class="m">20 − 2 = 18</span>개 = 6개씩 <b>3묶음</b>이에요.<br>합 <span class="m">= a₁ + a₂ + 24 × 3 = 7 + 12 + 72 = 91</span></li></ol><div class="sol-ans">답: <b>91</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 반복이 시작되지 않는 앞의 두 항(7, 12)까지 묶음에 넣어서 세는 실수가 가장 많아요.</div>',
     mistakes: ['1항과 2항(7, 12)도 반복에 넣어서 계산하기', '20항까지가 몇 묶음인지 하나 차이로 세기'],
   },
   {
@@ -1505,7 +1508,7 @@ window.PROBLEMS = [
     similar: ['m-e5'],
     hint: '<span class="m">t = 2ˣ</span>로 두면 두 근의 곱이 16이에요. <span class="m">α = 3β</span>를 t로 바꾸면?',
     solution:
-      '<span class="m">t = 2ˣ</span>: <span class="m">t² − 2k·t + 16 = 0</span>, 두 양의 근 <span class="m">2^α, 2^β</span><br>곱: <span class="m">2^α · 2^β = 16</span>, <span class="m">α = 3β</span> → <span class="m">2^(4β) = 16</span> → <span class="m">β = 1, α = 3</span><br>합: <span class="m">2 + 8 = 2k</span> → <span class="m">k = </span><b>5</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 근 사이에 <span class="m">α = 3β</span> 관계가 있을 때 상수 <span class="m">k</span>예요.</li><li><b>어떻게 풀까요?</b> <span class="m">4ˣ = (2ˣ)²</span>, <span class="m">2ˣ⁺¹ = 2·2ˣ</span>이니까 <span class="m">t = 2ˣ</span>로 바꾸면 <span class="m">t</span>에 대한 이차방정식이 돼요. 그다음 <b>근과 계수의 관계</b>를 써요.</li><li><span class="m">t² − 2k·t + 16 = 0</span>. 이 방정식의 두 근은 <span class="m">t = 2^α</span>, <span class="m">t = 2^β</span>예요 (둘 다 양수).</li><li>두 근의 곱: <span class="m">2^α × 2^β = 2^(α+β) = 16 = 2⁴</span> → <span class="m">α + β = 4</span>.<br><span class="m">α = 3β</span>를 넣으면 <span class="m">4β = 4</span> → <span class="m">β = 1</span>, <span class="m">α = 3</span>.</li><li>두 근의 합: <span class="m">2^α + 2^β = 8 + 2 = 10 = 2k</span> → <span class="m">k = 5</span>.<br>확인: <span class="m">t² − 10t + 16 = (t − 2)(t − 8) = 0</span>, <span class="m">t = 2, 8</span> → <span class="m">x = 1, 3</span> ✔</li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2ˣ⁺¹을 2ˣ + 1로 읽으면 안 돼요. 2ˣ⁺¹ = 2 × 2ˣ이에요.</div>',
     mistakes: ['2ˣ⁺¹을 2ˣ + 1로 읽기', 'α = 3β를 t₁ = 3t₂로 옮기기 (지수의 3배는 t의 세제곱)'],
   },
   {
@@ -1523,7 +1526,7 @@ window.PROBLEMS = [
     concepts: ['a-trig'],
     hint: '<span class="m">sin²x = 1 − cos²x</span>로 바꿔서 <span class="m">cos x</span>에 대한 이차방정식으로.',
     solution:
-      '<span class="m">2(1 − cos²x) + 3cos x = 3</span> → <span class="m">(2cos x − 1)(cos x − 1) = 0</span><br><span class="m">cos x = 1</span> → <span class="m">x = 0</span>,  <span class="m">cos x = 1/2</span> → <span class="m">x = π/3, 5π/3</span><br>합 <span class="m">0 + π/3 + 5π/3 = 2π</span> → <b>④</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">0 ≤ x &lt; 2π</span>에서 방정식을 만족하는 모든 <span class="m">x</span>의 합이에요.</li><li><b>어떻게 풀까요?</b> sin과 cos가 섞여 있으니 <span class="m">sin²x = 1 − cos²x</span>로 바꿔서 <b>cos x 하나만 남는 이차방정식</b>으로 만들어요.</li><li><span class="m">2(1 − cos²x) + 3cos x = 3</span> → <span class="m">−2cos²x + 3cos x − 1 = 0</span> → <span class="m">2cos²x − 3cos x + 1 = 0</span></li><li>인수분해: <span class="m">(2cos x − 1)(cos x − 1) = 0</span> → <span class="m">cos x = 1/2</span> 또는 <span class="m">cos x = 1</span></li><li><span class="m">cos x = 1</span> → <span class="m">x = 0</span><br><span class="m">cos x = 1/2</span> → cos가 양수인 1사분면·4사분면이라 <span class="m">x = π/3, 5π/3</span></li><li>모든 해의 합 <span class="m">= 0 + π/3 + 5π/3 = 2π</span></li></ol><div class="sol-ans">답: <b>④ 2π</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> cos x = 1/2의 해를 π/3, 2π/3로 쓰기 쉬워요. cos가 양수인 곳은 1·4사분면이라 5π/3이에요.</div>',
     mistakes: [
       'cos x = 1/2의 해를 π/3, 2π/3로 쓰기 (cos가 양수인 곳은 1, 4사분면이라 5π/3) → 합이 π가 되어 ①',
       'cos x = 1/2의 해를 하나만 쓰기',
@@ -1544,7 +1547,7 @@ window.PROBLEMS = [
     similar: ['m-e6'],
     hint: '먼저 <span class="m">aₙ</span>을 구해요. <span class="m">aₙ = 2n + 1</span>이 나와요.',
     solution:
-      '<span class="m">aₙ = Sₙ − Sₙ₋₁ = 2n + 1</span> (<span class="m">a₁ = S₁ = 3</span>도 맞음)<br><span class="m">1/((2k+1)(2k+3)) = ½(1/(2k+1) − 1/(2k+3))</span><br>합 <span class="m">= ½(1/3 − 1/23) = 10/69</span> → <span class="m">p + q = 69 + 10 = </span><b>79</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">Σ(k=1~10) 1/(aₖaₖ₊₁) = q/p</span>일 때 <span class="m">p + q</span>예요.</li><li><b>어떻게 풀까요?</b> 합 <span class="m">Sₙ</span>이 주어졌으니 <span class="m">aₙ = Sₙ − Sₙ₋₁</span>로 일반항을 먼저 구하고, 분모가 두 항의 곱이니 <b>부분분수</b>로 쪼개서 서로 지워지게 해요.</li><li><span class="m">n ≥ 2</span>: <span class="m">aₙ = (n² + 2n) − ((n−1)² + 2(n−1)) = 2n + 1</span><br><span class="m">n = 1</span>: <span class="m">a₁ = S₁ = 3 = 2×1 + 1</span>이라 모든 n에서 <span class="m">aₙ = 2n + 1</span></li><li><span class="m">1/((2k+1)(2k+3)) = ½ × (1/(2k+1) − 1/(2k+3))</span> (두 분모의 차가 2라서 앞에 ½)</li><li>k = 1부터 10까지 더하면 가운데가 지워져서<br><span class="m">½ × (1/3 − 1/5 + 1/5 − ⋯ − 1/23) = ½ × (1/3 − 1/23) = ½ × 20/69 = 10/69</span></li><li>10과 69는 서로소이므로 <span class="m">p = 69, q = 10</span> → <span class="m">p + q = 79</span></li></ol><div class="sol-ans">답: <b>79</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 부분분수로 쪼갤 때 앞의 ½을 빼먹거나, 마지막 항을 1/21로 끊는 실수가 많아요 (k = 10이면 2k + 3 = 23).</div>',
     mistakes: ['부분분수에서 앞의 ½을 빼먹기', '마지막 항을 1/21로 끊기 (k = 10이면 2k+3 = 23)'],
   },
   {
@@ -1562,7 +1565,7 @@ window.PROBLEMS = [
     similar: ['m-e7'],
     hint: '<span class="m">f(x) = x³ − 3x² − 9x</span>의 그래프와 직선 <span class="m">y = k</span>가 세 점에서 만나는 경우.',
     solution:
-      '<span class="m">f′(x) = 3(x + 1)(x − 3)</span><br>극댓값 <span class="m">f(−1) = 5</span>, 극솟값 <span class="m">f(3) = −27</span><br><span class="m">−27 &lt; k &lt; 5</span> → 정수 <span class="m">−26, …, 4</span> → <b>31</b>개',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 방정식 <span class="m">x³ − 3x² − 9x − k = 0</span>이 서로 다른 실근 3개를 갖게 하는 정수 k의 개수예요.</li><li><b>어떻게 풀까요?</b> k를 오른쪽으로 넘기면 <span class="m">x³ − 3x² − 9x = k</span>. 즉 <span class="m">y = f(x) = x³ − 3x² − 9x</span>의 그래프와 수평선 <span class="m">y = k</span>가 <b>세 점</b>에서 만나야 해요. 그러려면 k가 극솟값과 극댓값 사이에 있어야 해요.</li><li><span class="m">f′(x) = 3x² − 6x − 9 = 3(x + 1)(x − 3)</span> → <span class="m">x = −1</span>에서 극대, <span class="m">x = 3</span>에서 극소</li><li>극댓값 <span class="m">f(−1) = −1 − 3 + 9 = 5</span><br>극솟값 <span class="m">f(3) = 27 − 27 − 27 = −27</span></li><li>세 점에서 만나는 조건: <span class="m">−27 &lt; k &lt; 5</span> (끝값이면 접해서 근이 2개)</li><li>정수 k: <span class="m">−26, −25, …, 4</span> → 개수 <span class="m">4 − (−26) + 1 = 31</span></li></ol><div class="sol-ans">답: <b>31</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> k = 5나 −27까지 넣거나(그때는 중근이라 서로 다른 실근이 2개), −26부터 4까지를 30개로 세는 실수가 많아요.</div>',
     mistakes: ['k = 5, −27도 넣기 (그때는 중근이라 서로 다른 실근이 2개)', '−26부터 4까지 개수를 30으로 세기'],
   },
   {
@@ -1579,7 +1582,7 @@ window.PROBLEMS = [
     concepts: ['m-dist'],
     hint: '<span class="m">v(t) = (t − 1)(t − 3)</span>. 부호가 바뀌는 시각에서 나눠요.',
     solution:
-      '<span class="m">F(t) = t³/3 − 2t² + 3t</span><br><span class="m">F(0) = 0, F(1) = 4/3, F(3) = 0, F(4) = 4/3</span><br>거리 <span class="m">= 4/3 + |0 − 4/3| + 4/3 = </span><b>4</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">t = 0</span>부터 <span class="m">t = 4</span>까지 점 P가 실제로 <b>움직인 거리</b>(왔다 갔다 한 길이의 합)예요.</li><li><b>어떻게 풀까요?</b> 움직인 거리는 <span class="m">∫|v(t)| dt</span>예요. 속도가 음수인 구간은 거꾸로 간 것이니, 부호가 바뀌는 시각에서 구간을 나눠 각 구간을 양수로 더해요. 부정적분 <span class="m">F(t) = t³/3 − 2t² + 3t</span>를 써요.</li><li><span class="m">v(t) = t² − 4t + 3 = (t − 1)(t − 3)</span><br><span class="m">0 &lt; t &lt; 1</span>: +, <span class="m">1 &lt; t &lt; 3</span>: −, <span class="m">3 &lt; t &lt; 4</span>: +</li><li><span class="m">F(0) = 0</span>, <span class="m">F(1) = 1/3 − 2 + 3 = 4/3</span>, <span class="m">F(3) = 9 − 18 + 9 = 0</span>, <span class="m">F(4) = 64/3 − 32 + 12 = 4/3</span></li><li>구간별 거리: <span class="m">[0, 1]</span> → <span class="m">4/3 − 0 = 4/3</span><br><span class="m">[1, 3]</span> → <span class="m">|0 − 4/3| = 4/3</span><br><span class="m">[3, 4]</span> → <span class="m">4/3 − 0 = 4/3</span></li><li>합: <span class="m">4/3 + 4/3 + 4/3 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> ∫₀⁴ v(t) dt를 한 번에 계산해 4/3(위치의 변화량)을 답으로 쓰거나, 1 ≤ t ≤ 3 구간의 절댓값을 빼먹는 실수가 많아요.</div>',
     mistakes: ['∫v를 한 번에 계산해서 4/3 (그건 위치의 변화)', '1 ≤ t ≤ 3 구간의 절댓값을 빼먹기'],
   },
   {
@@ -1598,7 +1601,7 @@ window.PROBLEMS = [
     similar: ['m-e8'],
     hint: '분모는 "흰 공이 나올 확률" 전체예요. A에서 흰 공, B에서 흰 공을 나눠서.',
     solution:
-      '<span class="m">P(A∩흰) = 1/3 × 2/5 = 2/15</span><br><span class="m">P(B∩흰) = 2/3 × 4/5 = 8/15</span><br><span class="m">P(A | 흰) = (2/15) / (10/15) = 1/5</span> → <b>②</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 꺼낸 공이 <b>흰 공이라는 걸 이미 알 때</b>, 그 공이 A에서 나왔을 확률이에요. 즉 <span class="m">P(A | 흰)</span>이에요.</li><li><b>어떻게 풀까요?</b> 조건부확률 <span class="m">P(A | 흰) = P(A∩흰) / P(흰)</span>을 써요. 흰 공이 나오는 길은 \'A에서 흰 공\', \'B에서 흰 공\' 두 가지라서 둘을 따로 구해 더하면 분모가 돼요.</li><li>주머니 고르기: 3의 배수(3, 6)는 6개 중 2개라서 A를 고를 확률 <span class="m">1/3</span>, B를 고를 확률 <span class="m">2/3</span>이에요.</li><li>A에서 흰 공: <span class="m">1/3 × 2/5 = 2/15</span><br>B에서 흰 공: <span class="m">2/3 × 4/5 = 8/15</span><br>흰 공 전체: <span class="m">P(흰) = 2/15 + 8/15 = 10/15</span></li><li><span class="m">P(A | 흰) = (2/15) ÷ (10/15) = 2/10 = 1/5</span></li></ol><div class="sol-ans">답: <b>② 1/5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> A 주머니 안에서 흰 공이 나올 확률 2/5를 그대로 답으로 쓰거나, 주머니를 고르는 확률 1/3을 곱하지 않는 실수가 많아요.</div>',
     mistakes: ['A에서 흰 공이 나올 확률 2/5를 답으로 쓰기', '주사위 확률 1/3을 곱하지 않기'],
   },
   {
@@ -1615,7 +1618,7 @@ window.PROBLEMS = [
     concepts: ['p-hcomb'],
     hint: '<span class="m">y = 0, 2, 4, …</span>로 나눠서 세면 실수가 적어요.',
     solution:
-      '<span class="m">y = 2m</span>이면 <span class="m">x + z = 10 − 2m</span>, <span class="m">x ≥ 1</span> → 순서쌍 <span class="m">10 − 2m</span>개<br><span class="m">m = 0~5</span>: <span class="m">10 + 8 + 6 + 4 + 2 + 0 = </span><b>30</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x + y + z = 10</span>인 음이 아닌 정수 순서쌍 중 <span class="m">x ≥ 1</span>이고 <span class="m">y</span>가 짝수인 것의 개수예요.</li><li><b>어떻게 풀까요?</b> 조건이 두 개라 한 번에 세기 어려워요. <span class="m">y</span>가 될 수 있는 짝수 <span class="m">0, 2, 4, 6, 8, 10</span>으로 <b>경우를 나누고</b>, 각 경우에 <span class="m">x + z</span>의 순서쌍을 세요.</li><li><span class="m">y</span>를 정하면 <span class="m">x + z = 10 − y</span>예요. <span class="m">x</span>는 <span class="m">1</span>부터 <span class="m">10 − y</span>까지 고를 수 있고, 그러면 <span class="m">z</span>는 자동으로 정해지니까 순서쌍은 <span class="m">10 − y</span>개예요.</li><li><span class="m">y = 0</span> → 10개, <span class="m">y = 2</span> → 8개, <span class="m">y = 4</span> → 6개<br><span class="m">y = 6</span> → 4개, <span class="m">y = 8</span> → 2개, <span class="m">y = 10</span> → <span class="m">x + z = 0</span>이라 <span class="m">x = 0</span>뿐이니 0개</li><li>합계: <span class="m">10 + 8 + 6 + 4 + 2 + 0 = 30</span></li></ol><div class="sol-ans">답: <b>30</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> y = 10일 때 x = 0, z = 0을 1개로 세기 쉬운데, x ≥ 1이라 이 경우는 0개예요.</div>',
     mistakes: ['y = 10일 때 x ≥ 1이 안 되는데 1개로 세기', 'x ≥ 1 조건을 잊고 ₃H₁₀부터 시작하기'],
   },
   {
@@ -1632,7 +1635,7 @@ window.PROBLEMS = [
     concepts: ['p-binom'],
     hint: '<span class="m">E(3X + 1) = 3E(X) + 1</span>로 n부터 구해요.',
     solution:
-      '<span class="m">3E(X) + 1 = 31</span> → <span class="m">E(X) = 10 = n/3</span> → <span class="m">n = 30</span><br><span class="m">V(X) = 30 × 1/3 × 2/3 = 20/3</span><br><span class="m">V(3X + 1) = 9 × 20/3 = </span><b>60</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 확률변수 <span class="m">3X + 1</span>의 분산 <span class="m">V(3X + 1)</span>이에요.</li><li><b>어떻게 풀까요?</b> 먼저 주어진 평균 조건으로 <span class="m">n</span>을 구하고, 이항분포 공식 <span class="m">E(X) = np</span>, <span class="m">V(X) = np(1 − p)</span>와 성질 <span class="m">V(aX + b) = a<sup>2</sup>V(X)</span>를 써요.</li><li><span class="m">E(3X + 1) = 3E(X) + 1 = 31</span> → <span class="m">E(X) = 10</span></li><li><span class="m">E(X) = n × 1/3 = 10</span> → <span class="m">n = 30</span></li><li><span class="m">V(X) = 30 × 1/3 × 2/3 = 20/3</span></li><li><span class="m">V(3X + 1) = 3<sup>2</sup> × 20/3 = 9 × 20/3 = 60</span> (더하는 1은 분산에 영향을 주지 않아요)</li></ol><div class="sol-ans">답: <b>60</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> V(3X + 1)을 3V(X) + 1처럼 계산하는 실수가 많아요. 분산은 a²배이고 +b는 사라져요.</div>',
     mistakes: ['V(3X + 1) = 3V(X) + 1로 계산하기', '분산에 +1을 더하기'],
   },
   {
@@ -1648,7 +1651,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['a-exp'],
     hint: '<span class="m">t = 2ˣ</span>로 두면 <span class="m">t² − 10t + 16 = 0</span>.',
-    solution: '<span class="m">t = 2, 8</span> → <span class="m">x = 1, 3</span> → 합 <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 방정식의 두 실근 <span class="m">x</span>의 합이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">4ˣ = (2ˣ)²</span>이니까 <span class="m">t = 2ˣ</span>로 바꾸면 이차방정식이 돼요. t를 구한 뒤 다시 x로 돌아와요.</li><li><span class="m">t² − 10t + 16 = 0</span> → <span class="m">(t − 2)(t − 8) = 0</span> → <span class="m">t = 2</span> 또는 <span class="m">t = 8</span></li><li><span class="m">2ˣ = 2</span> → <span class="m">x = 1</span>, <span class="m">2ˣ = 8 = 2³</span> → <span class="m">x = 3</span></li><li>두 실근의 합 <span class="m">= 1 + 3 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> t의 합 10을 그대로 답으로 쓰기 쉬워요. 구하는 건 x의 합이에요.</div>',
     mistakes: ['t의 합 10을 답으로 쓰기'],
   },
   {
@@ -1664,7 +1668,8 @@ window.PROBLEMS = [
     answer: 120,
     concepts: ['a-sigma'],
     hint: '<span class="m">Σk = 55</span>, 상수 1을 10번 더해요.',
-    solution: '<span class="m">2 × 55 + 10 = </span><b>120</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">2k + 1</span>을 k = 1부터 10까지 더한 값이에요.</li><li><b>어떻게 풀까요?</b> Σ는 덧셈마다 나눠 쓸 수 있어요: <span class="m">Σ(2k + 1) = 2Σk + Σ1</span>. <span class="m">Σk = n(n+1)/2</span>를 써요.</li><li><span class="m">Σ(k=1~10) k = 10 × 11 / 2 = 55</span> → <span class="m">2 × 55 = 110</span></li><li>상수 1은 10번 더해지니까 <span class="m">Σ(k=1~10) 1 = 10</span></li><li><span class="m">110 + 10 = 120</span> (확인: 3 + 5 + ⋯ + 21 = 10 × (3 + 21)/2 = 120)</li></ol><div class="sol-ans">답: <b>120</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 상수 1을 한 번만 더해서 111로 쓰기 쉬워요. 상수는 항의 개수(10)만큼 더해져요.</div>',
     mistakes: ['상수항 1을 한 번만 더하기'],
   },
   {
@@ -1680,7 +1685,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['m-roots'],
     hint: '극댓값 <span class="m">f(−1)</span>, 극솟값 <span class="m">f(1)</span>을 구해요.',
-    solution: '극댓값 2, 극솟값 −2 → <span class="m">−2 &lt; k &lt; 2</span> → <b>3</b>개',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x³ − 3x = k</span>가 서로 다른 실근 3개를 갖게 하는 정수 k의 개수예요.</li><li><b>어떻게 풀까요?</b> <span class="m">y = x³ − 3x</span>의 그래프와 수평선 <span class="m">y = k</span>가 세 점에서 만나야 해요. 그러려면 k가 극솟값과 극댓값 <b>사이</b>(등호 없이)에 있어야 해요.</li><li><span class="m">f′(x) = 3(x − 1)(x + 1)</span> → 극댓값 <span class="m">f(−1) = −1 + 3 = 2</span>, 극솟값 <span class="m">f(1) = 1 − 3 = −2</span></li><li>조건: <span class="m">−2 &lt; k &lt; 2</span></li><li>정수 k: <span class="m">−1, 0, 1</span> → 3개</li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> k = ±2도 세는 실수가 많아요. 그때는 그래프에 접해서 서로 다른 실근이 2개뿐이에요.</div>',
     mistakes: ['k = ±2도 세기'],
   },
   {
@@ -1697,7 +1703,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['p-cond'],
     hint: '<span class="m">P(A|B) = P(A∩B) / P(B)</span>',
-    solution: '<span class="m">0.2 / 0.5 = 0.4</span> → <b>④</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">B</span>가 일어났다는 조건 아래에서 <span class="m">A</span>가 일어날 확률 <span class="m">P(A | B)</span>예요.</li><li><b>어떻게 풀까요?</b> 조건부확률의 정의 <span class="m">P(A | B) = P(A∩B) / P(B)</span>를 그대로 써요. <span class="m">B</span>를 새로운 \'전체\'로 보고, 그 안에서 <span class="m">A</span>도 일어난 비율을 구하는 거예요.</li><li><span class="m">P(A | B) = 0.2 ÷ 0.5 = 0.4</span></li></ol><div class="sol-ans">답: <b>④ 0.4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> P(B)로 나눠야 하는데 곱해서 0.1을 고르는 실수가 많아요.</div>',
     mistakes: ['P(B)로 나누지 않고 곱하기'],
   },
   {
@@ -2068,7 +2075,7 @@ window.PROBLEMS = [
     concepts: ['a-log'],
     hint: '두 진수가 같아지는 x가 교점이에요. x절편은 진수가 1일 때.',
     solution:
-      '교점: <span class="m">x + 1 = 7 − x</span> → <span class="m">x = 3</span>, <span class="m">y = log₂4 = 2</span> → A(3, 2)<br>B: <span class="m">x + 1 = 1</span> → (0, 0),  C: <span class="m">7 − x = 1</span> → (6, 0)<br>넓이 <span class="m">½ × 6 × 2 = </span><b>6</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 교점 A, 두 x절편 B·C로 만든 삼각형의 넓이예요.</li><li><b>어떻게 풀까요?</b> 로그의 밑이 같으니 <b>진수가 같으면 값이 같아요</b> → 교점을 찾고, x절편은 <span class="m">log₂(진수) = 0</span>, 즉 <b>진수 = 1</b>일 때예요.</li><li>교점: <span class="m">x + 1 = 7 − x</span> → <span class="m">x = 3</span>, <span class="m">y = log₂ 4 = 2</span> → <span class="m">A(3, 2)</span></li><li>B: <span class="m">x + 1 = 1</span> → <span class="m">B(0, 0)</span><br>C: <span class="m">7 − x = 1</span> → <span class="m">C(6, 0)</span></li><li>밑변 BC <span class="m">= 6 − 0 = 6</span>, 높이 = A의 y좌표 <span class="m">2</span><br>넓이 <span class="m">= ½ × 6 × 2 = 6</span></li></ol><div class="sol-ans">답: <b>6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x절편을 점근선(x = −1, x = 7)으로 잡기 쉬워요. x절편은 진수가 1이 되는 곳이에요.</div>',
     mistakes: ['C를 점근선 x = 7로 잡기 (x절편은 진수가 1인 x = 6)', 'B를 점근선 x = −1로 잡기'],
   },
   {
@@ -2085,7 +2092,8 @@ window.PROBLEMS = [
     concepts: ['a-rec'],
     similar: ['m4'],
     hint: '이번엔 aₙ이 아니라 <b>n</b>이 홀수인지 짝수인지로 갈려요.',
-    solution: '<span class="m">a₁ = 1</span> → (n=1 홀) 4 → (n=2 짝) 8 → 11 → 22 → 25 → 50 → 53 → 106 → (n=9 홀) <b>109</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 규칙대로 만든 수열의 제10항 <span class="m">a₁₀</span>이에요.</li><li><b>어떻게 풀까요?</b> 이번 규칙은 <span class="m">aₙ</span>이 아니라 <b>번호 n</b>이 홀수인지 짝수인지로 갈려요. n = 1부터 9까지 차례로 써요.</li><li>n=1(홀): <span class="m">a₂ = 1 + 3 = 4</span>, n=2(짝): <span class="m">a₃ = 2 × 4 = 8</span>, n=3(홀): <span class="m">a₄ = 11</span></li><li>n=4(짝): <span class="m">a₅ = 22</span>, n=5(홀): <span class="m">a₆ = 25</span>, n=6(짝): <span class="m">a₇ = 50</span></li><li>n=7(홀): <span class="m">a₈ = 53</span>, n=8(짝): <span class="m">a₉ = 106</span>, n=9(홀): <span class="m">a₁₀ = 106 + 3 = 109</span></li></ol><div class="sol-ans">답: <b>109</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> aₙ의 홀짝으로 규칙을 고르는 실수가 많아요. 기준은 번호 n이에요.</div>',
     mistakes: ['aₙ의 홀짝으로 규칙을 고르기', 'a₁₀을 구할 때 n = 10의 규칙을 쓰기 (a₁₀은 n = 9의 규칙으로 나와요)'],
   },
   {
@@ -2102,7 +2110,7 @@ window.PROBLEMS = [
     concepts: ['m-intdef'],
     hint: '<span class="m">x = 1</span>을 넣으면 왼쪽은 0이에요.',
     solution:
-      '<span class="m">x = 1</span>: <span class="m">0 = 1 − a + 2</span> → <span class="m">a = 3</span><br>양변 미분: <span class="m">f(x) = 3x² − 6x + 2</span><br><span class="m">f(2) = 12 − 12 + 2 = </span><b>2</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">∫₁ˣ f(t) dt = x³ − ax² + 2x</span>를 만족하는 <span class="m">f(x)</span>에서 <span class="m">f(2)</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 두 가지를 써요. ① <span class="m">x = 1</span>을 넣으면 왼쪽은 <span class="m">∫₁¹ = 0</span>이라 a를 구할 수 있어요. ② 양변을 x로 미분하면 <span class="m">(d/dx)∫₁ˣ f(t) dt = f(x)</span>예요.</li><li><span class="m">x = 1</span> 대입: <span class="m">0 = 1 − a + 2</span> → <span class="m">a = 3</span></li><li>양변 미분: <span class="m">f(x) = 3x² − 2ax + 2 = 3x² − 6x + 2</span></li><li><span class="m">f(2) = 12 − 12 + 2 = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> a를 구하지 않고 미분만 해서 식에 a가 남거나, 아래끝이 1인데 x = 0을 넣어 a를 구하려 하는 실수가 많아요.</div>',
     mistakes: ['a를 구하지 않고 미분만 하기', 'x = 0을 넣어서 a를 구하려 하기 (아래끝이 1)'],
   },
   {
@@ -2120,7 +2128,7 @@ window.PROBLEMS = [
     concepts: ['p-normal'],
     hint: '<span class="m">σ = 4</span>예요. 46과 58을 각각 Z로 바꿔요.',
     solution:
-      '<span class="m">Z = (X − 50)/4</span>: 46 → −1, 58 → 2<br><span class="m">P(−1 ≤ Z ≤ 2) = 0.3413 + 0.4772 = 0.8185</span> → <b>③</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">X ~ N(50, 4<sup>2</sup>)</span>일 때 <span class="m">P(46 ≤ X ≤ 58)</span>이에요.</li><li><b>어떻게 풀까요?</b> 표준화 <span class="m">Z = (X − 50)/4</span>로 바꿔서 표준정규분포표를 써요. 여기서 표준편차는 <span class="m">σ = 4</span>예요(<span class="m">4<sup>2</sup> = 16</span>은 분산).</li><li><span class="m">X = 46</span> → <span class="m">Z = (46 − 50)/4 = −1</span><br><span class="m">X = 58</span> → <span class="m">Z = (58 − 50)/4 = 2</span></li><li><span class="m">P(−1 ≤ Z ≤ 2) = P(−1 ≤ Z ≤ 0) + P(0 ≤ Z ≤ 2)</span>이고, 대칭이라 <span class="m">P(−1 ≤ Z ≤ 0) = P(0 ≤ Z ≤ 1)</span>이에요.</li><li><span class="m">0.3413 + 0.4772 = 0.8185</span></li></ol><div class="sol-ans">답: <b>③ 0.8185</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> σ를 16으로 보거나, 0을 사이에 둔 두 넓이를 더해야 하는데 빼는 실수가 많아요.</div>',
     mistakes: ['σ를 16으로 보기', '두 넓이를 빼기 (0을 사이에 두면 더해요)'],
   },
   {
@@ -2219,7 +2227,7 @@ window.PROBLEMS = [
     concepts: ['m-noext', 'm-incdec'],
     hint: '<span class="m">f′(x) = 3x² − 6ax + 9</span>가 부호를 바꾸지 않아야 해요.',
     solution:
-      '<span class="m">f′(x) = 3x² − 6ax + 9 ≥ 0</span> 항상 → <span class="m">D/4 = 9a² − 27 ≤ 0</span><br><span class="m">a² ≤ 3</span> → 정수 <span class="m">−1, 0, 1</span> → <b>3</b>개',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = x³ − 3ax² + 9x</span>가 <b>극값을 하나도 갖지 않게</b> 하는 정수 a의 개수예요.</li><li><b>어떻게 풀까요?</b> 삼차함수가 극값이 없으려면 <span class="m">f′(x)</span>의 부호가 한 번도 바뀌지 않아야 해요. <span class="m">f′</span>는 위로 열린 이차함수이므로 <span class="m">f′(x) ≥ 0</span>이 항상 성립, 즉 판별식 <span class="m">D ≤ 0</span>이에요.</li><li><span class="m">f′(x) = 3x² − 6ax + 9</span></li><li><span class="m">D/4 = (−3a)² − 3 × 9 = 9a² − 27 ≤ 0</span> → <span class="m">a² ≤ 3</span></li><li><span class="m">−√3 ≤ a ≤ √3</span> (<span class="m">√3 ≈ 1.73</span>) → 정수 <span class="m">−1, 0, 1</span> → 3개</li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 판별식을 D &lt; 0으로 두고 등호를 빼는 실수가 많아요(중근이면 부호가 안 바뀌어 극값이 없어요). a = ±2를 넣는 것도 조심해요.</div>',
     mistakes: ['판별식 &lt; 0으로 두고 등호를 빼기 (중근이어도 극값은 없어요)', 'a² ≤ 3에서 a = ±2를 넣기'],
   },
   {
@@ -2236,7 +2244,7 @@ window.PROBLEMS = [
     concepts: ['m-area'],
     hint: '교점은 <span class="m">x² − 2x = x</span>. 그 사이에서는 직선이 위에 있어요.',
     solution:
-      '교점 <span class="m">x = 0, 3</span><br><span class="m">S = ∫₀³ (x − (x² − 2x)) dx = ∫₀³ (3x − x²) dx = 27/2 − 9 = 9/2</span><br><span class="m">6S = </span><b>27</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x² − 2x</span>와 직선 <span class="m">y = x</span>로 둘러싸인 넓이 S에 대해 <span class="m">6S</span>예요.</li><li><b>어떻게 풀까요?</b> 두 그래프의 교점을 구해 적분 구간을 정하고, 그 구간에서 <b>위 − 아래</b>를 적분해요.</li><li>교점: <span class="m">x² − 2x = x</span> → <span class="m">x² − 3x = 0</span> → <span class="m">x = 0, 3</span></li><li><span class="m">x = 1</span>을 넣어 보면 직선 1, 곡선 −1 → 직선이 위예요.</li><li><span class="m">S = ∫₀³ (x − (x² − 2x)) dx = ∫₀³ (3x − x²) dx</span><br><span class="m">= [3x²/2 − x³/3]₀³ = 27/2 − 9 = 9/2</span></li><li><span class="m">6S = 6 × 9/2 = 27</span></li></ol><div class="sol-ans">답: <b>27</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 교점을 x = 0, 2(곡선과 x축의 교점)로 잡거나, (아래 − 위)로 빼서 음수가 나오는 실수가 많아요.</div>',
     mistakes: ['(아래 − 위)로 빼서 음수가 나오기', '교점을 x = 0, 2로 잡기 (y = 0과의 교점)'],
   },
   {
@@ -2253,7 +2261,7 @@ window.PROBLEMS = [
     concepts: ['a-arith'],
     hint: '<span class="m">a₁₀ − a₅ = 5d</span>',
     solution:
-      '<span class="m">5d = 15</span> → <span class="m">d = 3</span>, <span class="m">a₁ = 13 − 12 = 1</span><br><span class="m">S₁₀ = 10 × (1 + 28) / 2 = </span><b>145</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 등차수열의 첫째항부터 제10항까지의 합 <span class="m">S₁₀</span>이에요.</li><li><b>어떻게 풀까요?</b> 두 항의 차로 공차 d를 구하고, 첫째항을 구한 뒤 <b>합 공식 <span class="m">Sₙ = n(a₁ + aₙ)/2</span></b>를 써요.</li><li><span class="m">a₁₀ − a₅</span>는 5칸 차이라 <span class="m">5d = 28 − 13 = 15</span> → <span class="m">d = 3</span></li><li><span class="m">a₅ = a₁ + 4d</span> → <span class="m">a₁ = 13 − 12 = 1</span></li><li><span class="m">S₁₀ = 10 × (1 + 28) / 2 = 145</span></li></ol><div class="sol-ans">답: <b>145</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> a₁₀ − a₅를 4d로 계산하기 쉬워요. 10 − 5 = 5칸이라 5d예요.</div>',
     mistakes: ['a₁₀ − a₅ = 4d로 계산하기', '합 공식에서 2로 나누지 않기'],
   },
   {
@@ -2270,7 +2278,7 @@ window.PROBLEMS = [
     concepts: ['a-geo'],
     hint: '<span class="m">Sₙ = 3(2ⁿ − 1)</span>',
     solution:
-      '<span class="m">3(2ⁿ − 1) &gt; 1000</span> → <span class="m">2ⁿ &gt; 334.3…</span><br><span class="m">2⁸ = 256</span>(안 됨), <span class="m">2⁹ = 512</span> → <b>9</b><br>확인: <span class="m">S₈ = 765</span>, <span class="m">S₉ = 1533</span>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 등비수열의 합 <span class="m">Sₙ</span>이 처음으로 1000을 넘는 n이에요.</li><li><b>어떻게 풀까요?</b> <b>등비수열의 합 공식</b> <span class="m">Sₙ = a(rⁿ − 1)/(r − 1)</span>로 식을 세우고, 2의 거듭제곱을 직접 비교해요.</li><li><span class="m">Sₙ = 3(2ⁿ − 1)/(2 − 1) = 3(2ⁿ − 1)</span></li><li><span class="m">3(2ⁿ − 1) &gt; 1000</span> → <span class="m">2ⁿ − 1 &gt; 333.3…</span> → <span class="m">2ⁿ &gt; 334.3…</span></li><li><span class="m">2⁸ = 256</span>(부족), <span class="m">2⁹ = 512</span>(넘음) → <span class="m">n = 9</span><br>확인: <span class="m">S₈ = 765</span>, <span class="m">S₉ = 1533</span></li></ol><div class="sol-ans">답: <b>9</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 합 Sₙ이 아니라 항 하나 aₙ이 1000을 넘는 n을 구하는 실수가 많아요.</div>',
     mistakes: ['aₙ(항 하나)이 1000을 넘는 n을 구하기', '2ⁿ &gt; 1000으로 3을 빼먹기'],
   },
   {
@@ -2286,7 +2294,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['a-logrule'],
     hint: '앞의 두 항은 나눗셈으로 합쳐요.',
-    solution: '<span class="m">log₂(12/3) = log₂ 4 = 2</span>, <span class="m">log₄ 16 = 2</span> → <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 로그 세 개를 계산한 값이에요.</li><li><b>어떻게 풀까요?</b> 밑이 같은 로그의 뺄셈은 <b>진수의 나눗셈</b>(<span class="m">log_a M − log_a N = log_a (M/N)</span>)으로 합치고, <span class="m">log₄ 16</span>은 16을 4의 거듭제곱으로 봐요.</li><li><span class="m">log₂ 12 − log₂ 3 = log₂ (12/3) = log₂ 4 = 2</span></li><li><span class="m">16 = 4²</span>이므로 <span class="m">log₄ 16 = 2</span></li><li><span class="m">2 + 2 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> log₂ 12 − log₂ 3을 log₂ 9처럼 진수끼리 빼기 쉬워요. 뺄셈은 나눗셈이에요.</div>',
     mistakes: ['log₂ 12 − log₂ 3 = log₂ 9로 빼기'],
   },
   {
@@ -2303,7 +2312,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['a-cosine'],
     hint: '각 A의 맞은편 변은 BC = 7이에요.',
-    solution: '<span class="m">cos A = (5² + 3² − 7²) / (2 × 5 × 3) = −15/30 = −1/2</span><br><span class="m">A = 120°</span> → <b>③</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 세 변의 길이를 알 때 각 A의 크기예요.</li><li><b>어떻게 풀까요?</b> 세 변을 알면 <b>코사인법칙</b> <span class="m">cos A = (b² + c² − a²)/(2bc)</span>을 써요. a는 각 A의 <b>맞은편 변</b> BC예요.</li><li><span class="m">a = BC = 7</span>, <span class="m">b = CA = 5</span>, <span class="m">c = AB = 3</span></li><li><span class="m">cos A = (25 + 9 − 49) / (2 × 5 × 3) = −15/30 = −1/2</span></li><li><span class="m">0° &lt; A &lt; 180°</span>에서 cos가 −1/2인 각은 <span class="m">A = 120°</span></li></ol><div class="sol-ans">답: <b>③ 120°</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 각 A의 맞은편 변이 BC(=7)라는 걸 헷갈려서 a = 3을 넣는 실수가 많아요.</div>',
     mistakes: ['맞은편 변을 헷갈려서 a = 3으로 넣기', 'cos A = −1/2를 60°로 읽기'],
   },
   {
@@ -2320,7 +2330,7 @@ window.PROBLEMS = [
     concepts: ['m-limit0'],
     hint: '분모가 0으로 가는데 극한값이 5 → 분자도 0으로.',
     solution:
-      '<span class="m">4 + 2a + b = 0</span> → <span class="m">b = −2a − 4</span><br><span class="m">x² + ax − 2a − 4 = (x − 2)(x + 2 + a)</span> → 극한 <span class="m">= 4 + a = 5</span><br><span class="m">a = 1, b = −6</span> → <span class="m">a − b = </span><b>7</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">lim(x→2) (x² + ax + b)/(x − 2) = 5</span>를 만족하는 상수로 <span class="m">a − b</span>를 구해요.</li><li><b>어떻게 풀까요?</b> 분모가 0으로 가는데 극한값이 5(유한)로 존재하려면 분자도 0으로 가야 해요. 그래서 <span class="m">x = 2</span>를 분자에 넣으면 0이고, 분자가 <span class="m">(x − 2)</span>로 인수분해돼요.</li><li>분자 = 0: <span class="m">4 + 2a + b = 0</span> → <span class="m">b = −2a − 4</span></li><li>분자: <span class="m">x² + ax − 2a − 4 = (x − 2)(x + 2) + a(x − 2) = (x − 2)(x + 2 + a)</span></li><li>약분하면 극한 <span class="m">= lim(x→2) (x + 2 + a) = 4 + a = 5</span> → <span class="m">a = 1</span></li><li><span class="m">b = −2 − 4 = −6</span> → <span class="m">a − b = 1 − (−6) = 7</span></li></ol><div class="sol-ans">답: <b>7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분자 = 0 조건만 쓰고 멈추거나, 마지막에 a − b = 1 − 6으로 부호를 틀리는 실수가 많아요.</div>',
     mistakes: ['분자 = 0 조건만 쓰고 멈추기', 'x + 2 + a에 x = 2를 넣을 때 2를 빼먹기'],
   },
   {
@@ -2337,7 +2347,7 @@ window.PROBLEMS = [
     concepts: ['p-circle'],
     hint: 'A, B를 한 덩어리로 묶으면 5개가 원형으로 앉아요.',
     solution:
-      '덩어리 포함 5개의 원순열 <span class="m">(5 − 1)! = 24</span><br>덩어리 안 A, B 순서 <span class="m">2! = 2</span> → <b>48</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 6명이 원탁에 앉을 때 A, B가 옆자리인 경우의 수예요(회전해서 같으면 같은 것).</li><li><b>어떻게 풀까요?</b> \'이웃한다\'는 조건은 <b>A, B를 한 묶음</b>으로 보면 쉬워요. 묶음을 1명처럼 보고 원순열 <span class="m">(n − 1)!</span>을 쓴 뒤, 묶음 안의 순서를 곱해요.</li><li>묶음 1개 + 나머지 4명 = 5개를 원형으로 배열: <span class="m">(5 − 1)! = 4! = 24</span></li><li>묶음 안에서 AB, BA 두 가지: <span class="m">2! = 2</span></li><li><span class="m">24 × 2 = 48</span></li></ol><div class="sol-ans">답: <b>48</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 원순열인데 5! = 120으로 계산하거나, 묶음 안 A, B 순서 2를 곱하지 않는 실수가 많아요.</div>',
     mistakes: ['원순열인데 5!로 계산하기', 'A, B 자리 바꾸는 2를 곱하지 않기'],
   },
   {
@@ -2353,7 +2363,8 @@ window.PROBLEMS = [
     answer: 31,
     concepts: ['p-comp'],
     hint: '앞면이 하나도 안 나올 확률을 빼요.',
-    solution: '<span class="m">1 − (1/2)⁴ = 15/16</span> → <span class="m">p + q = 16 + 15 = </span><b>31</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 동전 4개 중 앞면이 <b>적어도 하나</b> 나올 확률을 기약분수 <span class="m">q/p</span>로 쓰고 <span class="m">p + q</span>를 구해요.</li><li><b>어떻게 풀까요?</b> \'적어도 하나\'는 <b>여사건</b>으로 푸는 게 빨라요. 앞면이 하나도 없는 경우(모두 뒷면)는 딱 1가지뿐이에요.</li><li>전체 경우: <span class="m">2<sup>4</sup> = 16</span>, 모두 뒷면: 1가지 → <span class="m">P(모두 뒷면) = 1/16</span></li><li><span class="m">P(적어도 하나 앞면) = 1 − 1/16 = 15/16</span></li><li><span class="m">15</span>와 <span class="m">16</span>은 서로소이므로 <span class="m">p = 16, q = 15</span> → <span class="m">p + q = 31</span></li></ol><div class="sol-ans">답: <b>31</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 앞면 1개, 2개, 3개, 4개인 경우를 하나씩 세다가 빠뜨리기 쉬워요. 여사건으로 빼는 게 안전해요.</div>',
     mistakes: ['앞면 1개, 2개, 3개, 4개를 따로 세다가 하나 빠뜨리기'],
   },
   {
@@ -2369,7 +2380,8 @@ window.PROBLEMS = [
     answer: 40,
     concepts: ['p-binomthm'],
     hint: '<span class="m">₅C₃ · x³ · 2²</span>',
-    solution: '<span class="m">₅C₃ × 2² = 10 × 4 = </span><b>40</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">(x + 2)<sup>5</sup></span>을 전개했을 때 <span class="m">x<sup>3</sup></span>이 붙은 항의 계수예요.</li><li><b>어떻게 풀까요?</b> 이항정리의 일반항 <span class="m"><sub>5</sub>C<sub>r</sub> x<sup>r</sup> 2<sup>5−r</sup></span>을 써요. 5개의 괄호 중 <span class="m">x</span>를 고를 괄호 <span class="m">r</span>개를 정하는 것과 같아요.</li><li><span class="m">x<sup>3</sup></span>이려면 <span class="m">r = 3</span>, 나머지 <span class="m">5 − 3 = 2</span>개 괄호에서는 2를 골라요.</li><li><span class="m"><sub>5</sub>C<sub>3</sub> × 2<sup>2</sup> = 10 × 4 = 40</span></li></ol><div class="sol-ans">답: <b>40</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x³이면 2의 지수는 5 − 3 = 2인데 3으로 쓰는 실수가 많아요.</div>',
     mistakes: ['2의 지수를 3으로 쓰기 (x³이면 2는 5 − 3 = 2제곱)'],
   },
   {
@@ -2482,7 +2494,8 @@ window.PROBLEMS = [
     answer: 12,
     concepts: ['b-lin'],
     hint: 'x는 왼쪽, 숫자는 오른쪽으로.',
-    solution: '<span class="m">3x − 2x = 5 + 7</span> → <span class="m">x = </span><b>12</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 방정식 <span class="m">3x − 7 = 2x + 5</span>를 참으로 만드는 x예요.</li><li><b>어떻게 풀까요?</b> x가 있는 항은 왼쪽, 숫자는 오른쪽으로 옮겨요(이항). 옮기면 부호가 바뀌어요.</li><li><span class="m">2x</span>를 왼쪽으로 옮기면 <span class="m">−2x</span>, <span class="m">−7</span>을 오른쪽으로 옮기면 <span class="m">+7</span>이 돼요.<br><span class="m">3x − 2x = 5 + 7</span></li><li>정리하면 <span class="m">x = 12</span>예요.</li><li>확인: 왼쪽 <span class="m">3 × 12 − 7 = 29</span>, 오른쪽 <span class="m">2 × 12 + 5 = 29</span>. 같아요!</li></ol><div class="sol-ans">답: <b>x = 12</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> −7을 오른쪽으로 옮길 때 +7로 부호를 바꾸지 않는 실수가 많아요.</div>',
     mistakes: ['−7을 옮길 때 부호를 안 바꾸기'],
   },
   {
@@ -2498,7 +2511,8 @@ window.PROBLEMS = [
     answer: 10,
     concepts: ['b-lin'],
     hint: '괄호부터 풀어요.',
-    solution: '<span class="m">2x − 6 = x + 4</span> → <span class="m">x = </span><b>10</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 방정식 <span class="m">2(x − 3) = x + 4</span>의 해 x예요.</li><li><b>어떻게 풀까요?</b> 먼저 분배법칙으로 괄호를 풀고, 그다음 이항해요.</li><li>괄호 풀기: 2를 x에도, −3에도 곱해요.<br><span class="m">2(x − 3) = 2x − 6</span>이니까 <span class="m">2x − 6 = x + 4</span></li><li>이항: <span class="m">2x − x = 4 + 6</span></li><li>정리하면 <span class="m">x = 10</span>예요.<br>확인: <span class="m">2 × (10 − 3) = 14</span>, <span class="m">10 + 4 = 14</span></li></ol><div class="sol-ans">답: <b>x = 10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2(x − 3)을 2x − 3으로 풀어 −3에 2를 곱하지 않는 실수가 많아요.</div>',
     mistakes: ['2(x − 3)을 2x − 3으로 풀기'],
   },
   {
@@ -2514,7 +2528,8 @@ window.PROBLEMS = [
     answer: 7,
     concepts: ['b-lin'],
     hint: '양변에 6을 곱해요.',
-    solution: '<span class="m">3(x + 1) − 2(x − 1) = 12</span> → <span class="m">x + 5 = 12</span> → <b>7</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 방정식 <span class="m">(x + 1)/2 − (x − 1)/3 = 2</span>의 해 x예요.</li><li><b>어떻게 풀까요?</b> 분모 2와 3의 최소공배수 6을 양변에 곱해서 분수를 없애요.</li><li>양변 × 6: <span class="m">3(x + 1) − 2(x − 1) = 12</span></li><li>괄호 풀기: <span class="m">3x + 3 − 2x + 2 = 12</span><br>(<span class="m">−2 × (−1) = +2</span>예요!)</li><li>정리: <span class="m">x + 5 = 12</span> → <span class="m">x = 12 − 5 = 7</span></li><li>확인: <span class="m">8/2 − 6/3 = 4 − 2 = 2</span></li></ol><div class="sol-ans">답: <b>x = 7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> −2(x − 1)을 −2x − 2로 풀기 쉬운데, −2 × (−1) = +2라서 −2x + 2가 맞아요.</div>',
     mistakes: ['−2(x − 1)을 −2x − 2로 풀기 (+2가 맞아요)'],
   },
   {
@@ -2530,7 +2545,8 @@ window.PROBLEMS = [
     answer: 7,
     concepts: ['b-quadfac'],
     hint: '곱해서 −21, 더해서 −4인 두 수.',
-    solution: '<span class="m">(x − 7)(x + 3) = 0</span> → <span class="m">x = 7</span> 또는 <span class="m">−3</span> → <b>7</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x<sup>2</sup> − 4x − 21 = 0</span>의 두 근 중 양수인 근이에요.</li><li><b>어떻게 풀까요?</b> 인수분해해요. 곱해서 −21, 더해서 −4가 되는 두 수를 찾아요.</li><li>곱이 −21인 짝: (1, −21), (3, −7), (7, −3), (21, −1)<br>그중 합이 −4인 것은 <span class="m">3 + (−7) = −4</span>예요.</li><li><span class="m">(x − 7)(x + 3) = 0</span></li><li><span class="m">x − 7 = 0</span> 또는 <span class="m">x + 3 = 0</span> → <span class="m">x = 7</span> 또는 <span class="m">x = −3</span></li><li>양수인 근은 7이에요.</li></ol><div class="sol-ans">답: <b>x = 7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> (x + 7)(x − 3)처럼 부호를 거꾸로 써서 근을 −7, 3으로 구하는 실수가 많아요.</div>',
     mistakes: ['부호를 바꿔 (x + 7)(x − 3)으로 쓰기'],
   },
   {
@@ -2546,7 +2562,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['b-quadfac'],
     hint: '완전제곱식이에요.',
-    solution: '<span class="m">(x − 5)² = 0</span> → 중근 <b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x<sup>2</sup> − 10x + 25 = 0</span>의 근이에요.</li><li><b>어떻게 풀까요?</b> 완전제곱식 <span class="m">a<sup>2</sup> − 2ab + b<sup>2</sup> = (a − b)<sup>2</sup></span>을 써요.</li><li><span class="m">25 = 5<sup>2</sup></span>, <span class="m">10x = 2 × x × 5</span>이니까<br><span class="m">x<sup>2</sup> − 10x + 25 = (x − 5)<sup>2</sup></span></li><li><span class="m">(x − 5)<sup>2</sup> = 0</span> → <span class="m">x − 5 = 0</span> → <span class="m">x = 5</span></li><li>근이 하나뿐인 \'중근\'이에요.</li></ol><div class="sol-ans">답: <b>x = 5 (중근)</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 제곱이 0이라서 근은 5 하나뿐인데, 5와 −5 두 개라고 쓰는 실수가 많아요.</div>',
     mistakes: ['근이 두 개라고 생각해서 5와 −5 쓰기'],
   },
   {
@@ -2562,7 +2579,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['b-quadfac'],
     hint: 'x² 계수가 2라서 (2x − ?)(x − ?) 꼴.',
-    solution: '<span class="m">(2x − 1)(x − 3) = 0</span> → <span class="m">x = 1/2, 3</span> → <b>3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">2x<sup>2</sup> − 7x + 3 = 0</span>의 두 근 중 큰 근이에요.</li><li><b>어떻게 풀까요?</b> x<sup>2</sup> 계수가 2라서 <span class="m">(2x − ○)(x − □)</span> 꼴로 인수분해해요.</li><li>상수 3 = 1 × 3을 넣어 봐요. <span class="m">(2x − 1)(x − 3)</span>을 전개하면<br><span class="m">2x<sup>2</sup> − 6x − x + 3 = 2x<sup>2</sup> − 7x + 3</span> 맞아요!</li><li><span class="m">2x − 1 = 0</span> → <span class="m">2x = 1</span> → <span class="m">x = 1/2</span><br><span class="m">x − 3 = 0</span> → <span class="m">x = 3</span></li><li><span class="m">1/2</span>과 3 중 큰 근은 3이에요.</li></ol><div class="sol-ans">답: <b>x = 3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2x − 1 = 0의 해를 1로 쓰는 실수가 많아요. 2로 나눠야 해서 1/2이에요.</div>',
     mistakes: ['2x − 1 = 0의 해를 1로 쓰기'],
   },
   {
@@ -2578,7 +2596,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['b-disc'],
     hint: '중근이면 판별식 = 0.',
-    solution: '<span class="m">D = 16 − 4k = 0</span> → <span class="m">k = </span><b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 이차방정식이 중근을 갖게 하는 상수 k예요.</li><li><b>어떻게 풀까요?</b> <b>중근 ⇔ 판별식 D = 0</b>이에요. <span class="m">D = b² − 4ac</span>를 써요.</li><li><span class="m">a = 1, b = −4, c = k</span> → <span class="m">D = (−4)² − 4 × 1 × k = 16 − 4k</span></li><li><span class="m">16 − 4k = 0</span> → <span class="m">k = 4</span> (확인: <span class="m">x² − 4x + 4 = (x − 2)²</span>)</li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 판별식을 b² − ac로 써서 4를 빼먹기 쉬워요.</div>',
     mistakes: ['D = b² − ac로 4를 빼먹기'],
   },
   {
@@ -2594,7 +2613,8 @@ window.PROBLEMS = [
     answer: 8,
     concepts: ['b-disc'],
     hint: 'D &gt; 0',
-    solution: '<span class="m">D/4 = 9 − k &gt; 0</span> → <span class="m">k &lt; 9</span> → 1, 2, …, 8 → <b>8</b>개',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 서로 다른 두 실근을 갖게 하는 자연수 k의 개수예요.</li><li><b>어떻게 풀까요?</b> <b>서로 다른 두 실근 ⇔ D &gt; 0</b>. x의 계수가 짝수(−6)라 <span class="m">D/4 = b′² − ac</span>를 쓰면 편해요.</li><li><span class="m">b′ = −3</span> → <span class="m">D/4 = (−3)² − k = 9 − k</span></li><li><span class="m">9 − k &gt; 0</span> → <span class="m">k &lt; 9</span></li><li>자연수 k = 1, 2, …, 8 → <b>8개</b></li></ol><div class="sol-ans">답: <b>8</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> k = 9까지 세기 쉬워요. k = 9면 D = 0이라 중근이에요.</div>',
     mistakes: ['k = 9까지 세기 (그때는 중근)'],
   },
   {
@@ -2610,7 +2630,8 @@ window.PROBLEMS = [
     answer: 43,
     concepts: ['b-disc'],
     hint: '<span class="m">α² + β² = (α + β)² − 2αβ</span>',
-    solution: '<span class="m">α + β = 7</span>, <span class="m">αβ = 3</span> → <span class="m">49 − 6 = </span><b>43</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 근의 제곱의 합 <span class="m">α² + β²</span>예요.</li><li><b>어떻게 풀까요?</b> 근을 직접 구하지 않고 <b>근과 계수의 관계</b>로 <span class="m">α + β</span>, <span class="m">αβ</span>를 구한 뒤 <span class="m">α² + β² = (α + β)² − 2αβ</span>를 써요.</li><li><span class="m">α + β = 7</span>, <span class="m">αβ = 3</span></li><li><span class="m">α² + β² = 7² − 2 × 3 = 49 − 6 = 43</span></li></ol><div class="sol-ans">답: <b>43</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> (α + β)² = 49를 그대로 답으로 쓰기 쉬워요. 2αβ를 빼야 해요.</div>',
     mistakes: ['(α + β)²을 그대로 답으로 쓰기 (2αβ를 빼야 해요)'],
   },
   {
@@ -2627,7 +2648,7 @@ window.PROBLEMS = [
     concepts: ['b-factor'],
     hint: 'x = 1을 넣어 보세요.',
     solution:
-      '<span class="m">x = 1</span>이 근 → <span class="m">(x − 1)(x² − 5x + 6) = (x − 1)(x − 2)(x − 3)</span><br><span class="m">1 + 4 + 9 = </span><b>14</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 삼차방정식의 세 근을 각각 제곱해서 더한 값이에요.</li><li><b>어떻게 풀까요?</b> 계수의 합이 <span class="m">1 − 6 + 11 − 6 = 0</span>이니 <span class="m">x = 1</span>이 근이에요. <b>인수정리 + 조립제법</b>으로 인수분해해요.</li><li>조립제법(x = 1): 계수 1, −6, 11, −6 → 몫 <span class="m">x² − 5x + 6</span>, 나머지 0</li><li><span class="m">x³ − 6x² + 11x − 6 = (x − 1)(x² − 5x + 6) = (x − 1)(x − 2)(x − 3)</span> → 근 1, 2, 3</li><li><span class="m">1² + 2² + 3² = 1 + 4 + 9 = 14</span></li></ol><div class="sol-ans">답: <b>14</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 조립제법에서 부호를 하나 놓쳐 몫이 틀리는 실수가 많아요.</div>',
     mistakes: ['조립제법에서 계수 0이나 부호를 빼먹기'],
   },
   {
@@ -2643,7 +2664,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['b-factor'],
     hint: '앞 두 항, 뒤 두 항끼리 묶어요.',
-    solution: '<span class="m">x²(x + 1) − 4(x + 1) = (x + 1)(x − 2)(x + 2)</span><br>근 <span class="m">−1, 2, −2</span> → 곱 <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 삼차방정식의 모든 근의 곱이에요.</li><li><b>어떻게 풀까요?</b> 앞 두 항, 뒤 두 항을 묶으면 공통인수 <span class="m">(x + 1)</span>이 나와요 (<b>묶어서 인수분해</b>).</li><li><span class="m">x²(x + 1) − 4(x + 1) = (x + 1)(x² − 4)</span></li><li><span class="m">x² − 4 = (x − 2)(x + 2)</span> → 근 <span class="m">−1, 2, −2</span></li><li>곱 <span class="m">= (−1) × 2 × (−2) = 4</span> (확인: 근과 계수의 관계로 세 근의 곱 <span class="m">= −(−4)/1 = 4</span>)</li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x² − 4를 (x − 2)²로 잘못 인수분해하기 쉬워요. 합차공식 (x − 2)(x + 2)예요.</div>',
     mistakes: ['x² − 4를 (x − 2)²로 쓰기'],
   },
   {
@@ -2659,7 +2681,8 @@ window.PROBLEMS = [
     answer: -1,
     concepts: ['b-factor'],
     hint: '인수정리: x = 2를 넣으면 0.',
-    solution: '<span class="m">8 + 2a − 6 = 0</span> → <span class="m">a = </span><b>−1</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x³ + ax − 6</span>이 <span class="m">x − 2</span>로 나누어떨어지게 하는 a예요.</li><li><b>어떻게 풀까요?</b> <b>인수정리</b>: <span class="m">P(x)</span>가 <span class="m">x − 2</span>로 나누어떨어지면 <span class="m">P(2) = 0</span>이에요.</li><li><span class="m">P(2) = 2³ + 2a − 6 = 8 + 2a − 6 = 2 + 2a</span></li><li><span class="m">2 + 2a = 0</span> → <span class="m">a = −1</span></li></ol><div class="sol-ans">답: <b>−1</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x − 2로 나누어떨어지는데 x = −2를 넣기 쉬워요. x − 2 = 0이 되는 x = 2를 넣어요.</div>',
     mistakes: ['x = −2를 넣기 (x − 2로 나누어떨어지면 x = 2)'],
   },
   {
@@ -2675,7 +2698,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['b-linfunc'],
     hint: 'y의 증가량 ÷ x의 증가량',
-    solution: '<span class="m">(9 − 3)/(4 − 1) = </span><b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 점 <span class="m">(1, 3)</span>, <span class="m">(4, 9)</span>를 지나는 직선의 기울기예요.</li><li><b>어떻게 풀까요?</b> 기울기 = (y의 증가량) ÷ (x의 증가량)이에요.</li><li>y의 증가량: <span class="m">9 − 3 = 6</span></li><li>x의 증가량: <span class="m">4 − 1 = 3</span></li><li>기울기: <span class="m">6 ÷ 3 = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x의 증가량을 위에, y의 증가량을 아래에 뒤집어 3/6 = 1/2로 쓰는 실수가 많아요.</div>',
     mistakes: ['x와 y를 뒤집어 나누기'],
   },
   {
@@ -2691,7 +2715,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['b-linfunc'],
     hint: '두 식을 같다고 놓아요.',
-    solution: '<span class="m">2x + 1 = −x + 7</span> → <span class="m">3x = 6</span> → <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 직선이 만나는 점(교점)의 x좌표예요.</li><li><b>어떻게 풀까요?</b> 교점에서는 두 식의 y값이 같아요. 그래서 두 식을 같다고 놓아요.</li><li><span class="m">2x + 1 = −x + 7</span></li><li>이항: <span class="m">2x + x = 7 − 1</span> → <span class="m">3x = 6</span></li><li><span class="m">x = 2</span><br>확인: <span class="m">2 × 2 + 1 = 5</span>, <span class="m">−2 + 7 = 5</span> → 교점은 <span class="m">(2, 5)</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 교점의 y좌표 5를 답으로 쓰는 실수가 많아요. 묻는 것은 x좌표예요.</div>',
     mistakes: ['교점의 y좌표(5)를 답으로 쓰기'],
   },
   {
@@ -2707,7 +2732,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['b-quadfunc'],
     hint: '완전제곱식으로.',
-    solution: '<span class="m">y = (x − 2)² + 3</span> → 최솟값 <b>3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">y = x<sup>2</sup> − 4x + 7</span>의 가장 작은 y값(최솟값)이에요.</li><li><b>어떻게 풀까요?</b> 완전제곱식 <span class="m">y = (x − p)<sup>2</sup> + q</span> 꼴로 바꾸면 최솟값은 q예요.</li><li>x 계수 −4의 절반은 −2, 그 제곱은 4예요. 4를 더하고 빼요.<br><span class="m">y = x<sup>2</sup> − 4x + 4 − 4 + 7</span></li><li><span class="m">y = (x − 2)<sup>2</sup> + 3</span></li><li><span class="m">(x − 2)<sup>2</sup></span>은 0 이상이라서, <span class="m">x = 2</span>일 때 y가 가장 작은 3이 돼요.</li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 꼭짓점의 x좌표 2를 최솟값으로 쓰는 실수가 많아요. 최솟값은 y값이에요.</div>',
     mistakes: ['꼭짓점의 x좌표 2를 답으로 쓰기'],
   },
   {
@@ -2723,7 +2749,8 @@ window.PROBLEMS = [
     answer: 9,
     concepts: ['b-quadfunc'],
     hint: 'x² 계수가 음수라 위로 볼록, 꼭짓점이 최댓값.',
-    solution: '<span class="m">y = −(x − 3)² + 9</span> → 최댓값 <b>9</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">y = −x<sup>2</sup> + 6x</span>의 가장 큰 y값(최댓값)이에요.</li><li><b>어떻게 풀까요?</b> x<sup>2</sup> 계수가 음수라 위로 볼록해요. 완전제곱식으로 바꾸면 꼭짓점의 y값이 최댓값이에요.</li><li>−를 묶어요: <span class="m">y = −(x<sup>2</sup> − 6x)</span></li><li>괄호 안에 9를 더하고 빼요: <span class="m">y = −(x<sup>2</sup> − 6x + 9 − 9)</span><br><span class="m">= −(x − 3)<sup>2</sup> + 9</span> (괄호 밖으로 나온 −9에 −가 곱해져 +9)</li><li><span class="m">−(x − 3)<sup>2</sup></span>은 0 이하라서, <span class="m">x = 3</span>일 때 y가 가장 큰 9예요.</li></ol><div class="sol-ans">답: <b>9</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> −(… − 9)를 밖으로 꺼낼 때 부호를 안 바꿔 −9로 쓰는 실수가 많아요.</div>',
     mistakes: ['−(x − 3)²을 −(x² − 6x + 9)로 풀 때 상수 부호 틀리기'],
   },
   {
@@ -2739,7 +2766,8 @@ window.PROBLEMS = [
     answer: 6,
     concepts: ['b-count'],
     hint: '(1, 6)부터 순서쌍으로 적어 봐요.',
-    solution: '(1,6) (2,5) (3,4) (4,3) (5,2) (6,1) → <b>6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 주사위 눈의 합이 7이 되는 경우의 수예요.</li><li><b>어떻게 풀까요?</b> (첫째 주사위, 둘째 주사위) 순서쌍으로 빠짐없이 적어요. 두 주사위는 서로 달라요.</li><li>첫째가 1이면 둘째는 6, 첫째가 2이면 둘째는 5 … 첫째 눈마다 하나씩 있어요.</li><li>(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1)</li><li>모두 6가지예요.</li></ol><div class="sol-ans">답: <b>6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> (1, 6)과 (6, 1)을 같은 것으로 세서 3가지라고 하는 실수가 많아요. 서로 다른 주사위라 다른 경우예요.</div>',
     mistakes: ['(1,6)과 (6,1)을 같은 것으로 세기 (서로 다른 주사위)'],
   },
   {
@@ -2755,7 +2783,8 @@ window.PROBLEMS = [
     answer: 10,
     concepts: ['b-perm'],
     hint: '대표 2명은 순서가 없어요.',
-    solution: '<span class="m">₅C₂ = 5 × 4 / 2 = </span><b>10</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 5명 중 대표 2명을 뽑는 경우의 수예요.</li><li><b>어떻게 풀까요?</b> 대표 2명은 자리 구분이 없어서 <b>순서가 없는 선택 = 조합</b> <span class="m">ₙCᵣ</span>을 써요.</li><li>순서대로 뽑으면 <span class="m">5 × 4 = 20</span>가지지만, (A, B)와 (B, A)는 같은 뽑기라 2로 나눠요.</li><li><span class="m">₅C₂ = (5 × 4)/(2 × 1) = 10</span></li></ol><div class="sol-ans">답: <b>10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 순서를 따져 20으로 세기 쉬워요. 대표 2명은 순서가 없어요.</div>',
     mistakes: ['순서를 따져 20으로 세기'],
   },
   {
@@ -2771,7 +2800,8 @@ window.PROBLEMS = [
     answer: 20,
     concepts: ['b-perm'],
     hint: '회장과 부회장은 자리가 달라요.',
-    solution: '<span class="m">₅P₂ = 5 × 4 = </span><b>20</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 5명 중 회장 1명, 부회장 1명을 뽑는 경우의 수예요.</li><li><b>어떻게 풀까요?</b> 회장과 부회장은 자리가 달라서 <b>순서가 있는 선택 = 순열</b> <span class="m">ₙPᵣ</span>을 써요.</li><li>회장 먼저: 5가지, 남은 4명 중 부회장: 4가지</li><li><span class="m">₅P₂ = 5 × 4 = 20</span></li></ol><div class="sol-ans">답: <b>20</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 조합으로 계산해 10이라고 하기 쉬워요. 자리가 다르면 순서가 있어요.</div>',
     mistakes: ['조합으로 10이라고 하기'],
   },
   {
@@ -2788,7 +2818,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['f-mean'],
     hint: '몇 조각으로 나눴는지가 아래, 먹은 조각이 위.',
-    solution: '8조각 중 3조각 → <b>3/8</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 먹은 피자의 양을 분수로 써요.</li><li><b>어떻게 풀까요?</b> 분수는 <b>위(분자) = 먹은 조각 수</b>, <b>아래(분모) = 똑같이 나눈 조각 수</b>예요.</li><li>피자를 8조각으로 나눴어요 → 아래(분모)는 8이에요.</li><li>3조각을 먹었어요 → 위(분자)는 3이에요. 그래서 <span class="m"><sup>3</sup>/<sub>8</sub></span>이에요.</li></ol><div class="sol-ans">답: <b>① 3/8</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 위아래를 바꿔서 8/3로 쓰기 쉬워요. 먹은 조각이 위, 나눈 조각 수가 아래예요.</div>',
     mistakes: ['8/3처럼 위아래를 바꿔 쓰기'],
   },
   {
@@ -2804,7 +2835,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['f-mean'],
     hint: '분모가 나눈 개수예요.',
-    solution: '분모 4 → <b>4</b>부분',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>1</sup>/<sub>4</sub></span>은 1을 몇 부분으로 나눈 것인지 구해요.</li><li><b>어떻게 풀까요?</b> 분모(아래 수)는 "몇 부분으로 똑같이 나눴는지"를 알려 줘요.</li><li><span class="m"><sup>1</sup>/<sub>4</sub></span>의 분모는 4예요.</li><li>그래서 1을 똑같이 4부분으로 나눈 것 중 1부분이에요.</li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분자 1을 답으로 쓰기 쉬워요. 1은 "그중 몇 개"이고, 나눈 개수는 분모 4예요.</div>',
     mistakes: ['분자 1을 답으로 쓰기'],
   },
   {
@@ -2820,7 +2852,8 @@ window.PROBLEMS = [
     answer: 8,
     concepts: ['f-equiv'],
     hint: '3에 몇을 곱하면 12?',
-    solution: '분모 3 × 4 = 12 → 분자도 2 × 4 = <b>8</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>2</sup>/<sub>3</sub> = <sup>□</sup>/<sub>12</sub></span>에서 □를 구해요.</li><li><b>어떻게 풀까요?</b> 분모와 분자에 <b>같은 수</b>를 곱하면 크기가 같은 분수가 돼요.</li><li>분모: 3에 무엇을 곱하면 12? <span class="m">3 × 4 = 12</span> → <b>4</b>를 곱했어요.</li><li>분자에도 똑같이 4를 곱해요: <span class="m">2 × 4 = 8</span></li><li>그래서 <span class="m"><sup>2</sup>/<sub>3</sub> = <sup>8</sup>/<sub>12</sub></span>이에요.</li></ol><div class="sol-ans">답: <b>8</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모에만 4를 곱하고 분자는 2 그대로 두기 쉬워요. 위아래 둘 다 곱해야 해요.</div>',
     mistakes: ['분모에만 곱하고 분자는 그대로 두기'],
   },
   {
@@ -2837,7 +2870,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['f-equiv'],
     hint: '6과 8을 둘 다 나눌 수 있는 가장 큰 수로 나눠요.',
-    solution: '6과 8을 2로 나눔 → <b>3/4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>6</sup>/<sub>8</sub></span>을 더 이상 줄일 수 없는 분수(기약분수)로 바꿔요.</li><li><b>어떻게 풀까요?</b> 6과 8을 <b>둘 다</b> 나눌 수 있는 가장 큰 수로 나눠요.</li><li>6을 나누어떨어지게 하는 수: 1, 2, 3, 6<br>8을 나누어떨어지게 하는 수: 1, 2, 4, 8<br>둘 다 되는 가장 큰 수는 <b>2</b>예요.</li><li>분자: <span class="m">6 ÷ 2 = 3</span>, 분모: <span class="m">8 ÷ 2 = 4</span> → <span class="m"><sup>3</sup>/<sub>4</sub></span></li><li>3과 4는 1 말고 같이 나눌 수가 없으니 끝이에요.</li></ol><div class="sol-ans">답: <b>① 3/4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모만 나누거나 분자만 나누기 쉬워요. 위아래를 같은 수로 함께 나눠야 해요.</div>',
     mistakes: ['분모만 나누기'],
   },
   {
@@ -2853,7 +2887,8 @@ window.PROBLEMS = [
     answer: 7,
     concepts: ['f-mixed'],
     hint: '1은 3/3이에요. 2는 몇 /3?',
-    solution: '2 = 6/3, 6/3 + 1/3 = <b>7</b>/3',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 2와 <span class="m"><sup>1</sup>/<sub>3</sub></span>을 <span class="m"><sup>□</sup>/<sub>3</sub></span> 모양(가분수)으로 바꿔요.</li><li><b>어떻게 풀까요?</b> 1은 <span class="m"><sup>3</sup>/<sub>3</sub></span>이에요. 피자 1판 = 3조각이라고 생각해요.</li><li>2판은 몇 조각? <span class="m">2 × 3 = 6</span> → <span class="m"><sup>6</sup>/<sub>3</sub></span></li><li>남은 <span class="m"><sup>1</sup>/<sub>3</sub></span>을 더해요: <span class="m">6 + 1 = 7</span> → <span class="m"><sup>7</sup>/<sub>3</sub></span></li></ol><div class="sol-ans">답: <b>7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2 + 1 = 3처럼 그냥 더하기 쉬워요. 자연수 2를 먼저 조각 수(2 × 3 = 6)로 바꿔야 해요.</div>',
     mistakes: ['2 + 1 = 3으로 계산하기'],
   },
   {
@@ -2869,7 +2904,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['f-mixed'],
     hint: '11 안에 4가 몇 번 들어가고 얼마가 남나요?',
-    solution: '11 = 4 × 2 + 3 → 2와 <b>3</b>/4',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>11</sup>/<sub>4</sub></span>을 2와 <span class="m"><sup>□</sup>/<sub>4</sub></span> 모양(대분수)으로 바꿀 때 □를 구해요.</li><li><b>어떻게 풀까요?</b> 4조각이 모이면 1판이에요. 11조각 안에 4조각 묶음이 몇 개 있고, 몇 조각이 남는지 봐요.</li><li>4씩 묶어요: <span class="m">4 × 2 = 8</span> → 2묶음(2판)</li><li>남은 조각: <span class="m">11 − 8 = 3</span> → <span class="m"><sup>3</sup>/<sub>4</sub></span></li><li>그래서 <span class="m"><sup>11</sup>/<sub>4</sub></span> = 2와 <span class="m"><sup>3</sup>/<sub>4</sub></span>이에요.</li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 몫 2를 답으로 쓰기 쉬워요. □는 남은 조각 수 3이에요.</div>',
     mistakes: ['몫 2를 답으로 쓰기'],
   },
   {
@@ -2885,7 +2921,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['f-add'],
     hint: '분모가 같으면 분자끼리만.',
-    solution: '3 + 2 = <b>5</b> → 5/7',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>3</sup>/<sub>7</sub> + <sup>2</sup>/<sub>7</sub></span>의 분자 □를 구해요.</li><li><b>어떻게 풀까요?</b> 분모가 7로 같아요. 같은 크기 조각이니까 <b>조각 수(분자)만</b> 더해요.</li><li>분자끼리: <span class="m">3 + 2 = 5</span></li><li>분모는 7 그대로 → <span class="m"><sup>5</sup>/<sub>7</sub></span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모끼리도 더해서 5/14로 쓰기 쉬워요. 조각 크기(분모)는 바뀌지 않아요.</div>',
     mistakes: ['분모끼리도 더해서 5/14로 쓰기'],
   },
   {
@@ -2901,7 +2938,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['f-add'],
     hint: '분자끼리만 빼요.',
-    solution: '5 − 1 = <b>4</b> → 4/6 (= 2/3)',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>5</sup>/<sub>6</sub> − <sup>1</sup>/<sub>6</sub></span>의 분자 □를 구해요.</li><li><b>어떻게 풀까요?</b> 분모가 6으로 같아요. <b>분자끼리만</b> 빼요.</li><li>분자끼리: <span class="m">5 − 1 = 4</span></li><li>분모는 6 그대로 → <span class="m"><sup>4</sup>/<sub>6</sub></span> (약분하면 <span class="m"><sup>2</sup>/<sub>3</sub></span>이지만, 문제가 □/6이라서 □ = 4예요.)</li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모끼리도 빼서 4/0으로 쓰기 쉬워요. 분모는 그대로 둬요.</div>',
     mistakes: ['분모끼리도 빼서 4/0으로 쓰기'],
   },
   {
@@ -2917,7 +2955,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['f-add'],
     hint: '1/2 = 3/6, 1/3 = 2/6',
-    solution: '3/6 + 2/6 = <b>5</b>/6',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>1</sup>/<sub>2</sub> + <sup>1</sup>/<sub>3</sub> = <sup>□</sup>/<sub>6</sub></span>에서 □를 구해요.</li><li><b>어떻게 풀까요?</b> 분모가 달라서 바로 못 더해요. 분모를 <b>6으로 맞춰요</b>(통분).</li><li><span class="m"><sup>1</sup>/<sub>2</sub></span> → 분모 <span class="m">2 × 3 = 6</span>, 분자 <span class="m">1 × 3 = 3</span> → <span class="m"><sup>3</sup>/<sub>6</sub></span></li><li><span class="m"><sup>1</sup>/<sub>3</sub></span> → 분모 <span class="m">3 × 2 = 6</span>, 분자 <span class="m">1 × 2 = 2</span> → <span class="m"><sup>2</sup>/<sub>6</sub></span></li><li>분자끼리 더해요: <span class="m">3 + 2 = 5</span> → <span class="m"><sup>5</sup>/<sub>6</sub></span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모끼리, 분자끼리 더해서 2/5로 쓰기 쉬워요. 먼저 분모를 같게 맞춰야 해요.</div>',
     mistakes: ['분모끼리, 분자끼리 더해서 2/5로 쓰기'],
   },
   {
@@ -2933,7 +2972,8 @@ window.PROBLEMS = [
     answer: 7,
     concepts: ['f-add'],
     hint: '3/4 = 9/12, 1/6 = 2/12',
-    solution: '9/12 − 2/12 = <b>7</b>/12',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>3</sup>/<sub>4</sub> − <sup>1</sup>/<sub>6</sub> = <sup>□</sup>/<sub>12</sub></span>에서 □를 구해요.</li><li><b>어떻게 풀까요?</b> 분모를 <b>12로 맞춰요</b>(통분). 분모에 곱한 수를 분자에도 곱해요.</li><li><span class="m"><sup>3</sup>/<sub>4</sub></span> → 분모 <span class="m">4 × 3 = 12</span>, 분자 <span class="m">3 × 3 = 9</span> → <span class="m"><sup>9</sup>/<sub>12</sub></span></li><li><span class="m"><sup>1</sup>/<sub>6</sub></span> → 분모 <span class="m">6 × 2 = 12</span>, 분자 <span class="m">1 × 2 = 2</span> → <span class="m"><sup>2</sup>/<sub>12</sub></span></li><li>분자끼리 빼요: <span class="m">9 − 2 = 7</span> → <span class="m"><sup>7</sup>/<sub>12</sub></span></li></ol><div class="sol-ans">답: <b>7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모만 12로 바꾸고 분자에 곱하는 걸 빼먹기 쉬워요(3/12 − 1/12처럼).</div>',
     mistakes: ['통분할 때 분자에 곱하는 걸 빼먹기'],
   },
   {
@@ -2950,7 +2990,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['f-mul'],
     hint: '분자끼리, 분모끼리 곱해요.',
-    solution: '(2 × 3)/(3 × 4) = 6/12 = <b>1/2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>2</sup>/<sub>3</sub> × <sup>3</sup>/<sub>4</sub></span>의 값을 구해요.</li><li><b>어떻게 풀까요?</b> 분수 곱셈은 통분하지 않아요. <b>분자끼리, 분모끼리</b> 곱해요.</li><li>분자: <span class="m">2 × 3 = 6</span>, 분모: <span class="m">3 × 4 = 12</span> → <span class="m"><sup>6</sup>/<sub>12</sub></span></li><li>약분해요. 6과 12를 6으로 나눠요: <span class="m">6 ÷ 6 = 1</span>, <span class="m">12 ÷ 6 = 2</span> → <span class="m"><sup>1</sup>/<sub>2</sub></span></li></ol><div class="sol-ans">답: <b>① 1/2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 곱셈인데 덧셈처럼 통분부터 하기 쉬워요. 곱셈은 위끼리, 아래끼리 바로 곱해요.</div>',
     mistakes: ['곱셈인데 통분하기'],
   },
   {
@@ -2966,7 +3007,8 @@ window.PROBLEMS = [
     answer: 6,
     concepts: ['f-mul'],
     hint: '10은 10/1이에요.',
-    solution: '3 × 10 / 5 = 30/5 = <b>6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>3</sup>/<sub>5</sub> × 10</span>의 값을 구해요.</li><li><b>어떻게 풀까요?</b> 10은 <span class="m"><sup>10</sup>/<sub>1</sub></span>이에요. 자연수는 <b>분자에만</b> 곱해요.</li><li>분자: <span class="m">3 × 10 = 30</span>, 분모: <span class="m">5 × 1 = 5</span> → <span class="m"><sup>30</sup>/<sub>5</sub></span></li><li><span class="m"><sup>30</sup>/<sub>5</sub></span>은 <span class="m">30 ÷ 5 = 6</span>이에요.</li></ol><div class="sol-ans">답: <b>6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모에도 10을 곱해서 30/50으로 쓰기 쉬워요. 10은 10/1이라 분모에는 1을 곱해요.</div>',
     mistakes: ['분모에도 10을 곱하기'],
   },
   {
@@ -2983,7 +3025,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['f-div'],
     hint: '나누는 수 1/2을 뒤집어 곱해요.',
-    solution: '3/4 × 2/1 = 6/4 = <b>3/2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>3</sup>/<sub>4</sub> ÷ <sup>1</sup>/<sub>2</sub></span>의 값을 구해요.</li><li><b>어떻게 풀까요?</b> 분수로 나눌 때는 <b>나누는 수를 뒤집어서 곱해요</b>. <span class="m"><sup>1</sup>/<sub>2</sub></span> → <span class="m"><sup>2</sup>/<sub>1</sub></span></li><li><span class="m"><sup>3</sup>/<sub>4</sub> × <sup>2</sup>/<sub>1</sub></span> → 분자 <span class="m">3 × 2 = 6</span>, 분모 <span class="m">4 × 1 = 4</span> → <span class="m"><sup>6</sup>/<sub>4</sub></span></li><li>약분: 6과 4를 2로 나눠요 → <span class="m">6 ÷ 2 = 3</span>, <span class="m">4 ÷ 2 = 2</span> → <span class="m"><sup>3</sup>/<sub>2</sub></span></li></ol><div class="sol-ans">답: <b>① 3/2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 뒤집지 않고 그냥 곱해서 3/8로 쓰기 쉬워요. 나누는 수(뒤의 수)를 꼭 뒤집어요.</div>',
     mistakes: ['뒤집지 않고 그냥 곱해서 3/8 쓰기'],
   },
   {
@@ -2999,7 +3042,8 @@ window.PROBLEMS = [
     answer: 8,
     concepts: ['f-div'],
     hint: '6 안에 3/4이 몇 번 들어가나요?',
-    solution: '6 ÷ 3/4 = 6 × 4/3 = <b>8</b>병',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 물 6 L를 <span class="m"><sup>3</sup>/<sub>4</sub></span> L씩 담으면 몇 병이 되는지 구해요.</li><li><b>어떻게 풀까요?</b> "~씩 나누어 담으면 몇 병?"은 <b>나눗셈</b>이에요: <span class="m">6 ÷ <sup>3</sup>/<sub>4</sub></span></li><li>나누는 수를 뒤집어 곱해요: <span class="m">6 × <sup>4</sup>/<sub>3</sub></span></li><li>분자: <span class="m">6 × 4 = 24</span> → <span class="m"><sup>24</sup>/<sub>3</sub></span></li><li><span class="m">24 ÷ 3 = 8</span> → 8병</li></ol><div class="sol-ans">답: <b>8</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 6 × 3/4 = 4.5처럼 곱해 버리기 쉬워요. "몇 번 들어가나?"는 나눗셈이에요.</div>',
     mistakes: ['6 × 3/4 = 4.5로 곱하기'],
   },
   {
@@ -3015,7 +3059,8 @@ window.PROBLEMS = [
     answer: 11,
     concepts: ['mid-expr'],
     hint: '2x는 2 × x예요.',
-    solution: '2 × 3 + 5 = <b>11</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x = 3</span>일 때 <span class="m">2x + 5</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">2x</span>는 <span class="m">2 × x</span>예요. x 자리에 3을 넣어요(대입).</li><li><span class="m">2 × 3 + 5</span></li><li>곱셈 먼저: <span class="m">6 + 5</span></li><li><span class="m">= 11</span></li></ol><div class="sol-ans">답: <b>11</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2x에 3을 넣을 때 23으로 붙여 읽는 실수가 많아요. 2 × 3이에요.</div>',
     mistakes: ['2x를 23으로 읽기'],
   },
   {
@@ -3031,7 +3076,8 @@ window.PROBLEMS = [
     answer: 10,
     concepts: ['mid-expr'],
     hint: '음수는 괄호를 씌워서 넣어요.',
-    solution: '(−2)² − 3 × (−2) = 4 + 6 = <b>10</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">a = −2</span>일 때 <span class="m">a<sup>2</sup> − 3a</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 음수를 넣을 때는 꼭 괄호를 씌워요.</li><li><span class="m">(−2)<sup>2</sup> − 3 × (−2)</span></li><li><span class="m">(−2)<sup>2</sup> = (−2) × (−2) = 4</span></li><li><span class="m">−3 × (−2) = +6</span> (음수 × 음수 = 양수)</li><li><span class="m">4 + 6 = 10</span></li></ol><div class="sol-ans">답: <b>10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 괄호 없이 −2<sup>2</sup>으로 써서 −4로 계산하는 실수가 많아요.</div>',
     mistakes: ['−2²을 −4로 계산하기', '−3 × (−2)의 부호를 −로 쓰기'],
   },
   {
@@ -3047,7 +3093,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['mid-word'],
     hint: '어떤 수를 x로 두면 3x − 4 = 11.',
-    solution: '3x − 4 = 11 → 3x = 15 → <b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 3배에서 4를 빼면 11이 되는 어떤 수예요.</li><li><b>어떻게 풀까요?</b> 어떤 수를 x로 두고 식을 세워요: <span class="m">3x − 4 = 11</span></li><li>−4를 오른쪽으로 옮기면 +4: <span class="m">3x = 11 + 4 = 15</span></li><li>양변을 3으로 나눠요: <span class="m">x = 5</span></li><li>확인: <span class="m">3 × 5 − 4 = 11</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> −4를 옮길 때 부호를 안 바꿔 3x = 7로 쓰는 실수가 많아요.</div>',
     mistakes: ['4를 옮길 때 부호를 안 바꿔서 3x = 7로 쓰기'],
   },
   {
@@ -3063,7 +3110,8 @@ window.PROBLEMS = [
     answer: 17,
     concepts: ['mid-word'],
     hint: '가운데 수를 x로 두면 (x − 1) + x + (x + 1).',
-    solution: '3x = 48 → x = 16 → 가장 큰 수 <b>17</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 합이 48인 연속하는 세 자연수 중 가장 큰 수예요.</li><li><b>어떻게 풀까요?</b> 가운데 수를 x로 두면 세 수는 <span class="m">x − 1, x, x + 1</span>이에요.</li><li><span class="m">(x − 1) + x + (x + 1) = 48</span></li><li>−1과 +1이 없어져서 <span class="m">3x = 48</span> → <span class="m">x = 16</span></li><li>세 수는 15, 16, 17이에요. 가장 큰 수는 <span class="m">16 + 1 = 17</span></li></ol><div class="sol-ans">답: <b>17</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 가운데 수 16을 구하고 그대로 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['가운데 수 16을 답으로 쓰기'],
   },
   {
@@ -3079,7 +3127,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['mid-sys'],
     hint: '두 식을 더하면 y가 없어져요.',
-    solution: '더하면 2x = 8 → x = <b>4</b> (y = 3)',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 연립방정식의 해 중 x의 값이에요.</li><li><b>어떻게 풀까요?</b> 두 식을 더하면 +y와 −y가 없어져요(가감법).</li><li><span class="m">(x + y) + (x − y) = 7 + 1</span> → <span class="m">2x = 8</span></li><li><span class="m">x = 4</span></li><li>확인: <span class="m">4 + y = 7</span>에서 <span class="m">y = 3</span>. <span class="m">4 − 3 = 1</span> 맞아요.</li></ol><div class="sol-ans">답: <b>x = 4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> y = 3을 구한 뒤 y를 답으로 쓰는 실수가 많아요. 묻는 것은 x예요.</div>',
     mistakes: ['빼서 2y = 6을 구하고 y를 답으로 쓰기'],
   },
   {
@@ -3095,7 +3144,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['mid-sys'],
     hint: '두 식을 더하면 3x = 9.',
-    solution: 'x = 3, 3 − y = 1 → y = <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 연립방정식의 해 중 y의 값이에요.</li><li><b>어떻게 풀까요?</b> 두 식을 더하면 +y와 −y가 없어져서 x부터 구할 수 있어요.</li><li><span class="m">(2x + y) + (x − y) = 8 + 1</span> → <span class="m">3x = 9</span> → <span class="m">x = 3</span></li><li><span class="m">x − y = 1</span>에 넣어요: <span class="m">3 − y = 1</span></li><li><span class="m">−y = 1 − 3 = −2</span> → <span class="m">y = 2</span><br>확인: <span class="m">2 × 3 + 2 = 8</span></li></ol><div class="sol-ans">답: <b>y = 2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 먼저 구한 x = 3을 그대로 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['x = 3을 답으로 쓰기'],
   },
   {
@@ -3111,7 +3161,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['mid-sys'],
     hint: '사과 x개, 배 y개: x + y = 7, 500x + 800y = 4100',
-    solution: 'x = 7 − y를 넣으면 3500 + 300y = 4100 → y = <b>2</b> (사과 5개)',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 산 배의 개수예요.</li><li><b>어떻게 풀까요?</b> 사과 x개, 배 y개로 두고 \'개수\'와 \'돈\' 두 식을 세워요.<br><span class="m">x + y = 7</span>, <span class="m">500x + 800y = 4100</span></li><li>첫 식에서 <span class="m">x = 7 − y</span></li><li>둘째 식에 넣어요: <span class="m">500(7 − y) + 800y = 4100</span><br><span class="m">3500 − 500y + 800y = 4100</span></li><li><span class="m">300y = 4100 − 3500 = 600</span> → <span class="m">y = 2</span></li><li>사과는 <span class="m">7 − 2 = 5</span>개. 확인: <span class="m">2500 + 1600 = 4100</span>원</li></ol><div class="sol-ans">답: <b>2개</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 사과 개수 5를 답으로 쓰는 실수가 많아요. 묻는 것은 배예요.</div>',
     mistakes: ['사과 개수 5를 답으로 쓰기'],
   },
   {
@@ -3128,7 +3179,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['f-mixed', 'f-add'],
     hint: '가분수로 바꾸고 분모를 4로 맞춰요.',
-    solution: '3과 1/2 = 14/4, 1과 3/4 = 7/4 → 14/4 − 7/4 = 7/4 = <b>1과 3/4</b> m',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 3과 <span class="m"><sup>1</sup>/<sub>2</sub></span> m에서 1과 <span class="m"><sup>3</sup>/<sub>4</sub></span> m를 빼고 남은 길이를 구해요.</li><li><b>어떻게 풀까요?</b> 대분수를 <b>가분수로 바꾸고</b>, 분모를 <b>4로 맞춰서</b> 빼요.</li><li>3과 <span class="m"><sup>1</sup>/<sub>2</sub></span> → <span class="m">3 × 2 + 1 = 7</span> → <span class="m"><sup>7</sup>/<sub>2</sub></span><br>분모를 4로: <span class="m">2 × 2 = 4</span>, <span class="m">7 × 2 = 14</span> → <span class="m"><sup>14</sup>/<sub>4</sub></span></li><li>1과 <span class="m"><sup>3</sup>/<sub>4</sub></span> → <span class="m">1 × 4 + 3 = 7</span> → <span class="m"><sup>7</sup>/<sub>4</sub></span></li><li>빼요: <span class="m">14 − 7 = 7</span> → <span class="m"><sup>7</sup>/<sub>4</sub></span></li><li><span class="m"><sup>7</sup>/<sub>4</sub></span>에는 4가 1번 들어가고 3이 남아요(<span class="m">4 × 1 + 3 = 7</span>) → 1과 <span class="m"><sup>3</sup>/<sub>4</sub></span> m</li></ol><div class="sol-ans">답: <b>① 1과 3/4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 통분하지 않고 분자만 빼거나, 1/2 − 3/4을 못 빼서 멈추기 쉬워요. 가분수로 바꾸면 쉬워요.</div>',
     mistakes: ['자연수끼리, 분수끼리 빼다가 1/2 − 3/4을 못 해서 멈추기', '통분 없이 분자만 빼기'],
   },
   {
@@ -3144,7 +3196,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['f-div', 'f-mul'],
     hint: '먼저 “잘못한 계산”을 거꾸로 풀어 어떤 수를 찾아요.',
-    solution: '어떤 수 ÷ 2/3 = 9 → 어떤 수 = 9 × 2/3 = 6<br>바르게: 6 × 2/3 = <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> "바르게 계산한 값"(어떤 수 × <span class="m"><sup>2</sup>/<sub>3</sub></span>)을 구해요.</li><li><b>어떻게 풀까요?</b> 먼저 잘못한 계산을 거꾸로 풀어서 <b>어떤 수</b>를 찾아요. ÷의 반대는 ×예요.</li><li>잘못한 계산: 어떤 수 ÷ <span class="m"><sup>2</sup>/<sub>3</sub></span> = 9<br>→ 어떤 수 = <span class="m">9 × <sup>2</sup>/<sub>3</sub> = <sup>18</sup>/<sub>3</sub> = 6</span></li><li>바른 계산: <span class="m">6 × <sup>2</sup>/<sub>3</sub> = <sup>12</sup>/<sub>3</sub> = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 어떤 수 6을 찾고 거기서 멈춰서 6이라고 쓰기 쉬워요. 바르게 한 번 더 계산해야 해요.</div>',
     mistakes: ['어떤 수 6을 답으로 쓰기', '9 × 2/3 × 2/3를 바로 하지 못하고 헷갈리기'],
   },
   {
@@ -3160,7 +3213,8 @@ window.PROBLEMS = [
     answer: 24,
     concepts: ['f-mul'],
     hint: '“나머지”는 동화책을 빼고 남은 것이에요.',
-    solution: '나머지 = 48 × 3/4 = 36권 → 과학책 = 36 × 2/3 = <b>24</b>권',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 과학책이 몇 권인지 구해요.</li><li><b>어떻게 풀까요?</b> 먼저 동화책을 빼고 "나머지"를 구한 뒤, 나머지의 <span class="m"><sup>2</sup>/<sub>3</sub></span>을 구해요.</li><li>동화책: 48권의 <span class="m"><sup>1</sup>/<sub>4</sub></span> → <span class="m">48 ÷ 4 = 12</span>권</li><li>나머지: <span class="m">48 − 12 = 36</span>권</li><li>과학책: 36권의 <span class="m"><sup>2</sup>/<sub>3</sub></span> → <span class="m">36 ÷ 3 = 12</span>, <span class="m">12 × 2 = 24</span>권</li></ol><div class="sol-ans">답: <b>24</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> "나머지의"를 놓치고 전체 48의 2/3 = 32로 계산하기 쉬워요.</div>',
     mistakes: ['전체 48의 2/3 = 32로 계산하기 (“나머지의”를 놓침)'],
   },
   {
@@ -3177,7 +3231,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['f-mul', 'f-mixed'],
     hint: '대분수는 가분수로 바꾼 뒤 곱해요.',
-    solution: '3/5 × 5/2 = 15/10 = 3/2 = <b>1과 1/2</b> km',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 1시간에 <span class="m"><sup>3</sup>/<sub>5</sub></span> km씩 2와 <span class="m"><sup>1</sup>/<sub>2</sub></span>시간 걸은 거리를 구해요.</li><li><b>어떻게 풀까요?</b> 거리 = 1시간에 가는 거리 × 시간. 대분수는 <b>가분수로 바꿔서</b> 곱해요.</li><li>2와 <span class="m"><sup>1</sup>/<sub>2</sub></span> → <span class="m">2 × 2 + 1 = 5</span> → <span class="m"><sup>5</sup>/<sub>2</sub></span></li><li><span class="m"><sup>3</sup>/<sub>5</sub> × <sup>5</sup>/<sub>2</sub></span> → 분자 <span class="m">3 × 5 = 15</span>, 분모 <span class="m">5 × 2 = 10</span> → <span class="m"><sup>15</sup>/<sub>10</sub></span></li><li>약분(5로 나눠요): <span class="m"><sup>15</sup>/<sub>10</sub> = <sup>3</sup>/<sub>2</sub></span> → 2가 1번 들어가고 1이 남아요 → 1과 <span class="m"><sup>1</sup>/<sub>2</sub></span> km</li></ol><div class="sol-ans">답: <b>① 1과 1/2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2만 곱해서 6/5로 쓰거나, 2와 1/2을 잘못 바꾸기 쉬워요. 2와 1/2 = 5/2예요.</div>',
     mistakes: ['2와 1/2을 2/2로 잘못 바꾸기', '자연수 부분만 곱해서 6/5로 쓰기'],
   },
   {
@@ -3193,7 +3248,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['f-equiv'],
     hint: '세 분수의 분모를 모두 12로 맞춰요.',
-    solution: '1/2 = 6/12, 3/4 = 9/12 → 6 &lt; □ &lt; 9 → 7, 8 → <b>2</b>개',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>1</sup>/<sub>2</sub> &lt; <sup>□</sup>/<sub>12</sub> &lt; <sup>3</sup>/<sub>4</sub></span>이 되는 자연수 □가 몇 개인지 구해요.</li><li><b>어떻게 풀까요?</b> 세 분수의 분모를 모두 <b>12로 맞추고</b> 분자만 비교해요.</li><li><span class="m"><sup>1</sup>/<sub>2</sub></span> → 분모 <span class="m">2 × 6 = 12</span>, 분자 <span class="m">1 × 6 = 6</span> → <span class="m"><sup>6</sup>/<sub>12</sub></span></li><li><span class="m"><sup>3</sup>/<sub>4</sub></span> → 분모 <span class="m">4 × 3 = 12</span>, 분자 <span class="m">3 × 3 = 9</span> → <span class="m"><sup>9</sup>/<sub>12</sub></span></li><li><span class="m">6 &lt; □ &lt; 9</span> → □는 7, 8 (6과 9는 같은 크기라서 안 돼요) → 2개</li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 6과 9까지 넣어서 4개라고 하기 쉬워요. "&lt;"에는 같은 수를 넣으면 안 돼요.</div>',
     mistakes: ['6과 9도 넣어서 4개라고 하기 (같은 건 안 돼요)'],
   },
   {
@@ -3209,7 +3265,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['mid-word'],
     hint: 'x년 후에는 두 사람 모두 x살씩 더 먹어요.',
-    solution: '42 + x = 3(12 + x) → 42 + x = 36 + 3x → 2x = 6 → <b>3</b>년 후',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 아버지 나이가 아들 나이의 3배가 되는 때가 몇 년 후인지예요.</li><li><b>어떻게 풀까요?</b> x년 후로 두면 두 사람 모두 x살씩 더 먹어요.<br>x년 후 아버지 <span class="m">42 + x</span>, 아들 <span class="m">12 + x</span></li><li>식: <span class="m">42 + x = 3(12 + x)</span></li><li>괄호 풀기: <span class="m">42 + x = 36 + 3x</span></li><li>이항: <span class="m">42 − 36 = 3x − x</span> → <span class="m">6 = 2x</span> → <span class="m">x = 3</span></li><li>확인: 3년 후 아버지 45세, 아들 15세. <span class="m">15 × 3 = 45</span> 맞아요.</li></ol><div class="sol-ans">답: <b>3년 후</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 아버지 나이에만 x를 더하고 아들 나이에는 안 더하는 실수가 많아요.</div>',
     mistakes: ['아버지 나이에만 x를 더하기', '3(12 + x)를 36 + x로 풀기'],
   },
   {
@@ -3225,7 +3282,8 @@ window.PROBLEMS = [
     answer: 200,
     concepts: ['mid-word'],
     hint: '물을 넣어도 소금의 양은 그대로예요.',
-    solution: '소금 = 300 × 0.1 = 30 g → 30 = 0.06 × (300 + x) → 300 + x = 500 → <b>200</b> g',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 10% 소금물 300 g을 6%로 만들려면 더 넣을 물의 양이에요.</li><li><b>어떻게 풀까요?</b> 물을 넣어도 소금의 양은 그대로예요. 소금의 양 = 소금물 × 농도.</li><li>처음 소금: <span class="m">300 × 10/100 = 30</span> g</li><li>물을 x g 넣으면 소금물은 <span class="m">(300 + x)</span> g, 소금은 그대로 30 g</li><li><span class="m">(300 + x) × 6/100 = 30</span> → 양변 × 100: <span class="m">6(300 + x) = 3000</span></li><li>양변 ÷ 6: <span class="m">300 + x = 500</span> → <span class="m">x = 200</span><br>확인: <span class="m">30 ÷ 500 = 0.06</span> → 6%</li></ol><div class="sol-ans">답: <b>200 g</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 소금물 전체가 아니라 넣은 물 x에만 6%를 곱해 0.06x = 30으로 쓰는 실수가 많아요.</div>',
     mistakes: ['소금의 양도 변한다고 생각하기', '0.06 × x = 30으로 전체 양을 빼먹기'],
   },
   {
@@ -3241,7 +3299,8 @@ window.PROBLEMS = [
     answer: 47,
     concepts: ['mid-sys'],
     hint: '십의 자리 a, 일의 자리 b이면 그 수는 10a + b예요.',
-    solution: 'a + b = 11, (10b + a) − (10a + b) = 27 → b − a = 3<br>a = 4, b = 7 → <b>47</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 각 자리 숫자의 합이 11이고, 자리를 바꾸면 27 커지는 두 자리 수예요.</li><li><b>어떻게 풀까요?</b> 십의 자리 a, 일의 자리 b이면 처음 수는 <span class="m">10a + b</span>, 바꾼 수는 <span class="m">10b + a</span>예요.</li><li>식 ①: <span class="m">a + b = 11</span></li><li>식 ②: <span class="m">(10b + a) − (10a + b) = 27</span> → <span class="m">9b − 9a = 27</span> → <span class="m">b − a = 3</span></li><li>①과 ②를 더하면 <span class="m">2b = 14</span> → <span class="m">b = 7</span>, <span class="m">a = 11 − 7 = 4</span></li><li>처음 수는 47이에요. 확인: <span class="m">74 − 47 = 27</span></li></ol><div class="sol-ans">답: <b>47</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 바꾼 수 74를 답으로 쓰거나, 두 자리 수를 10a + b가 아닌 a + b로 쓰는 실수가 많아요.</div>',
     mistakes: ['두 자리 수를 a + b로 쓰기', '바꾼 수 74를 답으로 쓰기'],
   },
   {
@@ -3257,7 +3316,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['b-quadfac'],
     hint: '세로를 x로 두면 x(x + 3) = 40.',
-    solution: 'x² + 3x − 40 = 0 → (x + 8)(x − 5) = 0 → 길이는 양수라서 <b>5</b> cm',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 넓이가 40 cm<sup>2</sup>인 직사각형의 세로 길이예요.</li><li><b>어떻게 풀까요?</b> 세로를 x cm로 두면 가로는 <span class="m">(x + 3)</span> cm. 넓이 = 가로 × 세로.</li><li><span class="m">x(x + 3) = 40</span> → <span class="m">x<sup>2</sup> + 3x − 40 = 0</span></li><li>곱해서 −40, 더해서 3인 두 수는 8과 −5예요.<br><span class="m">(x + 8)(x − 5) = 0</span></li><li><span class="m">x = −8</span> 또는 <span class="m">x = 5</span>. 길이는 양수라서 <span class="m">x = 5</span></li><li>확인: 세로 5, 가로 8, <span class="m">5 × 8 = 40</span></li></ol><div class="sol-ans">답: <b>5 cm</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 길이가 음수일 수 없는데 x = −8도 답으로 쓰거나, 가로 8을 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['x = −8도 답으로 쓰기 (길이는 음수가 될 수 없어요)', '가로 8을 답으로 쓰기'],
   },
   {
@@ -3273,7 +3333,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['b-quadfac'],
     hint: '먼저 a부터. (x − 4)(x + 2) = 0',
-    solution: 'a = 4 → x² + 4x − 12 = 0 → (x + 6)(x − 2) = 0 → <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 첫 방정식의 큰 근 a를 넣은 <span class="m">x<sup>2</sup> + ax − 12 = 0</span>의 양수인 근이에요.</li><li><b>어떻게 풀까요?</b> 두 단계예요. ① a를 구하고 ② 그 a를 넣은 방정식을 풀어요.</li><li>①: <span class="m">x<sup>2</sup> − 2x − 8 = (x − 4)(x + 2) = 0</span> → <span class="m">x = 4</span> 또는 <span class="m">−2</span>. 큰 근 <span class="m">a = 4</span></li><li>②: <span class="m">x<sup>2</sup> + 4x − 12 = 0</span>. 곱해서 −12, 더해서 4인 두 수는 6과 −2예요.</li><li><span class="m">(x + 6)(x − 2) = 0</span> → <span class="m">x = −6</span> 또는 <span class="m">x = 2</span></li><li>양수인 근은 2예요.</li></ol><div class="sol-ans">답: <b>x = 2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 첫 방정식의 작은 근 −2를 a로 잘못 넣는 실수가 많아요.</div>',
     mistakes: ['작은 근 −2를 a로 쓰기'],
   },
   {
@@ -3289,7 +3350,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['b-linfunc'],
     hint: '기울기 a부터 구하고, 한 점을 넣어 b를 구해요.',
-    solution: 'a = (11 − 5)/(3 − 1) = 3 → 5 = 3 × 1 + b → b = 2 → <b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 점 <span class="m">(1, 5)</span>, <span class="m">(3, 11)</span>을 지나는 <span class="m">y = ax + b</span>에서 <span class="m">a + b</span>예요.</li><li><b>어떻게 풀까요?</b> 기울기 a를 먼저 구하고, 한 점을 넣어 b를 구해요.</li><li><span class="m">a = (11 − 5) ÷ (3 − 1) = 6 ÷ 2 = 3</span></li><li><span class="m">y = 3x + b</span>에 <span class="m">(1, 5)</span>를 넣어요: <span class="m">5 = 3 × 1 + b</span> → <span class="m">b = 5 − 3 = 2</span></li><li><span class="m">a + b = 3 + 2 = 5</span><br>확인: <span class="m">(3, 11)</span> → <span class="m">3 × 3 + 2 = 11</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 기울기를 (3 − 1) ÷ (11 − 5)로 뒤집어 계산하는 실수가 많아요.</div>',
     mistakes: ['기울기를 (3 − 1)/(11 − 5)로 뒤집기'],
   },
   {
@@ -3305,7 +3367,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['m1-prime'],
     hint: '2로 나눌 수 있을 때까지 나눠요.',
-    solution: '72 = 2 × 2 × 2 × 3 × 3 = 2³ × 3² → a + b = <b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">72 = 2<sup>a</sup> × 3<sup>b</sup></span>일 때 <span class="m">a + b</span>예요.</li><li><b>어떻게 풀까요?</b> 소인수분해: 더 이상 안 나눠질 때까지 소수로 나눠요.</li><li><span class="m">72 ÷ 2 = 36</span>, <span class="m">36 ÷ 2 = 18</span>, <span class="m">18 ÷ 2 = 9</span> → 2로 3번</li><li><span class="m">9 ÷ 3 = 3</span>, <span class="m">3 ÷ 3 = 1</span> → 3으로 2번</li><li><span class="m">72 = 2<sup>3</sup> × 3<sup>2</sup></span> → <span class="m">a = 3, b = 2</span> → <span class="m">a + b = 5</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 72 = 8 × 9에서 멈춰 a = 8로 쓰는 실수가 많아요. 8 = 2<sup>3</sup>까지 나눠야 해요.</div>',
     mistakes: ['72 = 8 × 9에서 멈추고 a = 8로 쓰기'],
   },
   {
@@ -3321,7 +3384,8 @@ window.PROBLEMS = [
     answer: 12,
     concepts: ['m1-prime'],
     hint: '36 = 2² × 3², 60 = 2² × 3 × 5',
-    solution: '공통 소인수를 작은 지수로: 2² × 3 = <b>12</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 36과 60의 최대공약수예요.</li><li><b>어떻게 풀까요?</b> 둘 다 소인수분해한 뒤, 공통인 소인수를 작은 지수로 곱해요.</li><li><span class="m">36 = 2<sup>2</sup> × 3<sup>2</sup></span><br><span class="m">60 = 2<sup>2</sup> × 3 × 5</span></li><li>공통 소인수: 2는 둘 다 2<sup>2</sup>, 3은 작은 쪽 3<sup>1</sup>. 5는 60에만 있어서 빼요.</li><li><span class="m">2<sup>2</sup> × 3 = 4 × 3 = 12</span></li></ol><div class="sol-ans">답: <b>12</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 큰 지수로 모두 곱한 최소공배수 180과 헷갈리는 실수가 많아요.</div>',
     mistakes: ['최소공배수 180과 헷갈리기'],
   },
   {
@@ -3337,7 +3401,8 @@ window.PROBLEMS = [
     answer: -7,
     concepts: ['m1-int'],
     hint: '곱셈·나눗셈 먼저.',
-    solution: '−12 − (−5) = −12 + 5 = <b>−7</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">(−3) × 4 − (−10) ÷ 2</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 곱셈·나눗셈을 먼저, 덧셈·뺄셈은 나중에 해요.</li><li>곱셈: <span class="m">(−3) × 4 = −12</span></li><li>나눗셈: <span class="m">(−10) ÷ 2 = −5</span></li><li><span class="m">−12 − (−5) = −12 + 5</span> (음수를 빼는 건 양수를 더하는 것)</li><li><span class="m">= −7</span></li></ol><div class="sol-ans">답: <b>−7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> −(−5)를 −5로 그대로 써서 −17로 계산하는 실수가 많아요.</div>',
     mistakes: ['왼쪽부터 차례로 계산하기', '−(−5)를 −5로 쓰기'],
   },
   {
@@ -3354,7 +3419,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['m1-int'],
     hint: '6으로 통분해요.',
-    solution: '−4/6 + 5/6 = <b>1/6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">−2/3 + 5/6</span>의 값을 보기에서 골라요.</li><li><b>어떻게 풀까요?</b> 분모가 다르면 통분해요. 3과 6의 최소공배수는 6이에요.</li><li><span class="m">−2/3 = −(2 × 2)/(3 × 2) = −4/6</span></li><li><span class="m">−4/6 + 5/6 = (−4 + 5)/6 = 1/6</span></li><li>1/6은 보기 ①이에요.</li></ol><div class="sol-ans">답: <b>① 1/6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분모끼리, 분자끼리 더해서 3/9로 쓰는 실수가 많아요. 분모는 통분만 해요.</div>',
     mistakes: ['분모끼리 더해서 3/9로 쓰기'],
   },
   {
@@ -3370,7 +3436,8 @@ window.PROBLEMS = [
     answer: 15,
     concepts: ['m1-prop'],
     hint: 'y = ax에 (2, 6)을 넣어 a부터.',
-    solution: 'a = 3 → y = 3 × 5 = <b>15</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 정비례에서 <span class="m">x = 5</span>일 때 y예요.</li><li><b>어떻게 풀까요?</b> 정비례 식은 <span class="m">y = ax</span>예요. 주어진 값으로 a부터 구해요.</li><li><span class="m">6 = a × 2</span> → <span class="m">a = 3</span></li><li>식은 <span class="m">y = 3x</span></li><li><span class="m">x = 5</span>: <span class="m">y = 3 × 5 = 15</span></li></ol><div class="sol-ans">답: <b>15</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 반비례 식 y = a/x로 잘못 풀어 12/5를 쓰는 실수가 많아요.</div>',
     mistakes: ['반비례로 풀어서 12/5 쓰기'],
   },
   {
@@ -3386,7 +3453,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['m1-prop'],
     hint: 'y = a/x에서 a = xy',
-    solution: 'a = 3 × 8 = 24 → y = 24/6 = <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 반비례에서 <span class="m">x = 6</span>일 때 y예요.</li><li><b>어떻게 풀까요?</b> 반비례 식은 <span class="m">y = a/x</span>, 그래서 <span class="m">a = x × y</span>예요.</li><li><span class="m">a = 3 × 8 = 24</span></li><li>식은 <span class="m">y = 24/x</span></li><li><span class="m">x = 6</span>: <span class="m">y = 24 ÷ 6 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 정비례로 착각해 x가 2배이니 y도 2배인 16으로 쓰는 실수가 많아요.</div>',
     mistakes: ['정비례로 풀어서 16 쓰기'],
   },
   {
@@ -3402,7 +3470,8 @@ window.PROBLEMS = [
     answer: 6,
     concepts: ['b-lin'],
     hint: '양변에 10을 곱해 소수를 없애요.',
-    solution: '2x + 5 = 3x − 1 → x = <b>6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 방정식 <span class="m">0.2x + 0.5 = 0.3x − 0.1</span>의 해예요.</li><li><b>어떻게 풀까요?</b> 양변의 모든 항에 10을 곱해 소수를 없애요.</li><li>× 10: <span class="m">2x + 5 = 3x − 1</span></li><li>이항: <span class="m">5 + 1 = 3x − 2x</span></li><li><span class="m">6 = x</span> → <span class="m">x = 6</span><br>확인: <span class="m">1.2 + 0.5 = 1.7</span>, <span class="m">1.8 − 0.1 = 1.7</span></li></ol><div class="sol-ans">답: <b>x = 6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 한쪽에만, 또는 일부 항에만 10을 곱하는 실수가 많아요. 모든 항에 곱해요.</div>',
     mistakes: ['한쪽에만 10을 곱하기'],
   },
   {
@@ -3418,7 +3487,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['m2-exp'],
     hint: '지수를 더하고 빼요.',
-    solution: '2^(3 + 4 − 5) = 2² = <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">2<sup>3</sup> × 2<sup>4</sup> ÷ 2<sup>5</sup></span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 밑이 같으면 곱셈은 지수를 더하고, 나눗셈은 지수를 빼요.</li><li><span class="m">2<sup>3</sup> × 2<sup>4</sup> = 2<sup>3 + 4</sup> = 2<sup>7</sup></span></li><li><span class="m">2<sup>7</sup> ÷ 2<sup>5</sup> = 2<sup>7 − 5</sup> = 2<sup>2</sup></span></li><li><span class="m">2<sup>2</sup> = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 곱셈에서 지수를 곱해 2<sup>12</sup>로 쓰는 실수가 많아요. 지수는 더해요.</div>',
     mistakes: ['지수를 곱해서 2¹²로 쓰기'],
   },
   {
@@ -3434,7 +3504,8 @@ window.PROBLEMS = [
     answer: 14,
     concepts: ['m2-rep'],
     hint: '순환마디 27, 두 자리라서 분모 99.',
-    solution: '27/99 = 3/11 → 3 + 11 = <b>14</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">0.2727…</span>을 기약분수 <span class="m">a/b</span>로 바꿨을 때 <span class="m">a + b</span>예요.</li><li><b>어떻게 풀까요?</b> 순환마디가 27(두 자리)이면 <span class="m">27/99</span>로 바꿔요. 그다음 약분해요.</li><li><span class="m">0.2727… = 27/99</span></li><li>27과 99는 둘 다 9로 나눠져요: <span class="m">27/99 = 3/11</span></li><li>기약분수 <span class="m">3/11</span> → <span class="m">a + b = 3 + 11 = 14</span></li></ol><div class="sol-ans">답: <b>14</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 약분하지 않고 27 + 99 = 126으로 쓰는 실수가 많아요.</div>',
     mistakes: ['약분하지 않고 27 + 99 = 126으로 쓰기'],
   },
   {
@@ -3450,7 +3521,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['m2-ineq'],
     hint: '방정식처럼 이항해요.',
-    solution: '2x &lt; 12 → x &lt; 6 → 1, 2, 3, 4, 5 → <b>5</b>개',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">3x − 5 &lt; x + 7</span>을 만족하는 자연수 x의 개수예요.</li><li><b>어떻게 풀까요?</b> 방정식처럼 이항해서 x의 범위를 구해요. 양수로 나누면 부등호 방향은 그대로예요.</li><li>이항: <span class="m">3x − x &lt; 7 + 5</span> → <span class="m">2x &lt; 12</span></li><li>양변 ÷ 2: <span class="m">x &lt; 6</span></li><li>6보다 작은 자연수: 1, 2, 3, 4, 5 → 5개</li></ol><div class="sol-ans">답: <b>5개</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 등호가 없는데 x = 6까지 세서 6개로 쓰는 실수가 많아요.</div>',
     mistakes: ['x = 6까지 세기 (등호 없음)'],
   },
   {
@@ -3466,7 +3538,8 @@ window.PROBLEMS = [
     answer: 6,
     concepts: ['mid-sys'],
     hint: '두 번째 식을 y = 3x − 2로 바꿔 첫 식에 넣어요.',
-    solution: 'x + 2(3x − 2) = 10 → 7x = 14 → x = 2, y = 4 → <b>6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 연립방정식의 해 <span class="m">x = a, y = b</span>에서 <span class="m">a + b</span>예요.</li><li><b>어떻게 풀까요?</b> 둘째 식을 <span class="m">y = 3x − 2</span>로 바꿔 첫째 식에 넣어요(대입법).</li><li><span class="m">x + 2(3x − 2) = 10</span></li><li>괄호 풀기: <span class="m">x + 6x − 4 = 10</span> (<span class="m">2 × (−2) = −4</span>)</li><li><span class="m">7x = 14</span> → <span class="m">x = 2</span>, <span class="m">y = 3 × 2 − 2 = 4</span></li><li><span class="m">a + b = 2 + 4 = 6</span><br>확인: <span class="m">2 + 8 = 10</span>, <span class="m">6 − 4 = 2</span></li></ol><div class="sol-ans">답: <b>6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2(3x − 2)를 6x − 2로 풀어 −2에 2를 곱하지 않는 실수가 많아요.</div>',
     mistakes: ['2(3x − 2)를 6x − 2로 풀기'],
   },
   {
@@ -3482,7 +3555,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['b-linfunc'],
     hint: 'x절편은 y = 0일 때의 x.',
-    solution: '0 = −2x + 4 → x = <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">y = −2x + 4</span>의 x절편이에요.</li><li><b>어떻게 풀까요?</b> x절편은 그래프가 x축과 만나는 점의 x좌표, 즉 <span class="m">y = 0</span>일 때의 x예요.</li><li><span class="m">0 = −2x + 4</span></li><li>이항: <span class="m">2x = 4</span></li><li><span class="m">x = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> y절편 4를 답으로 쓰는 실수가 많아요. x절편은 y = 0을 넣어요.</div>',
     mistakes: ['y절편 4를 답으로 쓰기'],
   },
   {
@@ -3499,7 +3573,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['m2-prob'],
     hint: '1은 소수가 아니에요.',
-    solution: '소수 2, 3, 5 → 3/6 = <b>1/2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 주사위 한 개에서 소수의 눈이 나올 확률이에요.</li><li><b>어떻게 풀까요?</b> 확률 = (원하는 경우의 수) ÷ (모든 경우의 수). 소수는 약수가 1과 자기 자신뿐인 수예요.</li><li>모든 경우: 1~6, 6가지</li><li>소수인 눈: 2, 3, 5 → 3가지 (1은 소수가 아니에요)</li><li><span class="m">3/6 = 1/2</span> → 보기 ①</li></ol><div class="sol-ans">답: <b>① 1/2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 1도 소수로 세서 4/6 = 2/3로 쓰는 실수가 많아요.</div>',
     mistakes: ['1도 소수로 세서 2/3 쓰기'],
   },
   {
@@ -3516,7 +3591,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['m2-prob'],
     hint: '(1,1)부터 (6,6)까지 몇 가지?',
-    solution: '6가지 / 36가지 = <b>1/6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 서로 다른 주사위 두 개에서 같은 눈이 나올 확률이에요.</li><li><b>어떻게 풀까요?</b> 확률 = (원하는 경우의 수) ÷ (모든 경우의 수)예요.</li><li>모든 경우: <span class="m">6 × 6 = 36</span>가지</li><li>같은 눈: (1,1), (2,2), (3,3), (4,4), (5,5), (6,6) → 6가지</li><li><span class="m">6/36 = 1/6</span> → 보기 ①</li></ol><div class="sol-ans">답: <b>① 1/6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 모든 경우를 6 + 6 = 12가지로 세는 실수가 많아요. 6 × 6 = 36가지예요.</div>',
     mistakes: ['모든 경우를 12가지로 세기'],
   },
   {
@@ -3532,7 +3608,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['m3-root'],
     hint: '48 = 16 × 3',
-    solution: '√48 = √16 × √3 = <b>4</b>√3',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">√48 = a√3</span>에서 자연수 a예요.</li><li><b>어떻게 풀까요?</b> 48을 (제곱수) × 3으로 나눠서, 제곱수를 √ 밖으로 꺼내요.</li><li><span class="m">48 = 16 × 3</span>, 16은 <span class="m">4<sup>2</sup></span>인 제곱수예요.</li><li><span class="m">√48 = √16 × √3 = 4√3</span></li><li><span class="m">a = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 48 = 4 × 12로 나눠 2√12에서 멈추는 실수가 많아요. 가장 큰 제곱수 16을 찾아요.</div>',
     mistakes: ['48 = 4 × 12로 나눠서 2√12에서 멈추기'],
   },
   {
@@ -3548,7 +3625,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['m3-root'],
     hint: '둘 다 √3이 나오게 꺼내요.',
-    solution: '2√3 + 3√3 = <b>5</b>√3',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">√12 + √27 = b√3</span>에서 b예요.</li><li><b>어떻게 풀까요?</b> √ 안이 다르면 바로 못 더해요. 둘 다 ○√3 꼴로 바꾼 뒤 앞의 수끼리 더해요.</li><li><span class="m">√12 = √(4 × 3) = 2√3</span></li><li><span class="m">√27 = √(9 × 3) = 3√3</span></li><li><span class="m">2√3 + 3√3 = (2 + 3)√3 = 5√3</span> → <span class="m">b = 5</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> √12 + √27 = √39처럼 √ 안끼리 더하는 실수가 많아요.</div>',
     mistakes: ['√12 + √27 = √39로 더하기'],
   },
   {
@@ -3564,7 +3642,8 @@ window.PROBLEMS = [
     answer: 6,
     concepts: ['m3-expand'],
     hint: '(a + b)² = a² + 2ab + b²',
-    solution: 'x² + 6x + 9 → <b>6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">(x + 3)<sup>2</sup></span>을 전개했을 때 x의 계수예요.</li><li><b>어떻게 풀까요?</b> 곱셈 공식 <span class="m">(a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup></span>을 써요.</li><li>a = x, b = 3을 넣어요.</li><li><span class="m">x<sup>2</sup> + 2 × x × 3 + 3<sup>2</sup> = x<sup>2</sup> + 6x + 9</span></li><li>x의 계수는 6이에요.</li></ol><div class="sol-ans">답: <b>6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 가운데 항 2ab를 빼먹고 x<sup>2</sup> + 9로 쓰는 실수가 많아요.</div>',
     mistakes: ['x² + 9로 가운데 항을 빼먹기'],
   },
   {
@@ -3580,7 +3659,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['m3-expand'],
     hint: '합차 공식을 거꾸로.',
-    solution: 'x² − 3² = (x + 3)(x − 3) → a = <b>3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x<sup>2</sup> − 9 = (x + a)(x − a)</span>에서 양수 a예요.</li><li><b>어떻게 풀까요?</b> 합차 공식 <span class="m">(x + a)(x − a) = x<sup>2</sup> − a<sup>2</sup></span>을 거꾸로 써요.</li><li><span class="m">x<sup>2</sup> − 9 = x<sup>2</sup> − a<sup>2</sup></span>이니까 <span class="m">a<sup>2</sup> = 9</span></li><li><span class="m">9 = 3<sup>2</sup></span>, a는 양수라서 <span class="m">a = 3</span></li><li>확인: <span class="m">(x + 3)(x − 3) = x<sup>2</sup> − 3x + 3x − 9 = x<sup>2</sup> − 9</span></li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> a<sup>2</sup> = 9인데 a = 9로 쓰는 실수가 많아요.</div>',
     mistakes: ['a = 9로 쓰기'],
   },
   {
@@ -3596,7 +3676,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['m3-formula'],
     hint: 'x의 계수가 짝수: b′ = −2',
-    solution: 'x = 2 ± √(4 − 1) = 2 ± √3 → a + b = <b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x<sup>2</sup> − 4x + 1 = 0</span>의 해 <span class="m">a ± √b</span>에서 <span class="m">a + b</span>예요.</li><li><b>어떻게 풀까요?</b> x의 계수가 짝수이면 짝수 공식을 써요.<br><span class="m">x<sup>2</sup> + 2b′x + c = 0</span>이면 <span class="m">x = −b′ ± √(b′<sup>2</sup> − c)</span></li><li>x의 계수 −4 = 2 × (−2)이니까 <span class="m">b′ = −2</span>, <span class="m">c = 1</span></li><li><span class="m">x = −(−2) ± √((−2)<sup>2</sup> − 1)</span></li><li><span class="m">= 2 ± √(4 − 1) = 2 ± √3</span></li><li>그래서 a = 2, b = 3 → <span class="m">a + b = 5</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 짝수 공식에 일반 공식의 (−4)<sup>2</sup> = 16을 섞어 √15로 계산하는 실수가 많아요.</div>',
     mistakes: ['근호 안을 16 − 1 = 15로 계산하기 (짝수 공식과 섞기)'],
   },
   {
@@ -3612,7 +3693,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['b-quadfunc'],
     hint: 'y = a(x − p)² + q의 꼭짓점은 (p, q).',
-    solution: '꼭짓점 (1, 3) → <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">y = 2(x − 1)<sup>2</sup> + 3</span>의 꼭짓점 <span class="m">(p, q)</span>에서 <span class="m">p + q</span>예요.</li><li><b>어떻게 풀까요?</b> <span class="m">y = a(x − p)<sup>2</sup> + q</span>의 꼭짓점은 <span class="m">(p, q)</span>예요.</li><li><span class="m">(x − 1)</span>이니까 p = 1 (괄호 안 부호와 반대예요)</li><li>뒤에 더한 수가 q = 3</li><li>꼭짓점 <span class="m">(1, 3)</span> → <span class="m">p + q = 1 + 3 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> (x − 1)을 보고 꼭짓점을 (−1, 3)으로 부호를 바꿔 쓰는 실수가 많아요.</div>',
     mistakes: ['꼭짓점을 (−1, 3)으로 부호 바꾸기'],
   },
   {
@@ -3629,7 +3711,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['m3-trig'],
     hint: '각 A의 맞은편 변은 BC.',
-    solution: 'sin A = BC/AB = 6/10 = <b>3/5</b> (AC = 8)',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 직각삼각형에서 <span class="m">sin A</span>의 값을 보기에서 골라요.</li><li><b>어떻게 풀까요?</b> <span class="m">sin A = (각 A의 맞은편 변) ÷ (빗변)</span>이에요. ∠C = 90°이니까 빗변은 AB예요.</li><li>각 A의 맞은편 변은 <span class="m">BC = 6</span>, 빗변은 <span class="m">AB = 10</span></li><li><span class="m">sin A = 6/10 = 3/5</span></li><li>(참고: <span class="m">AC = √(10<sup>2</sup> − 6<sup>2</sup>) = √64 = 8</span>, <span class="m">cos A = 8/10 = 4/5</span>)</li><li>3/5는 보기 ①이에요.</li></ol><div class="sol-ans">답: <b>① 3/5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> sin A와 cos A를 바꿔서 4/5를 고르는 실수가 많아요.</div>',
     mistakes: ['cos A = 4/5와 바꿔 쓰기'],
   },
   {
@@ -3645,7 +3728,8 @@ window.PROBLEMS = [
     answer: 18,
     concepts: ['a-exp'],
     hint: '<span class="m">8ˣ = (2ˣ)³</span>, <span class="m">4ˣ = (2ˣ)²</span>',
-    solution: '<span class="m">3³ − 3² = 27 − 9 = </span><b>18</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">2ˣ = 3</span>일 때 <span class="m">8ˣ − 4ˣ</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 8과 4를 <b>2의 거듭제곱</b>으로 바꾸면 <span class="m">2ˣ</span>가 보여요: <span class="m">8ˣ = (2³)ˣ = (2ˣ)³</span>, <span class="m">4ˣ = (2ˣ)²</span>.</li><li><span class="m">8ˣ = 3³ = 27</span></li><li><span class="m">4ˣ = 3² = 9</span></li><li><span class="m">27 − 9 = 18</span></li></ol><div class="sol-ans">답: <b>18</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 8ˣ를 8 × 3처럼 곱하기 쉬워요. 8ˣ = (2ˣ)³이에요.</div>',
     mistakes: ['8ˣ = 8 × 3으로 계산하기'],
   },
   {
@@ -3661,7 +3745,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['a-logrule'],
     hint: '밑변환: 둘 다 상용로그로 바꾸면 log 3이 지워져요.',
-    solution: '<span class="m">(log 3 / log 2) × (log 8 / log 3) = log 8 / log 2 = log₂ 8 = </span><b>3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 밑이 다른 두 로그의 곱이에요.</li><li><b>어떻게 풀까요?</b> 밑이 달라서 바로 못 합쳐요. <b>밑변환 공식</b> <span class="m">log_a b = log b / log a</span>로 같은 밑(상용로그)으로 바꾸면 지워지는 게 생겨요.</li><li><span class="m">log₂ 3 × log₃ 8 = (log 3 / log 2) × (log 8 / log 3)</span></li><li>log 3이 약분되어 <span class="m">log 8 / log 2 = log₂ 8</span></li><li><span class="m">8 = 2³</span> → <span class="m">log₂ 8 = 3</span></li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 밑끼리, 진수끼리 곱해서 log₆ 24처럼 쓰기 쉬워요. 그런 공식은 없어요.</div>',
     mistakes: ['log₂ 3 × log₃ 8 = log₆ 24처럼 밑과 진수를 곱하기'],
   },
   {
@@ -3678,7 +3763,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['a-sincos'],
     hint: '양변을 제곱해요.',
-    solution: '<span class="m">1 + 2sinθcosθ = 1/4</span> → <span class="m">sinθcosθ = −3/8</span> → <b>②</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">sinθ + cosθ = 1/2</span>일 때 <span class="m">sinθ cosθ</span>예요.</li><li><b>어떻게 풀까요?</b> 양변을 <b>제곱</b>하면 <span class="m">sin²θ + cos²θ = 1</span>과 <span class="m">2sinθcosθ</span>가 나와요.</li><li><span class="m">(sinθ + cosθ)² = sin²θ + 2sinθcosθ + cos²θ = 1/4</span></li><li><span class="m">sin²θ + cos²θ = 1</span> → <span class="m">1 + 2sinθcosθ = 1/4</span></li><li><span class="m">2sinθcosθ = −3/4</span> → <span class="m">sinθcosθ = −3/8</span></li></ol><div class="sol-ans">답: <b>② −3/8</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 제곱할 때 가운데 2sinθcosθ를 빼먹기 쉬워요.</div>',
     mistakes: ['(sinθ + cosθ)²을 sin²θ + cos²θ로만 쓰기 (2sinθcosθ를 빼먹음)'],
   },
   {
@@ -3694,7 +3780,8 @@ window.PROBLEMS = [
     answer: 6,
     concepts: ['a-sine'],
     hint: '<span class="m">a / sin A = 2R</span>',
-    solution: '<span class="m">6 / sin 30° = 6 / (1/2) = 12 = 2R</span> → <span class="m">R = </span><b>6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 외접원의 반지름 R이에요.</li><li><b>어떻게 풀까요?</b> 변과 맞은편 각, 외접원이 함께 나오면 <b>사인법칙</b> <span class="m">a / sin A = 2R</span>을 써요. BC는 각 A의 맞은편 변이에요.</li><li><span class="m">a = BC = 6</span>, <span class="m">sin 30° = 1/2</span></li><li><span class="m">2R = 6 / (1/2) = 12</span></li><li><span class="m">R = 6</span></li></ol><div class="sol-ans">답: <b>6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2R = 12를 그대로 답으로 쓰기 쉬워요. 반지름은 2로 나눈 6이에요.</div>',
     mistakes: ['2R = 12를 그대로 답으로 쓰기'],
   },
   {
@@ -3710,7 +3797,8 @@ window.PROBLEMS = [
     answer: 7,
     concepts: ['a-arith'],
     hint: '양수인 항까지만 더할 때 합이 가장 커요.',
-    solution: '<span class="m">aₙ = 23 − 3n &gt; 0</span> → <span class="m">n ≤ 7</span> (a₇ = 2, a₈ = −1) → <b>7</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 합 <span class="m">Sₙ</span>이 가장 클 때의 n이에요.</li><li><b>어떻게 풀까요?</b> 공차가 음수라 항이 점점 작아져요. <b>양수인 항까지만 더할 때</b> 합이 가장 커요. 그래서 일반항이 양수인 마지막 n을 찾아요.</li><li><span class="m">aₙ = 20 + (n − 1)(−3) = 23 − 3n</span></li><li><span class="m">23 − 3n &gt; 0</span> → <span class="m">n &lt; 23/3 = 7.66…</span> → n은 7까지</li><li>확인: <span class="m">a₇ = 2 &gt; 0</span>, <span class="m">a₈ = −1 &lt; 0</span> → <span class="m">n = 7</span>에서 최대 (<span class="m">S₇ = 7 × (20 + 2)/2 = 77</span>)</li></ol><div class="sol-ans">답: <b>7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 23/3 = 7.66…을 반올림해서 8로 답하기 쉬워요. a₈ = −1은 음수라 더하면 합이 줄어요.</div>',
     mistakes: ['aₙ = 0이 되는 n을 찾으려다 23/3에서 반올림하기', '공차 부호를 놓치기'],
   },
   {
@@ -3726,7 +3814,8 @@ window.PROBLEMS = [
     answer: 100,
     concepts: ['a-sigma'],
     hint: '1, 3, 5, …, 19를 더하는 거예요.',
-    solution: '<span class="m">2 × 55 − 10 = </span><b>100</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">2k − 1</span>을 k = 1부터 10까지 더한 값(1 + 3 + ⋯ + 19)이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">Σ(2k − 1) = 2Σk − Σ1</span>로 나누고 <span class="m">Σk = n(n+1)/2</span>를 써요.</li><li><span class="m">Σ(k=1~10) k = 10 × 11/2 = 55</span> → <span class="m">2 × 55 = 110</span></li><li>상수 1은 10번 빼지니까 <span class="m">Σ1 = 10</span></li><li><span class="m">110 − 10 = 100</span> (홀수 10개의 합은 <span class="m">10² = 100</span>과도 맞아요)</li></ol><div class="sol-ans">답: <b>100</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 상수 −1을 한 번만 빼서 109로 쓰기 쉬워요.</div>',
     mistakes: ['상수 −1을 10번이 아니라 한 번만 빼기'],
   },
   {
@@ -3742,7 +3831,8 @@ window.PROBLEMS = [
     answer: 33,
     concepts: ['a-rec'],
     hint: '앞에서부터 차례로 넣어요.',
-    solution: '3 → 5 → 9 → 17 → <b>33</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 점화식으로 만든 수열의 제5항이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">aₙ₊₁ = 2aₙ − 1</span>에 n = 1, 2, 3, 4를 <b>차례로 대입</b>해요.</li><li><span class="m">a₂ = 2 × 3 − 1 = 5</span>, <span class="m">a₃ = 2 × 5 − 1 = 9</span></li><li><span class="m">a₄ = 2 × 9 − 1 = 17</span>, <span class="m">a₅ = 2 × 17 − 1 = 33</span></li></ol><div class="sol-ans">답: <b>33</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 몇 번째 항인지 세다가 a₄(17)를 답으로 쓰기 쉬워요.</div>',
     mistakes: ['a₄를 답으로 쓰기 (몇 번째 항인지 세기)'],
   },
   {
@@ -3759,7 +3849,7 @@ window.PROBLEMS = [
     concepts: ['m-tangent'],
     hint: '수직인 두 직선의 기울기 곱은 −1.',
     solution:
-      '접선 기울기 2 → 수직 기울기 <span class="m">−1/2</span><br><span class="m">y = −(1/2)(x − 1) + 1</span> → <span class="m">b = 3/2</span> → <b>3</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 점 <span class="m">(1, 1)</span>에서의 접선에 <b>수직</b>이고 그 점을 지나는 직선의 y절편 b에 대해 <span class="m">2b</span>예요.</li><li><b>어떻게 풀까요?</b> 접선의 기울기는 <span class="m">f′(1)</span>이고, 수직인 두 직선의 기울기 곱은 −1이에요. 그래서 수직 직선의 기울기는 <span class="m">−1/f′(1)</span>이에요.</li><li><span class="m">y′ = 2x</span> → 접선 기울기 <span class="m">2</span></li><li>수직 직선 기울기: <span class="m">−1/2</span></li><li>직선: <span class="m">y = −(1/2)(x − 1) + 1 = −x/2 + 3/2</span> → <span class="m">b = 3/2</span></li><li><span class="m">2b = 3</span></li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 수직 기울기를 역수 없이 −2로 쓰거나, 접선의 y절편(−1)을 구해 버리는 실수가 많아요.</div>',
     mistakes: ['수직 기울기를 −2로 쓰기 (역수를 안 함)', '접선의 y절편을 구하기'],
   },
   {
@@ -3776,7 +3866,7 @@ window.PROBLEMS = [
     concepts: ['m-closedmax', 'm-incdec'],
     hint: '극값과 양 끝값을 모두 비교해요.',
     solution:
-      '<span class="m">f(−2) = −1</span>, 극대 <span class="m">f(−1) = 3</span>, 극소 <span class="m">f(1) = −1</span>, <span class="m">f(2) = 3</span> → 최댓값 <b>3</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 닫힌구간 <span class="m">[−2, 2]</span>에서 <span class="m">f(x) = x³ − 3x + 1</span>의 <b>최댓값</b>이에요.</li><li><b>어떻게 풀까요?</b> 닫힌구간의 최댓값은 <b>극값</b>과 <b>양 끝값</b> 중 가장 큰 값이에요. 모두 구해서 비교해요.</li><li><span class="m">f′(x) = 3x² − 3 = 3(x − 1)(x + 1)</span> → 극대 <span class="m">x = −1</span>, 극소 <span class="m">x = 1</span></li><li><span class="m">f(−2) = −8 + 6 + 1 = −1</span><br><span class="m">f(−1) = −1 + 3 + 1 = 3</span><br><span class="m">f(1) = 1 − 3 + 1 = −1</span><br><span class="m">f(2) = 8 − 6 + 1 = 3</span></li><li>가장 큰 값은 <span class="m">3</span> (x = −1과 x = 2에서)</li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 끝값을 확인하지 않는 실수가 많아요. 이 문제는 극댓값과 끝값이 같지만, 끝값이 더 큰 문제도 많아요.</div>',
     mistakes: ['끝값을 확인하지 않기 (이 문제는 같지만, 끝값이 더 큰 문제가 많아요)'],
   },
   {
@@ -3792,7 +3882,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['m-dist'],
     hint: '운동 방향이 바뀌면 속도의 부호가 바뀌어요.',
-    solution: '<span class="m">v(t) = 3t² − 12t + 9 = 3(t − 1)(t − 3)</span> → <span class="m">t = 1, 3</span> → 합 <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 점 P가 <b>운동 방향을 바꾸는</b> 모든 시각의 합이에요.</li><li><b>어떻게 풀까요?</b> 운동 방향이 바뀐다 = 속도 <span class="m">v(t) = x′(t)</span>의 부호가 바뀐다는 뜻이에요. <span class="m">v(t) = 0</span>이면서 그 앞뒤로 부호가 바뀌는 시각을 찾아요.</li><li><span class="m">v(t) = 3t² − 12t + 9 = 3(t − 1)(t − 3)</span></li><li><span class="m">t = 1</span>: + → −, <span class="m">t = 3</span>: − → + 로 둘 다 부호가 바뀌어요.</li><li>합: <span class="m">1 + 3 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 위치 x(t) = 0인 시각을 구하는 실수가 많아요. 방향은 위치가 아니라 속도의 부호로 판단해요.</div>',
     mistakes: ['위치 x(t) = 0인 시각을 구하기'],
   },
   {
@@ -3808,7 +3899,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['m-integral'],
     hint: '<span class="m">F(x) = x³ − x²</span>',
-    solution: '<span class="m">F(2) − F(0) = 8 − 4 = </span><b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 정적분 <span class="m">∫₀² (3x² − 2x) dx</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 부정적분 <span class="m">F(x)</span>를 구한 뒤 <span class="m">F(2) − F(0)</span>을 계산해요. <span class="m">∫xⁿ dx = xⁿ⁺¹/(n + 1)</span>를 써요.</li><li><span class="m">F(x) = x³ − x²</span> (<span class="m">3x² → x³</span>, <span class="m">2x → x²</span>)</li><li><span class="m">F(2) = 8 − 4 = 4</span>, <span class="m">F(0) = 0</span></li><li><span class="m">4 − 0 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 3x²의 부정적분을 3x³으로 쓰는 실수가 많아요(차수를 올리면 그 수로 나눠야 해요).</div>',
     mistakes: ['3x²의 부정적분을 3x³으로 쓰기'],
   },
   {
@@ -3824,7 +3916,8 @@ window.PROBLEMS = [
     answer: 30,
     concepts: ['p-samep'],
     hint: '같은 문자끼리 자리를 바꿔도 같은 배열이에요.',
-    solution: '<span class="m">5! / (2! × 2!) = 120 / 4 = </span><b>30</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> A, A, B, B, C를 한 줄로 늘어놓는 방법의 수예요.</li><li><b>어떻게 풀까요?</b> <b>같은 것이 있는 순열</b>이에요. 일단 모두 다르다고 보고 <span class="m">5!</span>로 센 뒤, 같은 문자끼리 자리를 바꿔도 같은 배열이니 그만큼 나눠요.</li><li>모두 다르다고 보면 <span class="m">5! = 120</span></li><li>A 두 개끼리 바꾸는 <span class="m">2!</span>, B 두 개끼리 바꾸는 <span class="m">2!</span>만큼 중복 → <span class="m">120 ÷ (2! × 2!) = 120 ÷ 4 = 30</span></li></ol><div class="sol-ans">답: <b>30</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 같은 문자를 나누지 않고 5! = 120을 그대로 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['5! = 120을 그대로 답으로 쓰기'],
   },
   {
@@ -3840,7 +3933,8 @@ window.PROBLEMS = [
     answer: 81,
     concepts: ['p-reprep'],
     hint: '자리마다 3가지씩 고를 수 있어요.',
-    solution: '<span class="m">3⁴ = </span><b>81</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 1, 2, 3만 써서(같은 숫자 반복 가능) 만드는 네 자리 자연수의 개수예요.</li><li><b>어떻게 풀까요?</b> <b>중복순열</b>이에요. 천·백·십·일의 자리마다 1, 2, 3 중 아무거나 고를 수 있고, 0이 없어서 맨 앞자리 제한도 없어요.</li><li>자리마다 3가지씩, 네 자리: <span class="m">3 × 3 × 3 × 3 = 3<sup>4</sup> = 81</span></li></ol><div class="sol-ans">답: <b>81</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 중복을 허락하지 않거나, 4³ = 64처럼 밑과 지수를 거꾸로 쓰는 실수가 많아요.</div>',
     mistakes: ['₃P₄처럼 중복을 안 허락하기', '4³ = 64로 거꾸로 쓰기'],
   },
   {
@@ -3857,7 +3951,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['p-cond'],
     hint: '전체 경우 ₅C₂, 흰 공 2개 ₃C₂.',
-    solution: '<span class="m">₃C₂ / ₅C₂ = 3 / 10</span> → <b>②</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 흰 공 3개, 검은 공 2개에서 2개를 동시에 꺼낼 때 둘 다 흰 공일 확률이에요.</li><li><b>어떻게 풀까요?</b> \'동시에\' 꺼내니 순서가 없어요. <b>조합</b>으로 전체 경우와 원하는 경우를 세서 나눠요.</li><li>전체: 5개 중 2개 → <span class="m"><sub>5</sub>C<sub>2</sub> = 10</span></li><li>둘 다 흰 공: 흰 공 3개 중 2개 → <span class="m"><sub>3</sub>C<sub>2</sub> = 3</span></li><li><span class="m">3/10</span> (확인: 하나씩 차례로 꺼낸다고 봐도 <span class="m">3/5 × 2/4 = 3/10</span>)</li></ol><div class="sol-ans">답: <b>② 3/10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 한 번 꺼낸 공을 다시 넣는 것처럼 3/5 × 3/5 = 9/25로 계산하는 실수가 많아요.</div>',
     mistakes: ['꺼낸 공을 다시 넣는 것처럼 3/5 × 3/5 = 9/25로 계산하기'],
   },
   {
@@ -3873,7 +3968,8 @@ window.PROBLEMS = [
     answer: 60,
     concepts: ['p-normal'],
     hint: '64를 표준화한 값이 2예요.',
-    solution: '<span class="m">(64 − m) / 2 = 2</span> → <span class="m">m = </span><b>60</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">X ~ N(m, 2<sup>2</sup>)</span>이고 <span class="m">P(X ≥ 64) = 0.0228</span>일 때 평균 <span class="m">m</span>이에요.</li><li><b>어떻게 풀까요?</b> 64를 표준화한 값을 <span class="m">z</span>라 하면 <span class="m">P(Z ≥ z) = 0.0228</span>이고, 주어진 <span class="m">P(Z ≥ 2) = 0.0228</span>과 비교하면 <span class="m">z = 2</span>예요.</li><li>표준편차 <span class="m">σ = 2</span>이므로 <span class="m">(64 − m)/2 = 2</span></li><li><span class="m">64 − m = 4</span> → <span class="m">m = 60</span></li></ol><div class="sol-ans">답: <b>60</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 표준편차 2 대신 4를 써서 (64 − m)/4 = 2로 푸는 실수가 많아요.</div>',
     mistakes: ['σ를 4로 보고 (64 − m)/4 = 2로 풀기'],
   },
   {
@@ -3890,7 +3986,7 @@ window.PROBLEMS = [
     concepts: ['p-binom'],
     hint: '먼저 p를 구해요.',
     solution:
-      '<span class="m">100p = 20</span> → <span class="m">p = 1/5</span>, <span class="m">V(X) = 100 × 1/5 × 4/5 = 16</span> → <span class="m">σ = </span><b>4</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">X ~ B(100, p)</span>이고 <span class="m">E(X) = 20</span>일 때 표준편차 <span class="m">σ(X)</span>예요.</li><li><b>어떻게 풀까요?</b> 이항분포 공식 <span class="m">E(X) = np</span>로 <span class="m">p</span>를 먼저 구하고, <span class="m">V(X) = np(1 − p)</span>에 루트를 씌워요.</li><li><span class="m">100p = 20</span> → <span class="m">p = 1/5</span></li><li><span class="m">V(X) = 100 × 1/5 × 4/5 = 16</span></li><li><span class="m">σ(X) = √16 = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분산 16을 표준편차로 그대로 쓰는 실수가 많아요. 루트를 꼭 씌워요.</div>',
     mistakes: ['분산 16을 표준편차로 쓰기'],
   },
   {
@@ -3906,7 +4002,8 @@ window.PROBLEMS = [
     answer: -2,
     concepts: ['b-remainder'],
     hint: '나머지정리: x = 1을 넣어요.',
-    solution: '<span class="m">1 + 2 − 5 = </span><b>−2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x³ + 2x − 5</span>를 <span class="m">x − 1</span>로 나눈 나머지예요.</li><li><b>어떻게 풀까요?</b> <b>나머지정리</b>: <span class="m">P(x)</span>를 <span class="m">x − a</span>로 나눈 나머지는 <span class="m">P(a)</span>예요. 직접 나눌 필요가 없어요.</li><li><span class="m">x − 1 = 0</span> → <span class="m">x = 1</span>을 넣어요.</li><li><span class="m">P(1) = 1 + 2 − 5 = −2</span></li></ol><div class="sol-ans">답: <b>−2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x − 1인데 x = −1을 넣기 쉬워요.</div>',
     mistakes: ['x = −1을 넣기'],
   },
   {
@@ -3922,7 +4019,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['b-complex'],
     hint: '<span class="m">i² = −1</span>',
-    solution: '<span class="m">4 − i² = 4 + 1 = </span><b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 복소수 <span class="m">(2 + i)(2 − i)</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> <b>합차공식</b> <span class="m">(a + b)(a − b) = a² − b²</span>을 쓰고 <span class="m">i² = −1</span>로 바꿔요.</li><li><span class="m">(2 + i)(2 − i) = 2² − i² = 4 − i²</span></li><li><span class="m">i² = −1</span> → <span class="m">4 − (−1) = 5</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> i² = 1로 계산해서 3이라고 쓰기 쉬워요.</div>',
     mistakes: ['i² = 1로 계산해서 3 쓰기'],
   },
   {
@@ -3938,7 +4036,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['b-dist'],
     hint: 'x 차이 3, y 차이 4',
-    solution: '<span class="m">√(3² + 4²) = </span><b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 점 <span class="m">(1, 2)</span>, <span class="m">(4, 6)</span> 사이의 거리예요.</li><li><b>어떻게 풀까요?</b> <b>두 점 사이의 거리</b> <span class="m">√((x₂ − x₁)² + (y₂ − y₁)²)</span> (피타고라스 정리)를 써요.</li><li>x 차이 <span class="m">4 − 1 = 3</span>, y 차이 <span class="m">6 − 2 = 4</span></li><li><span class="m">√(3² + 4²) = √(9 + 16) = √25 = 5</span></li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 차이를 제곱하지 않고 3 + 4 = 7로 더하기 쉬워요.</div>',
     mistakes: ['3 + 4 = 7로 더하기'],
   },
   {
@@ -3954,7 +4053,8 @@ window.PROBLEMS = [
     answer: 12,
     concepts: ['b-matrix'],
     hint: '같은 자리끼리 더해요.',
-    solution: 'A + B = (1 3 / 4 4) → 1 + 3 + 4 + 4 = <b>12</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 행렬 <span class="m">A + B</span>의 네 성분을 모두 더한 값이에요.</li><li><b>어떻게 풀까요?</b> 행렬의 덧셈은 <b>같은 자리 성분끼리</b> 더해요.</li><li><span class="m">A + B = (1+0  2+1 / 3+1  4+0) = (1  3 / 4  4)</span></li><li><span class="m">1 + 3 + 4 + 4 = 12</span> (확인: A의 합 10 + B의 합 2 = 12)</li></ol><div class="sol-ans">답: <b>12</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 행렬의 곱셈처럼 행과 열을 곱해서 계산하기 쉬워요.</div>',
     mistakes: ['행렬의 곱셈처럼 계산하기'],
   },
   {
@@ -4112,7 +4212,8 @@ window.PROBLEMS = [
     answer: 7,
     concepts: ['a-logineq'],
     hint: '진수 조건 x − 1 &gt; 0부터.',
-    solution: '<span class="m">0 &lt; x − 1 &lt; 8</span> → <span class="m">1 &lt; x &lt; 9</span> → 2, …, 8 → <b>7</b>개',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">log₂(x − 1) &lt; 3</span>을 만족하는 정수 x의 개수예요.</li><li><b>어떻게 풀까요?</b> 로그 부등식은 <b>진수 조건(진수 &gt; 0)</b>을 먼저 쓰고, 밑 2 &gt; 1이라 부등호 방향 그대로 진수끼리 비교해요.</li><li>진수 조건: <span class="m">x − 1 &gt; 0</span> → <span class="m">x &gt; 1</span></li><li><span class="m">3 = log₂ 8</span> → <span class="m">x − 1 &lt; 8</span> → <span class="m">x &lt; 9</span></li><li><span class="m">1 &lt; x &lt; 9</span> → 정수 2, 3, …, 8 → <b>7개</b></li></ol><div class="sol-ans">답: <b>7</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 진수 조건을 빼먹어 x = 1(또는 그 아래)까지 세기 쉬워요.</div>',
     mistakes: ['진수 조건을 빼먹어 x = 1까지 넣고 8개라고 답하기'],
   },
   {
@@ -4128,7 +4229,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['a-exp'],
     hint: '<span class="m">t = 3ˣ</span>',
-    solution: '<span class="m">t² − 4t + 3 = 0</span> → <span class="m">t = 1, 3</span> → <span class="m">x = 0, 1</span> → 합 <b>1</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 방정식의 모든 실근 x의 합이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">9ˣ = (3ˣ)²</span>이니까 <span class="m">t = 3ˣ</span>로 바꾸면 이차방정식이 돼요.</li><li><span class="m">t² − 4t + 3 = 0</span> → <span class="m">(t − 1)(t − 3) = 0</span> → <span class="m">t = 1, 3</span></li><li><span class="m">3ˣ = 1 = 3⁰</span> → <span class="m">x = 0</span>, <span class="m">3ˣ = 3</span> → <span class="m">x = 1</span></li><li>합 <span class="m">= 0 + 1 = 1</span></li></ol><div class="sol-ans">답: <b>1</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> t의 합 4를 답으로 쓰기 쉬워요. 구하는 건 x의 합이에요.</div>',
     mistakes: ['t의 합 4를 답으로 쓰기'],
   },
   {
@@ -4144,7 +4246,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['a-trigraph'],
     hint: 'sin은 −1부터 1까지.',
-    solution: '최댓값 <span class="m">3 + 1 = 4</span>, 최솟값 <span class="m">−3 + 1 = −2</span> → <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">y = 3sin2x + 1</span>의 최댓값과 최솟값의 합이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">sin2x</span>는 <b>−1부터 1까지</b>의 값을 가져요. 각을 2x로 바꿔도 범위는 같아요.</li><li><span class="m">sin2x = 1</span>일 때 최댓값 <span class="m">3 × 1 + 1 = 4</span></li><li><span class="m">sin2x = −1</span>일 때 최솟값 <span class="m">3 × (−1) + 1 = −2</span></li><li><span class="m">4 + (−2) = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 합이 아니라 차(6)를 답으로 쓰기 쉬워요.</div>',
     mistakes: ['최댓값과 최솟값의 차(6)를 답으로 쓰기'],
   },
   {
@@ -4161,7 +4264,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['a-trigval'],
     hint: '7π/6은 3사분면, 5π/3은 4사분면.',
-    solution: '<span class="m">−1/2 + 1/2 = 0</span> → <b>①</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">sin(7π/6) + cos(5π/3)</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 각을 <b>기준각 + 사분면</b>으로 나눠 봐요: <span class="m">7π/6 = π + π/6</span>(3사분면), <span class="m">5π/3 = 2π − π/3</span>(4사분면).</li><li>3사분면에서 sin은 음수 → <span class="m">sin(7π/6) = −sin(π/6) = −1/2</span></li><li>4사분면에서 cos는 양수 → <span class="m">cos(5π/3) = cos(π/3) = 1/2</span></li><li><span class="m">−1/2 + 1/2 = 0</span></li></ol><div class="sol-ans">답: <b>① 0</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 3사분면에서 sin의 부호를 +로 써서 1로 답하기 쉬워요.</div>',
     mistakes: ['3사분면 sin의 부호를 +로 쓰기'],
   },
   {
@@ -4178,7 +4282,7 @@ window.PROBLEMS = [
     concepts: ['a-geo'],
     hint: '<span class="m">a₅ / a₂ = r³</span>',
     solution:
-      '<span class="m">r³ = 8</span> → <span class="m">r = 2</span>, <span class="m">a₁ = 3</span> → <span class="m">a₇ = 3 × 2⁶ = </span><b>192</b>',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 등비수열의 제7항이에요.</li><li><b>어떻게 풀까요?</b> 등비수열은 n칸 갈 때 공비 r을 n번 곱해요. <span class="m">a₂</span>에서 <span class="m">a₅</span>까지는 3칸 → <span class="m">a₅ / a₂ = r³</span>.</li><li><span class="m">r³ = 48 / 6 = 8</span> → <span class="m">r = 2</span></li><li><span class="m">a₇</span>은 <span class="m">a₅</span>에서 2칸 더 → <span class="m">a₇ = a₅ × r² = 48 × 4 = 192</span></li><li>(또는 <span class="m">a₁ = 6/2 = 3</span>, <span class="m">a₇ = 3 × 2⁶ = 192</span>)</li></ol><div class="sol-ans">답: <b>192</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> a₅ / a₂를 r⁴로 쓰기 쉬워요. 5 − 2 = 3칸이라 r³이에요.</div>',
     mistakes: ['a₅ / a₂ = r⁴로 쓰기'],
   },
   {
@@ -4194,7 +4298,8 @@ window.PROBLEMS = [
     answer: 10,
     concepts: ['a-sigma'],
     hint: '<span class="m">n(n + 1)/2 = 55</span>',
-    solution: '<span class="m">n(n + 1) = 110 = 10 × 11</span> → <b>10</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 1부터 n까지의 합이 55가 되는 n이에요.</li><li><b>어떻게 풀까요?</b> <b>자연수의 합 공식</b> <span class="m">Σ(k=1~n) k = n(n + 1)/2</span>로 방정식을 세워요.</li><li><span class="m">n(n + 1)/2 = 55</span> → <span class="m">n(n + 1) = 110</span></li><li>연속한 두 자연수의 곱이 110 → <span class="m">10 × 11 = 110</span> → <span class="m">n = 10</span></li></ol><div class="sol-ans">답: <b>10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> n(n + 1)/2에서 2를 곱하는 걸 잊거나 n² = 110으로 푸는 실수가 많아요.</div>',
     mistakes: ['n² = 110으로 풀기'],
   },
   {
@@ -4210,7 +4315,8 @@ window.PROBLEMS = [
     answer: 32,
     concepts: ['a-sigma'],
     hint: '<span class="m">a₆ = S₆ − S₅</span>',
-    solution: '<span class="m">63 − 31 = </span><b>32</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 합 <span class="m">Sₙ = 2ⁿ − 1</span>로 주어진 수열의 제6항이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">S₆ = a₁ + ⋯ + a₆</span>, <span class="m">S₅ = a₁ + ⋯ + a₅</span>이니까 <b><span class="m">a₆ = S₆ − S₅</span></b>예요.</li><li><span class="m">S₆ = 2⁶ − 1 = 63</span>, <span class="m">S₅ = 2⁵ − 1 = 31</span></li><li><span class="m">a₆ = 63 − 31 = 32</span></li></ol><div class="sol-ans">답: <b>32</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> S₆ = 63을 그대로 a₆로 쓰기 쉬워요.</div>',
     mistakes: ['S₆ = 63을 답으로 쓰기'],
   },
   {
@@ -4226,7 +4332,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['m-liminf'],
     hint: '분자, 분모를 x²으로 나눠요.',
-    solution: '<span class="m">(2 + 3/x)/(1 + 1/x²) → 2</span> → <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x → ∞</span>일 때 <span class="m">(2x² + 3x)/(x² + 1)</span>의 극한값이에요.</li><li><b>어떻게 풀까요?</b> ∞/∞ 꼴이에요. 분모의 최고차항 <span class="m">x²</span>으로 분자·분모를 나누면, <span class="m">1/x</span> 같은 항은 0으로 사라져요.</li><li><span class="m">(2x² + 3x)/(x² + 1) = (2 + 3/x)/(1 + 1/x²)</span></li><li><span class="m">x → ∞</span>이면 <span class="m">3/x → 0</span>, <span class="m">1/x² → 0</span></li><li>극한 <span class="m">= 2/1 = 2</span> (최고차항 계수의 비)</li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 최고차항이 아닌 낮은 차수끼리 비교하거나, ∞/∞ = 1이라고 하는 실수가 많아요.</div>',
     mistakes: ['3x/1처럼 낮은 차수끼리 비교하기'],
   },
   {
@@ -4242,7 +4349,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['m-limit0'],
     hint: '분자를 인수분해해요.',
-    solution: '<span class="m">(x − 1)(x + 1)/(x − 1) = x + 1 → 2</span> → <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">lim(x→1) (x² − 1)/(x − 1)</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 그대로 넣으면 0/0 꼴이라 값이 바로 안 나와요. 분자를 인수분해해서 <span class="m">(x − 1)</span>을 약분해요. (<span class="m">x → 1</span>은 <span class="m">x ≠ 1</span>인 채로 다가가므로 약분해도 돼요.)</li><li><span class="m">x² − 1 = (x − 1)(x + 1)</span></li><li><span class="m">(x − 1)(x + 1)/(x − 1) = x + 1</span></li><li><span class="m">x → 1</span>이면 <span class="m">1 + 1 = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 0/0이라서 극한이 없다고 하는 실수가 많아요. 0/0은 "약분해 보라"는 신호예요.</div>',
     mistakes: ['0/0이라서 극한이 없다고 하기'],
   },
   {
@@ -4258,7 +4366,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['m-cont'],
     hint: '경계 x = 1에서 두 식의 값을 같게.',
-    solution: '<span class="m">1 + a = 2 + 3</span> → <span class="m">a = </span><b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 구간마다 식이 다른 <span class="m">f(x)</span>가 실수 전체에서 연속이 되게 하는 a예요.</li><li><b>어떻게 풀까요?</b> 각 식은 다항식이라 그 구간 안에서는 연속이에요. 문제는 경계 <span class="m">x = 1</span>뿐이에요. 거기서 왼쪽 극한 = 오른쪽 극한 = 함숫값이어야 해요.</li><li>왼쪽 극한(<span class="m">x &lt; 1</span>의 식): <span class="m">lim(x→1⁻) (x² + a) = 1 + a</span></li><li>오른쪽 극한과 함숫값(<span class="m">x ≥ 1</span>의 식): <span class="m">f(1) = 2 × 1 + 3 = 5</span></li><li><span class="m">1 + a = 5</span> → <span class="m">a = 4</span></li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x = 1에서 2x + 3만 계산하고 멈추거나, 경계값을 한쪽 식에만 넣는 실수가 많아요.</div>',
     mistakes: ['x = 1에서 2x + 3만 계산하고 멈추기'],
   },
   {
@@ -4274,7 +4383,8 @@ window.PROBLEMS = [
     answer: 12,
     concepts: ['m-limit'],
     hint: '미분계수의 정의 그대로예요.',
-    solution: '<span class="m">f′(2) = 3 × 2² = </span><b>12</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = x³</span>에서 <span class="m">lim(h→0) (f(2 + h) − f(2))/h</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 이 극한은 미분계수의 정의 그 자체예요. 즉 <span class="m">f′(2)</span>를 구하면 돼요.</li><li><span class="m">f′(x) = 3x²</span></li><li><span class="m">f′(2) = 3 × 2² = 12</span><br>(직접 확인: <span class="m">(2 + h)³ − 8 = 12h + 6h² + h³</span> → h로 나누면 <span class="m">12 + 6h + h² → 12</span>)</li></ol><div class="sol-ans">답: <b>12</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> f(2) = 8을 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['f(2) = 8을 답으로 쓰기'],
   },
   {
@@ -4291,7 +4401,7 @@ window.PROBLEMS = [
     concepts: ['m-incdec'],
     hint: '극값이면 f′(1) = 0.',
     solution:
-      '<span class="m">f′(1) = 3 + 2a − 9 = 0</span> → <span class="m">a = </span><b>3</b><br>확인: <span class="m">f′(x) = 3x² + 6x − 9 = 3(x + 3)(x − 1)</span>, x = 1 앞뒤로 부호가 − → +로 바뀌어 극솟값이 맞아요',
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = x³ + ax² − 9x</span>가 <span class="m">x = 1</span>에서 극값을 가질 때 상수 a예요.</li><li><b>어떻게 풀까요?</b> 미분 가능한 함수가 <span class="m">x = 1</span>에서 극값이면 <span class="m">f′(1) = 0</span>이에요. 구한 뒤 실제로 부호가 바뀌는지 확인해요.</li><li><span class="m">f′(x) = 3x² + 2ax − 9</span></li><li><span class="m">f′(1) = 3 + 2a − 9 = 0</span> → <span class="m">a = 3</span></li><li>확인: <span class="m">f′(x) = 3x² + 6x − 9 = 3(x + 3)(x − 1)</span>, <span class="m">x = 1</span> 앞뒤로 − → + 이므로 극솟값이 맞아요.</li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> f′(1) = 0이 아니라 f(1) = 0으로 놓는 실수가 많아요.</div>',
     mistakes: ['f(1) = 0으로 놓기', 'f′(1) = 0만 확인하고 부호가 바뀌는지 안 보기 (중근이면 극값이 없어요)'],
   },
   {
@@ -4307,7 +4417,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['m-noext'],
     hint: 'f′(x) ≥ 0이 항상.',
-    solution: '<span class="m">3x² − 6x + k ≥ 0</span> → <span class="m">D/4 = 9 − 3k ≤ 0</span> → <span class="m">k ≥ 3</span> → <b>3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = x³ − 3x² + kx</span>가 실수 전체에서 증가하도록 하는 k의 최솟값이에요.</li><li><b>어떻게 풀까요?</b> 실수 전체에서 증가 ⇔ 모든 x에서 <span class="m">f′(x) ≥ 0</span>. <span class="m">f′</span>는 위로 열린 이차함수이므로 판별식 <span class="m">D ≤ 0</span>이면 돼요(등호 포함: 한 점에서만 0이면 여전히 증가).</li><li><span class="m">f′(x) = 3x² − 6x + k</span></li><li><span class="m">D/4 = (−3)² − 3k = 9 − 3k ≤ 0</span> → <span class="m">k ≥ 3</span></li><li>k의 최솟값은 <span class="m">3</span></li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 등호를 빼고 k &gt; 3이라 최솟값이 없다고 하는 실수가 많아요.</div>',
     mistakes: ['등호를 빼고 k &gt; 3이라 최솟값이 없다고 하기'],
   },
   {
@@ -4323,7 +4434,8 @@ window.PROBLEMS = [
     answer: 9,
     concepts: ['m-area', 'm-integral'],
     hint: '∫₀³ x² dx',
-    solution: '<span class="m">[x³/3]₀³ = 9</span> → <b>9</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x²</span>, x축, 직선 <span class="m">x = 3</span>으로 둘러싸인 넓이예요.</li><li><b>어떻게 풀까요?</b> <span class="m">y = x²</span>은 x축과 <span class="m">x = 0</span>에서 만나므로 구간은 <span class="m">0 ≤ x ≤ 3</span>. 이 구간에서 <span class="m">x² ≥ 0</span>이라 그대로 적분하면 넓이예요.</li><li><span class="m">∫₀³ x² dx = [x³/3]₀³</span></li><li><span class="m">= 27/3 − 0 = 9</span></li></ol><div class="sol-ans">답: <b>9</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x²을 x³으로 적분해서(3으로 나누는 걸 빼먹고) 27을 쓰는 실수가 많아요.</div>',
     mistakes: ['x³으로 적분해서 27 쓰기'],
   },
   {
@@ -4339,7 +4451,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['m-intodd'],
     hint: '홀수 차수 항은 대칭 구간에서 0.',
-    solution: '<span class="m">∫₋₁¹ x³ dx = 0</span>, <span class="m">∫₋₁¹ 3x² dx = 2</span> → <b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">∫₋₁¹ (x³ + 3x²) dx</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 구간이 <span class="m">[−1, 1]</span>처럼 대칭이면 홀수 차수 항(<span class="m">x³</span>)의 적분은 0, 짝수 차수 항은 <span class="m">2∫₀¹</span>로 계산할 수 있어요.</li><li><span class="m">∫₋₁¹ x³ dx = 0</span> (양쪽 넓이가 부호만 반대)</li><li><span class="m">∫₋₁¹ 3x² dx = 2∫₀¹ 3x² dx = 2[x³]₀¹ = 2</span></li><li>합: <span class="m">0 + 2 = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x³ 부분을 0이 아니라 1/2로 계산하거나, 짝수 항에서 2배를 빼먹는 실수가 많아요.</div>',
     mistakes: ['x³ 부분을 1/2로 계산하기'],
   },
   {
@@ -4355,7 +4468,8 @@ window.PROBLEMS = [
     answer: 10,
     concepts: ['p-samep'],
     hint: '5! ÷ (3! × 2!)',
-    solution: '<span class="m">120 / (6 × 2) = </span><b>10</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> a, a, a, b, b를 한 줄로 늘어놓는 방법의 수예요.</li><li><b>어떻게 풀까요?</b> <b>같은 것이 있는 순열</b> <span class="m">n! / (p! q!)</span>을 써요. 다르게 볼 때의 <span class="m">5!</span>에서 a끼리, b끼리 바뀌는 중복을 나눠요.</li><li><span class="m">5! ÷ (3! × 2!) = 120 ÷ (6 × 2) = 10</span></li><li>(다른 방법: 5자리 중 b가 들어갈 2자리를 고르는 것과 같아서 <span class="m"><sub>5</sub>C<sub>2</sub> = 10</span>)</li></ol><div class="sol-ans">답: <b>10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 3!만 나누고 2!을 빼먹는 실수가 많아요.</div>',
     mistakes: ['3!만 나누고 2!을 빼먹기'],
   },
   {
@@ -4371,7 +4485,8 @@ window.PROBLEMS = [
     answer: 15,
     concepts: ['p-hcomb'],
     hint: '같은 것 4개를 3명에게 → ₃H₄',
-    solution: '<span class="m">₃H₄ = ₆C₄ = </span><b>15</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <b>같은</b> 사탕 4개를 세 사람에게 나눠 주는 방법의 수예요(못 받는 사람 있어도 됨).</li><li><b>어떻게 풀까요?</b> 사탕이 서로 같으니 \'누가 몇 개 받나\'만 중요해요. 세 사람이 받는 개수를 <span class="m">a + b + c = 4</span> (각각 0 이상)로 놓으면 <b>중복조합</b> <span class="m"><sub>3</sub>H<sub>4</sub></span>이에요.</li><li><span class="m"><sub>3</sub>H<sub>4</sub> = <sub>3+4−1</sub>C<sub>4</sub> = <sub>6</sub>C<sub>4</sub> = 15</span></li><li>(확인: <span class="m">a = 0, 1, 2, 3, 4</span>일 때 <span class="m">b + c</span>의 경우가 5, 4, 3, 2, 1개 → <span class="m">5 + 4 + 3 + 2 + 1 = 15</span>)</li></ol><div class="sol-ans">답: <b>15</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 사탕을 서로 다른 것처럼 보고 3⁴ = 81로 세는 실수가 많아요.</div>',
     mistakes: ['사탕을 서로 다른 것처럼 3⁴ = 81로 세기'],
   },
   {
@@ -4388,7 +4503,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['p-addrule'],
     hint: '덧셈정리를 거꾸로.',
-    solution: '<span class="m">0.5 + 0.4 − 0.7 = 0.2</span> → <b>②</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">P(A) = 0.5</span>, <span class="m">P(B) = 0.4</span>, <span class="m">P(A ∪ B) = 0.7</span>일 때 <span class="m">P(A ∩ B)</span>예요.</li><li><b>어떻게 풀까요?</b> 확률의 덧셈정리 <span class="m">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</span>를 거꾸로 써요. 그냥 더하면 겹친 부분이 두 번 들어가서 빼 주는 거예요.</li><li><span class="m">0.7 = 0.5 + 0.4 − P(A ∩ B)</span></li><li><span class="m">P(A ∩ B) = 0.9 − 0.7 = 0.2</span></li></ol><div class="sol-ans">답: <b>② 0.2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> P(A) + P(B) = 0.9를 답으로 고르는 실수가 많아요. 겹친 부분을 빼야 해요.</div>',
     mistakes: ['P(A) + P(B) = 0.9를 답으로 쓰기 (겹친 부분을 빼야 해요)'],
   },
   {
@@ -4405,7 +4521,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['p-indep'],
     hint: '독립이면 곱해요.',
-    solution: '<span class="m">1/3 × 1/4 = 1/12</span> → <b>①</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 서로 독립인 <span class="m">A, B</span>가 둘 다 일어날 확률 <span class="m">P(A ∩ B)</span>예요.</li><li><b>어떻게 풀까요?</b> <b>독립</b>이면 한 사건이 다른 사건의 확률에 영향을 주지 않으니 <span class="m">P(A ∩ B) = P(A) × P(B)</span>로 곱해요.</li><li><span class="m">1/3 × 1/4 = 1/12</span></li></ol><div class="sol-ans">답: <b>① 1/12</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> "그리고"인데 더해서 7/12로 고르는 실수가 많아요.</div>',
     mistakes: ['더해서 7/12로 쓰기'],
   },
   {
@@ -4422,7 +4539,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['p-expect'],
     hint: '값 × 확률을 모두 더해요.',
-    solution: '<span class="m">1/2 + 2/3 + 3/6 = 5/3</span> → <b>③</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 확률변수 <span class="m">X</span>의 평균(기댓값) <span class="m">E(X)</span>예요.</li><li><b>어떻게 풀까요?</b> <span class="m">E(X) = Σ x · P(X = x)</span>, 즉 <b>값 × 확률</b>을 모두 더해요.</li><li><span class="m">1 × 1/2 = 1/2</span>, <span class="m">2 × 1/3 = 2/3</span>, <span class="m">3 × 1/6 = 1/2</span></li><li>통분해서 더하기: <span class="m">3/6 + 4/6 + 3/6 = 10/6 = 5/3</span></li></ol><div class="sol-ans">답: <b>③ 5/3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 확률을 무시하고 값 1, 2, 3의 평균 2를 답으로 고르는 실수가 많아요.</div>',
     mistakes: ['값들의 평균 2를 답으로 쓰기'],
   },
   {
@@ -4780,7 +4898,8 @@ window.PROBLEMS = [
     answer: -3,
     concepts: ['br-neg'],
     hint: '0에서 왼쪽으로 3칸.',
-    solution: '0에서 왼쪽으로 3칸 → <b>−3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 0보다 3만큼 <b>작은</b> 수를 구해요.</li><li><b>어떻게 풀까요?</b> 수직선에서 작아지는 쪽은 <b>왼쪽</b>이에요. 0보다 작은 수에는 −(마이너스)를 붙여요.</li><li>0에서 왼쪽으로 한 칸씩: −1, −2, −3</li><li>3칸 갔으니 −3이에요.</li></ol><div class="sol-ans">답: <b>−3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 그냥 3이라고 쓰기 쉬워요. 0보다 작으면 앞에 −를 꼭 붙여요.</div>',
     mistakes: ['3이라고 쓰기 (작은 쪽은 −)'],
   },
   {
@@ -4797,7 +4916,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['br-neg'],
     hint: '수직선에서 더 오른쪽에 있는 수.',
-    solution: '2가 −5보다 오른쪽 → <b>②</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> −5와 2 중에서 더 큰 수를 골라요.</li><li><b>어떻게 풀까요?</b> 수직선에서 <b>오른쪽에 있을수록 큰 수</b>예요.</li><li>−5는 0보다 왼쪽, 2는 0보다 오른쪽에 있어요.</li><li>그래서 2가 더 오른쪽 → 2가 더 커요. 보기에서 2는 ②번이에요.</li></ol><div class="sol-ans">답: <b>② 2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 5라는 숫자가 커 보여서 −5가 크다고 하기 쉬워요. −가 붙으면 0보다 작아요.</div>',
     mistakes: ['5가 더 크니까 −5가 크다고 보기'],
   },
   {
@@ -4813,7 +4933,8 @@ window.PROBLEMS = [
     answer: -2,
     concepts: ['br-neg'],
     hint: '3에서 왼쪽으로 5칸.',
-    solution: '3 − 5 = <b>−2</b> °C',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 3 °C에서 5 °C 내려간 지금 기온을 구해요.</li><li><b>어떻게 풀까요?</b> "내려갔다"는 빼기예요: <span class="m">3 − 5</span></li><li>3에서 3칸 내려가면 0이에요. (<span class="m">3 − 3 = 0</span>)</li><li>아직 2칸 더 내려가야 해요: 0에서 2칸 더 → −2</li><li>그래서 <span class="m">3 − 5 = −2</span> °C예요.</li></ol><div class="sol-ans">답: <b>−2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 5 − 3 = 2처럼 거꾸로 빼기 쉬워요. 0 아래로 내려가면 −예요.</div>',
     mistakes: ['5 − 3 = 2로 거꾸로 빼기'],
   },
   {
@@ -4829,7 +4950,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['br-x'],
     hint: '7에서 3을 빼요.',
-    solution: '7 − 3 = <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">□ + 3 = 7</span>에서 □를 구해요.</li><li><b>어떻게 풀까요?</b> □에 3을 더해서 7이 됐어요. 거꾸로 7에서 3을 빼면 □가 나와요.</li><li>□ = <span class="m">7 − 3 = 4</span></li><li>확인: <span class="m">4 + 3 = 7</span> 맞아요!</li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 7 + 3 = 10처럼 더해 버리기 쉬워요. 더하기의 반대는 빼기예요.</div>',
     mistakes: [],
   },
   {
@@ -4845,7 +4967,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['br-x'],
     hint: '앞 문제의 □가 x로 바뀌었을 뿐이에요.',
-    solution: 'x = 7 − 3 = <b>4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x + 3 = 7</span>에서 x를 구해요.</li><li><b>어떻게 풀까요?</b> x는 □와 똑같아요. 모르는 수를 글자로 쓴 것뿐이에요. 7에서 3을 빼요.</li><li>x = <span class="m">7 − 3 = 4</span></li><li>확인: <span class="m">4 + 3 = 7</span> 맞아요!</li></ol><div class="sol-ans">답: <b>4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x가 나오면 어렵다고 겁먹기 쉬워요. □ + 3 = 7과 똑같은 문제예요.</div>',
     mistakes: ['x가 나오면 어렵다고 겁먹기 (□와 똑같아요)'],
   },
   {
@@ -4861,7 +4984,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['br-x'],
     hint: '4 × □ = 20',
-    solution: '20 ÷ 4 = <b>5</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">4x = 20</span>에서 x를 구해요.</li><li><b>어떻게 풀까요?</b> <span class="m">4x</span>는 <span class="m">4 × x</span>예요. 곱하기의 반대는 나누기예요.</li><li><span class="m">4 × x = 20</span> → x = <span class="m">20 ÷ 4 = 5</span></li><li>확인: <span class="m">4 × 5 = 20</span> 맞아요!</li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 4x를 4 + x로 읽어서 16이라고 하기 쉬워요. 숫자와 x가 붙어 있으면 곱하기예요.</div>',
     mistakes: ['4x를 4 + x로 읽기'],
   },
   {
@@ -4878,7 +5002,8 @@ window.PROBLEMS = [
     answer: 1,
     concepts: ['br-dec'],
     hint: '분모를 100으로 만들어요.',
-    solution: '3/4 = 75/100 = <b>0.75</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>3</sup>/<sub>4</sub></span>을 소수로 바꿔요.</li><li><b>어떻게 풀까요?</b> 분모를 <b>100</b>으로 만들면 소수로 바로 쓸 수 있어요.</li><li>4에 25를 곱하면 100이에요(<span class="m">4 × 25 = 100</span>). 분자에도 25를 곱해요: <span class="m">3 × 25 = 75</span></li><li><span class="m"><sup>3</sup>/<sub>4</sub> = <sup>75</sup>/<sub>100</sub> = 0.75</span></li></ol><div class="sol-ans">답: <b>① 0.75</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 3.4나 0.34처럼 분자와 분모를 그냥 이어 쓰기 쉬워요.</div>',
     mistakes: ['3.4로 쓰기'],
   },
   {
@@ -4894,7 +5019,8 @@ window.PROBLEMS = [
     answer: 5,
     concepts: ['br-dec'],
     hint: '0.5는 10조각 중 몇 조각?',
-    solution: '<b>5</b>/10',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">0.5 = <sup>□</sup>/<sub>10</sub></span>에서 □를 구해요.</li><li><b>어떻게 풀까요?</b> 0.1은 <span class="m"><sup>1</sup>/<sub>10</sub></span>이에요. 10조각 중 1조각이에요.</li><li>0.5는 0.1이 5개 → 10조각 중 5조각</li><li>그래서 <span class="m">0.5 = <sup>5</sup>/<sub>10</sub></span>이에요.</li></ol><div class="sol-ans">답: <b>5</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 소수점 뒤 5를 보고 1/5로 쓰기 쉬워요. 0.5는 10조각 중 5조각이에요.</div>',
     mistakes: ['0.5 = 1/5로 쓰기'],
   },
   {
@@ -4911,7 +5037,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['br-dec'],
     hint: '분모 5를 10으로.',
-    solution: '2/5 = 4/10 = <b>0.4</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m"><sup>2</sup>/<sub>5</sub></span>를 소수로 바꿔요.</li><li><b>어떻게 풀까요?</b> 분모를 <b>10</b>으로 만들어요. 분모에 곱한 수를 분자에도 곱해요.</li><li>분모: <span class="m">5 × 2 = 10</span>, 분자: <span class="m">2 × 2 = 4</span> → <span class="m"><sup>4</sup>/<sub>10</sub></span></li><li><span class="m"><sup>4</sup>/<sub>10</sub></span>은 10조각 중 4조각 → 0.4예요. 보기에서 0.4는 ②번이에요.</li></ol><div class="sol-ans">답: <b>② 0.4</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 2와 5를 보고 0.25나 2.5로 쓰기 쉬워요. 먼저 분모를 10으로 바꿔요.</div>',
     mistakes: ['0.25로 쓰기'],
   },
   {
@@ -5003,7 +5130,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['a-logrule'],
     hint: '32 = 2⁵, 27 = 3³',
-    solution: '<span class="m">5 − 3 = </span><b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">log₂ 32 − log₃ 27</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 진수를 <b>밑의 거듭제곱</b>으로 바꾸면 <span class="m">log_a aⁿ = n</span>이에요.</li><li><span class="m">32 = 2⁵</span> → <span class="m">log₂ 32 = 5</span></li><li><span class="m">27 = 3³</span> → <span class="m">log₃ 27 = 3</span></li><li><span class="m">5 − 3 = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> log₂ 32를 32 ÷ 2 = 16처럼 나누기 쉬워요. 로그는 지수를 묻는 거예요.</div>',
     mistakes: ['log₂ 32를 16으로 계산하기'],
   },
   {
@@ -5020,7 +5148,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['a-exp'],
     hint: '81 = 3⁴',
-    solution: '<span class="m">x + 1 = 4</span> → <span class="m">x = </span><b>3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">3ˣ⁺¹ = 81</span>의 해예요.</li><li><b>어떻게 풀까요?</b> 양변을 <b>같은 밑 3</b>으로 맞추면 지수끼리 같아야 해요.</li><li><span class="m">81 = 3⁴</span> → <span class="m">3ˣ⁺¹ = 3⁴</span></li><li><span class="m">x + 1 = 4</span> → <span class="m">x = 3</span></li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x + 1 = 4에서 1을 빼지 않고 x = 4로 쓰기 쉬워요.</div>',
     mistakes: ['x + 1 = 4에서 x = 4로 쓰기'],
   },
   {
@@ -5037,7 +5166,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['a-trigval'],
     hint: '분자, 분모를 cosθ로 나눠요.',
-    solution: '<span class="m">(tanθ + 1)/(tanθ − 1) = 3/1 = </span><b>3</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">tanθ = 2</span>일 때 <span class="m">(sinθ + cosθ)/(sinθ − cosθ)</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">tanθ = sinθ/cosθ</span>이니까 <b>분자와 분모를 모두 cosθ로 나누면</b> tanθ만 남아요.</li><li><span class="m">(sinθ/cosθ + 1)/(sinθ/cosθ − 1) = (tanθ + 1)/(tanθ − 1)</span></li><li><span class="m">(2 + 1)/(2 − 1) = 3/1 = 3</span></li></ol><div class="sol-ans">답: <b>3</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 분자만 cosθ로 나누고 분모는 그대로 두기 쉬워요. 분자·분모를 똑같이 나눠야 값이 그대로예요.</div>',
     mistakes: ['분자만 cosθ로 나누고 분모는 그대로 두기'],
   },
   {
@@ -5054,7 +5184,8 @@ window.PROBLEMS = [
     answer: -1,
     concepts: ['a-arith'],
     hint: '가운데 수는 양쪽의 평균(등차중항).',
-    solution: '<span class="m">2 × 7 = x + 15</span> → <span class="m">x = </span><b>−1</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x, 7, 15</span>가 등차수열일 때 x예요.</li><li><b>어떻게 풀까요?</b> 등차수열에서 가운데 수는 양쪽의 평균(<b>등차중항</b>): <span class="m">2 × (가운데) = (앞) + (뒤)</span>.</li><li><span class="m">2 × 7 = x + 15</span></li><li><span class="m">x = 14 − 15 = −1</span> (확인: −1, 7, 15는 공차 8)</li></ol><div class="sol-ans">답: <b>−1</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 공차 8을 15에 더해 x = 23처럼 순서를 거꾸로 쓰기 쉬워요. x는 맨 앞이라 7 − 8이에요.</div>',
     mistakes: ['공차 8을 더해 x = 15 + 8로 쓰기'],
   },
   {
@@ -5071,7 +5202,8 @@ window.PROBLEMS = [
     answer: 6,
     concepts: ['a-geo'],
     hint: '등비중항: x² = 2 × 18',
-    solution: '<span class="m">x² = 36</span>, 양수 → <b>6</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">2, x, 18</span>이 등비수열일 때 양수 x예요.</li><li><b>어떻게 풀까요?</b> 등비수열에서 가운데 수의 제곱은 양쪽의 곱(<b>등비중항</b>): <span class="m">x² = 2 × 18</span>.</li><li><span class="m">x² = 36</span> → <span class="m">x = ±6</span></li><li>x는 양수 → <span class="m">x = 6</span> (확인: 2, 6, 18은 공비 3)</li></ol><div class="sol-ans">답: <b>6</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 평균 10으로 쓰기 쉬워요. 그건 등차중항이에요.</div>',
     mistakes: ['평균 10으로 쓰기 (그건 등차)'],
   },
   {
@@ -5088,7 +5220,8 @@ window.PROBLEMS = [
     answer: 55,
     concepts: ['a-sigma'],
     hint: '<span class="m">n(n + 1)(2n + 1)/6</span>',
-    solution: '<span class="m">5 × 6 × 11 / 6 = </span><b>55</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">1² + 2² + 3² + 4² + 5²</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> <b>제곱의 합 공식</b> <span class="m">Σ(k=1~n) k² = n(n + 1)(2n + 1)/6</span>을 써요.</li><li><span class="m">n = 5</span> → <span class="m">5 × 6 × 11 / 6 = 55</span></li><li>확인: <span class="m">1 + 4 + 9 + 16 + 25 = 55</span></li></ol><div class="sol-ans">답: <b>55</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> (Σk)² = 15² = 225로 계산하기 쉬워요. 제곱의 합과 합의 제곱은 달라요.</div>',
     mistakes: ['(Σk)² = 225로 계산하기'],
   },
   {
@@ -5105,7 +5238,8 @@ window.PROBLEMS = [
     answer: 19,
     concepts: ['a-cosine'],
     hint: '<span class="m">a² = b² + c² − 2bc cos A</span>',
-    solution: '<span class="m">9 + 25 − 2 × 3 × 5 × 1/2 = </span><b>19</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 두 변과 끼인각을 알 때 나머지 변의 제곱 <span class="m">BC²</span>이에요.</li><li><b>어떻게 풀까요?</b> 두 변과 그 <b>끼인각</b>을 알면 <b>코사인법칙</b> <span class="m">a² = b² + c² − 2bc cos A</span>를 써요.</li><li><span class="m">b = CA = 3</span>, <span class="m">c = AB = 5</span>, <span class="m">cos 60° = 1/2</span></li><li><span class="m">BC² = 3² + 5² − 2 × 3 × 5 × 1/2 = 9 + 25 − 15 = 19</span></li></ol><div class="sol-ans">답: <b>19</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> cos 60°를 √3/2로 쓰기 쉬워요. cos 60° = 1/2이에요.</div>',
     mistakes: ['cos 60°를 √3/2로 쓰기'],
   },
   {
@@ -5122,7 +5256,8 @@ window.PROBLEMS = [
     answer: 12,
     concepts: ['m-power'],
     hint: '<span class="m">f′(x) = 6x² − 6x</span>',
-    solution: '<span class="m">24 − 12 = </span><b>12</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = 2x³ − 3x²</span>의 <span class="m">x = 2</span>에서의 미분계수예요.</li><li><b>어떻게 풀까요?</b> 도함수를 구한 뒤 <span class="m">x = 2</span>를 넣어요. <span class="m">(xⁿ)′ = nxⁿ⁻¹</span>.</li><li><span class="m">f′(x) = 6x² − 6x</span></li><li><span class="m">f′(2) = 6 × 4 − 6 × 2 = 24 − 12 = 12</span></li></ol><div class="sol-ans">답: <b>12</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 미분하지 않고 f(2) = 4를 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['f(2) = 4를 답으로 쓰기'],
   },
   {
@@ -5139,7 +5274,8 @@ window.PROBLEMS = [
     answer: -2,
     concepts: ['m-tangent'],
     hint: '<span class="m">f′(1) = 3 − 1 = 2</span>',
-    solution: '<span class="m">y = 2(x − 1)</span> → y절편 <b>−2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x³ − x</span> 위의 점 <span class="m">(1, 0)</span>에서의 접선의 y절편이에요.</li><li><b>어떻게 풀까요?</b> 기울기 <span class="m">f′(1)</span>을 구해 <span class="m">y = f′(1)(x − 1) + 0</span>으로 접선을 써요.</li><li><span class="m">f′(x) = 3x² − 1</span> → <span class="m">f′(1) = 2</span></li><li>접선: <span class="m">y = 2(x − 1) = 2x − 2</span></li><li><span class="m">x = 0</span>이면 <span class="m">y = −2</span></li></ol><div class="sol-ans">답: <b>−2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 접점을 쓰지 않고 y = 2x(원점을 지나는 직선)로 써서 0이라고 하는 실수가 많아요.</div>',
     mistakes: ['y = 2x로 접점을 안 쓰고 원점을 지난다고 하기'],
   },
   {
@@ -5156,7 +5292,8 @@ window.PROBLEMS = [
     answer: 16,
     concepts: ['m-incdec'],
     hint: '<span class="m">f′(x) = 3(x + 2)(x − 2)</span>',
-    solution: 'x = −2에서 + → − → 극대 <span class="m">f(−2) = −8 + 24 = </span><b>16</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">f(x) = x³ − 12x</span>의 극댓값이에요.</li><li><b>어떻게 풀까요?</b> <span class="m">f′(x) = 0</span>인 x 중 부호가 + → − 로 바뀌는 곳이 극대예요.</li><li><span class="m">f′(x) = 3x² − 12 = 3(x + 2)(x − 2)</span> → <span class="m">x = −2, 2</span></li><li><span class="m">x = −2</span>에서 + → − (극대), <span class="m">x = 2</span>에서 − → + (극소)</li><li>극댓값: <span class="m">f(−2) = −8 + 24 = 16</span></li></ol><div class="sol-ans">답: <b>16</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> x = 2에서의 값(−16)을 극댓값으로 쓰는 실수가 많아요.</div>',
     mistakes: ['x = 2에서의 값(−16)을 쓰기'],
   },
   {
@@ -5173,7 +5310,8 @@ window.PROBLEMS = [
     answer: -2,
     concepts: ['m-dist'],
     hint: '속도는 위치를 미분한 것.',
-    solution: '<span class="m">v(t) = 2t − 4</span> → <span class="m">v(1) = </span><b>−2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 위치가 <span class="m">x(t) = t² − 4t</span>인 점 P의 <span class="m">t = 1</span>에서의 <b>속도</b>예요.</li><li><b>어떻게 풀까요?</b> 속도는 위치를 시각 t로 미분한 것, <span class="m">v(t) = x′(t)</span>예요.</li><li><span class="m">v(t) = 2t − 4</span></li><li><span class="m">v(1) = 2 − 4 = −2</span> (음수 = 음의 방향으로 움직이는 중)</li></ol><div class="sol-ans">답: <b>−2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 위치 x(1) = −3을 답으로 쓰는 실수가 많아요.</div>',
     mistakes: ['위치 x(1) = −3을 답으로 쓰기'],
   },
   {
@@ -5190,7 +5328,8 @@ window.PROBLEMS = [
     answer: 10,
     concepts: ['m-integral'],
     hint: '<span class="m">[x² + x]₁³</span>',
-    solution: '<span class="m">12 − 2 = </span><b>10</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 정적분 <span class="m">∫₁³ (2x + 1) dx</span>의 값이에요.</li><li><b>어떻게 풀까요?</b> 부정적분 <span class="m">F(x) = x² + x</span>를 구해 <span class="m">F(3) − F(1)</span>을 계산해요.</li><li><span class="m">F(3) = 9 + 3 = 12</span></li><li><span class="m">F(1) = 1 + 1 = 2</span></li><li><span class="m">12 − 2 = 10</span></li></ol><div class="sol-ans">답: <b>10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 아래끝 값 F(1)을 빼지 않고 12를 쓰는 실수가 많아요.</div>',
     mistakes: ['아래끝 값을 빼지 않기'],
   },
   {
@@ -5207,7 +5346,8 @@ window.PROBLEMS = [
     answer: 32,
     concepts: ['m-area'],
     hint: '그래프가 x축 아래에 있으니 −를 붙여요.',
-    solution: '<span class="m">S = ∫₋₂² (4 − x²) dx = 32/3</span> → <b>32</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 곡선 <span class="m">y = x² − 4</span>와 x축으로 둘러싸인 넓이 S에 대해 <span class="m">3S</span>예요.</li><li><b>어떻게 풀까요?</b> x축과의 교점으로 구간을 정해요. 그 구간에서 곡선이 x축 <b>아래</b>에 있으므로 (위 − 아래) = <span class="m">0 − (x² − 4) = 4 − x²</span>를 적분해요.</li><li>교점: <span class="m">x² − 4 = 0</span> → <span class="m">x = −2, 2</span></li><li><span class="m">S = ∫₋₂² (4 − x²) dx = [4x − x³/3]₋₂²</span><br><span class="m">= (8 − 8/3) − (−8 + 8/3) = 16 − 16/3 = 32/3</span></li><li><span class="m">3S = 32</span></li></ol><div class="sol-ans">답: <b>32</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> ∫(x² − 4)를 그대로 계산해 −32/3처럼 음수가 나오는 실수가 많아요.</div>',
     mistakes: ['∫(x² − 4)를 그대로 해서 음수가 나오기'],
   },
   {
@@ -5224,7 +5364,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['m-sqrtlim'],
     hint: '분자를 유리화해요.',
-    solution: '<span class="m">4x / (√(x² + 4x) + x) → 4/2 = </span><b>2</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x → ∞</span>일 때 <span class="m">√(x² + 4x) − x</span>의 극한값이에요.</li><li><b>어떻게 풀까요?</b> ∞ − ∞ 꼴은 바로 알 수 없어요. <span class="m">(√(x² + 4x) + x)</span>를 분자·분모에 곱해 유리화하면 ∞/∞ 꼴이 되고, 그다음 x로 나눠요.</li><li><span class="m">(√(x² + 4x) − x)(√(x² + 4x) + x) = x² + 4x − x² = 4x</span><br>그래서 식 <span class="m">= 4x/(√(x² + 4x) + x)</span></li><li>분자·분모를 x로 나누면 <span class="m">4/(√(1 + 4/x) + 1)</span></li><li><span class="m">x → ∞</span>이면 <span class="m">4/(1 + 1) = 2</span></li></ol><div class="sol-ans">답: <b>2</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> ∞ − ∞ = 0이라고 하는 실수가 많아요.</div>',
     mistakes: ['∞ − ∞ = 0이라고 하기'],
   },
   {
@@ -5241,7 +5382,8 @@ window.PROBLEMS = [
     answer: 48,
     concepts: ['b-perm'],
     hint: 'A, B를 한 묶음으로.',
-    solution: '<span class="m">4! × 2! = </span><b>48</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 5명이 한 줄로 설 때 A, B가 바로 옆에 서는 경우의 수예요.</li><li><b>어떻게 풀까요?</b> \'이웃한다\'는 <b>A, B를 한 묶음</b>으로 보고 세요. 묶음을 1명처럼 줄 세운 뒤, 묶음 안의 순서를 곱해요.</li><li>묶음 1개 + 나머지 3명 = 4개를 일렬로: <span class="m">4! = 24</span></li><li>묶음 안 AB, BA: <span class="m">2! = 2</span></li><li><span class="m">24 × 2 = 48</span></li></ol><div class="sol-ans">답: <b>48</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 묶음 안 A, B의 순서 2!을 곱하지 않아 24로 쓰는 실수가 많아요.</div>',
     mistakes: ['묶음 안의 순서 2!을 빼먹기'],
   },
   {
@@ -5258,7 +5400,8 @@ window.PROBLEMS = [
     answer: 20,
     concepts: ['b-perm'],
     hint: '순서가 없어요.',
-    solution: '<span class="m">₆C₃ = </span><b>20</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 서로 다른 책 6권 중 3권을 고르는 방법의 수예요.</li><li><b>어떻게 풀까요?</b> 고르기만 하고 순서는 상관없으니 <b>조합</b> <span class="m"><sub>n</sub>C<sub>r</sub></span>을 써요.</li><li><span class="m"><sub>6</sub>C<sub>3</sub> = (6 × 5 × 4) / (3 × 2 × 1) = 120 / 6 = 20</span></li></ol><div class="sol-ans">답: <b>20</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 순서를 따지는 ₆P₃ = 120으로 쓰는 실수가 많아요.</div>',
     mistakes: ['₆P₃ = 120으로 쓰기'],
   },
   {
@@ -5276,7 +5419,8 @@ window.PROBLEMS = [
     answer: 2,
     concepts: ['m2-prob'],
     hint: '(2,6)부터 세어요.',
-    solution: '(2,6) (3,5) (4,4) (5,3) (6,2) → <b>5/36</b> → <b>②</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> 서로 다른 주사위 2개의 눈의 합이 8일 확률이에요.</li><li><b>어떻게 풀까요?</b> 두 주사위가 서로 다르니 (첫째, 둘째) 순서쌍으로 세요. 전체는 <span class="m">6 × 6 = 36</span>가지예요.</li><li>합이 8인 순서쌍을 첫째 눈 기준으로 빠짐없이: (2, 6) (3, 5) (4, 4) (5, 3) (6, 2) → 5가지<br>(첫째 눈이 1이면 둘째가 7이어야 해서 불가능)</li><li><span class="m">5/36</span></li></ol><div class="sol-ans">답: <b>② 5/36</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> (4, 4)를 두 번 세서 6/36 = 1/6을 고르는 실수가 많아요.</div>',
     mistakes: ['(4,4)를 두 번 세기'],
   },
   {
@@ -5294,7 +5438,8 @@ window.PROBLEMS = [
     answer: 3,
     concepts: ['p-binom'],
     hint: '<span class="m">₄C₂ (1/2)⁴</span>',
-    solution: '<span class="m">6/16 = 3/8</span> → <b>③</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">X ~ B(4, 1/2)</span>일 때 <span class="m">X = 2</span>일 확률이에요.</li><li><b>어떻게 풀까요?</b> 이항분포 공식 <span class="m">P(X = r) = <sub>n</sub>C<sub>r</sub> p<sup>r</sup> (1 − p)<sup>n−r</sup></span>을 써요. <span class="m"><sub>4</sub>C<sub>2</sub></span>는 4번 중 성공할 2번을 고르는 방법 수예요.</li><li><span class="m"><sub>4</sub>C<sub>2</sub> × (1/2)<sup>2</sup> × (1/2)<sup>2</sup> = 6 × 1/16 = 6/16</span></li><li><span class="m">6/16 = 3/8</span></li></ol><div class="sol-ans">답: <b>③ 3/8</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> ₄C₂를 빼먹고 1/16을 고르는 실수가 많아요.</div>',
     mistakes: ['₄C₂를 빼먹고 1/16 쓰기'],
   },
   {
@@ -5312,7 +5457,8 @@ window.PROBLEMS = [
     answer: 4,
     concepts: ['p-normal'],
     hint: '80은 Z로 2. Z = 0(평균 70)보다 왼쪽 절반 0.5도 더해요.',
-    solution: '<span class="m">0.5 + 0.4772 = 0.9772</span> → <b>④</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">X ~ N(70, 5<sup>2</sup>)</span>일 때 <span class="m">P(X ≤ 80)</span>이에요.</li><li><b>어떻게 풀까요?</b> 표준화 <span class="m">Z = (X − 70)/5</span>로 바꾼 뒤, 평균(<span class="m">Z = 0</span>)을 기준으로 왼쪽 절반과 오른쪽 부분을 나눠 더해요.</li><li><span class="m">X = 80</span> → <span class="m">Z = (80 − 70)/5 = 2</span>, 그래서 <span class="m">P(Z ≤ 2)</span>를 구해요.</li><li><span class="m">P(Z ≤ 2) = P(Z ≤ 0) + P(0 ≤ Z ≤ 2) = 0.5 + 0.4772 = 0.9772</span></li></ol><div class="sol-ans">답: <b>④ 0.9772</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 평균보다 왼쪽 절반 0.5를 빼먹고 0.4772를 고르는 실수가 많아요.</div>',
     mistakes: ['0.5를 빼먹고 0.4772 쓰기'],
   },
   {
@@ -5329,7 +5475,8 @@ window.PROBLEMS = [
     answer: 10,
     concepts: ['p-hcomb'],
     hint: '자연수라 각각 1 이상. 먼저 1씩 나눠 줘요.',
-    solution: '<span class="m">x′ + y′ + z′ = 3</span> → <span class="m">₃H₃ = ₅C₃ = </span><b>10</b>',
+    solution:
+      '<ol class="sol-steps"><li><b>무엇을 구하나요?</b> <span class="m">x + y + z = 6</span>을 만족하는 <b>자연수</b>(1 이상) 순서쌍의 개수예요.</li><li><b>어떻게 풀까요?</b> 중복조합은 \'0 이상\'일 때 쓰는 도구라, 먼저 <span class="m">x, y, z</span>에게 1씩 미리 나눠 주고 남은 것을 0 이상으로 나눠요.</li><li><span class="m">x = x′ + 1, y = y′ + 1, z = z′ + 1</span>로 놓으면 <span class="m">x′ + y′ + z′ = 3</span> (각각 0 이상)</li><li><span class="m"><sub>3</sub>H<sub>3</sub> = <sub>5</sub>C<sub>3</sub> = 10</span></li><li>(확인: <span class="m">x = 1, 2, 3, 4</span>일 때 <span class="m">y + z</span>의 자연수 쌍이 4, 3, 2, 1개 → 10)</li></ol><div class="sol-ans">답: <b>10</b></div><div class="sol-warn"><b>많이 틀리는 곳</b> 자연수 조건을 무시하고 음이 아닌 정수처럼 ₃H₆ = 28로 세는 실수가 많아요.</div>',
     mistakes: ['음이 아닌 정수처럼 ₃H₆ = 28로 세기'],
   },
   {
