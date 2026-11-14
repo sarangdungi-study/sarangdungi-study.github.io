@@ -3407,3 +3407,28 @@ a.icon-btn {
   margin: 4px 0 10px;
   overflow-x: auto;
 }
+
+.past-box {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1.5px dashed var(--rule-2);
+  border-radius: 12px;
+}
+.past-box p {
+  margin: 6px 0 10px;
+  font-size: 14px;
+}
+.past-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.past-links a {
+  padding: 6px 10px;
+  border-radius: 9px;
+  border: 1.5px solid var(--rule-2);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}

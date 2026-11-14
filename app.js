@@ -294,6 +294,24 @@
   }
 
   // ───────── 홈
+  // ───────── 고난도 문제 아래: 진짜 기출로 이어서 연습하는 길 (기출 원문은 저작권 때문에 여기 싣지 않음)
+  const PAST_WHERE = {
+    alg: '수학Ⅰ(지수 · 로그 · 삼각함수 · 수열) 4점 문제',
+    'calc1-diff': '수학Ⅱ 미분 4점 문제',
+    'calc1-int': '수학Ⅱ 적분 4점 문제',
+    prob: '확률과 통계 4점 문제',
+  }
+  function pastHtml(p) {
+    if (p.kind !== 'real' || (p.level || 0) < 4 || !['math', 'kor', 'eng'].includes(p.subject)) return ''
+    const what =
+      p.subject === 'math'
+        ? `${PAST_WHERE[p.unit] || '4점 문제'}를 골라 풀어 보세요. 2028 수능의 대수는 지금의 수학Ⅰ, 미적분Ⅰ은 수학Ⅱ와 내용이 거의 같아서 지난 기출이 그대로 연습이 돼요.`
+        : p.subject === 'kor'
+          ? '국어 독서 세트(지문 하나에 문제 4~6개)를 시간을 재고 풀어 보세요. 지문 하나에 10분 안팎이 목표예요.'
+          : `영어 ${(p.slot || '').split(' · ')[1] || '고난도'} 유형을 골라 풀어 보세요. 한 문제 2분 안이 목표예요.`
+    return `<div class="past-box"><b>진짜 기출로 더 연습</b><p>${what}</p><div class="past-links"><a href="https://www.suneung.re.kr" target="_blank" rel="noopener">평가원 수능 · 모의평가 기출</a><a href="https://www.ebsi.co.kr" target="_blank" rel="noopener">EBSi 기출 · 해설 강의</a></div></div>`
+  }
+
   // ───────── 모의고사: 정해진 구성대로 문제를 뽑아 시간 안에 풀고, 다 낸 뒤에 채점
   const isReal = (p) => p.kind === 'real'
   const inG = (g) => (p) => gradesOf(p).includes(g)
@@ -316,6 +334,33 @@
         ['prob', 3, 4],
         ['prob', 4, 3],
       ],
+    },
+    {
+      id: 'math-hard',
+      name: '수학 1등급 도전',
+      grade: '고2·3',
+      min: 60,
+      desc: '고난도 4점만 10문항. 수능 15 · 21 · 22 · 29 · 30번 같은 문제를 시간 안에',
+      pool: (p) => p.subject === 'math' && p.points === 4 && p.level >= 4 && isReal(p),
+      count: 10,
+    },
+    {
+      id: 'kor-long',
+      name: '국어 독서 긴 지문 실전',
+      grade: '고2·3',
+      min: 35,
+      desc: '2,000자 지문 3세트 15문항. 실제 수능 독서처럼 지문 하나에 10분 안팎',
+      pool: (p) => p.subject === 'kor' && (p.set || '').startsWith('k-long'),
+      count: 15,
+    },
+    {
+      id: 'eng-hard',
+      name: '영어 1등급 도전',
+      grade: '고2·3',
+      min: 30,
+      desc: '빈칸 · 순서 · 문장 넣기 · 요약 고난도 12문항',
+      pool: (p) => p.subject === 'eng' && p.level >= 4 && isReal(p),
+      count: 12,
     },
     {
       id: 'math-mini',
@@ -1851,7 +1896,8 @@
               ? st.sol
                 ? `<div class="sol"><span class="tag hand">풀이</span><br>${p.solution}</div>
               ${p.scene && Explain.has(p.scene) ? `<div class="ex-host sol-ex" data-scene="${p.scene}"></div>` : ''}
-              ${p.mistakes.length ? `<div style="margin-top:14px"><b>흔한 실수</b>${p.mistakes.map((m) => `<div class="mist">${m}</div>`).join('')}</div>` : ''}`
+              ${p.mistakes.length ? `<div style="margin-top:14px"><b>흔한 실수</b>${p.mistakes.map((m) => `<div class="mist">${m}</div>`).join('')}</div>` : ''}
+              ${pastHtml(p)}`
                 : '<div style="margin-top:10px"><button class="btn sm" id="solBtn">풀이 보기</button></div>'
               : ''
           }
