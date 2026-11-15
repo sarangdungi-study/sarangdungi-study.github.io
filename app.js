@@ -615,7 +615,7 @@
         <div class="solve" style="--c:${sub.color}">
           <div class="card qcard"><div class="head"><span class="chip pink mono">${i + 1}번</span><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span><span class="chip mono">${p.points}점</span></div>
             <div class="qbox">${p.body}</div>
-            ${p.type === 'choice' ? `<div class="choices">${p.choices.map((c, k) => `<button data-i="${k + 1}" class="${Number(a) === k + 1 ? 'on' : ''}"><span class="n">${k + 1}</span>${c}</button>`).join('')}</div>` : ''}
+            ${p.type === 'choice' ? `<div class="choices">${p.choices.map((c, k) => `<button data-i="${k + 1}" class="${Number(a) === k + 1 ? 'on' : ''}"><span class="n">${k + 1}</span><span>${c}</span></button>`).join('')}</div>` : ''}
           </div>
           <div class="card answer">
             ${
@@ -1740,7 +1740,7 @@
                   .map((c, i) => {
                     const n = i + 1
                     const cls = st.graded === null ? (st.pick === n ? 'on' : '') : st.pick === n ? (st.graded ? 'right' : 'wrong') : ''
-                    return `<button data-i="${n}" class="${cls}"><span class="n">${n}</span>${c}</button>`
+                    return `<button data-i="${n}" class="${cls}"><span class="n">${n}</span><span>${c}</span></button>`
                   })
                   .join('')}</div>`
               : ''

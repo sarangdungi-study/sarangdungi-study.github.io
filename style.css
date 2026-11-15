@@ -3432,3 +3432,12 @@ a.icon-btn {
   color: var(--ink);
   text-decoration: none;
 }
+/* 옛한글: 조합형 자모를 한 글자로 그려 주는 글꼴로 */
+@font-face {
+  font-family: 'OHG';
+  src: url('ohg.woff') format('woff');
+  font-display: swap;
+}
+.ohg {
+  font-family: 'OHG', serif;
+}
