@@ -43,11 +43,14 @@
   }
 
   // card: 그릴 칸(.qcard), key: 저장 이름
-  function attach(card, key) {
+  // bar: 도구 버튼이 있는 곳 (따로 떨어진 연습장이면 그 머리줄)
+  function attach(card, key, bar = card) {
     const canvas = document.createElement('canvas')
     canvas.className = 'ink-layer'
     card.appendChild(canvas)
     const ctx = canvas.getContext('2d')
+    // 따로 펼친 연습장은 빈 종이라 손가락으로도 바로 그린다
+    const pad = card.classList.contains('ink-pad')
     let strokes = load(key)
     let cur = null
     let tap = null
@@ -94,7 +97,7 @@
       return [(e.clientX - r.left) / w, (e.clientY - r.top) / w, e.pointerType === 'pen' ? e.pressure : 0.5]
     }
     function canDraw(e) {
-      return e.pointerType === 'pen' || e.pointerType === 'mouse' || state.finger
+      return pad || e.pointerType === 'pen' || e.pointerType === 'mouse' || state.finger
     }
     function eraseAt(p) {
       const near = 14 / canvas.clientWidth
@@ -159,13 +162,13 @@
 
     // 펜슬 터치는 스크롤을 막고, 손가락 터치는 그대로 둔다 (손가락도 켜면 다 막음)
     const blockStylus = (e) => {
-      if (state.finger || [...e.touches].some((t) => t.touchType === 'stylus')) e.preventDefault()
+      if (pad || state.finger || [...e.touches].some((t) => t.touchType === 'stylus')) e.preventDefault()
     }
     canvas.addEventListener('touchstart', blockStylus, { passive: false })
     canvas.addEventListener('touchmove', blockStylus, { passive: false })
-    canvas.classList.toggle('finger', state.finger)
+    canvas.classList.toggle('finger', pad || state.finger)
 
-    card.querySelectorAll('[data-ink]').forEach((el) => {
+    bar.querySelectorAll('[data-ink]').forEach((el) => {
       const act = el.dataset.ink
       if (act === 'finger') {
         el.onchange = () => {
@@ -189,7 +192,7 @@
           })
         } else {
           state.tool = act
-          card.querySelectorAll('.ink-bar [data-ink]').forEach((x) => x.classList.toggle('on', x.dataset.ink === act))
+          bar.querySelectorAll('.ink-bar [data-ink]').forEach((x) => x.classList.toggle('on', x.dataset.ink === act))
         }
       }
     })

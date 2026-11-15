@@ -146,6 +146,7 @@
     const u = Store.user()
     clearInterval(examTimer)
     clearTimeout(carTimer)
+    document.body.classList.remove('ink-open')
     if (keyHandler) {
       document.removeEventListener('keydown', keyHandler)
       keyHandler = null
@@ -1728,7 +1729,6 @@
       <div class="stepper">${['풀기', '막힌 곳', '기초 보기', '힌트', '풀이'].map((n, i) => `<span class="${i < stage ? 'done' : ''}">${n}</span>`).join('')}</div>
       <div class="solve" style="--c:${sub.color}">
         <div class="card qcard ${st.ink ? 'inking' : ''}">
-          ${st.ink ? Ink.toolbarHtml() : ''}
           <div class="head"><span class="chip subj">${sub.name} · ${unitName(p.subject, p.unit)}</span>
             <span class="chip">${p.kind === 'real' ? '실전' : '기초'} · ${p.slot}</span><span class="chip pink mono">${p.points}점</span>${p.made ? `<span class="chip" title="만든 날">${madeLabel(p)} 만듦</span>` : ''}
             ${p.subject === 'eng' && Speak.supported ? '<button type="button" class="ink-toggle listen" id="listenBtn">듣기</button><button type="button" class="ink-toggle listen" id="slowBtn">천천히</button>' : ''}
@@ -1745,7 +1745,6 @@
                   .join('')}</div>`
               : ''
           }
-          ${st.ink ? '<div class="ink-space"><span class="hand">연습</span></div>' : ''}
         </div>
         <div class="card answer">
           ${
@@ -1780,7 +1779,20 @@
       st.ink = !st.ink
       again()
     }
-    if (st.ink) Ink.attach($app.querySelector('.qcard'), inkKey(p.id))
+    // 연습장: 문제 위에 겹치지 않게 화면 아래쪽에 따로 펼치는 빈 종이
+    document.body.classList.toggle('ink-open', !!st.ink)
+    if (st.ink) {
+      $app.insertAdjacentHTML(
+        'beforeend',
+        `<div class="ink-sheet"><div class="ink-sheet-head">${Ink.toolbarHtml()}<button type="button" class="ink-close" id="inkClose">닫기</button></div><div class="ink-pad"><span class="hand">연습장</span></div></div>`,
+      )
+      const sheet = $app.querySelector('.ink-sheet')
+      Ink.attach(sheet.querySelector('.ink-pad'), inkKey(p.id), sheet)
+      document.getElementById('inkClose').onclick = () => {
+        st.ink = false
+        again()
+      }
+    }
     bindReports()
     $app.querySelectorAll('.ex-host[data-scene]').forEach((h) => Explain.mount(h, h.dataset.scene))
     // 영어 듣기: 지문 상자나 기울임 문장만 골라 읽는다 (한국어 지시문은 빼고)

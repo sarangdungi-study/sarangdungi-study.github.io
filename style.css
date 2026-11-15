@@ -3441,3 +3441,66 @@ a.icon-btn {
 .ohg {
   font-family: 'OHG', serif;
 }
+
+/* 연습장: 화면 아래쪽에 따로 펼치는 빈 종이 (문제 글자 위에 겹쳐 그리지 않게) */
+.ink-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  height: 50vh;
+  height: 50dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--sheet);
+  border-top: 2px solid var(--ink);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.ink-sheet-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 10px 0;
+}
+.ink-sheet-head .ink-bar {
+  flex: 1;
+  margin: 0;
+}
+.ink-close {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 800;
+}
+.ink-pad {
+  position: relative;
+  flex: 1;
+  margin: 8px 10px 10px;
+  border-radius: 12px;
+  border: 1.5px dashed var(--rule-2);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.ink-pad .hand {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  color: var(--pencil);
+  pointer-events: none;
+}
+body.ink-open {
+  padding-bottom: 52vh;
+}
+body.ink-open #nav {
+  display: none;
+}
+
+.ink-sheet label.finger {
+  display: none;
+}
