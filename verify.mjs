@@ -2164,6 +2164,538 @@ const checks = {
     }
     return Math.round(256 * (S2 / 64 - (S1 / 64) ** 2))
   },
+  hk73: () => {
+    let a = 1,
+      s = 1
+    for (let n = 1; n < 100; n++) {
+      a = a > n ? a - n : a + n
+      if (a === 1) s += n + 1
+    }
+    return s
+  },
+  hk74: () => {
+    const opts = [20, 24, 26, 28, 30]
+    const found = []
+    const sum = (r, ab) => {
+      let t = 0
+      for (let k = 0; k < 6; k++) t += ab ? Math.abs(r) ** k : r ** k
+      return t
+    }
+    for (const sg of [1, -1]) {
+      const G = (r) => (sg * sum(r, 1)) / sum(r, 0) - 3
+      let prev = G(-60)
+      for (let i = 1; i <= 600000; i++) {
+        const r = -60 + i * 1e-4
+        if (Math.abs(r + 1) < 1e-3 || r >= -1e-9) {
+          prev = NaN
+          continue
+        }
+        const v = G(r)
+        if (prev * v <= 0) {
+          let lo = r - 1e-4,
+            hi = r
+          for (let j = 0; j < 80; j++) {
+            const m = (lo + hi) / 2
+            if (G(lo) * G(m) <= 0) hi = m
+            else lo = m
+          }
+          const rr = (lo + hi) / 2,
+            a1 = 21 / sum(rr, 0)
+          if (Math.sign(a1) === sg && Math.abs(sum(rr, 1) * Math.abs(a1) - 63) < 1e-6 && a1 * rr < a1 * rr ** 4)
+            found.push(a1 + a1 * rr ** 3)
+        }
+        prev = v
+      }
+    }
+    const u = [...new Set(found.map((x) => Math.round(x * 1e6) / 1e6))]
+    return u.length === 1 ? opts.findIndex((o) => Math.abs(o - u[0]) < 1e-6) + 1 : 'multi ' + u
+  },
+  hk75: () => {
+    const cnt = (F, a, b, M) => {
+      const tol = 1e-8
+      let c = 0,
+        last = 0,
+        inCl = false
+      for (let i = 0; i <= M; i++) {
+        const v = F(a + ((b - a) * i) / M)
+        if (Math.abs(v) < tol) {
+          if (!inCl) {
+            c++
+            inCl = true
+          }
+          continue
+        }
+        const s = Math.sign(v)
+        if (inCl) {
+          inCl = false
+          last = s
+          continue
+        }
+        if (last !== 0 && s !== last) c++
+        last = s
+      }
+      return c
+    }
+    let tot = 0
+    for (let k = 1; k <= 40; k++) tot += cnt((x) => 16 * Math.cos(x) ** 2 + 16 * Math.abs(Math.sin(x)) - k, 0, 2 * Math.PI, 400000)
+    return tot
+  },
+  hk76: () => {
+    let tot = 0
+    for (let n = 1; n <= 20; n++)
+      for (let x = 1; x <= 200; x++) {
+        const L = Math.log2(x),
+          M = Math.log2(x + n) / 2,
+          R = Math.log2(2 * x)
+        if (L <= M + 1e-12 && M <= R + 1e-12) tot++
+      }
+    return tot
+  },
+  hk77: () => {
+    const opts = [27, 30, 33, 36, 39]
+    const G = (t) => Math.abs(2 ** t - 2 ** (4 - t)) - 15
+    const ts = []
+    for (let i = 1; i < 200000; i++) {
+      const t0 = i * 1e-4,
+        t1 = t0 + 1e-4
+      if (G(t0) * G(t1) <= 0) {
+        let lo = t0,
+          hi = t1
+        for (let j = 0; j < 80; j++) {
+          const m = (lo + hi) / 2
+          if (G(lo) * G(m) <= 0) hi = m
+          else lo = m
+        }
+        ts.push(lo)
+      }
+    }
+    const tu = [...new Set(ts.map((x) => Math.round(x * 1e6) / 1e6))]
+    ts.length = 0
+    ts.push(...tu)
+    if (ts.length !== 1) return 'multi ' + ts
+    const t = ts[0],
+      P = [t, 2 ** t],
+      Q = [t, 2 ** (4 - t)],
+      R = [4 - Math.log2(P[1]), P[1]]
+    const area = Math.abs((Q[0] - P[0]) * (R[1] - P[1]) - (R[0] - P[0]) * (Q[1] - P[1])) / 2
+    return opts.findIndex((o) => Math.abs(o - area) < 1e-6) + 1
+  },
+  hk78: () => {
+    const a = [0]
+    for (let n = 1; n <= 10; n++) {
+      let s = n ** 4
+      for (let k = 1; k < n; k++) s -= (n - k + 1) * a[k]
+      a.push(s)
+    }
+    return a[1] + a[10]
+  },
+  hk79: () => {
+    const s = 13,
+      bc = (s * s - 49) / 3,
+      d = Math.sqrt(s * s - 4 * bc),
+      c = (s - d) / 2,
+      b = (s + d) / 2
+    const A = [0, 0],
+      B = [c, 0],
+      C = [b * Math.cos(Math.PI / 3), b * Math.sin(Math.PI / 3)]
+    if (Math.abs(Math.hypot(B[0] - C[0], B[1] - C[1]) - 7) > 1e-9) return 'bad'
+    const D2 = 2 * (A[0] * (B[1] - C[1]) + B[0] * (C[1] - A[1]) + C[0] * (A[1] - B[1]))
+    const sq = (p) => p[0] ** 2 + p[1] ** 2
+    const O = [
+      (sq(A) * (B[1] - C[1]) + sq(B) * (C[1] - A[1]) + sq(C) * (A[1] - B[1])) / D2,
+      (sq(A) * (C[0] - B[0]) + sq(B) * (A[0] - C[0]) + sq(C) * (B[0] - A[0])) / D2,
+    ]
+    const R = Math.hypot(O[0], O[1])
+    const Mx = (B[0] + C[0]) / 2,
+      My = (B[1] + C[1]) / 2
+    let ux = Mx - O[0],
+      uy = My - O[1]
+    const L = Math.hypot(ux, uy)
+    ux /= L
+    uy /= L
+    let Dp = [O[0] + R * ux, O[1] + R * uy]
+    const side = (p) => (C[0] - B[0]) * (p[1] - B[1]) - (C[1] - B[1]) * (p[0] - B[0])
+    if (side(Dp) * side(A) > 0) Dp = [O[0] - R * ux, O[1] - R * uy]
+    return Math.round(3 * sq(Dp) * 1e6) / 1e6
+  },
+  hk80: () => {
+    const f = (x) => x ** 3 - 3 * x * x
+    const M = 1600000,
+      a = -3,
+      b = 5,
+      V = new Float64Array(M + 1)
+    for (let i = 0; i <= M; i++) V[i] = f(f(a + ((b - a) * i) / M))
+    const cnt = (k) => {
+      const tol = 1e-6
+      let c = 0,
+        last = 0,
+        inCl = false
+      for (let i = 0; i <= M; i++) {
+        const v = V[i] - k
+        if (Math.abs(v) < tol) {
+          if (!inCl) {
+            c++
+            inCl = true
+          }
+          continue
+        }
+        const s = v > 0 ? 1 : -1
+        if (inCl) {
+          inCl = false
+          last = s
+          continue
+        }
+        if (last !== 0 && s !== last) c++
+        last = s
+      }
+      return c
+    }
+    let n = 0
+    for (let k = -300; k <= 100; k++) if (cnt(k) === 3) n++
+    return n
+  },
+  hk81: () => {
+    const out = []
+    for (const v of [25, -25]) {
+      const u = (5 + v) / 3
+      const f = (x) => (x - 1) * (x * x + u * x + v),
+        df = (x) => (f(x + 1e-6) - f(x - 1e-6)) / 2e-6
+      const roots = []
+      for (let i = 0; i < 400000; i++) {
+        const x0 = -40 + i * 2e-4,
+          x1 = x0 + 2e-4
+        if (f(x0) * f(x1) < 0) {
+          let lo = x0,
+            hi = x1
+          for (let j = 0; j < 60; j++) {
+            const m = (lo + hi) / 2
+            if (f(lo) * f(m) <= 0) hi = m
+            else lo = m
+          }
+          roots.push(lo)
+        }
+      }
+      const nondiff = roots.filter((r) => Math.abs(df(r)) > 1e-6)
+      const g = (x) => Math.abs(f(x))
+      const locmax = g(-1) > g(-1.001) && g(-1) > g(-0.999)
+      if (nondiff.length === 1 && Math.abs(nondiff[0] - 1) < 1e-6 && locmax && Math.abs(g(0) - 25) < 1e-9) out.push(g(3))
+    }
+    return out.length === 1 ? Math.round(out[0]) : 'multi ' + out
+  },
+  hk82: () => {
+    let c = 0
+    for (let a = 1; a <= 10; a++)
+      for (let b = 1; b <= 10; b++) {
+        let ok = true
+        for (let i = 1; i < 2000; i++) {
+          const x = 1 + (2 * i) / 2000
+          if (3 * x * x - 6 * a * x + 3 * b > 1e-12) {
+            ok = false
+            break
+          }
+        }
+        if (ok) c++
+      }
+    return c
+  },
+  hk83: () => {
+    const opts = [12, 14, 16, 18, 20]
+    const vals = new Set()
+    for (let i = -80; i <= 80; i++)
+      for (let j = -80; j <= 80; j++)
+        for (let k = -80; k <= 80; k++) {
+          const p = i / 4,
+            q = j / 4,
+            r = k / 4
+          if (r !== 0 || q === 0) continue
+          const D = p * p - 3 * q
+          if (D < 0) continue
+          const f = (x) => x ** 3 + p * x * x + q * x + r
+          let ok = false
+          for (const a of [(-p - Math.sqrt(D)) / 3, (-p + Math.sqrt(D)) / 3])
+            if (Math.abs(f(a)) < 1e-9 && Math.abs((f(a + 1e-4) / 1e-8 + f(a - 1e-4) / 1e-8) / 2 - 3) < 1e-3) ok = true
+          if (ok) vals.add(f(5))
+        }
+    const u = [...vals]
+    return u.length === 1 ? opts.indexOf(u[0]) + 1 : 'multi ' + u
+  },
+  hk84: () => {
+    const xP = (t) => t ** 3 - 6 * t * t + 9 * t
+    const meets = (a) => {
+      const ts = []
+      const G = (t) => xP(t) - a * t
+      for (let i = 1; i < 20000; i++) {
+        const t0 = i * 1e-3 + 1e-7,
+          t1 = t0 + 1e-3
+        if (G(t0) * G(t1) <= 0) {
+          let lo = t0,
+            hi = t1
+          for (let j = 0; j < 60; j++) {
+            const m = (lo + hi) / 2
+            if (G(lo) * G(m) <= 0) hi = m
+            else lo = m
+          }
+          ts.push(lo)
+        }
+      }
+      return [...new Set(ts.map((x) => Math.round(x * 1e7) / 1e7))]
+    }
+    const sols = []
+    for (let i = 1; i < 900; i++) {
+      const a0 = i * 1e-2 + 1e-6,
+        a1 = a0 + 1e-2
+      const H = (a) => {
+        const m = meets(a)
+        return m.length === 2 ? m[1] - 2 * m[0] : NaN
+      }
+      const h0 = H(a0),
+        h1 = H(a1)
+      if (h0 * h1 <= 0) {
+        let lo = a0,
+          hi = a1
+        for (let j = 0; j < 50; j++) {
+          const m = (lo + hi) / 2
+          if (H(lo) * H(m) <= 0) hi = m
+          else lo = m
+        }
+        sols.push(lo)
+        break
+      }
+    }
+    if (sols.length !== 1) return 'none'
+    const T = meets(sols[0])[1]
+    let d = 0,
+      N = 400000
+    for (let i = 0; i < N; i++) d += Math.abs(xP(((i + 1) * T) / N) - xP((i * T) / N))
+    return Math.round(d * 1e3) / 1e3
+  },
+  hk85: () => {
+    const fd = (g, x) => (g(x + 1e-6) - g(x - 1e-6)) / 2e-6
+    const base = (a, b) => (x) => x ** 3 + a * x * x + b * x
+    const resid = (a, b) => {
+      const g = base(a, b)
+      const dl = (g(2 - 1e-7) - g(2 - 2e-7)) / 1e-7,
+        dr = (g(2e-7) - g(1e-7)) / 1e-7
+      return [dl - dr, fd(g, 1)]
+    }
+    const [r0, s0] = resid(0, 0),
+      [r1, s1] = resid(1, 0),
+      [r2, s2] = resid(0, 1)
+    const A = [
+        [r1 - r0, r2 - r0],
+        [s1 - s0, s2 - s0],
+      ],
+      rhs = [-r0, -s0],
+      det = A[0][0] * A[1][1] - A[0][1] * A[1][0]
+    const a = (rhs[0] * A[1][1] - A[0][1] * rhs[1]) / det,
+      b = (A[0][0] * rhs[1] - rhs[0] * A[1][0]) / det
+    const g = base(a, b),
+      k = g(2) - g(0)
+    const f = (x) => {
+      const j = Math.floor(x / 2)
+      return g(x - 2 * j) + j * k
+    }
+    const gl = [
+      [-0.906179845938664, 0.236926885056189],
+      [-0.538469310105683, 0.478628670499366],
+      [0, 0.568888888888889],
+      [0.538469310105683, 0.478628670499366],
+      [0.906179845938664, 0.236926885056189],
+    ]
+    let s = 0
+    const n = 1000
+    for (let i = 0; i < n; i++) {
+      const lo = (10 * i) / n,
+        hi = (10 * (i + 1)) / n
+      for (const [z, w] of gl) s += ((w * (hi - lo)) / 2) * f((lo + hi) / 2 + (z * (hi - lo)) / 2)
+    }
+    return Math.round(s * 1e6) / 1e6
+  },
+  hk86: () => {
+    const gl = [
+      [-0.906179845938664, 0.236926885056189],
+      [-0.538469310105683, 0.478628670499366],
+      [0, 0.568888888888889],
+      [0.538469310105683, 0.478628670499366],
+      [0.906179845938664, 0.236926885056189],
+    ]
+    const I = (h, lo, hi, n = 400) => {
+      let s = 0
+      for (let i = 0; i < n; i++) {
+        const p = lo + ((hi - lo) * i) / n,
+          q = lo + ((hi - lo) * (i + 1)) / n
+        for (const [z, w] of gl) s += ((w * (q - p)) / 2) * h((p + q) / 2 + (z * (q - p)) / 2)
+      }
+      return s
+    }
+    const fam = (C) => (x) => -6 * x * x + 12 * x + C
+    for (const C of [-6, 0, 5]) {
+      const f = fam(C)
+      for (const x of [-2, -0.5, 0.7, 1.9, 3.3]) {
+        const lhs = I((t) => (x - 2 * t) * f(t), 0, x),
+          rhs = x ** 4 - 2 * x ** 3
+        if (Math.abs(lhs - rhs) > 1e-8) return 'identity fails C=' + C
+      }
+    }
+    const f = fam(-6)
+    if (f(0) !== -6) return 'f0'
+    for (let x = -3; x <= 5; x += 0.01) if (f(x) > f(1) + 1e-12) return 'notmax'
+    return Math.round(I((x) => Math.abs(f(x)), 0, 1) + I((x) => Math.abs(f(x)), 1, 3))
+  },
+  hk87: () => {
+    const gl = [
+      [-0.906179845938664, 0.236926885056189],
+      [-0.538469310105683, 0.478628670499366],
+      [0, 0.568888888888889],
+      [0.538469310105683, 0.478628670499366],
+      [0.906179845938664, 0.236926885056189],
+    ]
+    const I = (h) => {
+      let s = 0
+      const n = 200
+      for (let i = 0; i < n; i++) {
+        const p = -1 + (2 * i) / n,
+          q = -1 + (2 * (i + 1)) / n
+        for (const [z, w] of gl) s += ((w * (q - p)) / 2) * h((p + q) / 2 + (z * (q - p)) / 2)
+      }
+      return s
+    }
+    const B = [(x) => x * x, (x) => x, () => 1]
+    const G = B.map((u) => B.map((v) => I((x) => u(x) * v(x)))),
+      y = B.map((u) => I((x) => -(x ** 3) * u(x)))
+    const M = G.map((r, i) => [...r, y[i]])
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++)
+        if (j !== i) {
+          const t = M[j][i] / M[i][i]
+          for (let k = 0; k < 4; k++) M[j][k] -= t * M[i][k]
+        }
+    }
+    const c = M.map((r, i) => r[3] / r[i])
+    const val = I((x) => (x ** 3 + c[0] * x * x + c[1] * x + c[2]) ** 2)
+    for (let q = 1; q < 100000; q++) {
+      const p = Math.round(val * q)
+      if (Math.abs(val * q - p) < 1e-8) return p + q
+    }
+    return 'nofrac'
+  },
+  hk88: () => {
+    const opts = [6, 7, 8, 9, 10]
+    const gl = [
+      [-0.906179845938664, 0.236926885056189],
+      [-0.538469310105683, 0.478628670499366],
+      [0, 0.568888888888889],
+      [0.538469310105683, 0.478628670499366],
+      [0.906179845938664, 0.236926885056189],
+    ]
+    const I = (h, lo, hi) => {
+      let s = 0
+      const n = 400
+      for (let i = 0; i < n; i++) {
+        const p = lo + ((hi - lo) * i) / n,
+          q = lo + ((hi - lo) * (i + 1)) / n
+        for (const [z, w] of gl) s += ((w * (q - p)) / 2) * h((p + q) / 2 + (z * (q - p)) / 2)
+      }
+      return s
+    }
+    const areas = (m) => {
+      const h = (x) => x ** 3 - 6 * x * x + 9 * x - m * x
+      const r = [0]
+      for (let i = 0; i < 10000; i++) {
+        const x0 = 1e-3 * i + 3.7e-7,
+          x1 = x0 + 1e-3
+        if (h(x0) * h(x1) <= 0) {
+          let lo = x0,
+            hi = x1
+          for (let j = 0; j < 60; j++) {
+            const md = (lo + hi) / 2
+            if (h(lo) * h(md) <= 0) hi = md
+            else lo = md
+          }
+          r.push(lo)
+        }
+      }
+      if (r.length !== 3) return null
+      return [Math.abs(I(h, r[0], r[1])), Math.abs(I(h, r[1], r[2]))]
+    }
+    const sols = []
+    let prev = null
+    for (let i = 1; i < 900; i++) {
+      const m = i / 100
+      const A = areas(m)
+      const d = A ? A[0] - A[1] : null
+      if (prev !== null && d !== null && prev * d <= 0) sols.push(m)
+      prev = d
+    }
+    if (sols.length !== 1) return 'sols ' + sols
+    let lo = sols[0] - 0.01,
+      hi = sols[0]
+    for (let j = 0; j < 40; j++) {
+      const m = (lo + hi) / 2,
+        A = areas(m),
+        B0 = areas(lo)
+      if ((A[0] - A[1]) * (B0[0] - B0[1]) <= 0) hi = m
+      else lo = m
+    }
+    const A = areas((lo + hi) / 2)
+    return opts.findIndex((o) => Math.abs(o - (A[0] + A[1])) < 1e-6) + 1
+  },
+  hk89: () => {
+    const A = ['W', 'W', 'W', 'K', 'K']
+    let num = 0,
+      den = 0
+    for (let i = 0; i < 5; i++)
+      for (let j = i + 1; j < 5; j++) {
+        const B = ['W', 'W', 'K', 'K', A[i], A[j]]
+        for (let p = 0; p < 6; p++)
+          for (let q = p + 1; q < 6; q++) {
+            if (B[p] === 'W' && B[q] === 'W') {
+              den++
+              if (A[i] === 'W' && A[j] === 'W') num++
+            }
+          }
+      }
+    const g = gcd(num, den)
+    return num / g + den / g
+  },
+  hk90: () => {
+    let c = 0
+    for (let i = 0; i < 3125; i++) {
+      const f = [0]
+      let t = i
+      for (let k = 0; k < 5; k++) {
+        f.push((t % 5) + 1)
+        t = Math.floor(t / 5)
+      }
+      if ([1, 2, 3, 4, 5].every((x) => f[f[x]] === f[x]) && f[1] < f[2] && f[2] < f[3]) c++
+    }
+    return [27, 30, 33, 36, 39].indexOf(c) + 1
+  },
+  hk91: () => {
+    let s = 0
+    for (let a = 1; a <= 4; a++) for (let b = 1; b <= 4; b++) for (let c = 1; c <= 4; c++) s += Math.max(a, b, c) - Math.min(a, b, c)
+    const g = gcd(s, 64)
+    return s / g + 64 / g
+  },
+  hk92: () => {
+    let den = 0,
+      num = 0
+    for (const p of perms([2, 3, 4, 5, 6])) {
+      const c = [1, ...p]
+      const adj = (x, y) => {
+        const i = c.indexOf(x),
+          j = c.indexOf(y)
+        return (i - j + 6) % 6 === 1 || (j - i + 6) % 6 === 1
+      }
+      if (!adj(1, 2)) {
+        den++
+        if (!adj(3, 4) && !adj(5, 6)) num++
+      }
+    }
+    const g = gcd(num, den)
+    const v = num / g + '/' + den / g
+    return ['1/3', '7/18', '5/12', '4/9', '1/2'].indexOf(v) + 1
+  },
   hk48: () => {
     const P = perms([0, 1, 2, 3, 4, 5, 6])
     let c = 0
