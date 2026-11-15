@@ -363,6 +363,18 @@
       count: 12,
     },
     {
+      id: 'tam-hard',
+      name: '통합과학 · 통합사회 1등급 도전',
+      grade: '고2·3',
+      min: 30,
+      desc: '자료 해석 · &lt;보기&gt; 고르기 고난도 과학 6 + 사회 6',
+      pool: (p) => (p.subject === 'sci' || p.subject === 'soc') && p.level >= 4 && isReal(p),
+      plan: [
+        ['sci', 3, 6],
+        ['soc', 3, 6],
+      ],
+    },
+    {
       id: 'math-mini',
       name: '수학 미니 모의고사',
       grade: '고2·3',
@@ -462,7 +474,7 @@
       count: 10,
     },
   ]
-  const unitOk = (u) => (p) => (u === 'calc' ? p.unit.startsWith('calc1') : p.unit === u)
+  const unitOk = (u) => (p) => (u === 'calc' ? p.unit.startsWith('calc1') : u === 'sci' || u === 'soc' ? p.subject === u : p.unit === u)
   const shuffle = (a) => {
     const b = a.slice()
     for (let i = b.length - 1; i > 0; i--) {
