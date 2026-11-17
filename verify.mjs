@@ -4229,6 +4229,356 @@ const checks = {
     }
     return Math.round(6 * S * 1e6) / 1e6
   },
+  me1: () =>
+    range(1, 18)
+      .filter((d) => 18 % d === 0 && 24 % d === 0)
+      .pop(),
+  me2: () => range(1, 48).find((n) => n % 6 === 0 && n % 8 === 0),
+  me3: () => range(1, 8).reduce((s) => s + 125, 0) / 100,
+  me4: () => range(1, 100).find((k) => k * 6 === 72),
+  me5: () => range(0, 100).find((p) => 40 * p === 10 * 100),
+  me6: () => {
+    const v = [
+      [0, 0],
+      [8, 0],
+      [3, 5],
+    ]
+    return Math.abs(v.reduce((s, [x, y], i) => s + x * v[(i + 1) % 3][1] - v[(i + 1) % 3][0] * y, 0)) / 2
+  },
+  me7: () => {
+    const v = [
+      [0, 0],
+      [10, 0],
+      [7, 6],
+      [3, 6],
+    ]
+    return Math.abs(v.reduce((s, [x, y], i) => s + x * v[(i + 1) % 4][1] - v[(i + 1) % 4][0] * y, 0)) / 2
+  },
+  me8: () => {
+    let n = 0
+    for (let x = 0; x < 5; x++) for (let y = 0; y < 4; y++) for (let z = 0; z < 3; z++) n++
+    return n
+  },
+  me9: () => range(0, 10).find((m) => [7, 9, 6, 10, 8].reduce((s, x) => s + (x - m), 0) === 0),
+  me10: () => {
+    const s = range(1, 36)
+      .filter((d) => 60 % d === 0 && 36 % d === 0)
+      .pop()
+    let n = 0
+    for (let x = 0; x < 60; x += s) for (let y = 0; y < 36; y += s) n++
+    return n
+  },
+  me11: () => {
+    let L = 75,
+      n = 0
+    while (L >= 6) {
+      L -= 6
+      n++
+    }
+    return n
+  },
+  me12: () => range(0, 15000, 100).find((p) => p * 100 === 15000 * 80) - 1000,
+  me13: () => {
+    let n = 0
+    for (let x = 0; x < 12; x++) for (let y = 0; y < 8; y++) if (!(x >= 5 && x < 7) && !(y >= 3 && y < 5)) n++
+    return n
+  },
+  me14: () => {
+    let n = 0
+    for (let x = 0; x < 20; x++) for (let y = 0; y < 15; y++) for (let z = 10; z < 12; z++) n++
+    return n
+  },
+  me15: () => range(0, 100).find((s) => 85 * 4 + s === 87 * 5),
+  m1x1: () =>
+    [
+      [1, 1],
+      [-1, 1],
+      [-1, -1],
+      [1, -1],
+    ].findIndex(([a, b]) => Math.sign(-3) === a && Math.sign(5) === b) + 1,
+  m1x2: () => range(-20, 20).find((a) => a * 4 === -12),
+  m1x3: () => range(0, 90).find((x) => 3 * x + 20 === x + 60),
+  m1x4: () => range(0, 90).find((x) => 2 * x + 10 === 70),
+  m1x5: () => {
+    const P = range(0, 5).map((k) => [Math.cos((k * Math.PI) / 3), Math.sin((k * Math.PI) / 3)])
+    let s = 0
+    for (let i = 0; i < 6; i++) {
+      const a = P[(i + 5) % 6],
+        b = P[i],
+        c = P[(i + 1) % 6]
+      const u = [a[0] - b[0], a[1] - b[1]],
+        w = [c[0] - b[0], c[1] - b[1]]
+      s += (Math.acos((u[0] * w[0] + u[1] * w[1]) / Math.hypot(...u) / Math.hypot(...w)) * 180) / Math.PI
+    }
+    return Math.round(s)
+  },
+  m1x6: () => {
+    let t = 0,
+      n = 0
+    while (t < 360) {
+      t += 40
+      n++
+    }
+    return n
+  },
+  m1x7: () => range(1, 359).find((t) => near((2 * Math.PI * 9 * t) / 360, 6 * Math.PI)),
+  m1x8: () => {
+    const N = 4,
+      inn = (x, y, z) => x >= 0 && y >= 0 && z >= 0 && x < N && y < N && z < N
+    const d = [
+      [1, 0, 0],
+      [-1, 0, 0],
+      [0, 1, 0],
+      [0, -1, 0],
+      [0, 0, 1],
+      [0, 0, -1],
+    ]
+    let f = 0
+    for (let x = 0; x < N; x++)
+      for (let y = 0; y < N; y++) for (let z = 0; z < N; z++) for (const [a, b, c] of d) if (!inn(x + a, y + b, z + c)) f++
+    return f
+  },
+  m1x9: () => range(1, 200).find((n) => n * 15 === 6 * 100),
+  m1x10: () => {
+    const b = range(-50, 50).find((y) => y === 3 * 2)
+    return range(-100, 100).find((a) => a === 2 * b) + b
+  },
+  m1x11: () => {
+    let m = 0,
+      h = 90
+    for (let i = 0; i < 40; i++) {
+      m += 6
+      h += 0.5
+    }
+    const d = Math.abs(m - h) % 360
+    return Math.min(d, 360 - d)
+  },
+  m1x12: () => {
+    const n = range(3, 30).find((k) => 180 * k - 360 === 1260)
+    let c = 0
+    for (let i = 0; i < n; i++) for (let j = i + 2; j < n; j++) if (!(i === 0 && j === n - 1)) c++
+    return c
+  },
+  m1x13: () => {
+    const t = range(1, 359).find((x) => near((Math.PI * 64 * x) / 360, 16 * Math.PI))
+    return Math.round((2 * Math.PI * 8 * t) / 360 / Math.PI)
+  },
+  m1x14: () => {
+    const s = (6 + 8 + 10) / 2
+    return 2 * Math.sqrt(s * (s - 6) * (s - 8) * (s - 10)) + 5 * 6 + 5 * 8 + 5 * 10
+  },
+  m1x15: () => {
+    const k = [4, 10, null, 8, 2]
+    const x = 40 - k.reduce((s, v) => s + (v || 0), 0)
+    const st = []
+    ;[4, 10, x, 8, 2].forEach((c, i) => {
+      for (let j = 0; j < c; j++) st.push(i * 10)
+    })
+    return (st.filter((t) => t >= 20).length * 100) / st.length
+  },
+  m2x1: () => {
+    for (const x of range(-20, 20)) for (const y of range(-20, 20)) if (y === x + 1 && y === -2 * x + 7) return x + y
+  },
+  m2x2: () => Math.round(integrate((x) => Math.max(0, -x + 6), 0, 6)),
+  m2x3: () => {
+    const s = range(0, 10).filter((c) => 800 * c + 500 * (10 - c) === 6800)
+    return s.length === 1 ? s[0] : 'multi ' + s
+  },
+  m2x4: () => Math.max(...range(0, 100).filter((n) => 60 + 15 * n <= 400)),
+  m2x5: () => perms(['a', 'b', 'c', 'd']).length,
+  m2x6: () => {
+    let c = 0
+    for (const a of range(1, 5)) for (const b of range(1, 5)) if (a !== b) c++
+    return c
+  },
+  m2x7: () => {
+    const n = range(1, 20).filter((k) => k % 4 === 0 || k % 7 === 0).length
+    const g = gcd(n, 20)
+    return ['7/20', '1/4', '3/10', '2/5', '1/2'].indexOf(`${n / g}/${20 / g}`) + 1
+  },
+  m2x8: () => range(1, 179).find((b) => 40 + b + b === 180),
+  m2x9: () => {
+    const sh = (P) =>
+      Math.abs(
+        P.reduce((s, [x, y], i) => {
+          const [u, v] = P[(i + 1) % P.length]
+          return s + x * v - u * y
+        }, 0),
+      ) / 2
+    const T = [
+      [0, 0],
+      [6, 0],
+      [0, 4],
+    ]
+    return sh(T) === 12 ? Math.round(sh(T.map(([x, y]) => [x * 1.5, y * 1.5]))) : 'bad'
+  },
+  m2x10: () => range(1, 13).find((b) => 25 + b * b === 169),
+  m2x11: () => Math.round(integrate((x) => Math.max(0, Math.min(2 * x + 2, -x + 8)), -1, 8)),
+  m2x12: () => {
+    const s = range(0, 6, 0.5).filter((w) => near(w / 4 + (6 - w) / 12, 1))
+    return s.length === 1 ? s[0] : 'multi ' + s
+  },
+  m2x13: () => range(0, 100).find((g) => 22000 + 500 * g < 10000 + 2000 * g),
+  m2x14: () => {
+    let c = 0
+    for (const t of [1, 2, 3, 4]) for (const o of [0, 1, 2, 3, 4]) if (t !== o && o % 2 === 0) c++
+    return c
+  },
+  m2x15: () => {
+    const A = ['R', 'R', 'R', 'B', 'B'],
+      B = ['R', 'B', 'B', 'B']
+    let s = 0
+    for (const a of A) for (const b of B) if (a === b) s++
+    const n = A.length * B.length,
+      g = gcd(s, n)
+    return ['3/20', '9/20', '1/2', '11/20', '3/10'].indexOf(`${s / g}/${n / g}`) + 1
+  },
+  m2x16: () => {
+    const t = Math.PI / 3,
+      A = [6 * Math.cos(t), 6 * Math.sin(t)]
+    const u = [-A[0] / 6, -A[1] / 6]
+    const d = [u[0] + 1, u[1]]
+    const k = -A[1] / d[1]
+    const Ex = A[0] + k * d[0]
+    return Math.round((10 - Ex) * 1e6) / 1e6
+  },
+  m2x17: () => {
+    const V = (r, h) => Math.PI * r * r * h
+    return Math.round((80 / V(2, 6)) * V(3, 9))
+  },
+  m3x1: () => range(1, 20).find((n) => n * (n + 1) === 72) + 1,
+  m3x2: () => {
+    const f = (x) => 2 * (x + 1 - 3) ** 2 + 1 + 4
+    const xs = range(-1000, 1000).map((i) => i / 100)
+    const p = xs.reduce((b, x) => (f(x) < f(b) ? x : b))
+    return Math.round(p + f(p))
+  },
+  m3x3: () => {
+    const f = (x) => x * x - 8 * x + 10
+    const xs = range(-1000, 1000).map((i) => i / 100)
+    const p = xs.reduce((b, x) => (f(x) < f(b) ? x : b))
+    return Math.round(p + f(p))
+  },
+  m3x4: () =>
+    Math.round(
+      Math.max(
+        ...range(0, 1000).map((i) => {
+          const w = i / 100
+          return w * (10 - w)
+        }),
+      ),
+    ),
+  m3x5: () => {
+    const s = range(0, 5000)
+      .map((i) => i / 100)
+      .find((h) => Math.atan2(h, 12) >= Math.PI / 4 - 1e-12)
+    return Math.round(s)
+  },
+  m3x6: () => {
+    const P = [
+      [0, 0],
+      [8, 0],
+      [6 * Math.cos(Math.PI / 6), 6 * Math.sin(Math.PI / 6)],
+    ]
+    const a = Math.abs(P[1][0] * P[2][1] - P[2][0] * P[1][1]) / 2
+    return Math.round(a * 1e9) / 1e9
+  },
+  m3x7: () => {
+    const pt = (d) => [Math.cos((d * Math.PI) / 180), Math.sin((d * Math.PI) / 180)]
+    const A = pt(0),
+      B = pt(110),
+      Cc = pt(235)
+    const u = [A[0] - Cc[0], A[1] - Cc[1]],
+      v = [B[0] - Cc[0], B[1] - Cc[1]]
+    return Math.round((Math.acos((u[0] * v[0] + u[1] * v[1]) / Math.hypot(...u) / Math.hypot(...v)) * 180) / Math.PI)
+  },
+  m3x8: () => {
+    let best = [Infinity, 0]
+    for (const i of range(0, 360000)) {
+      const t = (i / 360000) * Math.PI,
+        A = [5 * Math.cos(t), 5 * Math.sin(t)],
+        PA = [A[0] - 13, A[1]]
+      const dot = Math.abs(A[0] * PA[0] + A[1] * PA[1])
+      if (dot < best[0]) best = [dot, Math.hypot(...PA)]
+    }
+    return Math.round(best[1] * 1e4) / 1e4
+  },
+  m3x9: () => {
+    const d = [2, 4, 4, 5, 7, 8, 12].sort((a, b) => a - b)
+    const mean = d.reduce((a, b) => a + b) / d.length
+    const med = d[(d.length - 1) / 2]
+    const cnt = {}
+    d.forEach((x) => (cnt[x] = (cnt[x] || 0) + 1))
+    const top = Math.max(...Object.values(cnt))
+    const modes = Object.keys(cnt).filter((k) => cnt[k] === top)
+    return modes.length === 1 ? mean + med + Number(modes[0]) : 'modes ' + modes
+  },
+  m3x10: () => {
+    const d = [4, 6, 8, 10, 12]
+    const m = d.reduce((a, b) => a + b) / 5
+    return d.reduce((a, x) => a + x * x, 0) / 5 - m * m
+  },
+  m3x11: () => {
+    const s = range(0, 14, 0.5).filter((x) => near((20 - x) * (14 - x), 160))
+    return s.length === 1 ? s[0] : 'multi ' + s
+  },
+  m3x12: () => {
+    let b = [-1, 0]
+    for (const k of range(0, 40)) {
+      const r = (1000 + 50 * k) * (200 - 5 * k)
+      if (r > b[0]) b = [r, 1000 + 50 * k]
+    }
+    return b[1]
+  },
+  m3x13: () => {
+    const s = range(-20, 20).filter((p) => p > 0 && (0 - p) ** 2 + 2 * p === 8)
+    return s.length === 1 ? s[0] + 2 * s[0] : 'multi ' + s
+  },
+  m3x14: () => {
+    const g = (h) => h / Math.tan(Math.PI / 6) - h / Math.tan(Math.PI / 4) - 20
+    let lo = 0,
+      hi = 1000
+    for (let i = 0; i < 100; i++) {
+      const m = (lo + hi) / 2
+      if (g(m) < 0) lo = m
+      else hi = m
+    }
+    const r = Math.sqrt(3)
+    const c = [10 * r, 10 * r + 10, 20 * r, 10 * r - 10, 20 * r + 20]
+    return c.findIndex((v) => near(v, lo, 1e-6)) + 1
+  },
+  m3x15: () => range(1, 100).find((r) => r > 8 && near(Math.sqrt(r * r - (r - 8) ** 2), 12)),
+  m3x16: () => {
+    const x = range(0, 100).find((v) => 65 + 70 + 75 + 80 + v === 350)
+    const d = [65, 70, 75, 80, x]
+    const m = d.reduce((a, b) => a + b) / 5
+    return d.reduce((a, v) => a + v * v, 0) / 5 - m * m
+  },
+  m3x17: () => {
+    const D = [
+      [1, 8],
+      [2, 8],
+      [2, 7],
+      [3, 7],
+      [4, 6],
+      [5, 6],
+      [5, 5],
+      [6, 4],
+    ]
+    const mx = D.reduce((a, p) => a + p[0], 0) / 8,
+      my = D.reduce((a, p) => a + p[1], 0) / 8
+    const cov = D.reduce((a, [x, y]) => a + (x - mx) * (y - my), 0)
+    const xmax = Math.max(...D.map((p) => p[0])),
+      ymax = Math.max(...D.map((p) => p[1]))
+    const st = [
+      cov > 0,
+      D.filter((p) => p[0] === xmax).every((p) => p[1] === ymax),
+      D.filter((p) => p[0] <= 3).length === 5,
+      cov < 0,
+      D.filter((p) => p[1] >= 7).every((p) => p[0] <= 2),
+    ]
+    return st.filter(Boolean).length === 1 ? st.indexOf(true) + 1 : 'true ' + st
+  },
   hk48: () => {
     const P = perms([0, 1, 2, 3, 4, 5, 6])
     let c = 0
