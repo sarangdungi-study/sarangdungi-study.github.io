@@ -4229,6 +4229,280 @@ const checks = {
     }
     return Math.round(6 * S * 1e6) / 1e6
   },
+  hq1: () => {
+    // f(x) = x³ + ax² + bx (f(0) = 0), g(x) = max{f(t) | x ≤ t ≤ x + 2}: a, b를 0.5 간격으로 훑는다
+    // 꺾인 점 찾기: 2계 차분 j가 이웃(두 칸 옆)의 평균에서 튀는 곳 (부드러운 곳은 j가 천천히 변한다)
+    const kinks = (G, lo, hi, s = 1e-4) => {
+      const n = Math.round((hi - lo) / s),
+        y = Array.from({ length: n + 1 }, (_, i) => G(lo + i * s)),
+        j = (i) => (y[i + 1] - 2 * y[i] + y[i - 1]) / s,
+        ks = []
+      for (let i = 3; i < n - 2; i++) {
+        const x = lo + i * s
+        if (Math.abs(j(i) - (j(i - 2) + j(i + 2)) / 2) > 0.05 && !(ks.length && x - ks[ks.length - 1] < 1e-2)) ks.push(x)
+      }
+      return ks
+    }
+    const sols = []
+    for (let a = -10; a <= 10; a += 0.5)
+      for (let b = -10; b <= 10; b += 0.5) {
+        const f = (x) => ((x + a) * x + b) * x
+        const D = a * a - 3 * b
+        const cs = D > 0 ? [(-a - Math.sqrt(D)) / 3, (-a + Math.sqrt(D)) / 3] : []
+        const g = (x) => Math.max(f(x), f(x + 2), ...cs.filter((c) => c >= x && c <= x + 2).map(f))
+        // (가) [−1, 1]에서 g는 상수
+        if (!range(-1, 1, 0.125).every((x) => Math.abs(g(x) - g(0)) < 1e-9)) continue
+        // (나) 미분가능하지 않은 점은 x = 1 하나
+        const ks = kinks(g, -20, 20)
+        if (ks.length === 1 && Math.abs(ks[0] - 1) < 1e-3) sols.push(g(4))
+      }
+    return sols.length === 1 ? Math.round(sols[0] * 1e6) / 1e6 : 'sols ' + sols.join(',')
+  },
+  hq2: () => {
+    // f(x) = x³ + ax² + bx + c, g(x) = min{f(t) | x ≤ t ≤ x + 1}: a, b, c를 0.5 간격으로 훑는다
+    // 꺾인 점 찾기: 2계 차분 j가 이웃(두 칸 옆)의 평균에서 튀는 곳 (부드러운 곳은 j가 천천히 변한다)
+    const kinks = (G, lo, hi, s = 1e-4) => {
+      const n = Math.round((hi - lo) / s),
+        y = Array.from({ length: n + 1 }, (_, i) => G(lo + i * s)),
+        j = (i) => (y[i + 1] - 2 * y[i] + y[i - 1]) / s,
+        ks = []
+      for (let i = 3; i < n - 2; i++) {
+        const x = lo + i * s
+        if (Math.abs(j(i) - (j(i - 2) + j(i + 2)) / 2) > 0.05 && !(ks.length && x - ks[ks.length - 1] < 1e-2)) ks.push(x)
+      }
+      return ks
+    }
+    const sols = []
+    for (let a = -10; a <= 10; a += 0.5)
+      for (let b = -10; b <= 10; b += 0.5)
+        for (let c = -10; c <= 10; c += 0.5) {
+          const f = (x) => ((x + a) * x + b) * x + c
+          const D = a * a - 3 * b
+          const cs = D > 0 ? [(-a - Math.sqrt(D)) / 3, (-a + Math.sqrt(D)) / 3] : []
+          const g = (x) => Math.min(f(x), f(x + 1), ...cs.filter((t) => t >= x && t <= x + 1).map(f))
+          // (가) 1 ≤ x ≤ 2에서 g(x) = 0
+          if (!range(1, 2, 0.125).every((x) => Math.abs(g(x)) < 1e-9)) continue
+          // (나) |g(x)|가 미분가능하지 않은 점이 1개
+          const ks = kinks((x) => Math.abs(g(x)), -20, 20)
+          if (ks.length === 1) sols.push(f(5))
+        }
+    return sols.length === 1 ? Math.round(sols[0] * 1e6) / 1e6 : 'sols ' + sols.join(',')
+  },
+  hq3: () => {
+    // f(x) = x³ + ax² + bx (f(0) = 0). N(t) = |f(x) − tx|가 미분가능하지 않은 x의 개수
+    const roots = (A, B, C) => {
+      const p = (x) => ((x + A) * x + B) * x + C
+      const D = A * A - 3 * B
+      const cs = D > 0 ? [(-A - Math.sqrt(D)) / 3, (-A + Math.sqrt(D)) / 3] : []
+      const pts = [-1e4, ...cs, 1e4],
+        out = cs.filter((c) => Math.abs(p(c)) < 1e-9)
+      for (let i = 0; i + 1 < pts.length; i++) {
+        let lo = pts[i],
+          hi = pts[i + 1]
+        if (p(lo) * p(hi) >= 0) continue
+        for (let k = 0; k < 80; k++) {
+          const m = (lo + hi) / 2
+          if (p(lo) * p(m) <= 0) hi = m
+          else lo = m
+        }
+        out.push((lo + hi) / 2)
+      }
+      return out
+    }
+    // 불연속 구간 모으기: N(t_i) ≠ N(t_(i+1))인 [t_i, t_(i+1)]을 이어 붙인다
+    const discs = (N, lo, hi, s) => {
+      const out = []
+      let prev = N(lo)
+      for (let t = lo + s; t <= hi; t += s) {
+        const v = N(t)
+        if (v !== prev) {
+          if (out.length && out[out.length - 1][1] >= t - s - 1e-12) out[out.length - 1][1] = t
+          else out.push([t - s, t])
+        }
+        prev = v
+      }
+      return out
+    }
+    const sols = []
+    for (let a = -10; a <= 10; a += 0.5)
+      for (let b = -10; b <= 10; b += 0.5) {
+        const N = (t) => {
+          const H = (x) => Math.abs(((x + a) * x + b - t) * x),
+            h = 1e-6
+          return roots(a, b - t, 0).filter((r) => Math.abs((H(r + h) - H(r)) / h - (H(r) - H(r - h)) / h) > 1e-3).length
+        }
+        const e = 1 / 64
+        if (N(-1) === N(-1 - e) && N(-1) === N(-1 + e)) continue
+        if (N(3) === N(3 - e) && N(3) === N(3 + e)) continue
+        const ds = discs(N, -1000, 1000, 1 / 64)
+        if (
+          ds.length === 2 &&
+          ds[0][0] <= -1 &&
+          -1 <= ds[0][1] &&
+          ds[0][1] - ds[0][0] <= 2 / 64 &&
+          ds[1][0] <= 3 &&
+          3 <= ds[1][1] &&
+          ds[1][1] - ds[1][0] <= 2 / 64
+        )
+          sols.push(((5 + a) * 5 + b) * 5)
+      }
+    const ans = sols.reduce((p, q) => p + q, 0)
+    return sols.length === 2 ? [40, 200, 240, 280, 320].indexOf(ans) + 1 : 'sols ' + sols.join(',')
+  },
+  hq4: () => {
+    // f(x) = x³ + ax² + bx + 4 (f(0) = 4), g(x) = min{f(t) | t ≥ x}: a, b를 0.5 간격으로 훑는다
+    // 꺾인 점 찾기: 2계 차분 j가 이웃(두 칸 옆)의 평균에서 튀는 곳 (부드러운 곳은 j가 천천히 변한다)
+    const kinks = (G, lo, hi, s = 1e-4) => {
+      const n = Math.round((hi - lo) / s),
+        y = Array.from({ length: n + 1 }, (_, i) => G(lo + i * s)),
+        j = (i) => (y[i + 1] - 2 * y[i] + y[i - 1]) / s,
+        ks = []
+      for (let i = 3; i < n - 2; i++) {
+        const x = lo + i * s
+        if (Math.abs(j(i) - (j(i - 2) + j(i + 2)) / 2) > 0.05 && !(ks.length && x - ks[ks.length - 1] < 1e-2)) ks.push(x)
+      }
+      return ks
+    }
+    const sols = []
+    for (let a = -10; a <= 10; a += 0.5)
+      for (let b = -10; b <= 10; b += 0.5) {
+        const f = (x) => ((x + a) * x + b) * x + 4
+        const D = a * a - 3 * b
+        const cs = D > 0 ? [(-a - Math.sqrt(D)) / 3, (-a + Math.sqrt(D)) / 3] : []
+        const g = (x) => Math.min(f(x), ...cs.filter((c) => c >= x).map(f))
+        const h = 1e-5
+        if (Math.abs((g(-1 + h) - g(-1)) / h - (g(-1) - g(-1 - h)) / h) < 0.01) continue
+        const kg = kinks(g, -20, 20)
+        if (kg.length !== 1 || Math.abs(kg[0] + 1) > 1e-3) continue
+        if (kinks((x) => f(x) * g(x), -20, 20).length) continue
+        sols.push(f(6))
+      }
+    return sols.length === 1 ? Math.round(sols[0] * 1e6) / 1e6 : 'sols ' + sols.join(',')
+  },
+  hq5: () => {
+    // f(x) = x³ + ax² + bx + c, N(k) = f(x)|f(x) − k|가 미분가능하지 않은 x의 개수
+    const roots = (A, B, C) => {
+      const p = (x) => ((x + A) * x + B) * x + C
+      const D = A * A - 3 * B
+      const cs = D > 0 ? [(-A - Math.sqrt(D)) / 3, (-A + Math.sqrt(D)) / 3] : []
+      const pts = [-1e4, ...cs, 1e4],
+        out = cs.filter((c) => Math.abs(p(c)) < 1e-9)
+      for (let i = 0; i + 1 < pts.length; i++) {
+        let lo = pts[i],
+          hi = pts[i + 1]
+        if (p(lo) * p(hi) >= 0) continue
+        for (let k = 0; k < 80; k++) {
+          const m = (lo + hi) / 2
+          if (p(lo) * p(m) <= 0) hi = m
+          else lo = m
+        }
+        out.push((lo + hi) / 2)
+      }
+      return out
+    }
+    const discs = (N, lo, hi, s) => {
+      const out = []
+      let prev = N(lo)
+      for (let t = lo + s; t <= hi; t += s) {
+        const v = N(t)
+        if (v !== prev) {
+          if (out.length && out[out.length - 1][1] >= t - s - 1e-12) out[out.length - 1][1] = t
+          else out.push([t - s, t])
+        }
+        prev = v
+      }
+      return out
+    }
+    const sols = []
+    for (let a = -10; a <= 10; a += 0.5)
+      for (let b = -10; b <= 10; b += 0.5)
+        for (let c = -10; c <= 10; c += 0.5) {
+          // (나) 방정식 f(x) = 0은 서로 다른 두 실근을 갖고, 그 합이 −3
+          const rs = roots(a, b, c)
+            .sort((p, q) => p - q)
+            .filter((r, i, arr) => i === 0 || r - arr[i - 1] > 1e-6)
+          if (rs.length !== 2) continue
+          if (Math.abs(rs.reduce((p, q) => p + q, 0) + 3) > 1e-6) continue
+          const f = (x) => ((x + a) * x + b) * x + c
+          // 꺾인 점은 f(x) = k인 x에서만 생길 수 있다: 그 점의 좌·우 미분계수를 비교
+          const N = (k) => {
+            const H = (x) => f(x) * Math.abs(f(x) - k),
+              h = 1e-6
+            return roots(a, b, c - k).filter((r) => Math.abs((H(r + h) - H(r)) / h - (H(r) - H(r - h)) / h) > 1e-6).length
+          }
+          const e = 1 / 32
+          if (N(0) === N(-e) && N(0) === N(e)) continue
+          if (N(4) === N(4 - e) && N(4) === N(4 + e)) continue
+          const ds = discs(N, -1000, 1000, 1 / 32)
+          if (
+            ds.length === 2 &&
+            ds[0][0] <= 0 &&
+            0 <= ds[0][1] &&
+            ds[0][1] - ds[0][0] <= 2 / 32 &&
+            ds[1][0] <= 4 &&
+            4 <= ds[1][1] &&
+            ds[1][1] - ds[1][0] <= 2 / 32
+          )
+            sols.push(f(3))
+        }
+    // 격자에 안 걸리는 반례 확인: f(x) = (x − p)³ + 4, p = −3 + ∛4 는 (가)와 옛 (나)(실근 합 −3)를 만족하지만
+    // 실근이 하나뿐이라 새 (나)에서 빠져야 한다
+    {
+      const p = -3 + Math.cbrt(4)
+      const rs = roots(-3 * p, 3 * p * p, 4 - p * p * p)
+      if (rs.length !== 1 || Math.abs(rs[0] + 3) > 1e-6) return 'counterexample check broken'
+    }
+    return sols.length === 1 ? Math.round(sols[0] * 1e6) / 1e6 : 'sols ' + sols.join(',')
+  },
+  hq6: () => {
+    // 자연수 a_1을 넓게 훑는다
+    const ok = []
+    for (let x = 1; x <= 1000000; x++) {
+      let a = x
+      for (let n = 1; n < 6; n++) a = a % 2 === 0 ? a / 2 : 3 * a + 3
+      if (a === 3) ok.push(x)
+    }
+    return ok.reduce((p, q) => p + q, 0)
+  },
+  hq7: () => {
+    // 정수 a_1을 넓게 훑는다
+    const ok = []
+    for (let x = -1000000; x <= 1000000; x++) {
+      let a = x
+      for (let n = 1; n < 6; n++) a = a >= 0 ? a - 3 : -2 * a
+      if (a === 2) ok.push(x)
+    }
+    return ok.reduce((p, q) => p + q, 0)
+  },
+  hq8: () => {
+    const ok = []
+    for (let x = 1; x <= 1000000; x++) {
+      let a = x
+      for (let n = 1; n < 9; n++) a = a > n ? a - n : a + 2 * n
+      if (a === 2) ok.push(x)
+    }
+    return ok.reduce((p, q) => p + q, 0)
+  },
+  hq9: () => {
+    // 자연수 k를 넓게 훑는다 (a_1 = 1)
+    const ok = []
+    for (let k = 1; k <= 1000000; k++) {
+      let a = 1
+      for (let n = 1; n < 7; n++) a = a % 2 === 0 ? a / 2 : a + k
+      if (a === 1) ok.push(k)
+    }
+    return ok.reduce((p, q) => p + q, 0)
+  },
+  hq10: () => {
+    const ok = []
+    for (let x = 1; x <= 1000000; x++) {
+      let a = x
+      for (let n = 1; n < 7; n++) a = a % 2 === 0 ? a / 2 : a + n
+      if (a === 1) ok.push(x)
+    }
+    const s = ok.reduce((p, q) => p + q, 0)
+    return ['99', '121', '130', '139', '173'].indexOf(String(s)) + 1
+  },
   me1: () =>
     range(1, 18)
       .filter((d) => 18 % d === 0 && 24 % d === 0)
