@@ -371,8 +371,34 @@
       desc: '자료 해석 · &lt;보기&gt; 고르기 고난도 과학 6 + 사회 6',
       pool: (p) => (p.subject === 'sci' || p.subject === 'soc') && p.level >= 4 && isReal(p),
       plan: [
-        ['sci', 3, 6],
-        ['soc', 3, 6],
+        ['sci', 2.5, 6],
+        ['soc', 2.5, 6],
+      ],
+    },
+    {
+      id: 'sci-full',
+      name: '통합과학 모의고사',
+      grade: '고2·3',
+      min: 40,
+      desc: '2028 수능처럼 25문항 50점 40분. 1.5점 6 · 2점 13 · 2.5점 6',
+      pool: (p) => p.subject === 'sci' && isReal(p),
+      plan: [
+        ['sci', 1.5, 6],
+        ['sci', 2, 13],
+        ['sci', 2.5, 6],
+      ],
+    },
+    {
+      id: 'soc-full',
+      name: '통합사회 모의고사',
+      grade: '고2·3',
+      min: 40,
+      desc: '2028 수능처럼 25문항 50점 40분. 1.5점 6 · 2점 13 · 2.5점 6',
+      pool: (p) => p.subject === 'soc' && isReal(p),
+      plan: [
+        ['soc', 1.5, 6],
+        ['soc', 2, 13],
+        ['soc', 2.5, 6],
       ],
     },
     {
