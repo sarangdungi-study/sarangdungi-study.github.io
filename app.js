@@ -314,7 +314,8 @@
   }
 
   // ───────── 모의고사: 정해진 구성대로 문제를 뽑아 시간 안에 풀고, 다 낸 뒤에 채점
-  const isReal = (p) => p.kind === 'real'
+  // '참고' 문제(2028 수능 범위 밖·확인 중)는 모의고사에 넣지 않아요
+  const isReal = (p) => p.kind === 'real' && !(p.slot || '').includes('참고 ·')
   const inG = (g) => (p) => gradesOf(p).includes(g)
   const EXAMS = [
     {
