@@ -421,6 +421,18 @@
       ],
     },
     {
+      id: 'kor-spw-hard',
+      name: '화법 · 작문 1등급 도전',
+      grade: '고2·3',
+      min: 25,
+      desc: '고난도 세트만 화법 2 · 작문 2, 12문항. 계획과 실제 비교 · 자료 엮기 · 조건 3개 쓰기',
+      pool: (p) => /^k-(sph|wrh)/.test(p.set || '') && isReal(p),
+      plan: [
+        ['speech', 2, 6],
+        ['writing', 2, 6],
+      ],
+    },
+    {
       id: 'kor-spw',
       name: '국어 화법 · 작문 세트 실전',
       grade: '고2·3',
